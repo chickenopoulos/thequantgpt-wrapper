@@ -1,0 +1,16 @@
+# Copy to config.yaml and edit for your server.
+
+data_dir: ./data
+runs_dir: ./runs
+reports_dir: ./reports
+
+tqg_api:
+  # Provider MCP URL (HTTPS). Example quick tunnel — replace with your stable host.
+  base_url: https://YOUR_MCP_HOST/v1
+  api_key_env: TQG_API_KEY
+
+defaults:
+  oos_start: "2025-01-01"
+  fee: 0.00045
+  slippage: 0.0005
+  interval: "1d"

@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "thequantgpt": {
+      "command": "python",
+      "args": ["scripts/tqg_mcp_bridge.py"],
+      "env": {
+        "TQG_API_KEY": "paste-your-api-key-here"
+      }
+    }
+  }
+}

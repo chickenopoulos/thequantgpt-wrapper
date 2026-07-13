@@ -1,0 +1,25 @@
+config.yaml
+.env
+.venv/
+venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.mypy_cache/
+.DS_Store
+
+# Client data (never commit)
+data/**/*.parquet
+data/**/*.csv
+data/**/*.feather
+!data/README_DATA_FORMAT.md
+!data/.gitkeep
+
+# Run outputs
+runs/**/*
+!runs/.gitkeep
+!runs/demo_btc_mr/**
+
+reports/**/*
+!reports/.gitkeep
+!reports/sample/**
