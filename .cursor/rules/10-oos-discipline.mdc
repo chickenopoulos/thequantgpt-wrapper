@@ -1,0 +1,12 @@
+---
+description: Out-of-sample discipline for new backtests and follow-ups
+alwaysApply: true
+---
+
+# OOS discipline
+
+- Default **OOS cut-off:** `2025-01-01` unless the user specifies otherwise.
+- For **new backtests**, confirm OOS before coding if the user omitted it.
+- Report **in-sample and out-of-sample** metrics separately when OOS is defined.
+- Do **not** tune parameters using the OOS segment unless the user explicitly overrides.
+- Store `oos_start_ts` in `strategy_spec.json` and keep it consistent across follow-ups.

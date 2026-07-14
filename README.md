@@ -31,15 +31,29 @@ You pay separately for Cursor, cloud server, and LLM API usage.
 ## Repo layout
 
 ```text
-AGENTS.md              # Cursor agent operating rules
-config.yaml            # Local paths + MCP URL (gitignored)
-data/                  # Client OHLCV parquet/CSV (gitignored)
-runs/                  # Per-strategy workspaces
-reports/               # Packaged artifact bundles for sharing
-scripts/               # create_run, init, package, MCP bridge
-tqg_client/            # API client + data helpers
-examples/              # Demo prompt sequences
-docs/                  # Setup SOP, FAQ, commercial templates
+AGENTS.md                    # Agent constitution (orchestration + repo map)
+.cursor/rules/               # Always-on quant invariants
+.cursor/skills/              # Research session playbooks
+config.yaml                  # Local paths + MCP URL (gitignored)
+data/                        # Client OHLCV parquet/CSV (gitignored)
+runs/<id>/                   # Per-strategy workspace (run.json, code/, artifacts/)
+reports/                     # Packaged artifact bundles
+scripts/
+  tqg_create_run.py          # Scaffold run folder + run.json
+  tqg_run_backtest.py        # Execute code/ with injected namespace
+  tqg_update_run_state.py    # Merge execution into run.json
+  tqg_record_turn.py         # Append to flow.json
+  tqg_package_artifacts.py   # runs/ → reports/
+  tqg_init.py                # Smoke test (--run-demo for local execution)
+tqg_client/                  # API client, run state, execution helpers
+examples/                    # Demo prompt sequences
+docs/                        # Setup SOP, FAQ, commercial templates
+```
+
+Local smoke test without MCP:
+
+```bash
+python scripts/tqg_init.py --skip-mcp --run-demo
 ```
 
 ## Documentation

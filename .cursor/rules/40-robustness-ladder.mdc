@@ -1,0 +1,14 @@
+---
+description: Robustness ladder — baseline first, one test per message
+alwaysApply: true
+---
+
+# Robustness ladder
+
+1. **Baseline backtest first** before PSA, cost stress, or Monte Carlo.
+2. **One robustness test per user message** — do not run PSA + CEA + MC in a single turn.
+3. **PSA on in-sample only** (before `oos_start_ts`) unless the user explicitly requests full-sample PSA.
+4. For single-asset requests, state clearly: **one symbol only**, not a basket.
+5. Read `runs/<id>/run.json` before follow-ups; do not silently change canonical parameters.
+
+When MCP is available, call `tqg_get_guidance` or `tqg_get_robustness_spec` for hints — do not treat responses as mandatory step lists.

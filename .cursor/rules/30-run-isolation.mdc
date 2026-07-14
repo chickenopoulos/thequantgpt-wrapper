@@ -1,0 +1,14 @@
+---
+description: Keep strategy code isolated under the active run folder
+globs: runs/**/*
+alwaysApply: false
+---
+
+# Run isolation
+
+- Implement strategy code **only** under `runs/<run_id>/code/`.
+- Do not edit unrelated repo files unless the user explicitly asks for lab infrastructure changes.
+- Load data from `data/` using `tqg_client.market_data` or documented pandas patterns.
+- Never invent columns, symbols, or file paths — inspect `data/` first.
+- Capture execution output to `runs/<id>/logs/` via `tqg_run_backtest.py`.
+- Update durable state in `runs/<id>/run.json` after successful execution.

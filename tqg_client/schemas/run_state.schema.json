@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://thequantgpt.local/schemas/run_state.json",
+  "title": "TheQuantGPT Cursor Lab RunState",
+  "type": "object",
+  "required": ["run_id", "title", "created_at", "root", "status"],
+  "properties": {
+    "run_id": { "type": "string" },
+    "numeric_id": { "type": ["integer", "null"] },
+    "title": { "type": "string" },
+    "source": { "type": "string" },
+    "created_at": { "type": "string", "format": "date-time" },
+    "root": { "type": "string" },
+    "status": {
+      "type": "string",
+      "enum": ["created", "baseline_complete", "psa_complete", "robustness_complete", "packaged", "failed"]
+    },
+    "symbol": { "type": ["string", "null"] },
+    "oos_start_ts": { "type": ["string", "null"] },
+    "workflow": { "type": ["string", "null"] },
+    "strategy_type": { "type": ["string", "null"] },
+    "last_scope": { "type": ["string", "null"] },
+    "strategy_spec_path": { "type": "string", "default": "strategy_spec.json" },
+    "artifacts": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["path", "format"],
+        "properties": {
+          "path": { "type": "string" },
+          "format": { "type": "string" }
+        }
+      }
+    },
+    "completed_steps": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "defaults": {
+      "type": "object",
+      "properties": {
+        "oos_start": { "type": "string" },
+        "fee": { "type": "number" },
+        "slippage": { "type": "number" },
+        "interval": { "type": "string" }
+      }
+    },
+    "validation_passed": { "type": "boolean" },
+    "last_validation_at": { "type": ["string", "null"] },
+    "last_execution_at": { "type": ["string", "null"] },
+    "last_error": { "type": ["string", "null"] }
+  },
+  "additionalProperties": true
+}

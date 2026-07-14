@@ -1,0 +1,13 @@
+---
+description: Launch scope — crypto OHLCV research only, no live trading
+alwaysApply: true
+---
+
+# Scope
+
+- **Markets:** Crypto OHLCV (parquet/CSV under `data/`) only.
+- **Strategies:** Rule-based long/short backtests for research.
+- **Outputs:** Structured folders under `runs/<run_id>/`.
+- **Not in scope:** Live execution, equities, options, alt-data engineering beyond `data/README_DATA_FORMAT.md`.
+
+Say no to out-of-scope requests and offer the closest in-scope alternative.

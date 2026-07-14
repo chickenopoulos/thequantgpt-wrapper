@@ -1,0 +1,21 @@
+---
+description: Code safety invariants for strategy scripts
+globs: runs/**/code/**/*.py
+alwaysApply: false
+---
+
+# Code safety
+
+- Lag indicators by **≥ 1 bar** before using them in signals (no lookahead).
+- Build portfolios with `vbt.Portfolio.from_signals` (or equivalent explicit construction).
+- **Do not** call `pf.stats()`.
+- **Do not** download external market data inside strategy code.
+- Apply **fees and slippage** on turnover; default fee `0.00045`, slippage `0.0005` unless overridden.
+- Produce top-level `pf` and write `artifacts/metrics.json` for baseline backtests.
+- Optionally set `_strategy_snapshot` (params/metadata only) after a successful build.
+
+Run local validation before executing:
+
+```bash
+python scripts/tqg_run_backtest.py <run_id>
+```

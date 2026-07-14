@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
-"""Smoke-test local lab setup: Python, deps, config, data dir, MCP API."""
+"""Smoke-test local lab setup: Python, deps, config, data dir, optional backtest."""
 
 from __future__ import annotations
 
+import argparse
 import importlib
 import sys
 from pathlib import Path
@@ -12,6 +13,8 @@ sys.path.insert(0, str(_REPO))
 
 from tqg_client.config import api_settings, load_config, resolve_path  # noqa: E402
 from tqg_client.api import TqgApiClient  # noqa: E402
+from tqg_client.execution import run_strategy_script  # noqa: E402
+from tqg_client.run_state import load_run_state, merge_execution_feedback, save_run_state  # noqa: E402
 
 
 def _check_python() -> tuple[bool, str]:
@@ -31,7 +34,29 @@ def _check_imports() -> list[str]:
     return missing
 
 
+def _run_demo_backtest() -> tuple[bool, str]:
+    demo_id = "demo_btc_mr"
+    runs_dir = resolve_path(load_config(), "runs_dir")
+    if not (runs_dir / demo_id / "code").exists():
+        return False, f"Missing runs/{demo_id}/code/ — add demo strategy or skip --run-demo"
+    try:
+        state = load_run_state(demo_id)
+        feedback = run_strategy_script(state)
+        state = merge_execution_feedback(state, feedback)
+        save_run_state(state)
+        if not feedback.get("success"):
+            return False, feedback.get("error", "demo backtest failed")
+        return True, f"Demo backtest OK — status={state.status}"
+    except Exception as exc:
+        return False, str(exc)
+
+
 def main() -> int:
+    parser = argparse.ArgumentParser(description="TheQuantGPT Cursor Lab smoke test")
+    parser.add_argument("--run-demo", action="store_true", help="Execute runs/demo_btc_mr backtest")
+    parser.add_argument("--skip-mcp", action="store_true", help="Skip MCP API health check")
+    args = parser.parse_args()
+
     ok = True
     print("TheQuantGPT Cursor Lab — init smoke test\n")
 
@@ -77,14 +102,20 @@ def main() -> int:
     else:
         print("[WARN] No parquet under data/ — upload OHLCV data before backtests")
 
-    try:
-        base_url, api_key = api_settings(cfg)
-        client = TqgApiClient(base_url, api_key)
-        health = client.health()
-        print(f"[OK] MCP API health: {health.get('status', health)}")
-    except Exception as exc:
-        print(f"[FAIL] MCP API: {exc}")
-        ok = False
+    if not args.skip_mcp:
+        try:
+            base_url, api_key = api_settings(cfg)
+            client = TqgApiClient(base_url, api_key)
+            health = client.health()
+            print(f"[OK] MCP API health: {health.get('status', health)}")
+        except Exception as exc:
+            print(f"[WARN] MCP API: {exc}")
+            print("       Phase 1 local layer can run with --skip-mcp")
+
+    if args.run_demo:
+        demo_ok, demo_msg = _run_demo_backtest()
+        print(f"[{'OK' if demo_ok else 'FAIL'}] Demo backtest: {demo_msg}")
+        ok = ok and demo_ok
 
     print()
     if ok:

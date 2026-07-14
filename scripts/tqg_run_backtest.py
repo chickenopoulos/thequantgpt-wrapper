@@ -1,0 +1,50 @@
+#!/usr/bin/env python3
+"""Execute strategy code for a run folder and update run state."""
+
+from __future__ import annotations
+
+import argparse
+import json
+import sys
+from pathlib import Path
+
+_REPO = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(_REPO))
+
+from tqg_client.execution import run_strategy_script  # noqa: E402
+from tqg_client.run_state import (  # noqa: E402
+    load_run_state,
+    merge_execution_feedback,
+    save_run_state,
+)
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(description="Run strategy code under runs/<id>/code/")
+    parser.add_argument("run_id", help="Run folder name")
+    parser.add_argument("--code", help="Optional path to script relative to run root or absolute")
+    parser.add_argument("--no-validate", action="store_true", help="Skip local static validation")
+    parser.add_argument("--user-request", default="", help="Original user prompt (for validation context)")
+    args = parser.parse_args()
+
+    try:
+        state = load_run_state(args.run_id)
+        code_path = Path(args.code) if args.code else None
+        feedback = run_strategy_script(
+            state,
+            code_path=code_path,
+            user_request=args.user_request,
+            validate=not args.no_validate,
+        )
+        state = merge_execution_feedback(state, feedback)
+        save_run_state(state)
+    except Exception as exc:
+        print(f"error: {exc}", file=sys.stderr)
+        return 1
+
+    print(json.dumps(feedback, indent=2))
+    return 0 if feedback.get("success") else 1
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

@@ -35,10 +35,10 @@ Out-of-sample cut-off: 2025-01-01.
 Work in runs/demo_btc_mr/ only.
 
 Please:
-1. Call tqg_create_strategy_plan for this request
-2. Implement and run the backtest
+1. Optionally call `tqg_get_guidance` (or legacy `tqg_create_strategy_plan`) for hints
+2. Implement and run the backtest via `python scripts/tqg_run_backtest.py demo_btc_mr`
 3. Save metrics.json, equity chart, and strategy code under the run folder
-4. Call tqg_validate_strategy_code before finishing
+4. Optionally call `tqg_validate_strategy_code` when MCP is connected
 ```
 
 ---
