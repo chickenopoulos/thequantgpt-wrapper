@@ -8,61 +8,65 @@ description: >-
 
 # TheQuantGPT research session
 
-You orchestrate the workflow. MCP tools (when configured) provide **hints**; you decide the steps.
+You orchestrate the workflow. MCP tools provide **hints** and **validation** — not mandatory step lists.
 
 ## Before coding
 
 1. Inspect `data/README_DATA_FORMAT.md` and list files under `data/`.
-2. Read or create the active run:
+2. Create or open the active run:
    ```bash
    python scripts/tqg_create_run.py --title "<short title>"
    ```
-3. Optionally call MCP `tqg_get_guidance` with the user request and `run.json` context.
-4. If OOS is missing for a new backtest, ask the user (default `2025-01-01`).
+3. Read `runs/<run_id>/run.json` for status, OOS, and artifacts.
+4. When MCP is connected, call **`tqg_get_guidance`** with:
+   - `user_request` — the user's message
+   - `run_context_json` — contents of `run.json` (as JSON string)
+5. If OOS is missing for a new backtest, ask the user (default `2025-01-01`).
 
 ## Implement
 
-5. Write code **only** under `runs/<run_id>/code/`.
-6. Use `tqg_client.market_data` for OHLCV loading.
-7. Save `strategy_spec.json` when the strategy definition is clear.
+6. Write code **only** under `runs/<run_id>/code/`.
+7. Use `tqg_client.market_data` for OHLCV loading.
+8. Save `strategy_spec.json` when the strategy definition is clear.
 
-## Execute
+## Validate and execute
 
-8. Run the backtest locally:
-   ```bash
-   python scripts/tqg_run_backtest.py <run_id>
-   ```
-9. On failure, read `runs/<id>/logs/*.log`, fix code, retry (max 3 attempts per user turn).
-10. Optionally call MCP `tqg_validate_strategy_code` when MCP is configured.
+9. When MCP is connected, call **`tqg_validate_strategy_code`** before running.
+10. Run locally:
+    ```bash
+    python scripts/tqg_run_backtest.py <run_id>
+    ```
+11. On failure, read `runs/<id>/logs/*.log`; call `tqg_get_guidance` with `last_error`; retry (max 3 attempts).
 
 ## Artifacts (baseline)
 
-Required after a successful baseline:
-
 | Path | Content |
 |------|---------|
-| `artifacts/metrics.json` | `in_sample` + `out_of_sample` blocks |
+| `artifacts/metrics.json` | `in_sample` + `out_of_sample` |
 | `charts/equity_curve.png` | Equity vs benchmark |
 | `charts/drawdown.png` | Drawdown series |
 | `strategy_spec.json` | Workflow, symbol, params, OOS |
 | `report.md` | Short human summary |
 
-## Follow-ups
+## Robustness follow-ups
 
-11. Record the turn when useful:
+12. One robustness test per user message.
+13. Call **`tqg_get_robustness_spec`** with `user_request` + `run_context_json`.
+14. For PSA, save `artifacts/psa_summary.json` and `charts/psa_heatmap.png`.
+
+## Finish
+
+15. Record turns when useful:
     ```bash
     python scripts/tqg_record_turn.py <run_id> --user "..." --assistant "..."
     ```
-12. For PSA / robustness: one test per message; read `run.json` first.
-13. Package when the user asks:
+16. Package when asked (requires `validation_passed: true` in `run.json`):
     ```bash
     python scripts/tqg_package_artifacts.py <run_id>
     ```
 
 ## Reply format
 
-End with:
-
-- Run ID and status from `run.json`
+- Run ID and `status` from `run.json`
 - Key IS/OOS metrics from `artifacts/metrics.json`
 - Paths to code, charts, and logs

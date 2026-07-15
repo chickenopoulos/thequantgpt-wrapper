@@ -4,40 +4,52 @@ You operate a **client-owned quant research lab**. Build, run, validate, and pac
 
 ## Orchestration
 
-**You orchestrate.** Skills and rules define defaults. MCP (when configured) provides advisory hints and validation — not a rigid step script.
+**You orchestrate.** Skills and rules define defaults. MCP provides **advisory hints** and **validation** — not a rigid step script.
 
 | Layer | Role |
 |-------|------|
 | **This file** | Constitution and repo map |
 | **`.cursor/rules/`** | Always-on invariants (scope, OOS, safety) |
 | **`.cursor/skills/tqg-research-session/`** | Default research workflow |
-| **MCP tools** | Optional: `tqg_get_guidance`, `tqg_validate_strategy_code`, `tqg_get_robustness_spec` |
-| **Local scripts** | Execution and state (`tqg_run_backtest.py`, etc.) |
+| **MCP tools (v0.2)** | `tqg_get_guidance`, `tqg_validate_strategy_code`, `tqg_get_robustness_spec` |
+| **Local scripts** | Execution and state |
+
+## MCP tools (when connected)
+
+| Tool | When to call |
+|------|----------------|
+| `tqg_get_guidance` | Non-trivial requests, follow-ups, debug — pass `run_context_json` from `run.json` |
+| `tqg_validate_strategy_code` | Before/after editing `code/*.py` — pass `run_context_json` |
+| `tqg_get_robustness_spec` | PSA, CEA, Monte Carlo, signal shift — one test per message |
+
+Legacy tools (`tqg_create_strategy_plan`, `tqg_get_psa_workflow`) still work; prefer the v0.2 tools above.
+
+Load run context for MCP calls:
+
+```python
+from tqg_client.mcp_helpers import run_context_for_mcp
+ctx = run_context_for_mcp("<run_id>")  # or read runs/<id>/run.json
+```
 
 ## Quick workflow
 
 1. Inspect `data/` and create or open `runs/<run_id>/`.
-2. Implement code under `runs/<run_id>/code/` only.
-3. Run: `python scripts/tqg_run_backtest.py <run_id>`
-4. Save artifacts (`metrics.json`, charts, `strategy_spec.json`, `report.md`).
-5. Package: `python scripts/tqg_package_artifacts.py <run_id>`
+2. Optionally call `tqg_get_guidance` with user request + `run.json`.
+3. Implement code under `runs/<run_id>/code/` only.
+4. Run: `python scripts/tqg_run_backtest.py <run_id>`
+5. Call `tqg_validate_strategy_code` when MCP is available.
+6. Package: `python scripts/tqg_package_artifacts.py <run_id>` (requires `validation_passed: true`).
 
-Smoke test: `python scripts/tqg_init.py` (add `--run-demo` to test local execution without MCP).
+Smoke test: `python scripts/tqg_init.py` (add `--run-demo` for local execution test).
 
 ## Run state
 
-Durable memory lives in `runs/<run_id>/run.json` — read it before follow-ups. Do not rely on chat history alone.
-
-## MCP (optional in Phase 1)
-
-When MCP is connected, call tools when helpful — especially for validation and robustness specs. The lab works locally without MCP using `tqg_client.local_validate` inside `tqg_run_backtest.py`.
-
-Config: `config.yaml` + `TQG_API_KEY`; example MCP config in `tqg_client/mcp_config.example.json`.
+Durable memory lives in `runs/<run_id>/run.json` — read it before follow-ups.
 
 ## Examples
 
-- `examples/btc_mean_reversion.md` — demo prompt sequence
-- `examples/sample_run_instructions.md` — sales demo flow
+- `examples/btc_mean_reversion.md`
+- `examples/sample_run_instructions.md`
 
 ## Do not
 

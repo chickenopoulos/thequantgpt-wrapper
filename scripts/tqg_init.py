@@ -107,7 +107,14 @@ def main() -> int:
             base_url, api_key = api_settings(cfg)
             client = TqgApiClient(base_url, api_key)
             health = client.health()
-            print(f"[OK] MCP API health: {health.get('status', health)}")
+            version = health.get("version", "unknown")
+            print(f"[OK] MCP API health: {health.get('status', health)} (v{version})")
+            probe = client.get_guidance(
+                user_request="smoke test",
+                run_context={"run_id": "smoke", "root": "runs/smoke", "status": "created"},
+            )
+            if probe.get("intent_hint"):
+                print(f"[OK] MCP guidance tool: intent_hint={probe['intent_hint']}")
         except Exception as exc:
             print(f"[WARN] MCP API: {exc}")
             print("       Phase 1 local layer can run with --skip-mcp")

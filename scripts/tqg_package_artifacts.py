@@ -87,10 +87,17 @@ def _refresh_run_md(run_root: Path) -> None:
     (run_root / "RUN.md").write_text("\n".join(lines), encoding="utf-8")
 
 
-def package_run(run_id: str, *, zip_bundle: bool = False) -> Path:
+def package_run(run_id: str, *, zip_bundle: bool = False, require_validation: bool = True) -> Path:
     run_root = _REPO / "runs" / run_id
     if not run_root.is_dir():
         raise FileNotFoundError(f"Run not found: {run_root}")
+
+    meta = _load_json(run_root / "run.json")
+    if require_validation and not meta.get("validation_passed"):
+        raise ValueError(
+            "run.json validation_passed is false — run tqg_validate_strategy_code "
+            "or tqg_run_backtest.py before packaging"
+        )
 
     _refresh_run_md(run_root)
     files = _collect_files(run_root)
@@ -127,9 +134,18 @@ def main() -> int:
     parser = argparse.ArgumentParser(description="Package runs/<id>/ into reports/<id>/")
     parser.add_argument("run_id", help="Run folder name (numeric or slug)")
     parser.add_argument("--zip", action="store_true", help="Also create reports/<id>.zip")
+    parser.add_argument(
+        "--skip-validation-check",
+        action="store_true",
+        help="Package even if run.json validation_passed is false",
+    )
     args = parser.parse_args()
     try:
-        out = package_run(args.run_id, zip_bundle=args.zip)
+        out = package_run(
+            args.run_id,
+            zip_bundle=args.zip,
+            require_validation=not args.skip_validation_check,
+        )
     except (FileNotFoundError, ValueError) as exc:
         print(f"error: {exc}", file=sys.stderr)
         return 1

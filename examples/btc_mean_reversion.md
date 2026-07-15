@@ -35,10 +35,10 @@ Out-of-sample cut-off: 2025-01-01.
 Work in runs/demo_btc_mr/ only.
 
 Please:
-1. Optionally call `tqg_get_guidance` (or legacy `tqg_create_strategy_plan`) for hints
-2. Implement and run the backtest via `python scripts/tqg_run_backtest.py demo_btc_mr`
+1. Call tqg_get_guidance with the user request and run.json context
+2. Implement and run: python scripts/tqg_run_backtest.py demo_btc_mr
 3. Save metrics.json, equity chart, and strategy code under the run folder
-4. Optionally call `tqg_validate_strategy_code` when MCP is connected
+4. Call tqg_validate_strategy_code with run_context_json before finishing
 ```
 
 ---
@@ -54,16 +54,19 @@ Vary only:
 
 Keep other settings fixed. In-sample only (before 2025-01-01). Rank by Sharpe.
 
-Call tqg_get_psa_workflow first, then implement PSA per the workflow.
+Call tqg_get_robustness_spec with user_request and run.json context first.
+Implement PSA per the spec (not a rigid step list).
 Save PSA outputs under runs/demo_btc_mr/artifacts/ and charts under runs/demo_btc_mr/charts/.
 ```
 
 ---
 
-## Prompt 3 — Package artifacts
+## Prompt 3 — Package
 
 ```text
-Package this run for sharing: python scripts/tqg_package_artifacts.py demo_btc_mr --zip
+Package this run for sharing.
 
-Summarize in-sample and out-of-sample Sharpe, max drawdown, and list all artifact paths.
+python scripts/tqg_package_artifacts.py demo_btc_mr
+
+Summarize artifact paths under reports/demo_btc_mr/.
 ```

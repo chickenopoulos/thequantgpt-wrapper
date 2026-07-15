@@ -35,11 +35,71 @@ class TqgApiClient:
         return data
 
     def health(self) -> dict[str, Any]:
-        url = self.base_url.replace("/v1", "") + "/health"
+        base = self.base_url
+        if base.endswith("/v1"):
+            base = base[:-3]
+        url = base + "/health"
         resp = httpx.get(url, headers=self._headers(), timeout=self.timeout)
         resp.raise_for_status()
         return resp.json()
 
+    def get_guidance(
+        self,
+        *,
+        user_request: str,
+        run_context: dict[str, Any] | None = None,
+        code_snippet: str = "",
+        last_error: str = "",
+        data_summary: str | None = None,
+    ) -> dict[str, Any]:
+        return self._post(
+            "/tqg_get_guidance",
+            {
+                "user_request": user_request,
+                "run_context": run_context,
+                "code_snippet": code_snippet,
+                "last_error": last_error,
+                "data_summary": data_summary or "",
+            },
+        )
+
+    def validate_strategy_code(
+        self,
+        *,
+        code: str,
+        user_request: str,
+        strategy_spec: dict[str, Any] | None = None,
+        run_context: dict[str, Any] | None = None,
+    ) -> dict[str, Any]:
+        return self._post(
+            "/tqg_validate_strategy_code",
+            {
+                "code": code,
+                "user_request": user_request,
+                "strategy_spec": strategy_spec,
+                "run_context": run_context,
+            },
+        )
+
+    def get_robustness_spec(
+        self,
+        *,
+        test_name: str | None = None,
+        user_request: str = "",
+        run_context: dict[str, Any] | None = None,
+        parameters: list[str] | None = None,
+    ) -> dict[str, Any]:
+        return self._post(
+            "/tqg_get_robustness_spec",
+            {
+                "test_name": test_name,
+                "user_request": user_request,
+                "run_context": run_context,
+                "parameters": parameters or [],
+            },
+        )
+
+    # Legacy endpoints
     def create_strategy_plan(
         self,
         *,
@@ -55,22 +115,6 @@ class TqgApiClient:
                 "run_id": run_id,
                 "run_root": run_root,
                 "data_summary": data_summary,
-            },
-        )
-
-    def validate_strategy_code(
-        self,
-        *,
-        code: str,
-        user_request: str,
-        strategy_spec: dict[str, Any] | None = None,
-    ) -> dict[str, Any]:
-        return self._post(
-            "/tqg_validate_strategy_code",
-            {
-                "code": code,
-                "user_request": user_request,
-                "strategy_spec": strategy_spec,
             },
         )
 
