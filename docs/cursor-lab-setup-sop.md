@@ -61,6 +61,8 @@ All checks must pass.
 
 Merge `tqg_client/mcp_config.example.json` into Cursor MCP settings. Set `TQG_API_KEY` in the environment Cursor uses for MCP (or in shell profile on server).
 
+For local provider testing: `export TQG_API_BASE_URL=http://127.0.0.1:8787/v1`
+
 Restart Cursor MCP / reload window.
 
 ## Step 8 — First run

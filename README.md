@@ -40,7 +40,8 @@ runs/<id>/                   # Per-strategy workspace (run.json, code/, artifact
 reports/                     # Packaged artifact bundles
 scripts/
   tqg_create_run.py          # Scaffold run folder + run.json
-  tqg_run_backtest.py        # Execute code/ with injected namespace
+  tqg_run_backtest.py        # Execute code/ (--mcp-validate optional)
+  tqg_mcp_validate.py        # MCP validation only → updates run.json
   tqg_update_run_state.py    # Merge execution into run.json
   tqg_record_turn.py         # Append to flow.json
   tqg_package_artifacts.py   # runs/ → reports/
