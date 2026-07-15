@@ -5,7 +5,7 @@ runs_dir: ./runs
 reports_dir: ./reports
 
 tqg_api:
-  # Provider MCP URL (HTTPS). Example quick tunnel — replace with your stable host.
+  # Provider MCP URL (HTTPS). Override at runtime: export TQG_API_BASE_URL=http://127.0.0.1:8787/v1
   base_url: https://YOUR_MCP_HOST/v1
   api_key_env: TQG_API_KEY
 

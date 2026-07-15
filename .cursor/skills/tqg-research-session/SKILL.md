@@ -31,7 +31,10 @@ You orchestrate the workflow. MCP tools provide **hints** and **validation** —
 
 ## Validate and execute
 
-9. When MCP is connected, call **`tqg_validate_strategy_code`** before running.
+9. When MCP is connected, call **`tqg_validate_strategy_code`** before running, or use:
+   ```bash
+   python scripts/tqg_run_backtest.py <run_id> --mcp-validate
+   ```
 10. Run locally:
     ```bash
     python scripts/tqg_run_backtest.py <run_id>
@@ -48,11 +51,11 @@ You orchestrate the workflow. MCP tools provide **hints** and **validation** —
 | `strategy_spec.json` | Workflow, symbol, params, OOS |
 | `report.md` | Short human summary |
 
-## Robustness follow-ups
+## Robustness and packaging
 
-12. One robustness test per user message.
-13. Call **`tqg_get_robustness_spec`** with `user_request` + `run_context_json`.
-14. For PSA, save `artifacts/psa_summary.json` and `charts/psa_heatmap.png`.
+For PSA / robustness follow-ups, switch to skill **`tqg-robustness-followup`**.
+
+For packaging, switch to skill **`tqg-package-run`**.
 
 ## Finish
 

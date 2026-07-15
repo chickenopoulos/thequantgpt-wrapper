@@ -33,11 +33,11 @@ def resolve_path(cfg: dict[str, Any], key: str) -> Path:
 
 def api_settings(cfg: dict[str, Any]) -> tuple[str, str]:
     api = cfg.get("tqg_api") or {}
-    base_url = str(api.get("base_url", "")).rstrip("/")
+    base_url = os.environ.get("TQG_API_BASE_URL", "").strip() or str(api.get("base_url", "")).rstrip("/")
     env_name = str(api.get("api_key_env", "TQG_API_KEY"))
     api_key = os.environ.get(env_name, "").strip()
     if not base_url:
-        raise ValueError("config.yaml: tqg_api.base_url is required")
+        raise ValueError("config.yaml: tqg_api.base_url is required (or set TQG_API_BASE_URL)")
     if not api_key:
         raise ValueError(f"Set {env_name} in the environment for MCP API access")
     return base_url, api_key

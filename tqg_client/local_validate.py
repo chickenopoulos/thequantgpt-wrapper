@@ -23,8 +23,9 @@ def local_validate_code(code: str, user_request: str = "") -> dict[str, Any]:
             issues.append(message)
             required_fixes.append(message)
 
-    if "vbt.Portfolio" not in code and "vectorbt" in code and "from_signals" not in code:
-        issues.append("Expected vectorbt Portfolio construction (e.g. vbt.Portfolio.from_signals).")
+    if "build_portfolio_from_strategy_spec" not in code and "vbt.Portfolio" not in code and "from_signals" not in code:
+        if "vectorbt" in code:
+            issues.append("Expected vectorbt Portfolio construction (e.g. vbt.Portfolio.from_signals or build_portfolio_from_strategy_spec).")
 
     approved = not issues
     return {

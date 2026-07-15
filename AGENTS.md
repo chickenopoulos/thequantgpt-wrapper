@@ -10,7 +10,9 @@ You operate a **client-owned quant research lab**. Build, run, validate, and pac
 |-------|------|
 | **This file** | Constitution and repo map |
 | **`.cursor/rules/`** | Always-on invariants (scope, OOS, safety) |
-| **`.cursor/skills/tqg-research-session/`** | Default research workflow |
+| **`.cursor/skills/tqg-research-session/`** | Baseline research workflow |
+| **`.cursor/skills/tqg-robustness-followup/`** | One robustness test per turn |
+| **`.cursor/skills/tqg-package-run/`** | Validate + package to `reports/` |
 | **MCP tools (v0.2)** | `tqg_get_guidance`, `tqg_validate_strategy_code`, `tqg_get_robustness_spec` |
 | **Local scripts** | Execution and state |
 
@@ -36,8 +38,8 @@ ctx = run_context_for_mcp("<run_id>")  # or read runs/<id>/run.json
 1. Inspect `data/` and create or open `runs/<run_id>/`.
 2. Optionally call `tqg_get_guidance` with user request + `run.json`.
 3. Implement code under `runs/<run_id>/code/` only.
-4. Run: `python scripts/tqg_run_backtest.py <run_id>`
-5. Call `tqg_validate_strategy_code` when MCP is available.
+4. Run: `python scripts/tqg_run_backtest.py <run_id>` (add `--mcp-validate` when MCP is connected)
+5. Call `tqg_validate_strategy_code` or `python scripts/tqg_mcp_validate.py <run_id>` when MCP is available.
 6. Package: `python scripts/tqg_package_artifacts.py <run_id>` (requires `validation_passed: true`).
 
 Smoke test: `python scripts/tqg_init.py` (add `--run-demo` for local execution test).

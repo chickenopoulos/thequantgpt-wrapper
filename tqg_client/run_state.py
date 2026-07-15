@@ -179,7 +179,7 @@ def merge_execution_feedback(state: RunState, feedback: dict[str, Any]) -> RunSt
                 state.status = "psa_complete"
             elif step == "robustness":
                 state.status = "robustness_complete"
-        elif "metrics" in state.artifacts and state.status == "created":
+        elif "metrics" in state.artifacts and state.status in {"created", "failed"}:
             state.mark_step("baseline")
             state.status = "baseline_complete"
     else:

@@ -23,6 +23,7 @@ import vectorbt as vbt  # noqa: E402
 from .config import repo_root
 from .local_validate import local_validate_code
 from .market_data import load_symbol_close, load_symbol_from_parquet
+from .portfolio import build_portfolio_from_strategy_spec
 from .run_state import RunState, load_strategy_spec, run_root_from_state
 
 
@@ -111,6 +112,7 @@ def build_namespace(
         "vbt": vbt,
         "load_symbol_from_parquet": load_symbol_from_parquet,
         "load_symbol_close": load_symbol_close,
+        "build_portfolio_from_strategy_spec": build_portfolio_from_strategy_spec,
     }
 
 
