@@ -14,7 +14,7 @@
 
 7. **Live trading?** No — research and backtesting only.
 
-8. **Which markets?** Crypto OHLCV at launch.
+8. **Which markets?** Any asset class with OHLCV data — crypto, equities, FX, bonds, metals, commodities, etc. Use local files under `data/` or yfinance when needed.
 
 9. **How long is setup?** Typically 1–2 working sessions after prerequisites.
 

@@ -25,7 +25,7 @@ Data, execution, all generated code, charts, and reports.
 
 ## Scope (v1)
 
-Crypto · OHLCV parquet/CSV · rule-based long/short · research only.
+Any asset class · OHLCV parquet/CSV or yfinance · rule-based long/short · research only.
 
 ## Pricing
 

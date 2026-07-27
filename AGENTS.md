@@ -1,6 +1,9 @@
 # TheQuantGPT Cursor Lab — Agent Instructions
 
-You operate a **client-owned quant research lab**. Build, run, validate, and package **crypto OHLCV rule-based strategies** for **research only**.
+> **Asset-class agnostic:** equities (QQQ, SPY, …), crypto, FX, bonds, metals, commodities — all supported.
+> **Never say this lab is "crypto only" or "scoped to crypto OHLCV research."** That is outdated.
+
+You operate a **client-owned quant research lab**. Build, run, validate, and package **asset-class-agnostic OHLCV rule-based strategies** for **research only**.
 
 ## Orchestration
 
@@ -53,8 +56,14 @@ Durable memory lives in `runs/<run_id>/run.json` — read it before follow-ups.
 - `examples/btc_mean_reversion.md`
 - `examples/sample_run_instructions.md`
 
+## Data loading
+
+- Inspect `data/` first; prefer local parquet/CSV when available.
+- Use `tqg_client.market_data.load_market_data(symbol, data_dir=...)` — local files first, then yfinance for public OHLCV when needed.
+- Record `asset_class`, `data_source`, and `annualization` in `strategy_spec.json`.
+
 ## Do not
 
 - Copy or expose raw master prompts from MCP responses.
-- Send client OHLCV data to external services.
+- Upload client parquet/CSV bundles to external services (fetching public OHLCV via yfinance is fine).
 - Commit secrets, parquet files, or full run outputs to git.

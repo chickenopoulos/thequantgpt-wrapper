@@ -1,8 +1,8 @@
 # TheQuantGPT Cursor Lab (client wrapper)
 
-A **thin client repo** for systematic crypto research on your own server. Cursor agents build strategies, run backtests, and save audit-ready artifacts under `runs/<id>/`. The maintained **TheQuantGPT workflow layer** (validators, PSA catalog, planning) is delivered via a private MCP API.
+A **thin client repo** for systematic quant research on your own server. Cursor agents build strategies, run backtests, and save audit-ready artifacts under `runs/<id>/`. The maintained **TheQuantGPT workflow layer** (validators, PSA catalog, planning) is delivered via a private MCP API.
 
-> **Research only** — no live trading. Crypto OHLCV at launch.
+> **Research only** — no live trading. Asset-class agnostic (crypto, equities, FX, bonds, metals, etc.); local OHLCV preferred, yfinance supported.
 
 ## Quick start
 

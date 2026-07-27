@@ -1,9 +1,9 @@
 ---
 name: tqg-research-session
 description: >-
-  Run a crypto OHLCV strategy research session in TheQuantGPT Cursor Lab.
+  Run an asset-class-agnostic OHLCV strategy research session in TheQuantGPT Cursor Lab.
   Use when the user asks to build, backtest, validate, iterate, or package
-  a rule-based strategy under runs/.
+  a rule-based strategy under runs/ (crypto, equities, FX, bonds, metals, etc.).
 ---
 
 # TheQuantGPT research session
@@ -26,8 +26,8 @@ You orchestrate the workflow. MCP tools provide **hints** and **validation** —
 ## Implement
 
 6. Write code **only** under `runs/<run_id>/code/`.
-7. Use `tqg_client.market_data` for OHLCV loading.
-8. Save `strategy_spec.json` when the strategy definition is clear.
+7. Use `tqg_client.market_data.load_market_data()` for OHLCV loading (local `data/` first, yfinance fallback).
+8. Save `strategy_spec.json` with symbol, asset class, data source, annualization, and OOS.
 
 ## Validate and execute
 
@@ -51,7 +51,20 @@ You orchestrate the workflow. MCP tools provide **hints** and **validation** —
 | `strategy_spec.json` | Workflow, symbol, params, OOS |
 | `report.md` | Short human summary |
 
-## Robustness and packaging
+## Cross-sectional factor research (crypto perps)
+
+When building or iterating **cross-sectional** L/S factor books on `runs/<id>/`:
+
+1. **Baseline first** — daily decile L/S with 1-bar signal lag (`runs/<id>/code/cross_sectional_alpha_sweep.py` pattern).
+2. **Stability screen** — rank by subperiod consistency, not peak OOS Sharpe (`stability_factor_sweep.py`).
+3. **Enhanced stack** — re-test finalists with `cs_research_core.py` / `enhanced_cs_experiments.py`:
+   - Weekly rebalance (5d hold) instead of daily sleeve churn
+   - Top-50 liquidity filter on signals
+   - PSA-stable sleeves (5%) + factor-specific signal smoothing
+   - Cross-sectional dispersion regime gate (trade when xs return dispersion > rolling median)
+4. **Report IS and OOS separately**; flag IS/OOS Sharpe gaps > 1.0 as unstable.
+5. Use `CSResearchConfig` presets: `BASELINE_DAILY`, `STABLE_DEFAULT`.
+
 
 For PSA / robustness follow-ups, switch to skill **`tqg-robustness-followup`**.
 

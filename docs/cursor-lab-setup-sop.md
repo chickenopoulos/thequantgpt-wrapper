@@ -8,7 +8,7 @@ Target: **≤ 3 hours hands-on** for a technical operator (no call required).
 - [ ] Cloud server (e.g. Hetzner CX32, Ubuntu 22.04, 4+ vCPU, 8+ GB RAM)
 - [ ] SSH key access to server
 - [ ] TheQuantGPT API key (trial or subscription)
-- [ ] Crypto daily OHLCV parquet (BTC minimum for demo)
+- [ ] Daily OHLCV data for at least one demo instrument (BTC parquet or any ticker via yfinance)
 
 ## Step 1 — Server access
 

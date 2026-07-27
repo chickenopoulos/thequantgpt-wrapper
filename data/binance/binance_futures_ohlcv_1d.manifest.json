@@ -1,0 +1,12 @@
+{
+  "market": "futures",
+  "symbols_requested": 529,
+  "symbols_skipped_up_to_date": 0,
+  "rows": 483567,
+  "assets": 618,
+  "start": "2020-01-01 00:00:00+00:00",
+  "end": "2026-07-27 00:00:00+00:00",
+  "output": "/root/thequantgpt-wrapper/data/binance/binance_futures_ohlcv_1d.parquet",
+  "full_refresh": false,
+  "history_start_default": "2020-01-01"
+}

@@ -1,13 +1,16 @@
 ---
-description: Launch scope — crypto OHLCV research only, no live trading
+description: Research scope — asset-class-agnostic OHLCV backtests, no live trading
 alwaysApply: true
 ---
 
 # Scope
 
-- **Markets:** Crypto OHLCV (parquet/CSV under `data/`) only.
+- **Markets:** Any asset class with OHLCV time series — crypto, equities, FX, bonds, metals, commodities, etc.
+- **Data:** Prefer local parquet/CSV under `data/`; use `tqg_client.market_data.load_market_data()` (local first, then yfinance when needed).
 - **Strategies:** Rule-based long/short backtests for research.
 - **Outputs:** Structured folders under `runs/<run_id>/`.
-- **Not in scope:** Live execution, equities, options, alt-data engineering beyond `data/README_DATA_FORMAT.md`.
+- **Not in scope:** Live execution, options structuring, bespoke alt-data engineering beyond documented `data/` conventions.
 
-Say no to out-of-scope requests and offer the closest in-scope alternative.
+Match annualization to the asset calendar (e.g. 365 for 24/7 markets, 252 for typical equity sessions) and record the choice in `strategy_spec.json`.
+
+Do not refuse a request because the asset class differs from demo examples — inspect `data/` and load the requested instrument.

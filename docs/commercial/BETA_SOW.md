@@ -12,7 +12,7 @@ Provider delivers **TheQuantGPT Cursor Lab** on Client's server:
 2. MCP API access for subscription term
 3. Two (2) onboarding video calls (≤ 60 min each)
 4. Async support (48h response, business days)
-5. Workflows: BTC mean reversion demo + one (1) additional crypto OHLCV strategy during beta
+5. Workflows: BTC mean reversion demo + one (1) additional OHLCV strategy (any asset class) during beta
 
 ## Acceptance criteria
 

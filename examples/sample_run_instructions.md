@@ -45,7 +45,7 @@ reports/demo_btc_mr/manifest.json
 
 ## 30-second pitch
 
-> I set up your own Cursor-powered quant research lab on your server so you can build and stress-test crypto strategies from your phone, with a maintained TheQuantGPT workflow layer — validators, PSA, and saved run folders.
+> I set up your own Cursor-powered quant research lab on your server so you can build and stress-test strategies across asset classes from your phone, with a maintained TheQuantGPT workflow layer — validators, PSA, and saved run folders.
 
 ## Trial CTA
 

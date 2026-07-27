@@ -1,53 +1,71 @@
-# Crypto OHLCV data format (Cursor Lab)
+# OHLCV data format (Cursor Lab)
 
-Client data stays on your server. This repo expects **Binance futures daily OHLCV** in long (tidy) parquet format.
+Client data stays on your server. TheQuantGPT is **asset-class agnostic** — crypto, equities, FX, bonds, metals, commodities, and other OHLCV series are all in scope.
 
-## Canonical layout
+## Preferred: local files under `data/`
+
+Place parquet or CSV files anywhere under `data/`. The loader searches recursively by symbol name.
+
+### Example layouts
 
 ```text
 data/
   binance/
-    binance_futures_ohlcv_1d.parquet
+    binance_futures_ohlcv_1d.parquet    # crypto (long/tidy format)
+  equities/
+    SPY_1d.parquet
+  fx/
+    EURUSD_1d.csv
+  metals/
+    GC_F_1d.parquet
 ```
 
-## Required columns
+### Required columns
 
 | Column | Type | Notes |
 |--------|------|--------|
 | `time` | datetime (UTC) | Bar open or close time — be consistent |
-| `asset` or `symbol` | string | e.g. `BTCUSDT` |
-| `open`, `high`, `low`, `close` | float | USD-margined perp prices |
-| `volume` | float | Base asset volume |
+| `asset` or `symbol` | string | e.g. `BTCUSDT`, `SPY`, `EURUSD=X`, `GC=F` |
+| `open`, `high`, `low`, `close` | float | Prices |
+| `volume` | float | Volume or notional (document units in `strategy_spec.json`) |
 
-Optional: `interval` (`1d`), `quote_asset_volume`, `number_of_trades`.
+Optional: `interval` (`1d`, `1h`, …), `quote_asset_volume`, `number_of_trades`.
 
-## Loading one symbol (Python)
+Single-symbol files (no `asset` column) are fine when the filename contains the ticker.
+
+## Loading data (Python)
 
 ```python
 from pathlib import Path
-from tqg_client.market_data import load_symbol_from_parquet, load_symbol_close
+from tqg_client.market_data import load_market_data, default_annualization
 
-path = Path("data/binance/binance_futures_ohlcv_1d.parquet")
-btc = load_symbol_from_parquet(path, "BTCUSDT", interval="1d")
-close = load_symbol_close(path, "BTCUSDT")
+# Local first, then yfinance for public OHLCV when no local match exists
+ohlcv, source = load_market_data("SPY", data_dir=Path("data"), interval="1d")
+ann = default_annualization("SPY", asset_class="equity")  # 252
+
+btc, source = load_market_data("BTCUSDT", data_dir=Path("data"), interval="1d")
+ann = default_annualization("BTCUSDT", asset_class="crypto")  # 365
+```
+
+Legacy helper for a known long-format crypto parquet:
+
+```python
+from tqg_client.market_data import load_symbol_from_parquet
+
+btc = load_symbol_from_parquet("data/binance/binance_futures_ohlcv_1d.parquet", "BTCUSDT")
 ```
 
 ## Rules for agents
 
-1. **Do not invent** file paths or column names — inspect `data/` first.
-2. **Filter** to a single `asset` before backtesting single-name strategies.
-3. **Timezone:** normalize to UTC; index strategies on `time`.
-4. **Lag indicators** by at least 1 bar — no same-bar lookahead.
-5. **OOS default:** `2025-01-01` unless the user changes it.
-
-## CSV alternative
-
-If using CSV, use the same column names. One file per symbol is fine:
-
-```text
-data/binance/BTCUSDT_1d.csv
-```
+1. **Inspect `data/`** before assuming a data source or asset class.
+2. **Prefer local files** when the user has uploaded data.
+3. **yfinance** is acceptable for public OHLCV when local files are missing — do not upload client files externally.
+4. **Filter** to a single instrument before single-name backtests.
+5. **Timezone:** normalize to UTC; index strategies on bar time.
+6. **Lag indicators** by at least 1 bar — no same-bar lookahead.
+7. **Annualization:** match the asset calendar (`252` typical equities/bonds, `365` for 24/7 markets like crypto/FX).
+8. **OOS default:** `2025-01-01` unless the user changes it.
 
 ## Where to get data
 
-You source and upload data (exchange dumps, vendor feeds, or your own ETL). TheQuantGPT does not host your market data.
+You source and upload data (exchange dumps, vendor feeds, yfinance cache, or your own ETL). TheQuantGPT does not host your market data.
