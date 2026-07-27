@@ -3,7 +3,7 @@
   "title": "Pullback MR Jul 2026",
   "created_at": "2026-07-27T16:59:46.951239+00:00",
   "root": "runs/pullback_mr_jul2026",
-  "status": "psa_complete",
+  "status": "robustness_complete",
   "numeric_id": null,
   "source": "cursor_agent",
   "symbol": null,
@@ -96,6 +96,22 @@
     "psa_ibs_spy_heatmap": {
       "path": "runs/pullback_mr_jul2026/charts/psa_ibs_spy_heatmap.png",
       "format": "png"
+    },
+    "ibs_stable_portfolio_drawdown": {
+      "path": "runs/pullback_mr_jul2026/charts/ibs_stable_portfolio_drawdown.png",
+      "format": "png"
+    },
+    "ibs_stable_portfolio_equity": {
+      "path": "runs/pullback_mr_jul2026/charts/ibs_stable_portfolio_equity.png",
+      "format": "png"
+    },
+    "wf_ibs_top10_oos_drawdown": {
+      "path": "runs/pullback_mr_jul2026/charts/wf_ibs_top10_oos_drawdown.png",
+      "format": "png"
+    },
+    "wf_ibs_top10_oos_equity": {
+      "path": "runs/pullback_mr_jul2026/charts/wf_ibs_top10_oos_equity.png",
+      "format": "png"
     }
   },
   "completed_steps": [
@@ -110,7 +126,7 @@
     "interval": "1d"
   },
   "validation_passed": true,
-  "last_validation_at": "2026-07-27T19:46:55.093034+00:00",
-  "last_execution_at": "2026-07-27T19:46:55.093034+00:00",
+  "last_validation_at": "2026-07-27T20:08:10.417296+00:00",
+  "last_execution_at": "2026-07-27T20:08:10.417296+00:00",
   "last_error": null
 }
