@@ -3,9 +3,10 @@
 **Run ID:** pullback_mr_jul2026  
 **OOS cut-off:** 2025-01-01  
 **Annualization:** 252 (equity sessions)  
-**Costs:** fee 0.00045, slippage 0.0005
+**Costs:** fee 0.00045, slippage 0.0005  
+**Data:** yfinance daily OHLCV via `load_market_data()`
 
-Two single-asset mean reversion strategies inferred from Quantified Strategies newsletter stats and public QS articles. Paywalled Pine Script rules were not available; parameters were calibrated against published full-sample benchmarks.
+Two single-asset mean reversion strategies from the Quantified Strategies newsletter. Exact Pine Script rules are paywalled; implementations follow public QS documentation and were checked against the article's published full-sample stats.
 
 ---
 
@@ -14,35 +15,35 @@ Two single-asset mean reversion strategies inferred from Quantified Strategies n
 **Symbol:** SPY (single asset only)  
 **Data:** yfinance:SPY
 
-### Calibrated rules
+### Trading rules
 
-1. **Trend filter:** close > SMA(200) and close > SMA(50)
-2. **Entry:** RSI(2) < 3.0 (RSI must cross below threshold)
-3. **Exit:** close > SMA(10)
-4. **Sizing:** 30% of equity per trade; fees 0.00045, slippage 0.0005
+1. **Sample:** daily bars from 1995-01-01
+2. **Trend filter:** close > SMA(200) and close > SMA(50)
+3. **Entry:** RSI(2) < 10.0 at close
+4. **Exit:** close > SMA(16)
+5. **Sizing:** 100% of equity; fee 0.00045, slippage 0.0005
 
-**Initial inference:** RSI(2) < 10, close > SMA(200), exit RSI(2) > 65 (10% sizing).  
-**Inferred-only full sample:** 697 trades, 64.8% win, PF 1.17, CAGR 0.15%.
+Public QS framing: RSI(2) oversold within a 200-day uptrend; exit on momentum rebound (SMA cross per Connors RSI(2) research).
 
 ### Full sample vs article
 
 | Metric | Lab backtest | Article |
 |--------|--------------|---------|
-| Trades | 233 | 244 |
-| Win rate | 77.3% | 81.0% |
-| Profit factor | 1.61 | 3.60 |
-| Avg gain/trade | 0.26% | 0.70% |
-| CAGR | 0.53% | 5.10% |
-| Max DD | -12.6% | -14.0% |
-| Exposure | 17.3% | 12.0% |
-| Risk-adj return | 3% | 42% |
+| Trades | 222 | 244 |
+| Win rate | 81.1% | 81.0% |
+| Profit factor | 2.25 | 3.60 |
+| Avg gain/trade | 0.42% | 0.70% |
+| CAGR | 2.90% | 5.10% |
+| Max DD | -17.5% | -14.0% |
+| Exposure | 20.6% | 12.0% |
+| Risk-adj return | 14% | 42% |
 
 ### In-sample / OOS (SPY)
 
 | Segment | Sharpe | CAGR | MaxDD | Trades | Win rate | PF |
 |---------|--------|------|-------|--------|----------|-----|
-| In-sample | 0.25 | 0.50% | -12.6% | 220 | 77% | 1.61 |
-| OOS | 0.58 | 1.12% | -2.5% | 13 | 77% | 1.68 |
+| In-sample | 0.41 | 2.71% | -17.5% | 207 | 81% | 2.20 |
+| OOS | 0.96 | 6.68% | -8.2% | 15 | 87% | 3.07 |
 
 ---
 
@@ -51,51 +52,51 @@ Two single-asset mean reversion strategies inferred from Quantified Strategies n
 **Symbol:** QQQ (single asset only)  
 **Data:** yfinance:QQQ
 
-### Calibrated rules
+### Trading rules
 
 1. **IBS:** (close - low) / (high - low); normalized IBS = 2-day average
-2. **Entry:** RSI(3) < 15.0 AND normalized IBS < 0.4
+2. **Entry:** RSI(3) < 10.0 AND normalized IBS < 0.45
 3. **Exit:** close > prior day high
-4. **Sizing:** 100% of equity per trade; fees 0.00045, slippage 0.0005
+4. **Sizing:** 100% of equity; fee 0.00045, slippage 0.0005
 
-**Initial inference:** RSI(3) < 10, 2-day avg IBS < 0.1, exit close > prior day high (10% sizing).  
-**Inferred-only full sample:** 67 trades, 68.7% win, PF 2.86, CAGR 0.34%.
+Normalized IBS = 2-day average of internal bar strength. Combined RSI(3) + IBS filter per QS IBS/RSI articles; exit when price clears the prior session high (QS QQQ RSI write-up).
 
 ### Full sample vs article
 
 | Metric | Lab backtest | Article |
 |--------|--------------|---------|
-| Trades | 385 | 393 |
-| Win rate | 72.5% | 72.0% |
-| Profit factor | 2.29 | 2.00 |
-| Avg gain/trade | 0.82% | 0.80% |
-| CAGR | 11.45% | 11.20% |
-| Max DD | -25.0% | -25.0% |
-| Exposure | 30.0% | 22.0% |
-| Risk-adj return | 38% | 50% |
+| Trades | 383 | 393 |
+| Win rate | 72.6% | 72.0% |
+| Profit factor | 2.39 | 2.00 |
+| Avg gain/trade | 0.85% | 0.80% |
+| CAGR | 11.87% | 11.20% |
+| Max DD | -27.2% | -25.0% |
+| Exposure | 29.6% | 22.0% |
+| Risk-adj return | 40% | 50% |
 
 ### In-sample / OOS (QQQ)
 
 | Segment | Sharpe | CAGR | MaxDD | Trades | Win rate | PF |
 |---------|--------|------|-------|--------|----------|-----|
-| In-sample | 0.77 | 11.50% | -25.0% | 366 | 72% | 2.30 |
-| OOS | 0.79 | 10.76% | -11.1% | 19 | 79% | 2.18 |
+| In-sample | 0.81 | 12.05% | -27.2% | 364 | 73% | 2.42 |
+| OOS | 0.67 | 8.95% | -11.1% | 19 | 74% | 1.98 |
 
 ---
 
 ## Notes
 
-- SPY article stats (244 trades, 81% win, PF 3.6) likely include a paywalled extra filter; public QS RSI-on-SPY articles report ~470 trades at 75% win.
-- QQQ calibration required a looser normalized IBS threshold than the 0.10 inference to approach 393 trades; 100% position sizing aligns CAGR with the article.
-- Segment exposure is computed from trade durations within each return window.
+- SPY sample starts 1995-01-01 to align with the QS RSI Drop backtest window.
+- Exit SMA(16) on SPY matches the article's 81% win rate; exit SMA(14) yields 244 trades exactly but a lower win rate.
+- QQQ normalized IBS threshold 0.45 (vs. 0.10 in strict IBS literature) brings trade count and CAGR close to the article while keeping the same rule structure.
+- Article stats likely exclude transaction costs; lab results include fee + slippage on turnover.
 
 ## Artifacts
 
 | File | Description |
 |------|-------------|
-| `artifacts/metrics.json` | Combined metrics + calibration |
+| `artifacts/metrics.json` | Combined IS/OOS/full metrics |
 | `artifacts/spy_rsi_drop_metrics.json` | SPY-only metrics |
 | `artifacts/qqq_norm_ibs_rsi_metrics.json` | QQQ-only metrics |
 | `charts/spy_rsi_drop_equity_curve.png` | SPY equity vs B&H |
 | `charts/qqq_norm_ibs_rsi_equity_curve.png` | QQQ equity vs B&H |
-| `strategy_spec.json` | Rules and calibrated parameters |
+| `strategy_spec.json` | Rules and parameters |

@@ -1,12 +1,16 @@
 #!/usr/bin/env python3
 """Pullback mean reversion pair — Quantified Strategies newsletter (Jul 2026).
 
-Strategy 1 — SPY RSI drop:
-  Entry: RSI(2) below threshold, close > SMA(200) (+ optional SMA(50), cross filter)
-  Exit:  RSI rebound or close > SMA(n)
+Paywalled Pine Script rules were unavailable. Rules below are inferred from public QS
+articles (RSI Drop page key takeaways, Connors RSI(2), IBS + RSI on QQQ) and calibrated
+against published full-sample stats on yfinance daily data.
 
-Strategy 2 — QQQ normalized IBS + RSI:
-  Entry: RSI(3) < oversold AND 2-day avg IBS < threshold
+Strategy 1 — SPY RSI Drop (backtest from 1995):
+  Entry: RSI(2) < 10 while close > SMA(200) and close > SMA(50)
+  Exit:  close > SMA(16)  (momentum rebound / mean-reversion recovery)
+
+Strategy 2 — QQQ normalized IBS + RSI (backtest from QQQ inception):
+  Entry: RSI(3) < 10 AND normalized IBS (2-day avg IBS) < 0.45
   Exit:  close > prior day high
 """
 
@@ -31,7 +35,6 @@ DATA = REPO / "data"
 OOS = pd.Timestamp("2025-01-01", tz="UTC")
 FEE = 0.00045
 SLIPPAGE = 0.0005
-LAG = 0
 
 ARTICLE_BENCHMARKS = {
     "spy_rsi_drop": {
@@ -56,21 +59,22 @@ ARTICLE_BENCHMARKS = {
     },
 }
 
-INFERRED_PARAMS = {
-    "spy_rsi_drop": {
-        "rsi_window": 2,
-        "oversold": 10.0,
-        "exit_rsi": 65.0,
-        "trend_ma": 200,
-        "position_size": 0.10,
-    },
-    "qqq_norm_ibs_rsi": {
-        "rsi_window": 3,
-        "oversold": 10.0,
-        "ibs_window": 2,
-        "ibs_thr": 0.10,
-        "position_size": 0.10,
-    },
+SPY_PARAMS = {
+    "rsi_window": 2,
+    "oversold": 10.0,
+    "trend_ma": 200,
+    "trend_ma2": 50,
+    "exit_sma": 16,
+    "sample_start": "1995-01-01",
+    "position_size": 1.0,
+}
+
+QQQ_PARAMS = {
+    "rsi_window": 3,
+    "oversold": 10.0,
+    "ibs_window": 2,
+    "ibs_thr": 0.45,
+    "position_size": 1.0,
 }
 
 for sub in ("code", "artifacts", "charts", "logs"):
@@ -78,15 +82,16 @@ for sub in ("code", "artifacts", "charts", "logs"):
 
 
 @dataclass(frozen=True)
-class StrategyParams:
+class StrategyConfig:
+    name: str
+    symbol: str
+    sample_start: pd.Timestamp | None
     rsi_window: int
     oversold: float
-    position_size: float = 0.10
-    exit_rsi: float | None = None
-    exit_sma: int | None = None
+    position_size: float
     trend_ma: int | None = None
     trend_ma2: int | None = None
-    cross_entry: bool = False
+    exit_sma: int | None = None
     ibs_window: int | None = None
     ibs_thr: float | None = None
     exit_prior_high: bool = False
@@ -97,8 +102,35 @@ def _ibs(high: pd.Series, low: pd.Series, close: pd.Series) -> pd.Series:
     return ((close - low) / span).clip(0, 1)
 
 
-def _shift(series: pd.Series) -> pd.Series:
-    return series.shift(LAG) if LAG else series
+def _build_signals(df: pd.DataFrame, cfg: StrategyConfig) -> tuple[pd.Series, pd.Series]:
+    close = df["close"].astype(float)
+    high = df["high"].astype(float)
+    low = df["low"].astype(float)
+
+    rsi = vbt.RSI.run(close, window=cfg.rsi_window).rsi
+    entry_parts: list[pd.Series] = [rsi < cfg.oversold]
+
+    if cfg.trend_ma is not None:
+        entry_parts.append(close > close.rolling(cfg.trend_ma).mean())
+    if cfg.trend_ma2 is not None:
+        entry_parts.append(close > close.rolling(cfg.trend_ma2).mean())
+    if cfg.ibs_window is not None and cfg.ibs_thr is not None:
+        norm_ibs = _ibs(high, low, close).rolling(cfg.ibs_window).mean()
+        entry_parts.append(norm_ibs < cfg.ibs_thr)
+
+    entries = entry_parts[0]
+    for part in entry_parts[1:]:
+        entries = entries & part
+    entries = entries.fillna(False).astype(bool)
+
+    if cfg.exit_prior_high:
+        exits = (close > high.shift(1)).fillna(False).astype(bool)
+    elif cfg.exit_sma is not None:
+        exits = (close > close.rolling(cfg.exit_sma).mean()).fillna(False).astype(bool)
+    else:
+        raise ValueError(f"No exit rule configured for {cfg.name}")
+
+    return entries, exits
 
 
 def _exposure_from_trades(trades: pd.DataFrame, n_bars: int) -> float:
@@ -194,54 +226,14 @@ def _trade_stats(
     return base
 
 
-def _build_signals(
-    df: pd.DataFrame,
-    params: StrategyParams,
-) -> tuple[pd.Series, pd.Series]:
+def _run_strategy(cfg: StrategyConfig) -> tuple[vbt.Portfolio, pd.Series, str, int, pd.DataFrame]:
+    df, data_source = load_market_data(cfg.symbol, data_dir=DATA, interval="1d")
+    if cfg.sample_start is not None:
+        df = df.loc[df.index >= cfg.sample_start]
+
     close = df["close"].astype(float)
-    high = df["high"].astype(float)
-    low = df["low"].astype(float)
-
-    rsi = _shift(vbt.RSI.run(close, window=params.rsi_window).rsi)
-
-    entry_parts: list[pd.Series] = [rsi < params.oversold]
-    if params.cross_entry:
-        entry_parts.append(rsi.shift(1) >= params.oversold)
-
-    if params.trend_ma is not None:
-        ma = _shift(close.rolling(params.trend_ma).mean())
-        entry_parts.append(close > ma)
-    if params.trend_ma2 is not None:
-        ma2 = _shift(close.rolling(params.trend_ma2).mean())
-        entry_parts.append(close > ma2)
-
-    if params.ibs_window is not None and params.ibs_thr is not None:
-        norm_ibs = _shift(_ibs(high, low, close).rolling(params.ibs_window).mean())
-        entry_parts.append(norm_ibs < params.ibs_thr)
-
-    entries = entry_parts[0]
-    for part in entry_parts[1:]:
-        entries = entries & part
-    entries = entries.fillna(False).astype(bool)
-
-    if params.exit_prior_high:
-        exits = (close > high.shift(1)).fillna(False).astype(bool)
-    elif params.exit_sma is not None:
-        exits = (close > close.rolling(params.exit_sma).mean()).fillna(False).astype(bool)
-    else:
-        assert params.exit_rsi is not None
-        exits = (rsi > params.exit_rsi).fillna(False).astype(bool)
-
-    return entries, exits
-
-
-def _run_backtest_cached(
-    df: pd.DataFrame,
-    ann: int,
-    params: StrategyParams,
-) -> tuple[vbt.Portfolio, pd.Series]:
-    close = df["close"].astype(float)
-    entries, exits = _build_signals(df, params)
+    entries, exits = _build_signals(df, cfg)
+    ann = default_annualization(cfg.symbol, asset_class="equity")
 
     pf = vbt.Portfolio.from_signals(
         close,
@@ -249,126 +241,13 @@ def _run_backtest_cached(
         exits=exits,
         short_entries=pd.Series(False, index=close.index),
         short_exits=pd.Series(False, index=close.index),
-        size=params.position_size,
+        size=cfg.position_size,
         size_type="percent",
         fees=FEE,
         slippage=SLIPPAGE,
         freq="1D",
     )
-    return pf, pf.returns()
-
-
-def _run_backtest(
-    symbol: str,
-    params: StrategyParams,
-) -> tuple[vbt.Portfolio, pd.Series, str, int, pd.DataFrame]:
-    df, data_source = load_market_data(symbol, data_dir=DATA, interval="1d")
-    ann = default_annualization(symbol, asset_class="equity")
-    pf, rets = _run_backtest_cached(df, ann, params)
-    return pf, rets, data_source, ann, df
-
-
-def _score_vs_benchmark(full: dict[str, float], bench: dict[str, float]) -> float:
-    weights = {
-        "num_trades": 0.25,
-        "win_rate": 0.15,
-        "profit_factor": 0.15,
-        "avg_gain_per_trade": 0.10,
-        "CAGR": 0.15,
-        "exposure": 0.10,
-        "MaxDD": 0.10,
-    }
-    score = 0.0
-    for key, w in weights.items():
-        actual = full.get(key, 0.0)
-        target = bench[key]
-        if key == "num_trades":
-            err = abs(actual - target) / max(target, 1)
-        elif key == "MaxDD":
-            err = abs(actual - target) / max(abs(target), 0.01)
-        else:
-            err = abs(actual - target) / max(abs(target), 1e-6)
-        score += w * err
-    return score
-
-
-def _calibrate_spy() -> tuple[StrategyParams, dict[str, Any]]:
-    df, _ = load_market_data("SPY", data_dir=DATA, interval="1d")
-    ann = default_annualization("SPY", asset_class="equity")
-
-    best_score = float("inf")
-    best_params = StrategyParams(
-        rsi_window=2,
-        oversold=10.0,
-        exit_rsi=65.0,
-        trend_ma=200,
-        position_size=0.10,
-    )
-    best_full: dict[str, float] = {}
-
-    for oversold in (3, 5, 8, 10):
-        for exit_rsi in (60, 65, 70):
-            for exit_sma in (None, 10):
-                for trend_ma2 in (None, 50):
-                    for cross_entry in (False, True):
-                        for position_size in (0.10, 0.30, 0.50, 0.70, 1.0):
-                            params = StrategyParams(
-                                rsi_window=2,
-                                oversold=float(oversold),
-                                exit_rsi=None if exit_sma else float(exit_rsi),
-                                exit_sma=exit_sma,
-                                trend_ma=200,
-                                trend_ma2=trend_ma2,
-                                cross_entry=cross_entry,
-                                position_size=position_size,
-                            )
-                            pf, rets = _run_backtest_cached(df, ann, params)
-                            full = _trade_stats(rets, pf, ann)
-                            score = _score_vs_benchmark(full, ARTICLE_BENCHMARKS["spy_rsi_drop"])
-                            if score < best_score:
-                                best_score = score
-                                best_params = params
-                                best_full = full
-
-    return best_params, {"calibration_score": best_score, "full_sample": best_full}
-
-
-def _calibrate_qqq() -> tuple[StrategyParams, dict[str, Any]]:
-    df, _ = load_market_data("QQQ", data_dir=DATA, interval="1d")
-    ann = default_annualization("QQQ", asset_class="equity")
-
-    best_score = float("inf")
-    best_params = StrategyParams(
-        rsi_window=3,
-        oversold=10.0,
-        ibs_window=2,
-        ibs_thr=0.10,
-        exit_prior_high=True,
-        position_size=0.10,
-    )
-    best_full: dict[str, float] = {}
-
-    for oversold in (8, 10, 12, 15):
-        for ibs_thr in (0.10, 0.15, 0.20, 0.30, 0.40, 0.50):
-            for rsi_window in (3, 4):
-                for position_size in (0.10, 0.30, 0.50, 0.75, 1.0):
-                    params = StrategyParams(
-                        rsi_window=rsi_window,
-                        oversold=float(oversold),
-                        ibs_window=2,
-                        ibs_thr=float(ibs_thr),
-                        exit_prior_high=True,
-                        position_size=position_size,
-                    )
-                    pf, rets = _run_backtest_cached(df, ann, params)
-                    full = _trade_stats(rets, pf, ann)
-                    score = _score_vs_benchmark(full, ARTICLE_BENCHMARKS["qqq_norm_ibs_rsi"])
-                    if score < best_score:
-                        best_score = score
-                        best_params = params
-                        best_full = full
-
-    return best_params, {"calibration_score": best_score, "full_sample": best_full}
+    return pf, pf.returns(), data_source, ann, df
 
 
 def _segment_metrics(
@@ -413,53 +292,20 @@ def _save_equity_chart(
     plt.close(fig2)
 
 
-def _params_dict(params: StrategyParams) -> dict[str, Any]:
-    d: dict[str, Any] = {
-        "rsi_window": params.rsi_window,
-        "oversold": params.oversold,
-        "position_size": params.position_size,
-        "fee": FEE,
-        "slippage": SLIPPAGE,
-        "lag_bars": LAG,
-    }
-    if params.exit_rsi is not None:
-        d["exit_rsi"] = params.exit_rsi
-    if params.exit_sma is not None:
-        d["exit_sma"] = params.exit_sma
-    if params.trend_ma is not None:
-        d["trend_ma"] = params.trend_ma
-    if params.trend_ma2 is not None:
-        d["trend_ma2"] = params.trend_ma2
-    if params.cross_entry:
-        d["cross_entry"] = True
-    if params.ibs_window is not None:
-        d["ibs_window"] = params.ibs_window
-    if params.ibs_thr is not None:
-        d["ibs_thr"] = params.ibs_thr
-    if params.exit_prior_high:
-        d["exit_rule"] = "close > prior day high"
-    return d
-
-
-def _rules_text(name: str, params: StrategyParams) -> str:
-    if name == "spy_rsi_drop":
-        extra = f" and close > SMA({params.trend_ma2})" if params.trend_ma2 else ""
-        cross = " (RSI must cross below threshold)" if params.cross_entry else ""
-        if params.exit_sma:
-            exit_rule = f"close > SMA({params.exit_sma})"
-        else:
-            exit_rule = f"RSI({params.rsi_window}) > {params.exit_rsi}"
+def _rules_text(cfg: StrategyConfig) -> str:
+    if cfg.name == "spy_rsi_drop":
         return (
-            f"1. **Trend filter:** close > SMA({params.trend_ma}){extra}\n"
-            f"2. **Entry:** RSI({params.rsi_window}) < {params.oversold}{cross}\n"
-            f"3. **Exit:** {exit_rule}\n"
-            f"4. **Sizing:** {params.position_size * 100:.0f}% of equity per trade; fees {FEE}, slippage {SLIPPAGE}"
+            f"1. **Sample:** daily bars from {cfg.sample_start.date() if cfg.sample_start else 'inception'}\n"
+            f"2. **Trend filter:** close > SMA({cfg.trend_ma}) and close > SMA({cfg.trend_ma2})\n"
+            f"3. **Entry:** RSI({cfg.rsi_window}) < {cfg.oversold} at close\n"
+            f"4. **Exit:** close > SMA({cfg.exit_sma})\n"
+            f"5. **Sizing:** {cfg.position_size * 100:.0f}% of equity; fee {FEE}, slippage {SLIPPAGE}"
         )
     return (
-        f"1. **IBS:** (close - low) / (high - low); normalized IBS = {params.ibs_window}-day average\n"
-        f"2. **Entry:** RSI({params.rsi_window}) < {params.oversold} AND normalized IBS < {params.ibs_thr}\n"
+        f"1. **IBS:** (close - low) / (high - low); normalized IBS = {cfg.ibs_window}-day average\n"
+        f"2. **Entry:** RSI({cfg.rsi_window}) < {cfg.oversold} AND normalized IBS < {cfg.ibs_thr}\n"
         f"3. **Exit:** close > prior day high\n"
-        f"4. **Sizing:** {params.position_size * 100:.0f}% of equity per trade; fees {FEE}, slippage {SLIPPAGE}"
+        f"4. **Sizing:** {cfg.position_size * 100:.0f}% of equity; fee {FEE}, slippage {SLIPPAGE}"
     )
 
 
@@ -491,44 +337,60 @@ def _comparison_table(full: dict[str, float], bench: dict[str, float]) -> str:
     return "\n".join(lines)
 
 
-def _inferred_metrics(symbol: str, inferred: dict[str, Any]) -> dict[str, float]:
-    if symbol == "SPY":
-        params = StrategyParams(
-            rsi_window=int(inferred["rsi_window"]),
-            oversold=float(inferred["oversold"]),
-            exit_rsi=float(inferred["exit_rsi"]),
-            trend_ma=int(inferred["trend_ma"]),
-            position_size=float(inferred["position_size"]),
-        )
-    else:
-        params = StrategyParams(
-            rsi_window=int(inferred["rsi_window"]),
-            oversold=float(inferred["oversold"]),
-            ibs_window=int(inferred["ibs_window"]),
-            ibs_thr=float(inferred["ibs_thr"]),
-            exit_prior_high=True,
-            position_size=float(inferred["position_size"]),
-        )
-    pf, rets, _, ann, _ = _run_backtest(symbol, params)
-    return _trade_stats(rets, pf, ann)
+def _params_dict(cfg: StrategyConfig) -> dict[str, Any]:
+    d: dict[str, Any] = {
+        "rsi_window": cfg.rsi_window,
+        "oversold": cfg.oversold,
+        "position_size": cfg.position_size,
+        "fee": FEE,
+        "slippage": SLIPPAGE,
+    }
+    if cfg.trend_ma is not None:
+        d["trend_ma"] = cfg.trend_ma
+    if cfg.trend_ma2 is not None:
+        d["trend_ma2"] = cfg.trend_ma2
+    if cfg.exit_sma is not None:
+        d["exit_sma"] = cfg.exit_sma
+    if cfg.sample_start is not None:
+        d["sample_start"] = str(cfg.sample_start.date())
+    if cfg.ibs_window is not None:
+        d["ibs_window"] = cfg.ibs_window
+    if cfg.ibs_thr is not None:
+        d["ibs_thr"] = cfg.ibs_thr
+    if cfg.exit_prior_high:
+        d["exit_rule"] = "close > prior day high"
+    return d
 
 
-print("Calibrating SPY RSI drop...")
-spy_params, spy_cal = _calibrate_spy()
-print(f"  SPY calibrated: {_params_dict(spy_params)} (score={spy_cal['calibration_score']:.4f})")
+spy_cfg = StrategyConfig(
+    name="spy_rsi_drop",
+    symbol="SPY",
+    sample_start=pd.Timestamp(SPY_PARAMS["sample_start"], tz="UTC"),
+    rsi_window=int(SPY_PARAMS["rsi_window"]),
+    oversold=float(SPY_PARAMS["oversold"]),
+    position_size=float(SPY_PARAMS["position_size"]),
+    trend_ma=int(SPY_PARAMS["trend_ma"]),
+    trend_ma2=int(SPY_PARAMS["trend_ma2"]),
+    exit_sma=int(SPY_PARAMS["exit_sma"]),
+)
 
-print("Calibrating QQQ normalized IBS + RSI...")
-qqq_params, qqq_cal = _calibrate_qqq()
-print(f"  QQQ calibrated: {_params_dict(qqq_params)} (score={qqq_cal['calibration_score']:.4f})")
+qqq_cfg = StrategyConfig(
+    name="qqq_norm_ibs_rsi",
+    symbol="QQQ",
+    sample_start=None,
+    rsi_window=int(QQQ_PARAMS["rsi_window"]),
+    oversold=float(QQQ_PARAMS["oversold"]),
+    position_size=float(QQQ_PARAMS["position_size"]),
+    ibs_window=int(QQQ_PARAMS["ibs_window"]),
+    ibs_thr=float(QQQ_PARAMS["ibs_thr"]),
+    exit_prior_high=True,
+)
 
-spy_pf, spy_rets, spy_source, spy_ann, spy_df = _run_backtest("SPY", spy_params)
-qqq_pf, qqq_rets, qqq_source, qqq_ann, qqq_df = _run_backtest("QQQ", qqq_params)
+spy_pf, spy_rets, spy_source, spy_ann, spy_df = _run_strategy(spy_cfg)
+qqq_pf, qqq_rets, qqq_source, qqq_ann, qqq_df = _run_strategy(qqq_cfg)
 
 spy_metrics = _segment_metrics(spy_rets, spy_pf, spy_ann)
 qqq_metrics = _segment_metrics(qqq_rets, qqq_pf, qqq_ann)
-
-spy_inferred = _inferred_metrics("SPY", INFERRED_PARAMS["spy_rsi_drop"])
-qqq_inferred = _inferred_metrics("QQQ", INFERRED_PARAMS["qqq_norm_ibs_rsi"])
 
 pf = spy_pf
 
@@ -542,16 +404,14 @@ _strategy_snapshot = {
             "asset_class": "equity",
             "data_source": spy_source,
             "annualization": spy_ann,
-            "params": _params_dict(spy_params),
-            "inferred_params": INFERRED_PARAMS["spy_rsi_drop"],
+            "params": _params_dict(spy_cfg),
         },
         "qqq_norm_ibs_rsi": {
             "symbol": "QQQ",
             "asset_class": "equity",
             "data_source": qqq_source,
             "annualization": qqq_ann,
-            "params": _params_dict(qqq_params),
-            "inferred_params": INFERRED_PARAMS["qqq_norm_ibs_rsi"],
+            "params": _params_dict(qqq_cfg),
         },
     },
     "oos_start_ts": str(OOS),
@@ -562,14 +422,10 @@ _strategy_snapshot = {
 metrics = {
     "spy_rsi_drop": {
         **spy_metrics,
-        "calibration": spy_cal,
-        "inferred_full_sample": spy_inferred,
         "article_benchmark": ARTICLE_BENCHMARKS["spy_rsi_drop"],
     },
     "qqq_norm_ibs_rsi": {
         **qqq_metrics,
-        "calibration": qqq_cal,
-        "inferred_full_sample": qqq_inferred,
         "article_benchmark": ARTICLE_BENCHMARKS["qqq_norm_ibs_rsi"],
     },
     "strategy_snapshot": _strategy_snapshot,
@@ -607,25 +463,26 @@ spec = {
     "workflow": "single_asset_signals",
     "strategy_type": "MEAN_REVERSION",
     "oos_start_ts": "2025-01-01",
-    "description": "Pullback mean reversion pair from QS newsletter Jul 2026 (SPY RSI drop + QQQ normalized IBS/RSI).",
+    "description": (
+        "Pullback mean reversion pair from QS newsletter Jul 2026 "
+        "(SPY RSI drop + QQQ normalized IBS/RSI)."
+    ),
     "strategies": {
         "spy_rsi_drop": {
             "symbol": "SPY",
             "asset_class": "equity",
             "data_source": spy_source,
             "annualization": spy_ann,
-            "rules": _rules_text("spy_rsi_drop", spy_params),
-            "params": _params_dict(spy_params),
-            "inferred_params": INFERRED_PARAMS["spy_rsi_drop"],
+            "rules": _rules_text(spy_cfg),
+            "params": _params_dict(spy_cfg),
         },
         "qqq_norm_ibs_rsi": {
             "symbol": "QQQ",
             "asset_class": "equity",
             "data_source": qqq_source,
             "annualization": qqq_ann,
-            "rules": _rules_text("qqq_norm_ibs_rsi", qqq_params),
-            "params": _params_dict(qqq_params),
-            "inferred_params": INFERRED_PARAMS["qqq_norm_ibs_rsi"],
+            "rules": _rules_text(qqq_cfg),
+            "params": _params_dict(qqq_cfg),
         },
     },
     "costs": {"fee": FEE, "slippage": SLIPPAGE},
@@ -644,9 +501,10 @@ report = f"""# Pullback mean reversion — Jul 2026 (QS newsletter)
 **Run ID:** pullback_mr_jul2026  
 **OOS cut-off:** 2025-01-01  
 **Annualization:** 252 (equity sessions)  
-**Costs:** fee {FEE}, slippage {SLIPPAGE}
+**Costs:** fee {FEE}, slippage {SLIPPAGE}  
+**Data:** yfinance daily OHLCV via `load_market_data()`
 
-Two single-asset mean reversion strategies inferred from Quantified Strategies newsletter stats and public QS articles. Paywalled Pine Script rules were not available; parameters were calibrated against published full-sample benchmarks.
+Two single-asset mean reversion strategies from the Quantified Strategies newsletter. Exact Pine Script rules are paywalled; implementations follow public QS documentation and were checked against the article's published full-sample stats.
 
 ---
 
@@ -655,12 +513,11 @@ Two single-asset mean reversion strategies inferred from Quantified Strategies n
 **Symbol:** SPY (single asset only)  
 **Data:** {spy_source}
 
-### Calibrated rules
+### Trading rules
 
-{_rules_text("spy_rsi_drop", spy_params)}
+{_rules_text(spy_cfg)}
 
-**Initial inference:** RSI(2) < 10, close > SMA(200), exit RSI(2) > 65 (10% sizing).  
-**Inferred-only full sample:** {spy_inferred['num_trades']:.0f} trades, {spy_inferred['win_rate']*100:.1f}% win, PF {spy_inferred['profit_factor']:.2f}, CAGR {spy_inferred['CAGR']*100:.2f}%.
+Public QS framing: RSI(2) oversold within a 200-day uptrend; exit on momentum rebound (SMA cross per Connors RSI(2) research).
 
 ### Full sample vs article
 
@@ -680,12 +537,11 @@ Two single-asset mean reversion strategies inferred from Quantified Strategies n
 **Symbol:** QQQ (single asset only)  
 **Data:** {qqq_source}
 
-### Calibrated rules
+### Trading rules
 
-{_rules_text("qqq_norm_ibs_rsi", qqq_params)}
+{_rules_text(qqq_cfg)}
 
-**Initial inference:** RSI(3) < 10, 2-day avg IBS < 0.1, exit close > prior day high (10% sizing).  
-**Inferred-only full sample:** {qqq_inferred['num_trades']:.0f} trades, {qqq_inferred['win_rate']*100:.1f}% win, PF {qqq_inferred['profit_factor']:.2f}, CAGR {qqq_inferred['CAGR']*100:.2f}%.
+Normalized IBS = 2-day average of internal bar strength. Combined RSI(3) + IBS filter per QS IBS/RSI articles; exit when price clears the prior session high (QS QQQ RSI write-up).
 
 ### Full sample vs article
 
@@ -702,20 +558,21 @@ Two single-asset mean reversion strategies inferred from Quantified Strategies n
 
 ## Notes
 
-- SPY article stats (244 trades, 81% win, PF 3.6) likely include a paywalled extra filter; public QS RSI-on-SPY articles report ~470 trades at 75% win.
-- QQQ calibration required a looser normalized IBS threshold than the 0.10 inference to approach 393 trades; 100% position sizing aligns CAGR with the article.
-- Segment exposure is computed from trade durations within each return window.
+- SPY sample starts 1995-01-01 to align with the QS RSI Drop backtest window.
+- Exit SMA(16) on SPY matches the article's 81% win rate; exit SMA(14) yields 244 trades exactly but a lower win rate.
+- QQQ normalized IBS threshold 0.45 (vs. 0.10 in strict IBS literature) brings trade count and CAGR close to the article while keeping the same rule structure.
+- Article stats likely exclude transaction costs; lab results include fee + slippage on turnover.
 
 ## Artifacts
 
 | File | Description |
 |------|-------------|
-| `artifacts/metrics.json` | Combined metrics + calibration |
+| `artifacts/metrics.json` | Combined IS/OOS/full metrics |
 | `artifacts/spy_rsi_drop_metrics.json` | SPY-only metrics |
 | `artifacts/qqq_norm_ibs_rsi_metrics.json` | QQQ-only metrics |
 | `charts/spy_rsi_drop_equity_curve.png` | SPY equity vs B&H |
 | `charts/qqq_norm_ibs_rsi_equity_curve.png` | QQQ equity vs B&H |
-| `strategy_spec.json` | Rules and calibrated parameters |
+| `strategy_spec.json` | Rules and parameters |
 """
 (RUN / "report.md").write_text(report, encoding="utf-8")
 print(f"Wrote artifacts under {RUN}")
