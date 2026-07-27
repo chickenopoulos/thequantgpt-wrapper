@@ -3,7 +3,7 @@
   "title": "Pullback MR Jul 2026",
   "created_at": "2026-07-27T16:59:46.951239+00:00",
   "root": "runs/pullback_mr_jul2026",
-  "status": "baseline_complete",
+  "status": "robustness_complete",
   "numeric_id": null,
   "source": "cursor_agent",
   "symbol": null,
@@ -40,10 +40,39 @@
     "report": {
       "path": "runs/pullback_mr_jul2026/report.md",
       "format": "md"
+    },
+    "ibs_btcusdt_equity": {
+      "path": "runs/pullback_mr_jul2026/charts/ibs_btcusdt_equity.png",
+      "format": "png"
+    },
+    "ibs_cross_asset_equity": {
+      "path": "runs/pullback_mr_jul2026/charts/ibs_cross_asset_equity.png",
+      "format": "png"
+    },
+    "ibs_ethusdt_equity": {
+      "path": "runs/pullback_mr_jul2026/charts/ibs_ethusdt_equity.png",
+      "format": "png"
+    },
+    "ibs_gld_equity": {
+      "path": "runs/pullback_mr_jul2026/charts/ibs_gld_equity.png",
+      "format": "png"
+    },
+    "ibs_iwm_equity": {
+      "path": "runs/pullback_mr_jul2026/charts/ibs_iwm_equity.png",
+      "format": "png"
+    },
+    "ibs_qqq_equity": {
+      "path": "runs/pullback_mr_jul2026/charts/ibs_qqq_equity.png",
+      "format": "png"
+    },
+    "ibs_spy_equity": {
+      "path": "runs/pullback_mr_jul2026/charts/ibs_spy_equity.png",
+      "format": "png"
     }
   },
   "completed_steps": [
-    "baseline"
+    "baseline",
+    "robustness"
   ],
   "defaults": {
     "oos_start": "2025-01-01",
@@ -52,7 +81,7 @@
     "interval": "1d"
   },
   "validation_passed": true,
-  "last_validation_at": "2026-07-27T17:38:58.426161+00:00",
-  "last_execution_at": "2026-07-27T17:38:58.426161+00:00",
+  "last_validation_at": "2026-07-27T19:05:17.940457+00:00",
+  "last_execution_at": "2026-07-27T19:05:17.940457+00:00",
   "last_error": null
 }
