@@ -1,0 +1,58 @@
+{
+  "run_id": "pullback_mr_jul2026",
+  "title": "Pullback MR Jul 2026",
+  "created_at": "2026-07-27T16:59:46.951239+00:00",
+  "root": "runs/pullback_mr_jul2026",
+  "status": "baseline_complete",
+  "numeric_id": null,
+  "source": "cursor_agent",
+  "symbol": null,
+  "oos_start_ts": "2025-01-01",
+  "workflow": "single_asset_signals",
+  "strategy_type": "MEAN_REVERSION",
+  "last_scope": null,
+  "strategy_spec_path": "strategy_spec.json",
+  "artifacts": {
+    "metrics": {
+      "path": "runs/pullback_mr_jul2026/artifacts/metrics.json",
+      "format": "json"
+    },
+    "qqq_norm_ibs_rsi_drawdown": {
+      "path": "runs/pullback_mr_jul2026/charts/qqq_norm_ibs_rsi_drawdown.png",
+      "format": "png"
+    },
+    "qqq_norm_ibs_rsi_equity_curve": {
+      "path": "runs/pullback_mr_jul2026/charts/qqq_norm_ibs_rsi_equity_curve.png",
+      "format": "png"
+    },
+    "spy_rsi_drop_drawdown": {
+      "path": "runs/pullback_mr_jul2026/charts/spy_rsi_drop_drawdown.png",
+      "format": "png"
+    },
+    "spy_rsi_drop_equity_curve": {
+      "path": "runs/pullback_mr_jul2026/charts/spy_rsi_drop_equity_curve.png",
+      "format": "png"
+    },
+    "strategy_spec": {
+      "path": "runs/pullback_mr_jul2026/strategy_spec.json",
+      "format": "json"
+    },
+    "report": {
+      "path": "runs/pullback_mr_jul2026/report.md",
+      "format": "md"
+    }
+  },
+  "completed_steps": [
+    "baseline"
+  ],
+  "defaults": {
+    "oos_start": "2025-01-01",
+    "fee": 0.00045,
+    "slippage": 0.0005,
+    "interval": "1d"
+  },
+  "validation_passed": true,
+  "last_validation_at": "2026-07-27T17:34:50.415638+00:00",
+  "last_execution_at": "2026-07-27T17:34:50.415638+00:00",
+  "last_error": null
+}
