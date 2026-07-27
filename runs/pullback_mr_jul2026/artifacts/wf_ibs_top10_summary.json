@@ -13,8 +13,9 @@
     "first_oos": "2021-07-01 00:00:00+00:00",
     "top_k": 10,
     "sleeve_weight": 0.1,
-    "universe_size": 100,
-    "min_is_trades": 12
+    "universe_size": 50,
+    "min_is_trades": 25,
+    "dedupe_by_asset": true
   },
   "param_grid": {
     "oversold": [
@@ -37,432 +38,24 @@
       0.55
     ]
   },
-  "n_folds": 21,
+  "n_folds": 17,
   "oos_metrics": {
-    "Sharpe": 0.4790165128769951,
-    "CAGR": 0.11706821010682011,
-    "MaxDD": -0.5250111295797728,
-    "Total Return": 0.7891588694229064,
-    "n_days": 1918,
-    "start": "2021-07-01 00:00:00+00:00",
+    "Sharpe": 0.24985098906463885,
+    "CAGR": 0.02707021281369526,
+    "MaxDD": -0.33095081873821897,
+    "Total Return": 0.12035636642676284,
+    "n_days": 1553,
+    "start": "2022-07-01 00:00:00+00:00",
     "end": "2026-09-30 00:00:00+00:00"
   },
   "fold_records": [
-    {
-      "fold": 0,
-      "is_start": "2020-01-01 00:00:00+00:00",
-      "oos_start": "2021-07-01 00:00:00+00:00",
-      "oos_end": "2021-10-01 00:00:00+00:00",
-      "universe_size": 56,
-      "candidates": 467,
-      "top10": [
-        {
-          "asset": "BCHUSDT",
-          "oversold": 15.0,
-          "ibs_thr": 0.5,
-          "Sharpe": 1.0370911925146917,
-          "num_trades": 22.0,
-          "oos_rank": 1,
-          "combo_key": "BCHUSDT|os15|ibs0.5"
-        },
-        {
-          "asset": "BCHUSDT",
-          "oversold": 15.0,
-          "ibs_thr": 0.45,
-          "Sharpe": 1.0325467543395668,
-          "num_trades": 20.0,
-          "oos_rank": 2,
-          "combo_key": "BCHUSDT|os15|ibs0.45"
-        },
-        {
-          "asset": "BCHUSDT",
-          "oversold": 15.0,
-          "ibs_thr": 0.55,
-          "Sharpe": 0.9943905340829969,
-          "num_trades": 22.0,
-          "oos_rank": 3,
-          "combo_key": "BCHUSDT|os15|ibs0.55"
-        },
-        {
-          "asset": "BCHUSDT",
-          "oversold": 15.0,
-          "ibs_thr": 0.4,
-          "Sharpe": 0.9752692400747486,
-          "num_trades": 17.0,
-          "oos_rank": 4,
-          "combo_key": "BCHUSDT|os15|ibs0.4"
-        },
-        {
-          "asset": "BCHUSDT",
-          "oversold": 12.0,
-          "ibs_thr": 0.5,
-          "Sharpe": 0.9064423662389373,
-          "num_trades": 14.0,
-          "oos_rank": 5,
-          "combo_key": "BCHUSDT|os12|ibs0.5"
-        },
-        {
-          "asset": "BCHUSDT",
-          "oversold": 12.0,
-          "ibs_thr": 0.45,
-          "Sharpe": 0.8882105462467442,
-          "num_trades": 12.0,
-          "oos_rank": 6,
-          "combo_key": "BCHUSDT|os12|ibs0.45"
-        },
-        {
-          "asset": "BCHUSDT",
-          "oversold": 12.0,
-          "ibs_thr": 0.55,
-          "Sharpe": 0.8607468583752247,
-          "num_trades": 14.0,
-          "oos_rank": 7,
-          "combo_key": "BCHUSDT|os12|ibs0.55"
-        },
-        {
-          "asset": "RUNEUSDT",
-          "oversold": 20.0,
-          "ibs_thr": 0.5,
-          "Sharpe": 0.7383374265829401,
-          "num_trades": 14.0,
-          "oos_rank": 8,
-          "combo_key": "RUNEUSDT|os20|ibs0.5"
-        },
-        {
-          "asset": "RUNEUSDT",
-          "oversold": 20.0,
-          "ibs_thr": 0.55,
-          "Sharpe": 0.7383374265829401,
-          "num_trades": 14.0,
-          "oos_rank": 9,
-          "combo_key": "RUNEUSDT|os20|ibs0.55"
-        },
-        {
-          "asset": "LINKUSDT",
-          "oversold": 18.0,
-          "ibs_thr": 0.5,
-          "Sharpe": 0.684707057542974,
-          "num_trades": 16.0,
-          "oos_rank": 10,
-          "combo_key": "LINKUSDT|os18|ibs0.5"
-        }
-      ],
-      "fold_sharpe": 0.6473559154911521,
-      "fold_return": 0.047380221101664066
-    },
-    {
-      "fold": 1,
-      "is_start": "2020-04-01 00:00:00+00:00",
-      "oos_start": "2021-10-01 00:00:00+00:00",
-      "oos_end": "2022-01-01 00:00:00+00:00",
-      "universe_size": 66,
-      "candidates": 676,
-      "top10": [
-        {
-          "asset": "ZECUSDT",
-          "oversold": 12.0,
-          "ibs_thr": 0.5,
-          "Sharpe": 1.2244881082264953,
-          "num_trades": 13.0,
-          "oos_rank": 1,
-          "combo_key": "ZECUSDT|os12|ibs0.5"
-        },
-        {
-          "asset": "SKLUSDT",
-          "oversold": 15.0,
-          "ibs_thr": 0.4,
-          "Sharpe": 1.0392848899741276,
-          "num_trades": 12.0,
-          "oos_rank": 2,
-          "combo_key": "SKLUSDT|os15|ibs0.4"
-        },
-        {
-          "asset": "SKLUSDT",
-          "oversold": 15.0,
-          "ibs_thr": 0.45,
-          "Sharpe": 1.0392848899741276,
-          "num_trades": 12.0,
-          "oos_rank": 3,
-          "combo_key": "SKLUSDT|os15|ibs0.45"
-        },
-        {
-          "asset": "SKLUSDT",
-          "oversold": 15.0,
-          "ibs_thr": 0.5,
-          "Sharpe": 1.0392848899741276,
-          "num_trades": 12.0,
-          "oos_rank": 4,
-          "combo_key": "SKLUSDT|os15|ibs0.5"
-        },
-        {
-          "asset": "SKLUSDT",
-          "oversold": 15.0,
-          "ibs_thr": 0.55,
-          "Sharpe": 1.0392848899741276,
-          "num_trades": 12.0,
-          "oos_rank": 5,
-          "combo_key": "SKLUSDT|os15|ibs0.55"
-        },
-        {
-          "asset": "SKLUSDT",
-          "oversold": 18.0,
-          "ibs_thr": 0.4,
-          "Sharpe": 0.9835304203139427,
-          "num_trades": 13.0,
-          "oos_rank": 6,
-          "combo_key": "SKLUSDT|os18|ibs0.4"
-        },
-        {
-          "asset": "SKLUSDT",
-          "oversold": 18.0,
-          "ibs_thr": 0.45,
-          "Sharpe": 0.9835304203139427,
-          "num_trades": 13.0,
-          "oos_rank": 7,
-          "combo_key": "SKLUSDT|os18|ibs0.45"
-        },
-        {
-          "asset": "SKLUSDT",
-          "oversold": 18.0,
-          "ibs_thr": 0.5,
-          "Sharpe": 0.9588078298780226,
-          "num_trades": 13.0,
-          "oos_rank": 8,
-          "combo_key": "SKLUSDT|os18|ibs0.5"
-        },
-        {
-          "asset": "SKLUSDT",
-          "oversold": 18.0,
-          "ibs_thr": 0.55,
-          "Sharpe": 0.9588078298780226,
-          "num_trades": 13.0,
-          "oos_rank": 9,
-          "combo_key": "SKLUSDT|os18|ibs0.55"
-        },
-        {
-          "asset": "SKLUSDT",
-          "oversold": 20.0,
-          "ibs_thr": 0.4,
-          "Sharpe": 0.91019791755748,
-          "num_trades": 15.0,
-          "oos_rank": 10,
-          "combo_key": "SKLUSDT|os20|ibs0.4"
-        }
-      ],
-      "fold_sharpe": 0.9248645128315002,
-      "fold_return": 0.07746309016299446
-    },
-    {
-      "fold": 2,
-      "is_start": "2020-07-01 00:00:00+00:00",
-      "oos_start": "2022-01-01 00:00:00+00:00",
-      "oos_end": "2022-04-01 00:00:00+00:00",
-      "universe_size": 75,
-      "candidates": 977,
-      "top10": [
-        {
-          "asset": "ZECUSDT",
-          "oversold": 12.0,
-          "ibs_thr": 0.5,
-          "Sharpe": 1.1967086187704878,
-          "num_trades": 15.0,
-          "oos_rank": 1,
-          "combo_key": "ZECUSDT|os12|ibs0.5"
-        },
-        {
-          "asset": "SKLUSDT",
-          "oversold": 15.0,
-          "ibs_thr": 0.4,
-          "Sharpe": 1.154140108956978,
-          "num_trades": 14.0,
-          "oos_rank": 2,
-          "combo_key": "SKLUSDT|os15|ibs0.4"
-        },
-        {
-          "asset": "CELRUSDT",
-          "oversold": 20.0,
-          "ibs_thr": 0.4,
-          "Sharpe": 1.1507775399589761,
-          "num_trades": 15.0,
-          "oos_rank": 3,
-          "combo_key": "CELRUSDT|os20|ibs0.4"
-        },
-        {
-          "asset": "SKLUSDT",
-          "oversold": 18.0,
-          "ibs_thr": 0.35,
-          "Sharpe": 1.1462940249347813,
-          "num_trades": 13.0,
-          "oos_rank": 4,
-          "combo_key": "SKLUSDT|os18|ibs0.35"
-        },
-        {
-          "asset": "ZECUSDT",
-          "oversold": 12.0,
-          "ibs_thr": 0.45,
-          "Sharpe": 1.1322423087010378,
-          "num_trades": 13.0,
-          "oos_rank": 5,
-          "combo_key": "ZECUSDT|os12|ibs0.45"
-        },
-        {
-          "asset": "CELRUSDT",
-          "oversold": 20.0,
-          "ibs_thr": 0.45,
-          "Sharpe": 1.1037984567954453,
-          "num_trades": 16.0,
-          "oos_rank": 6,
-          "combo_key": "CELRUSDT|os20|ibs0.45"
-        },
-        {
-          "asset": "SKLUSDT",
-          "oversold": 18.0,
-          "ibs_thr": 0.4,
-          "Sharpe": 1.0958546958467428,
-          "num_trades": 15.0,
-          "oos_rank": 7,
-          "combo_key": "SKLUSDT|os18|ibs0.4"
-        },
-        {
-          "asset": "ZECUSDT",
-          "oversold": 12.0,
-          "ibs_thr": 0.4,
-          "Sharpe": 1.0865294303437332,
-          "num_trades": 12.0,
-          "oos_rank": 8,
-          "combo_key": "ZECUSDT|os12|ibs0.4"
-        },
-        {
-          "asset": "CELRUSDT",
-          "oversold": 18.0,
-          "ibs_thr": 0.4,
-          "Sharpe": 1.0703108959167391,
-          "num_trades": 12.0,
-          "oos_rank": 9,
-          "combo_key": "CELRUSDT|os18|ibs0.4"
-        },
-        {
-          "asset": "SKLUSDT",
-          "oversold": 15.0,
-          "ibs_thr": 0.45,
-          "Sharpe": 1.0687715039077688,
-          "num_trades": 14.0,
-          "oos_rank": 10,
-          "combo_key": "SKLUSDT|os15|ibs0.45"
-        }
-      ],
-      "fold_sharpe": -1.2405639435434184,
-      "fold_return": -0.14296866117086238
-    },
-    {
-      "fold": 3,
-      "is_start": "2020-10-01 00:00:00+00:00",
-      "oos_start": "2022-04-01 00:00:00+00:00",
-      "oos_end": "2022-07-01 00:00:00+00:00",
-      "universe_size": 81,
-      "candidates": 1399,
-      "top10": [
-        {
-          "asset": "SKLUSDT",
-          "oversold": 12.0,
-          "ibs_thr": 0.4,
-          "Sharpe": 1.3257126308849272,
-          "num_trades": 12.0,
-          "oos_rank": 1,
-          "combo_key": "SKLUSDT|os12|ibs0.4"
-        },
-        {
-          "asset": "CELRUSDT",
-          "oversold": 20.0,
-          "ibs_thr": 0.4,
-          "Sharpe": 1.2225103131365573,
-          "num_trades": 21.0,
-          "oos_rank": 2,
-          "combo_key": "CELRUSDT|os20|ibs0.4"
-        },
-        {
-          "asset": "CELRUSDT",
-          "oversold": 20.0,
-          "ibs_thr": 0.45,
-          "Sharpe": 1.167600571743528,
-          "num_trades": 22.0,
-          "oos_rank": 3,
-          "combo_key": "CELRUSDT|os20|ibs0.45"
-        },
-        {
-          "asset": "SKLUSDT",
-          "oversold": 12.0,
-          "ibs_thr": 0.45,
-          "Sharpe": 1.1366241857543968,
-          "num_trades": 13.0,
-          "oos_rank": 4,
-          "combo_key": "SKLUSDT|os12|ibs0.45"
-        },
-        {
-          "asset": "CELRUSDT",
-          "oversold": 18.0,
-          "ibs_thr": 0.4,
-          "Sharpe": 1.1144617583399519,
-          "num_trades": 18.0,
-          "oos_rank": 5,
-          "combo_key": "CELRUSDT|os18|ibs0.4"
-        },
-        {
-          "asset": "CELRUSDT",
-          "oversold": 18.0,
-          "ibs_thr": 0.45,
-          "Sharpe": 1.0450813896510003,
-          "num_trades": 19.0,
-          "oos_rank": 6,
-          "combo_key": "CELRUSDT|os18|ibs0.45"
-        },
-        {
-          "asset": "SKLUSDT",
-          "oversold": 12.0,
-          "ibs_thr": 0.5,
-          "Sharpe": 0.9690229602190064,
-          "num_trades": 13.0,
-          "oos_rank": 7,
-          "combo_key": "SKLUSDT|os12|ibs0.5"
-        },
-        {
-          "asset": "SKLUSDT",
-          "oversold": 12.0,
-          "ibs_thr": 0.55,
-          "Sharpe": 0.9690229602190064,
-          "num_trades": 13.0,
-          "oos_rank": 8,
-          "combo_key": "SKLUSDT|os12|ibs0.55"
-        },
-        {
-          "asset": "CELRUSDT",
-          "oversold": 20.0,
-          "ibs_thr": 0.5,
-          "Sharpe": 0.9468510738306446,
-          "num_trades": 23.0,
-          "oos_rank": 9,
-          "combo_key": "CELRUSDT|os20|ibs0.5"
-        },
-        {
-          "asset": "CELRUSDT",
-          "oversold": 15.0,
-          "ibs_thr": 0.4,
-          "Sharpe": 0.9311655523162718,
-          "num_trades": 13.0,
-          "oos_rank": 10,
-          "combo_key": "CELRUSDT|os15|ibs0.4"
-        }
-      ],
-      "fold_sharpe": -0.1411434138020172,
-      "fold_return": -0.12528324910571442
-    },
     {
       "fold": 4,
       "is_start": "2021-01-01 00:00:00+00:00",
       "oos_start": "2022-07-01 00:00:00+00:00",
       "oos_end": "2022-10-01 00:00:00+00:00",
-      "universe_size": 89,
-      "candidates": 2064,
+      "universe_size": 50,
+      "candidates": 73,
       "top10": [
         {
           "asset": "CELRUSDT",
@@ -474,1885 +67,1919 @@
           "combo_key": "CELRUSDT|os20|ibs0.4"
         },
         {
-          "asset": "SKLUSDT",
-          "oversold": 12.0,
-          "ibs_thr": 0.3,
-          "Sharpe": 0.9809606080892335,
-          "num_trades": 13.0,
-          "oos_rank": 2,
-          "combo_key": "SKLUSDT|os12|ibs0.3"
-        },
-        {
-          "asset": "SKLUSDT",
-          "oversold": 12.0,
-          "ibs_thr": 0.35,
-          "Sharpe": 0.9809606080892335,
-          "num_trades": 13.0,
-          "oos_rank": 3,
-          "combo_key": "SKLUSDT|os12|ibs0.35"
-        },
-        {
-          "asset": "CELRUSDT",
+          "asset": "ALGOUSDT",
           "oversold": 20.0,
-          "ibs_thr": 0.45,
-          "Sharpe": 0.9516977050728246,
+          "ibs_thr": 0.4,
+          "Sharpe": 0.7604385790655765,
+          "num_trades": 25.0,
+          "oos_rank": 2,
+          "combo_key": "ALGOUSDT|os20|ibs0.4"
+        },
+        {
+          "asset": "RUNEUSDT",
+          "oversold": 20.0,
+          "ibs_thr": 0.5,
+          "Sharpe": 0.7398621025059774,
+          "num_trades": 27.0,
+          "oos_rank": 3,
+          "combo_key": "RUNEUSDT|os20|ibs0.5"
+        },
+        {
+          "asset": "ADAUSDT",
+          "oversold": 20.0,
+          "ibs_thr": 0.5,
+          "Sharpe": 0.5645804280469205,
           "num_trades": 27.0,
           "oos_rank": 4,
-          "combo_key": "CELRUSDT|os20|ibs0.45"
+          "combo_key": "ADAUSDT|os20|ibs0.5"
         },
         {
-          "asset": "SKLUSDT",
-          "oversold": 12.0,
-          "ibs_thr": 0.4,
-          "Sharpe": 0.9361654563515485,
-          "num_trades": 13.0,
-          "oos_rank": 5,
-          "combo_key": "SKLUSDT|os12|ibs0.4"
-        },
-        {
-          "asset": "CELRUSDT",
+          "asset": "ALICEUSDT",
           "oversold": 18.0,
-          "ibs_thr": 0.4,
-          "Sharpe": 0.904610777742756,
-          "num_trades": 22.0,
-          "oos_rank": 6,
-          "combo_key": "CELRUSDT|os18|ibs0.4"
+          "ibs_thr": 0.5,
+          "Sharpe": 0.5328171768712375,
+          "num_trades": 25.0,
+          "oos_rank": 5,
+          "combo_key": "ALICEUSDT|os18|ibs0.5"
         },
         {
-          "asset": "SANDUSDT",
-          "oversold": 8.0,
-          "ibs_thr": 0.55,
-          "Sharpe": 0.8697380662329259,
-          "num_trades": 12.0,
-          "oos_rank": 7,
-          "combo_key": "SANDUSDT|os8|ibs0.55"
-        },
-        {
-          "asset": "COTIUSDT",
+          "asset": "COMPUSDT",
           "oversold": 20.0,
-          "ibs_thr": 0.25,
-          "Sharpe": 0.8179550505664934,
-          "num_trades": 14.0,
-          "oos_rank": 8,
-          "combo_key": "COTIUSDT|os20|ibs0.25"
+          "ibs_thr": 0.45,
+          "Sharpe": 0.4677114231000206,
+          "num_trades": 25.0,
+          "oos_rank": 6,
+          "combo_key": "COMPUSDT|os20|ibs0.45"
         },
         {
-          "asset": "CELRUSDT",
+          "asset": "DOGEUSDT",
           "oversold": 18.0,
           "ibs_thr": 0.45,
-          "Sharpe": 0.8169639077540999,
-          "num_trades": 23.0,
-          "oos_rank": 9,
-          "combo_key": "CELRUSDT|os18|ibs0.45"
+          "Sharpe": 0.45174356982388947,
+          "num_trades": 25.0,
+          "oos_rank": 7,
+          "combo_key": "DOGEUSDT|os18|ibs0.45"
         },
         {
-          "asset": "COTIUSDT",
-          "oversold": 15.0,
-          "ibs_thr": 0.25,
-          "Sharpe": 0.8022975706389925,
-          "num_trades": 12.0,
+          "asset": "AXSUSDT",
+          "oversold": 20.0,
+          "ibs_thr": 0.55,
+          "Sharpe": 0.41438996529576755,
+          "num_trades": 25.0,
+          "oos_rank": 8,
+          "combo_key": "AXSUSDT|os20|ibs0.55"
+        },
+        {
+          "asset": "XLMUSDT",
+          "oversold": 20.0,
+          "ibs_thr": 0.5,
+          "Sharpe": 0.3281847772060857,
+          "num_trades": 26.0,
+          "oos_rank": 9,
+          "combo_key": "XLMUSDT|os20|ibs0.5"
+        },
+        {
+          "asset": "UNIUSDT",
+          "oversold": 20.0,
+          "ibs_thr": 0.55,
+          "Sharpe": 0.2913889799437465,
+          "num_trades": 26.0,
           "oos_rank": 10,
-          "combo_key": "COTIUSDT|os15|ibs0.25"
+          "combo_key": "UNIUSDT|os20|ibs0.55"
         }
       ],
-      "fold_sharpe": 0.5677061148339305,
-      "fold_return": 0.03174664176563935
+      "n_sleeves": 10,
+      "sleeve_weight": 0.1,
+      "fold_sharpe": 1.3077926451873294,
+      "fold_return": 0.09150105371656791
     },
     {
       "fold": 5,
       "is_start": "2021-04-01 00:00:00+00:00",
       "oos_start": "2022-10-01 00:00:00+00:00",
       "oos_end": "2023-01-01 00:00:00+00:00",
-      "universe_size": 96,
-      "candidates": 2545,
+      "universe_size": 50,
+      "candidates": 158,
       "top10": [
         {
-          "asset": "CELRUSDT",
+          "asset": "ALICEUSDT",
           "oversold": 20.0,
-          "ibs_thr": 0.45,
-          "Sharpe": 1.0429646669656059,
-          "num_trades": 33.0,
-          "oos_rank": 1,
-          "combo_key": "CELRUSDT|os20|ibs0.45"
-        },
-        {
-          "asset": "CELRUSDT",
-          "oversold": 20.0,
-          "ibs_thr": 0.4,
-          "Sharpe": 1.0346797102712713,
-          "num_trades": 30.0,
-          "oos_rank": 2,
-          "combo_key": "CELRUSDT|os20|ibs0.4"
-        },
-        {
-          "asset": "CELRUSDT",
-          "oversold": 18.0,
-          "ibs_thr": 0.4,
-          "Sharpe": 0.9451545015956001,
+          "ibs_thr": 0.3,
+          "Sharpe": 0.7335448002095372,
           "num_trades": 27.0,
-          "oos_rank": 3,
-          "combo_key": "CELRUSDT|os18|ibs0.4"
+          "oos_rank": 1,
+          "combo_key": "ALICEUSDT|os20|ibs0.3"
         },
         {
-          "asset": "CELRUSDT",
-          "oversold": 18.0,
-          "ibs_thr": 0.45,
-          "Sharpe": 0.9189961660900554,
-          "num_trades": 29.0,
-          "oos_rank": 4,
-          "combo_key": "CELRUSDT|os18|ibs0.45"
-        },
-        {
-          "asset": "CELRUSDT",
+          "asset": "XTZUSDT",
           "oversold": 20.0,
           "ibs_thr": 0.5,
-          "Sharpe": 0.8574493492687605,
-          "num_trades": 34.0,
-          "oos_rank": 5,
-          "combo_key": "CELRUSDT|os20|ibs0.5"
+          "Sharpe": 0.7242477707133254,
+          "num_trades": 26.0,
+          "oos_rank": 2,
+          "combo_key": "XTZUSDT|os20|ibs0.5"
         },
         {
-          "asset": "BATUSDT",
-          "oversold": 18.0,
-          "ibs_thr": 0.3,
-          "Sharpe": 0.8167483529941412,
-          "num_trades": 23.0,
-          "oos_rank": 6,
-          "combo_key": "BATUSDT|os18|ibs0.3"
-        },
-        {
-          "asset": "CELRUSDT",
+          "asset": "ALGOUSDT",
           "oversold": 20.0,
-          "ibs_thr": 0.55,
-          "Sharpe": 0.8086700202997181,
-          "num_trades": 34.0,
-          "oos_rank": 7,
-          "combo_key": "CELRUSDT|os20|ibs0.55"
-        },
-        {
-          "asset": "BATUSDT",
-          "oversold": 18.0,
-          "ibs_thr": 0.2,
-          "Sharpe": 0.8003260138958629,
-          "num_trades": 15.0,
-          "oos_rank": 8,
-          "combo_key": "BATUSDT|os18|ibs0.2"
-        },
-        {
-          "asset": "CELRUSDT",
-          "oversold": 15.0,
           "ibs_thr": 0.4,
-          "Sharpe": 0.767844739715355,
-          "num_trades": 18.0,
-          "oos_rank": 9,
-          "combo_key": "CELRUSDT|os15|ibs0.4"
+          "Sharpe": 0.6175357775734779,
+          "num_trades": 25.0,
+          "oos_rank": 3,
+          "combo_key": "ALGOUSDT|os20|ibs0.4"
         },
         {
-          "asset": "SANDUSDT",
-          "oversold": 8.0,
+          "asset": "RUNEUSDT",
+          "oversold": 20.0,
+          "ibs_thr": 0.5,
+          "Sharpe": 0.5799265289283493,
+          "num_trades": 30.0,
+          "oos_rank": 4,
+          "combo_key": "RUNEUSDT|os20|ibs0.5"
+        },
+        {
+          "asset": "ADAUSDT",
+          "oversold": 18.0,
+          "ibs_thr": 0.35,
+          "Sharpe": 0.5136540097681652,
+          "num_trades": 25.0,
+          "oos_rank": 5,
+          "combo_key": "ADAUSDT|os18|ibs0.35"
+        },
+        {
+          "asset": "SNXUSDT",
+          "oversold": 20.0,
+          "ibs_thr": 0.3,
+          "Sharpe": 0.4854520734873439,
+          "num_trades": 25.0,
+          "oos_rank": 6,
+          "combo_key": "SNXUSDT|os20|ibs0.3"
+        },
+        {
+          "asset": "SOLUSDT",
+          "oversold": 20.0,
+          "ibs_thr": 0.5,
+          "Sharpe": 0.44198653331915005,
+          "num_trades": 25.0,
+          "oos_rank": 7,
+          "combo_key": "SOLUSDT|os20|ibs0.5"
+        },
+        {
+          "asset": "ATOMUSDT",
+          "oversold": 20.0,
+          "ibs_thr": 0.5,
+          "Sharpe": 0.37623559086554714,
+          "num_trades": 25.0,
+          "oos_rank": 8,
+          "combo_key": "ATOMUSDT|os20|ibs0.5"
+        },
+        {
+          "asset": "COMPUSDT",
+          "oversold": 20.0,
+          "ibs_thr": 0.45,
+          "Sharpe": 0.36483649228349807,
+          "num_trades": 26.0,
+          "oos_rank": 9,
+          "combo_key": "COMPUSDT|os20|ibs0.45"
+        },
+        {
+          "asset": "UNIUSDT",
+          "oversold": 18.0,
           "ibs_thr": 0.55,
-          "Sharpe": 0.760737956222392,
-          "num_trades": 12.0,
+          "Sharpe": 0.3643752345368043,
+          "num_trades": 25.0,
           "oos_rank": 10,
-          "combo_key": "SANDUSDT|os8|ibs0.55"
+          "combo_key": "UNIUSDT|os18|ibs0.55"
         }
       ],
-      "fold_sharpe": -0.08395212448112249,
-      "fold_return": -0.03253529260791077
+      "n_sleeves": 10,
+      "sleeve_weight": 0.1,
+      "fold_sharpe": 0.031973722199631946,
+      "fold_return": -0.032522639539430576
     },
     {
       "fold": 6,
       "is_start": "2021-07-01 00:00:00+00:00",
       "oos_start": "2023-01-01 00:00:00+00:00",
       "oos_end": "2023-04-01 00:00:00+00:00",
-      "universe_size": 100,
-      "candidates": 3042,
+      "universe_size": 50,
+      "candidates": 259,
       "top10": [
         {
-          "asset": "BATUSDT",
-          "oversold": 18.0,
-          "ibs_thr": 0.3,
-          "Sharpe": 0.8482875852487451,
-          "num_trades": 25.0,
-          "oos_rank": 1,
-          "combo_key": "BATUSDT|os18|ibs0.3"
-        },
-        {
-          "asset": "BATUSDT",
-          "oversold": 18.0,
-          "ibs_thr": 0.25,
-          "Sharpe": 0.8213536990549041,
-          "num_trades": 19.0,
-          "oos_rank": 2,
-          "combo_key": "BATUSDT|os18|ibs0.25"
-        },
-        {
-          "asset": "ADAUSDT",
-          "oversold": 8.0,
-          "ibs_thr": 0.3,
-          "Sharpe": 0.8132611373815645,
-          "num_trades": 12.0,
-          "oos_rank": 3,
-          "combo_key": "ADAUSDT|os8|ibs0.3"
-        },
-        {
-          "asset": "BATUSDT",
+          "asset": "ALICEUSDT",
           "oversold": 20.0,
-          "ibs_thr": 0.25,
-          "Sharpe": 0.8048805789949712,
-          "num_trades": 21.0,
-          "oos_rank": 4,
-          "combo_key": "BATUSDT|os20|ibs0.25"
-        },
-        {
-          "asset": "BATUSDT",
-          "oversold": 18.0,
-          "ibs_thr": 0.2,
-          "Sharpe": 0.8021147265424096,
-          "num_trades": 17.0,
-          "oos_rank": 5,
-          "combo_key": "BATUSDT|os18|ibs0.2"
+          "ibs_thr": 0.35,
+          "Sharpe": 0.7231028854060562,
+          "num_trades": 28.0,
+          "oos_rank": 1,
+          "combo_key": "ALICEUSDT|os20|ibs0.35"
         },
         {
           "asset": "DOTUSDT",
           "oversold": 20.0,
-          "ibs_thr": 0.25,
-          "Sharpe": 0.7919048530238162,
-          "num_trades": 24.0,
-          "oos_rank": 6,
-          "combo_key": "DOTUSDT|os20|ibs0.25"
+          "ibs_thr": 0.3,
+          "Sharpe": 0.5613505966666108,
+          "num_trades": 28.0,
+          "oos_rank": 2,
+          "combo_key": "DOTUSDT|os20|ibs0.3"
         },
         {
-          "asset": "ADAUSDT",
-          "oversold": 8.0,
-          "ibs_thr": 0.4,
-          "Sharpe": 0.7864559725977885,
-          "num_trades": 14.0,
-          "oos_rank": 7,
-          "combo_key": "ADAUSDT|os8|ibs0.4"
-        },
-        {
-          "asset": "ADAUSDT",
-          "oversold": 8.0,
-          "ibs_thr": 0.45,
-          "Sharpe": 0.7864559725977885,
-          "num_trades": 14.0,
-          "oos_rank": 8,
-          "combo_key": "ADAUSDT|os8|ibs0.45"
-        },
-        {
-          "asset": "IMXUSDT",
-          "oversold": 10.0,
-          "ibs_thr": 0.4,
-          "Sharpe": 0.774804514727648,
-          "num_trades": 12.0,
-          "oos_rank": 9,
-          "combo_key": "IMXUSDT|os10|ibs0.4"
-        },
-        {
-          "asset": "CELRUSDT",
+          "asset": "SNXUSDT",
           "oversold": 20.0,
-          "ibs_thr": 0.45,
-          "Sharpe": 0.7714870881031994,
-          "num_trades": 31.0,
+          "ibs_thr": 0.35,
+          "Sharpe": 0.534698373468648,
+          "num_trades": 28.0,
+          "oos_rank": 3,
+          "combo_key": "SNXUSDT|os20|ibs0.35"
+        },
+        {
+          "asset": "RUNEUSDT",
+          "oversold": 20.0,
+          "ibs_thr": 0.25,
+          "Sharpe": 0.4635652088781798,
+          "num_trades": 25.0,
+          "oos_rank": 4,
+          "combo_key": "RUNEUSDT|os20|ibs0.25"
+        },
+        {
+          "asset": "UNIUSDT",
+          "oversold": 20.0,
+          "ibs_thr": 0.55,
+          "Sharpe": 0.45732698471705846,
+          "num_trades": 29.0,
+          "oos_rank": 5,
+          "combo_key": "UNIUSDT|os20|ibs0.55"
+        },
+        {
+          "asset": "AXSUSDT",
+          "oversold": 20.0,
+          "ibs_thr": 0.4,
+          "Sharpe": 0.43170584799574907,
+          "num_trades": 26.0,
+          "oos_rank": 6,
+          "combo_key": "AXSUSDT|os20|ibs0.4"
+        },
+        {
+          "asset": "ADAUSDT",
+          "oversold": 18.0,
+          "ibs_thr": 0.35,
+          "Sharpe": 0.42886896603928437,
+          "num_trades": 28.0,
+          "oos_rank": 7,
+          "combo_key": "ADAUSDT|os18|ibs0.35"
+        },
+        {
+          "asset": "CHRUSDT",
+          "oversold": 20.0,
+          "ibs_thr": 0.35,
+          "Sharpe": 0.403216271039626,
+          "num_trades": 25.0,
+          "oos_rank": 8,
+          "combo_key": "CHRUSDT|os20|ibs0.35"
+        },
+        {
+          "asset": "DYDXUSDT",
+          "oversold": 20.0,
+          "ibs_thr": 0.55,
+          "Sharpe": 0.39997281039657623,
+          "num_trades": 27.0,
+          "oos_rank": 9,
+          "combo_key": "DYDXUSDT|os20|ibs0.55"
+        },
+        {
+          "asset": "ZECUSDT",
+          "oversold": 20.0,
+          "ibs_thr": 0.35,
+          "Sharpe": 0.3785860050017587,
+          "num_trades": 29.0,
           "oos_rank": 10,
-          "combo_key": "CELRUSDT|os20|ibs0.45"
+          "combo_key": "ZECUSDT|os20|ibs0.35"
         }
       ],
-      "fold_sharpe": 1.3210689020605706,
-      "fold_return": 0.045311974644040465
+      "n_sleeves": 10,
+      "sleeve_weight": 0.1,
+      "fold_sharpe": 0.6853908681128039,
+      "fold_return": 0.040638900533612965
     },
     {
       "fold": 7,
       "is_start": "2021-10-01 00:00:00+00:00",
       "oos_start": "2023-04-01 00:00:00+00:00",
       "oos_end": "2023-07-01 00:00:00+00:00",
-      "universe_size": 100,
-      "candidates": 2779,
+      "universe_size": 50,
+      "candidates": 189,
       "top10": [
         {
-          "asset": "BELUSDT",
-          "oversold": 20.0,
-          "ibs_thr": 0.2,
-          "Sharpe": 1.042885601230455,
-          "num_trades": 12.0,
+          "asset": "ALICEUSDT",
+          "oversold": 18.0,
+          "ibs_thr": 0.4,
+          "Sharpe": 0.5719420308234053,
+          "num_trades": 25.0,
           "oos_rank": 1,
-          "combo_key": "BELUSDT|os20|ibs0.2"
+          "combo_key": "ALICEUSDT|os18|ibs0.4"
         },
         {
-          "asset": "DYDXUSDT",
+          "asset": "SNXUSDT",
           "oversold": 20.0,
-          "ibs_thr": 0.25,
-          "Sharpe": 0.9003450428721007,
-          "num_trades": 16.0,
+          "ibs_thr": 0.35,
+          "Sharpe": 0.5323606161619778,
+          "num_trades": 28.0,
           "oos_rank": 2,
-          "combo_key": "DYDXUSDT|os20|ibs0.25"
+          "combo_key": "SNXUSDT|os20|ibs0.35"
         },
         {
           "asset": "DYDXUSDT",
           "oversold": 18.0,
-          "ibs_thr": 0.25,
-          "Sharpe": 0.858938238832644,
-          "num_trades": 14.0,
+          "ibs_thr": 0.4,
+          "Sharpe": 0.5015673946477942,
+          "num_trades": 25.0,
           "oos_rank": 3,
-          "combo_key": "DYDXUSDT|os18|ibs0.25"
+          "combo_key": "DYDXUSDT|os18|ibs0.4"
         },
         {
-          "asset": "IMXUSDT",
-          "oversold": 10.0,
-          "ibs_thr": 0.55,
-          "Sharpe": 0.8485438319250086,
-          "num_trades": 14.0,
+          "asset": "DOTUSDT",
+          "oversold": 20.0,
+          "ibs_thr": 0.3,
+          "Sharpe": 0.4897595730141856,
+          "num_trades": 27.0,
           "oos_rank": 4,
-          "combo_key": "IMXUSDT|os10|ibs0.55"
+          "combo_key": "DOTUSDT|os20|ibs0.3"
         },
         {
-          "asset": "IMXUSDT",
-          "oversold": 10.0,
-          "ibs_thr": 0.45,
-          "Sharpe": 0.8300849286476084,
-          "num_trades": 13.0,
+          "asset": "ADAUSDT",
+          "oversold": 18.0,
+          "ibs_thr": 0.35,
+          "Sharpe": 0.4552922428176265,
+          "num_trades": 28.0,
           "oos_rank": 5,
-          "combo_key": "IMXUSDT|os10|ibs0.45"
+          "combo_key": "ADAUSDT|os18|ibs0.35"
         },
         {
-          "asset": "IMXUSDT",
-          "oversold": 10.0,
-          "ibs_thr": 0.5,
-          "Sharpe": 0.8300849286476084,
-          "num_trades": 13.0,
+          "asset": "RUNEUSDT",
+          "oversold": 20.0,
+          "ibs_thr": 0.3,
+          "Sharpe": 0.430815930302503,
+          "num_trades": 25.0,
           "oos_rank": 6,
-          "combo_key": "IMXUSDT|os10|ibs0.5"
+          "combo_key": "RUNEUSDT|os20|ibs0.3"
         },
         {
-          "asset": "IMXUSDT",
-          "oversold": 10.0,
-          "ibs_thr": 0.4,
-          "Sharpe": 0.8040756250822211,
-          "num_trades": 12.0,
+          "asset": "MASKUSDT",
+          "oversold": 18.0,
+          "ibs_thr": 0.55,
+          "Sharpe": 0.4068413251186413,
+          "num_trades": 28.0,
           "oos_rank": 7,
-          "combo_key": "IMXUSDT|os10|ibs0.4"
+          "combo_key": "MASKUSDT|os18|ibs0.55"
         },
         {
-          "asset": "DUSKUSDT",
-          "oversold": 10.0,
-          "ibs_thr": 0.45,
-          "Sharpe": 0.8006644498594975,
-          "num_trades": 12.0,
+          "asset": "GALAUSDT",
+          "oversold": 20.0,
+          "ibs_thr": 0.3,
+          "Sharpe": 0.3892041392683912,
+          "num_trades": 25.0,
           "oos_rank": 8,
-          "combo_key": "DUSKUSDT|os10|ibs0.45"
+          "combo_key": "GALAUSDT|os20|ibs0.3"
         },
         {
-          "asset": "ADAUSDT",
-          "oversold": 8.0,
-          "ibs_thr": 0.4,
-          "Sharpe": 0.7878771586795155,
-          "num_trades": 13.0,
+          "asset": "MANAUSDT",
+          "oversold": 20.0,
+          "ibs_thr": 0.3,
+          "Sharpe": 0.35451197384658417,
+          "num_trades": 25.0,
           "oos_rank": 9,
-          "combo_key": "ADAUSDT|os8|ibs0.4"
+          "combo_key": "MANAUSDT|os20|ibs0.3"
         },
         {
-          "asset": "ADAUSDT",
-          "oversold": 8.0,
-          "ibs_thr": 0.45,
-          "Sharpe": 0.7878771586795155,
-          "num_trades": 13.0,
+          "asset": "UNIUSDT",
+          "oversold": 20.0,
+          "ibs_thr": 0.55,
+          "Sharpe": 0.35065453898595006,
+          "num_trades": 26.0,
           "oos_rank": 10,
-          "combo_key": "ADAUSDT|os8|ibs0.45"
+          "combo_key": "UNIUSDT|os20|ibs0.55"
         }
       ],
-      "fold_sharpe": 1.275265830420268,
-      "fold_return": 0.051054845884751066
+      "n_sleeves": 10,
+      "sleeve_weight": 0.1,
+      "fold_sharpe": -1.7452194368147624,
+      "fold_return": -0.10084140212615511
     },
     {
       "fold": 8,
       "is_start": "2022-01-01 00:00:00+00:00",
       "oos_start": "2023-07-01 00:00:00+00:00",
       "oos_end": "2023-10-01 00:00:00+00:00",
-      "universe_size": 100,
-      "candidates": 2965,
+      "universe_size": 50,
+      "candidates": 212,
       "top10": [
-        {
-          "asset": "IMXUSDT",
-          "oversold": 10.0,
-          "ibs_thr": 0.55,
-          "Sharpe": 0.9227237873254676,
-          "num_trades": 16.0,
-          "oos_rank": 1,
-          "combo_key": "IMXUSDT|os10|ibs0.55"
-        },
-        {
-          "asset": "IMXUSDT",
-          "oversold": 10.0,
-          "ibs_thr": 0.45,
-          "Sharpe": 0.9048870377565366,
-          "num_trades": 15.0,
-          "oos_rank": 2,
-          "combo_key": "IMXUSDT|os10|ibs0.45"
-        },
-        {
-          "asset": "IMXUSDT",
-          "oversold": 10.0,
-          "ibs_thr": 0.5,
-          "Sharpe": 0.9048870377565366,
-          "num_trades": 15.0,
-          "oos_rank": 3,
-          "combo_key": "IMXUSDT|os10|ibs0.5"
-        },
-        {
-          "asset": "IMXUSDT",
-          "oversold": 10.0,
-          "ibs_thr": 0.4,
-          "Sharpe": 0.9027811282593833,
-          "num_trades": 14.0,
-          "oos_rank": 4,
-          "combo_key": "IMXUSDT|os10|ibs0.4"
-        },
-        {
-          "asset": "BELUSDT",
-          "oversold": 20.0,
-          "ibs_thr": 0.2,
-          "Sharpe": 0.879128880864493,
-          "num_trades": 13.0,
-          "oos_rank": 5,
-          "combo_key": "BELUSDT|os20|ibs0.2"
-        },
-        {
-          "asset": "IMXUSDT",
-          "oversold": 10.0,
-          "ibs_thr": 0.35,
-          "Sharpe": 0.8531853583026322,
-          "num_trades": 13.0,
-          "oos_rank": 6,
-          "combo_key": "IMXUSDT|os10|ibs0.35"
-        },
-        {
-          "asset": "DUSKUSDT",
-          "oversold": 10.0,
-          "ibs_thr": 0.45,
-          "Sharpe": 0.8390239619648119,
-          "num_trades": 14.0,
-          "oos_rank": 7,
-          "combo_key": "DUSKUSDT|os10|ibs0.45"
-        },
-        {
-          "asset": "DYDXUSDT",
-          "oversold": 20.0,
-          "ibs_thr": 0.25,
-          "Sharpe": 0.8329346643704771,
-          "num_trades": 16.0,
-          "oos_rank": 8,
-          "combo_key": "DYDXUSDT|os20|ibs0.25"
-        },
-        {
-          "asset": "DYDXUSDT",
-          "oversold": 18.0,
-          "ibs_thr": 0.25,
-          "Sharpe": 0.8003649305742025,
-          "num_trades": 14.0,
-          "oos_rank": 9,
-          "combo_key": "DYDXUSDT|os18|ibs0.25"
-        },
         {
           "asset": "DYDXUSDT",
           "oversold": 20.0,
           "ibs_thr": 0.55,
           "Sharpe": 0.7890954777086348,
           "num_trades": 32.0,
-          "oos_rank": 10,
+          "oos_rank": 1,
           "combo_key": "DYDXUSDT|os20|ibs0.55"
+        },
+        {
+          "asset": "DOTUSDT",
+          "oversold": 20.0,
+          "ibs_thr": 0.3,
+          "Sharpe": 0.5912856212349253,
+          "num_trades": 31.0,
+          "oos_rank": 2,
+          "combo_key": "DOTUSDT|os20|ibs0.3"
+        },
+        {
+          "asset": "SNXUSDT",
+          "oversold": 20.0,
+          "ibs_thr": 0.35,
+          "Sharpe": 0.4436210957688931,
+          "num_trades": 28.0,
+          "oos_rank": 3,
+          "combo_key": "SNXUSDT|os20|ibs0.35"
+        },
+        {
+          "asset": "GRTUSDT",
+          "oversold": 20.0,
+          "ibs_thr": 0.5,
+          "Sharpe": 0.30927750156242945,
+          "num_trades": 31.0,
+          "oos_rank": 4,
+          "combo_key": "GRTUSDT|os20|ibs0.5"
+        },
+        {
+          "asset": "MASKUSDT",
+          "oversold": 18.0,
+          "ibs_thr": 0.4,
+          "Sharpe": 0.29022018735638666,
+          "num_trades": 28.0,
+          "oos_rank": 5,
+          "combo_key": "MASKUSDT|os18|ibs0.4"
+        },
+        {
+          "asset": "CRVUSDT",
+          "oversold": 18.0,
+          "ibs_thr": 0.5,
+          "Sharpe": 0.2526305076906978,
+          "num_trades": 28.0,
+          "oos_rank": 6,
+          "combo_key": "CRVUSDT|os18|ibs0.5"
+        },
+        {
+          "asset": "UNIUSDT",
+          "oversold": 20.0,
+          "ibs_thr": 0.5,
+          "Sharpe": 0.25197692758290585,
+          "num_trades": 26.0,
+          "oos_rank": 7,
+          "combo_key": "UNIUSDT|os20|ibs0.5"
+        },
+        {
+          "asset": "RUNEUSDT",
+          "oversold": 20.0,
+          "ibs_thr": 0.3,
+          "Sharpe": 0.2325344105997839,
+          "num_trades": 26.0,
+          "oos_rank": 8,
+          "combo_key": "RUNEUSDT|os20|ibs0.3"
+        },
+        {
+          "asset": "MANAUSDT",
+          "oversold": 20.0,
+          "ibs_thr": 0.3,
+          "Sharpe": 0.2313624742040423,
+          "num_trades": 28.0,
+          "oos_rank": 9,
+          "combo_key": "MANAUSDT|os20|ibs0.3"
+        },
+        {
+          "asset": "SOLUSDT",
+          "oversold": 20.0,
+          "ibs_thr": 0.35,
+          "Sharpe": 0.22178673744475103,
+          "num_trades": 25.0,
+          "oos_rank": 10,
+          "combo_key": "SOLUSDT|os20|ibs0.35"
         }
       ],
-      "fold_sharpe": -0.1461241799333194,
-      "fold_return": -0.008621488319793369
+      "n_sleeves": 10,
+      "sleeve_weight": 0.1,
+      "fold_sharpe": 1.9193344904688827,
+      "fold_return": 0.06751836677209799
     },
     {
       "fold": 9,
       "is_start": "2022-04-01 00:00:00+00:00",
       "oos_start": "2023-10-01 00:00:00+00:00",
       "oos_end": "2024-01-01 00:00:00+00:00",
-      "universe_size": 100,
-      "candidates": 2546,
+      "universe_size": 50,
+      "candidates": 216,
       "top10": [
-        {
-          "asset": "STXUSDT",
-          "oversold": 20.0,
-          "ibs_thr": 0.3,
-          "Sharpe": 1.1780790480309957,
-          "num_trades": 12.0,
-          "oos_rank": 1,
-          "combo_key": "STXUSDT|os20|ibs0.3"
-        },
-        {
-          "asset": "STXUSDT",
-          "oversold": 18.0,
-          "ibs_thr": 0.5,
-          "Sharpe": 1.0439997149986304,
-          "num_trades": 13.0,
-          "oos_rank": 2,
-          "combo_key": "STXUSDT|os18|ibs0.5"
-        },
-        {
-          "asset": "STXUSDT",
-          "oversold": 20.0,
-          "ibs_thr": 0.5,
-          "Sharpe": 1.0135830805065298,
-          "num_trades": 18.0,
-          "oos_rank": 3,
-          "combo_key": "STXUSDT|os20|ibs0.5"
-        },
         {
           "asset": "DYDXUSDT",
           "oversold": 20.0,
           "ibs_thr": 0.55,
           "Sharpe": 1.0041962853346484,
           "num_trades": 32.0,
-          "oos_rank": 4,
+          "oos_rank": 1,
           "combo_key": "DYDXUSDT|os20|ibs0.55"
         },
         {
-          "asset": "STXUSDT",
+          "asset": "DOTUSDT",
           "oversold": 20.0,
-          "ibs_thr": 0.35,
-          "Sharpe": 0.9936318153543241,
-          "num_trades": 12.0,
-          "oos_rank": 5,
-          "combo_key": "STXUSDT|os20|ibs0.35"
+          "ibs_thr": 0.3,
+          "Sharpe": 0.715749278418734,
+          "num_trades": 31.0,
+          "oos_rank": 2,
+          "combo_key": "DOTUSDT|os20|ibs0.3"
         },
         {
-          "asset": "STXUSDT",
+          "asset": "MASKUSDT",
           "oversold": 18.0,
-          "ibs_thr": 0.55,
-          "Sharpe": 0.9833915628170127,
-          "num_trades": 15.0,
-          "oos_rank": 6,
-          "combo_key": "STXUSDT|os18|ibs0.55"
-        },
-        {
-          "asset": "STXUSDT",
-          "oversold": 15.0,
-          "ibs_thr": 0.55,
-          "Sharpe": 0.9595624258502796,
-          "num_trades": 13.0,
-          "oos_rank": 7,
-          "combo_key": "STXUSDT|os15|ibs0.55"
-        },
-        {
-          "asset": "STXUSDT",
-          "oversold": 20.0,
-          "ibs_thr": 0.55,
-          "Sharpe": 0.9381840786221953,
-          "num_trades": 19.0,
-          "oos_rank": 8,
-          "combo_key": "STXUSDT|os20|ibs0.55"
-        },
-        {
-          "asset": "STXUSDT",
-          "oversold": 20.0,
           "ibs_thr": 0.4,
-          "Sharpe": 0.9365406338482496,
-          "num_trades": 14.0,
-          "oos_rank": 9,
-          "combo_key": "STXUSDT|os20|ibs0.4"
+          "Sharpe": 0.5464945367009623,
+          "num_trades": 27.0,
+          "oos_rank": 3,
+          "combo_key": "MASKUSDT|os18|ibs0.4"
         },
         {
-          "asset": "DYDXUSDT",
+          "asset": "GRTUSDT",
+          "oversold": 20.0,
+          "ibs_thr": 0.3,
+          "Sharpe": 0.5274605927192024,
+          "num_trades": 25.0,
+          "oos_rank": 4,
+          "combo_key": "GRTUSDT|os20|ibs0.3"
+        },
+        {
+          "asset": "SNXUSDT",
+          "oversold": 20.0,
+          "ibs_thr": 0.25,
+          "Sharpe": 0.42723881140468045,
+          "num_trades": 25.0,
+          "oos_rank": 5,
+          "combo_key": "SNXUSDT|os20|ibs0.25"
+        },
+        {
+          "asset": "CRVUSDT",
+          "oversold": 18.0,
+          "ibs_thr": 0.5,
+          "Sharpe": 0.37566480791104995,
+          "num_trades": 27.0,
+          "oos_rank": 6,
+          "combo_key": "CRVUSDT|os18|ibs0.5"
+        },
+        {
+          "asset": "XMRUSDT",
           "oversold": 20.0,
           "ibs_thr": 0.5,
-          "Sharpe": 0.8991495639044297,
-          "num_trades": 30.0,
+          "Sharpe": 0.35710086606136077,
+          "num_trades": 26.0,
+          "oos_rank": 7,
+          "combo_key": "XMRUSDT|os20|ibs0.5"
+        },
+        {
+          "asset": "GALAUSDT",
+          "oversold": 18.0,
+          "ibs_thr": 0.35,
+          "Sharpe": 0.2779073679678726,
+          "num_trades": 27.0,
+          "oos_rank": 8,
+          "combo_key": "GALAUSDT|os18|ibs0.35"
+        },
+        {
+          "asset": "ZECUSDT",
+          "oversold": 20.0,
+          "ibs_thr": 0.35,
+          "Sharpe": 0.25876128719949476,
+          "num_trades": 25.0,
+          "oos_rank": 9,
+          "combo_key": "ZECUSDT|os20|ibs0.35"
+        },
+        {
+          "asset": "UNIUSDT",
+          "oversold": 20.0,
+          "ibs_thr": 0.5,
+          "Sharpe": 0.23204116079460774,
+          "num_trades": 25.0,
           "oos_rank": 10,
-          "combo_key": "DYDXUSDT|os20|ibs0.5"
+          "combo_key": "UNIUSDT|os20|ibs0.5"
         }
       ],
-      "fold_sharpe": 3.7375340154373795,
-      "fold_return": 0.1513481608715619
+      "n_sleeves": 10,
+      "sleeve_weight": 0.1,
+      "fold_sharpe": 3.6877241607968663,
+      "fold_return": 0.11147063255203715
     },
     {
       "fold": 10,
       "is_start": "2022-07-01 00:00:00+00:00",
       "oos_start": "2024-01-01 00:00:00+00:00",
       "oos_end": "2024-04-01 00:00:00+00:00",
-      "universe_size": 100,
-      "candidates": 1817,
+      "universe_size": 50,
+      "candidates": 94,
       "top10": [
         {
-          "asset": "STXUSDT",
+          "asset": "DYDXUSDT",
           "oversold": 20.0,
-          "ibs_thr": 0.3,
-          "Sharpe": 1.294622157954514,
-          "num_trades": 13.0,
+          "ibs_thr": 0.55,
+          "Sharpe": 1.0921721925710541,
+          "num_trades": 30.0,
           "oos_rank": 1,
-          "combo_key": "STXUSDT|os20|ibs0.3"
+          "combo_key": "DYDXUSDT|os20|ibs0.55"
         },
         {
-          "asset": "STXUSDT",
-          "oversold": 18.0,
+          "asset": "DOTUSDT",
+          "oversold": 20.0,
           "ibs_thr": 0.4,
-          "Sharpe": 1.2273748331537935,
-          "num_trades": 13.0,
+          "Sharpe": 0.9832362033293508,
+          "num_trades": 32.0,
           "oos_rank": 2,
-          "combo_key": "STXUSDT|os18|ibs0.4"
+          "combo_key": "DOTUSDT|os20|ibs0.4"
         },
         {
-          "asset": "STXUSDT",
-          "oversold": 18.0,
-          "ibs_thr": 0.5,
-          "Sharpe": 1.2178571715051607,
-          "num_trades": 15.0,
-          "oos_rank": 3,
-          "combo_key": "STXUSDT|os18|ibs0.5"
-        },
-        {
-          "asset": "STXUSDT",
-          "oversold": 15.0,
-          "ibs_thr": 0.5,
-          "Sharpe": 1.2088365706907434,
-          "num_trades": 13.0,
-          "oos_rank": 4,
-          "combo_key": "STXUSDT|os15|ibs0.5"
-        },
-        {
-          "asset": "STXUSDT",
-          "oversold": 20.0,
-          "ibs_thr": 0.5,
-          "Sharpe": 1.1807205226581226,
-          "num_trades": 20.0,
-          "oos_rank": 5,
-          "combo_key": "STXUSDT|os20|ibs0.5"
-        },
-        {
-          "asset": "STXUSDT",
-          "oversold": 20.0,
-          "ibs_thr": 0.35,
-          "Sharpe": 1.1718479810840878,
-          "num_trades": 14.0,
-          "oos_rank": 6,
-          "combo_key": "STXUSDT|os20|ibs0.35"
-        },
-        {
-          "asset": "STXUSDT",
-          "oversold": 18.0,
-          "ibs_thr": 0.55,
-          "Sharpe": 1.1465599305108805,
-          "num_trades": 17.0,
-          "oos_rank": 7,
-          "combo_key": "STXUSDT|os18|ibs0.55"
-        },
-        {
-          "asset": "STXUSDT",
-          "oversold": 15.0,
-          "ibs_thr": 0.55,
-          "Sharpe": 1.1297931241812276,
-          "num_trades": 15.0,
-          "oos_rank": 8,
-          "combo_key": "STXUSDT|os15|ibs0.55"
-        },
-        {
-          "asset": "STXUSDT",
+          "asset": "MASKUSDT",
           "oversold": 20.0,
           "ibs_thr": 0.4,
-          "Sharpe": 1.1108322404891886,
-          "num_trades": 16.0,
-          "oos_rank": 9,
-          "combo_key": "STXUSDT|os20|ibs0.4"
+          "Sharpe": 0.9664625009796027,
+          "num_trades": 27.0,
+          "oos_rank": 3,
+          "combo_key": "MASKUSDT|os20|ibs0.4"
         },
         {
-          "asset": "STXUSDT",
-          "oversold": 18.0,
+          "asset": "GRTUSDT",
+          "oversold": 20.0,
           "ibs_thr": 0.45,
-          "Sharpe": 1.1060085672928086,
-          "num_trades": 13.0,
+          "Sharpe": 0.6506610730037202,
+          "num_trades": 27.0,
+          "oos_rank": 4,
+          "combo_key": "GRTUSDT|os20|ibs0.45"
+        },
+        {
+          "asset": "CRVUSDT",
+          "oversold": 18.0,
+          "ibs_thr": 0.5,
+          "Sharpe": 0.618885971196549,
+          "num_trades": 25.0,
+          "oos_rank": 5,
+          "combo_key": "CRVUSDT|os18|ibs0.5"
+        },
+        {
+          "asset": "BCHUSDT",
+          "oversold": 20.0,
+          "ibs_thr": 0.45,
+          "Sharpe": 0.581246625187468,
+          "num_trades": 26.0,
+          "oos_rank": 6,
+          "combo_key": "BCHUSDT|os20|ibs0.45"
+        },
+        {
+          "asset": "BTCUSDT",
+          "oversold": 20.0,
+          "ibs_thr": 0.45,
+          "Sharpe": 0.5567775457937679,
+          "num_trades": 30.0,
+          "oos_rank": 7,
+          "combo_key": "BTCUSDT|os20|ibs0.45"
+        },
+        {
+          "asset": "AAVEUSDT",
+          "oversold": 20.0,
+          "ibs_thr": 0.55,
+          "Sharpe": 0.5173564600505375,
+          "num_trades": 27.0,
+          "oos_rank": 8,
+          "combo_key": "AAVEUSDT|os20|ibs0.55"
+        },
+        {
+          "asset": "BNBUSDT",
+          "oversold": 20.0,
+          "ibs_thr": 0.55,
+          "Sharpe": 0.500387612803007,
+          "num_trades": 25.0,
+          "oos_rank": 9,
+          "combo_key": "BNBUSDT|os20|ibs0.55"
+        },
+        {
+          "asset": "XLMUSDT",
+          "oversold": 18.0,
+          "ibs_thr": 0.5,
+          "Sharpe": 0.42520799885268834,
+          "num_trades": 27.0,
           "oos_rank": 10,
-          "combo_key": "STXUSDT|os18|ibs0.45"
+          "combo_key": "XLMUSDT|os18|ibs0.5"
         }
       ],
-      "fold_sharpe": 1.8478346370503342,
-      "fold_return": 0.18195445173361668
+      "n_sleeves": 10,
+      "sleeve_weight": 0.1,
+      "fold_sharpe": 1.0254562735319275,
+      "fold_return": 0.06838911017985927
     },
     {
       "fold": 11,
       "is_start": "2022-10-01 00:00:00+00:00",
       "oos_start": "2024-04-01 00:00:00+00:00",
       "oos_end": "2024-07-01 00:00:00+00:00",
-      "universe_size": 100,
-      "candidates": 1688,
+      "universe_size": 50,
+      "candidates": 49,
       "top10": [
         {
-          "asset": "STXUSDT",
-          "oversold": 15.0,
-          "ibs_thr": 0.5,
-          "Sharpe": 1.313166899890831,
-          "num_trades": 15.0,
+          "asset": "DYDXUSDT",
+          "oversold": 18.0,
+          "ibs_thr": 0.55,
+          "Sharpe": 1.019441252213212,
+          "num_trades": 25.0,
           "oos_rank": 1,
-          "combo_key": "STXUSDT|os15|ibs0.5"
+          "combo_key": "DYDXUSDT|os18|ibs0.55"
         },
         {
-          "asset": "STXUSDT",
-          "oversold": 18.0,
-          "ibs_thr": 0.5,
-          "Sharpe": 1.304444053395501,
-          "num_trades": 17.0,
+          "asset": "MASKUSDT",
+          "oversold": 20.0,
+          "ibs_thr": 0.45,
+          "Sharpe": 0.8909456518676034,
+          "num_trades": 27.0,
           "oos_rank": 2,
-          "combo_key": "STXUSDT|os18|ibs0.5"
+          "combo_key": "MASKUSDT|os20|ibs0.45"
         },
         {
-          "asset": "STXUSDT",
-          "oversold": 20.0,
+          "asset": "LDOUSDT",
+          "oversold": 18.0,
           "ibs_thr": 0.55,
-          "Sharpe": 1.2829861428949678,
-          "num_trades": 24.0,
+          "Sharpe": 0.8036368166496177,
+          "num_trades": 25.0,
           "oos_rank": 3,
-          "combo_key": "STXUSDT|os20|ibs0.55"
+          "combo_key": "LDOUSDT|os18|ibs0.55"
         },
         {
-          "asset": "STXUSDT",
+          "asset": "DOTUSDT",
+          "oversold": 20.0,
+          "ibs_thr": 0.35,
+          "Sharpe": 0.621392198694801,
+          "num_trades": 27.0,
+          "oos_rank": 4,
+          "combo_key": "DOTUSDT|os20|ibs0.35"
+        },
+        {
+          "asset": "SUSHIUSDT",
           "oversold": 20.0,
           "ibs_thr": 0.5,
-          "Sharpe": 1.2803239019596702,
-          "num_trades": 22.0,
-          "oos_rank": 4,
-          "combo_key": "STXUSDT|os20|ibs0.5"
-        },
-        {
-          "asset": "EDUUSDT",
-          "oversold": 20.0,
-          "ibs_thr": 0.3,
-          "Sharpe": 1.2760310795974565,
-          "num_trades": 13.0,
+          "Sharpe": 0.5518109485417804,
+          "num_trades": 26.0,
           "oos_rank": 5,
-          "combo_key": "EDUUSDT|os20|ibs0.3"
+          "combo_key": "SUSHIUSDT|os20|ibs0.5"
         },
         {
-          "asset": "STXUSDT",
-          "oversold": 15.0,
-          "ibs_thr": 0.55,
-          "Sharpe": 1.2593040516996639,
-          "num_trades": 17.0,
+          "asset": "CRVUSDT",
+          "oversold": 18.0,
+          "ibs_thr": 0.5,
+          "Sharpe": 0.5361674621303447,
+          "num_trades": 25.0,
           "oos_rank": 6,
-          "combo_key": "STXUSDT|os15|ibs0.55"
+          "combo_key": "CRVUSDT|os18|ibs0.5"
         },
         {
-          "asset": "STXUSDT",
-          "oversold": 18.0,
-          "ibs_thr": 0.55,
-          "Sharpe": 1.2552267918229019,
-          "num_trades": 19.0,
-          "oos_rank": 7,
-          "combo_key": "STXUSDT|os18|ibs0.55"
-        },
-        {
-          "asset": "STXUSDT",
-          "oversold": 18.0,
-          "ibs_thr": 0.35,
-          "Sharpe": 1.243786729977407,
-          "num_trades": 12.0,
-          "oos_rank": 8,
-          "combo_key": "STXUSDT|os18|ibs0.35"
-        },
-        {
-          "asset": "STXUSDT",
+          "asset": "RUNEUSDT",
           "oversold": 20.0,
-          "ibs_thr": 0.3,
-          "Sharpe": 1.2422099097140173,
-          "num_trades": 14.0,
-          "oos_rank": 9,
-          "combo_key": "STXUSDT|os20|ibs0.3"
+          "ibs_thr": 0.55,
+          "Sharpe": 0.46420405880533194,
+          "num_trades": 25.0,
+          "oos_rank": 7,
+          "combo_key": "RUNEUSDT|os20|ibs0.55"
         },
         {
-          "asset": "EDUUSDT",
+          "asset": "AAVEUSDT",
+          "oversold": 20.0,
+          "ibs_thr": 0.55,
+          "Sharpe": 0.39609331277200216,
+          "num_trades": 26.0,
+          "oos_rank": 8,
+          "combo_key": "AAVEUSDT|os20|ibs0.55"
+        },
+        {
+          "asset": "ATOMUSDT",
           "oversold": 18.0,
-          "ibs_thr": 0.3,
-          "Sharpe": 1.2252536591018712,
-          "num_trades": 12.0,
+          "ibs_thr": 0.45,
+          "Sharpe": 0.3628719538850087,
+          "num_trades": 25.0,
+          "oos_rank": 9,
+          "combo_key": "ATOMUSDT|os18|ibs0.45"
+        },
+        {
+          "asset": "BCHUSDT",
+          "oversold": 20.0,
+          "ibs_thr": 0.55,
+          "Sharpe": 0.34151803183000196,
+          "num_trades": 25.0,
           "oos_rank": 10,
-          "combo_key": "EDUUSDT|os18|ibs0.3"
+          "combo_key": "BCHUSDT|os20|ibs0.55"
         }
       ],
-      "fold_sharpe": 0.871070050982583,
-      "fold_return": 0.08756004686521046
+      "n_sleeves": 10,
+      "sleeve_weight": 0.1,
+      "fold_sharpe": -1.1853141419298663,
+      "fold_return": -0.13930667698001598
     },
     {
       "fold": 12,
       "is_start": "2023-01-01 00:00:00+00:00",
       "oos_start": "2024-07-01 00:00:00+00:00",
       "oos_end": "2024-10-01 00:00:00+00:00",
-      "universe_size": 100,
-      "candidates": 1520,
+      "universe_size": 50,
+      "candidates": 55,
       "top10": [
         {
-          "asset": "ARKMUSDT",
-          "oversold": 20.0,
-          "ibs_thr": 0.5,
-          "Sharpe": 1.5816619684789368,
-          "num_trades": 17.0,
-          "oos_rank": 1,
-          "combo_key": "ARKMUSDT|os20|ibs0.5"
-        },
-        {
-          "asset": "ARKMUSDT",
+          "asset": "STXUSDT",
           "oversold": 20.0,
           "ibs_thr": 0.55,
-          "Sharpe": 1.5816619684789368,
-          "num_trades": 17.0,
+          "Sharpe": 1.2152883324331114,
+          "num_trades": 30.0,
+          "oos_rank": 1,
+          "combo_key": "STXUSDT|os20|ibs0.55"
+        },
+        {
+          "asset": "DYDXUSDT",
+          "oversold": 20.0,
+          "ibs_thr": 0.55,
+          "Sharpe": 0.7320995229188108,
+          "num_trades": 27.0,
           "oos_rank": 2,
-          "combo_key": "ARKMUSDT|os20|ibs0.55"
+          "combo_key": "DYDXUSDT|os20|ibs0.55"
         },
         {
-          "asset": "STXUSDT",
-          "oversold": 15.0,
-          "ibs_thr": 0.3,
-          "Sharpe": 1.561177060390886,
-          "num_trades": 13.0,
-          "oos_rank": 3,
-          "combo_key": "STXUSDT|os15|ibs0.3"
-        },
-        {
-          "asset": "ARKMUSDT",
+          "asset": "BTCUSDT",
           "oversold": 20.0,
           "ibs_thr": 0.45,
-          "Sharpe": 1.4916128856885862,
-          "num_trades": 16.0,
+          "Sharpe": 0.6318809247650738,
+          "num_trades": 25.0,
+          "oos_rank": 3,
+          "combo_key": "BTCUSDT|os20|ibs0.45"
+        },
+        {
+          "asset": "MASKUSDT",
+          "oversold": 20.0,
+          "ibs_thr": 0.45,
+          "Sharpe": 0.588356092051262,
+          "num_trades": 26.0,
           "oos_rank": 4,
-          "combo_key": "ARKMUSDT|os20|ibs0.45"
-        },
-        {
-          "asset": "ARKMUSDT",
-          "oversold": 20.0,
-          "ibs_thr": 0.35,
-          "Sharpe": 1.458802291307098,
-          "num_trades": 15.0,
-          "oos_rank": 5,
-          "combo_key": "ARKMUSDT|os20|ibs0.35"
-        },
-        {
-          "asset": "STXUSDT",
-          "oversold": 15.0,
-          "ibs_thr": 0.35,
-          "Sharpe": 1.4448171212896905,
-          "num_trades": 14.0,
-          "oos_rank": 6,
-          "combo_key": "STXUSDT|os15|ibs0.35"
-        },
-        {
-          "asset": "ARKMUSDT",
-          "oversold": 20.0,
-          "ibs_thr": 0.4,
-          "Sharpe": 1.4358029866666626,
-          "num_trades": 15.0,
-          "oos_rank": 7,
-          "combo_key": "ARKMUSDT|os20|ibs0.4"
-        },
-        {
-          "asset": "STXUSDT",
-          "oversold": 18.0,
-          "ibs_thr": 0.3,
-          "Sharpe": 1.412763262819565,
-          "num_trades": 15.0,
-          "oos_rank": 8,
-          "combo_key": "STXUSDT|os18|ibs0.3"
-        },
-        {
-          "asset": "STXUSDT",
-          "oversold": 15.0,
-          "ibs_thr": 0.5,
-          "Sharpe": 1.3819369895830367,
-          "num_trades": 20.0,
-          "oos_rank": 9,
-          "combo_key": "STXUSDT|os15|ibs0.5"
+          "combo_key": "MASKUSDT|os20|ibs0.45"
         },
         {
           "asset": "LDOUSDT",
           "oversold": 20.0,
-          "ibs_thr": 0.25,
-          "Sharpe": 1.3712132714736673,
-          "num_trades": 13.0,
+          "ibs_thr": 0.55,
+          "Sharpe": 0.4940366019513871,
+          "num_trades": 25.0,
+          "oos_rank": 5,
+          "combo_key": "LDOUSDT|os20|ibs0.55"
+        },
+        {
+          "asset": "ATOMUSDT",
+          "oversold": 18.0,
+          "ibs_thr": 0.55,
+          "Sharpe": 0.43778366192280066,
+          "num_trades": 25.0,
+          "oos_rank": 6,
+          "combo_key": "ATOMUSDT|os18|ibs0.55"
+        },
+        {
+          "asset": "ARBUSDT",
+          "oversold": 20.0,
+          "ibs_thr": 0.45,
+          "Sharpe": 0.3359216535918323,
+          "num_trades": 25.0,
+          "oos_rank": 7,
+          "combo_key": "ARBUSDT|os20|ibs0.45"
+        },
+        {
+          "asset": "CFXUSDT",
+          "oversold": 20.0,
+          "ibs_thr": 0.4,
+          "Sharpe": 0.33497771210803684,
+          "num_trades": 25.0,
+          "oos_rank": 8,
+          "combo_key": "CFXUSDT|os20|ibs0.4"
+        },
+        {
+          "asset": "DOTUSDT",
+          "oversold": 20.0,
+          "ibs_thr": 0.45,
+          "Sharpe": 0.26217168711862127,
+          "num_trades": 25.0,
+          "oos_rank": 9,
+          "combo_key": "DOTUSDT|os20|ibs0.45"
+        },
+        {
+          "asset": "AVAXUSDT",
+          "oversold": 20.0,
+          "ibs_thr": 0.45,
+          "Sharpe": 0.22344498950750646,
+          "num_trades": 25.0,
           "oos_rank": 10,
-          "combo_key": "LDOUSDT|os20|ibs0.25"
+          "combo_key": "AVAXUSDT|os20|ibs0.45"
         }
       ],
-      "fold_sharpe": -0.8983963777823065,
-      "fold_return": -0.14064638862021905
+      "n_sleeves": 10,
+      "sleeve_weight": 0.1,
+      "fold_sharpe": -0.7146676597297241,
+      "fold_return": -0.10550245018757753
     },
     {
       "fold": 13,
       "is_start": "2023-04-01 00:00:00+00:00",
       "oos_start": "2024-10-01 00:00:00+00:00",
       "oos_end": "2025-01-01 00:00:00+00:00",
-      "universe_size": 100,
-      "candidates": 1766,
+      "universe_size": 50,
+      "candidates": 80,
       "top10": [
         {
           "asset": "STXUSDT",
-          "oversold": 15.0,
-          "ibs_thr": 0.3,
-          "Sharpe": 1.4605316701784732,
-          "num_trades": 14.0,
+          "oversold": 18.0,
+          "ibs_thr": 0.55,
+          "Sharpe": 0.9483233990133295,
+          "num_trades": 25.0,
           "oos_rank": 1,
-          "combo_key": "STXUSDT|os15|ibs0.3"
+          "combo_key": "STXUSDT|os18|ibs0.55"
         },
         {
-          "asset": "STXUSDT",
-          "oversold": 15.0,
-          "ibs_thr": 0.35,
-          "Sharpe": 1.2306871974734996,
-          "num_trades": 15.0,
+          "asset": "TRBUSDT",
+          "oversold": 20.0,
+          "ibs_thr": 0.5,
+          "Sharpe": 0.6306595075301419,
+          "num_trades": 25.0,
           "oos_rank": 2,
-          "combo_key": "STXUSDT|os15|ibs0.35"
+          "combo_key": "TRBUSDT|os20|ibs0.5"
         },
         {
-          "asset": "STXUSDT",
-          "oversold": 18.0,
+          "asset": "DOTUSDT",
+          "oversold": 20.0,
           "ibs_thr": 0.3,
-          "Sharpe": 1.2046409818071624,
-          "num_trades": 16.0,
+          "Sharpe": 0.5599521981941759,
+          "num_trades": 26.0,
           "oos_rank": 3,
-          "combo_key": "STXUSDT|os18|ibs0.3"
+          "combo_key": "DOTUSDT|os20|ibs0.3"
         },
         {
-          "asset": "STXUSDT",
-          "oversold": 18.0,
-          "ibs_thr": 0.25,
-          "Sharpe": 1.2042475125609862,
-          "num_trades": 13.0,
+          "asset": "XRPUSDT",
+          "oversold": 20.0,
+          "ibs_thr": 0.5,
+          "Sharpe": 0.43441710555267393,
+          "num_trades": 25.0,
           "oos_rank": 4,
-          "combo_key": "STXUSDT|os18|ibs0.25"
+          "combo_key": "XRPUSDT|os20|ibs0.5"
         },
         {
-          "asset": "GASUSDT",
-          "oversold": 12.0,
-          "ibs_thr": 0.5,
-          "Sharpe": 1.1777440298596045,
-          "num_trades": 14.0,
+          "asset": "DYDXUSDT",
+          "oversold": 20.0,
+          "ibs_thr": 0.55,
+          "Sharpe": 0.4315186573544655,
+          "num_trades": 27.0,
           "oos_rank": 5,
-          "combo_key": "GASUSDT|os12|ibs0.5"
+          "combo_key": "DYDXUSDT|os20|ibs0.55"
         },
         {
-          "asset": "GASUSDT",
-          "oversold": 12.0,
-          "ibs_thr": 0.55,
-          "Sharpe": 1.1777440298596045,
-          "num_trades": 14.0,
-          "oos_rank": 6,
-          "combo_key": "GASUSDT|os12|ibs0.55"
-        },
-        {
-          "asset": "STXUSDT",
-          "oversold": 15.0,
-          "ibs_thr": 0.5,
-          "Sharpe": 1.174014663965889,
-          "num_trades": 21.0,
-          "oos_rank": 7,
-          "combo_key": "STXUSDT|os15|ibs0.5"
-        },
-        {
-          "asset": "STXUSDT",
-          "oversold": 15.0,
-          "ibs_thr": 0.45,
-          "Sharpe": 1.144329112633224,
-          "num_trades": 19.0,
-          "oos_rank": 8,
-          "combo_key": "STXUSDT|os15|ibs0.45"
-        },
-        {
-          "asset": "STXUSDT",
-          "oversold": 15.0,
-          "ibs_thr": 0.55,
-          "Sharpe": 1.1224027091487887,
-          "num_trades": 22.0,
-          "oos_rank": 9,
-          "combo_key": "STXUSDT|os15|ibs0.55"
-        },
-        {
-          "asset": "STXUSDT",
-          "oversold": 15.0,
+          "asset": "CFXUSDT",
+          "oversold": 20.0,
           "ibs_thr": 0.4,
-          "Sharpe": 1.1051771405164168,
-          "num_trades": 17.0,
+          "Sharpe": 0.40608276367313173,
+          "num_trades": 26.0,
+          "oos_rank": 6,
+          "combo_key": "CFXUSDT|os20|ibs0.4"
+        },
+        {
+          "asset": "MASKUSDT",
+          "oversold": 20.0,
+          "ibs_thr": 0.45,
+          "Sharpe": 0.2497221426409323,
+          "num_trades": 26.0,
+          "oos_rank": 7,
+          "combo_key": "MASKUSDT|os20|ibs0.45"
+        },
+        {
+          "asset": "BCHUSDT",
+          "oversold": 20.0,
+          "ibs_thr": 0.55,
+          "Sharpe": 0.21257762554765136,
+          "num_trades": 27.0,
+          "oos_rank": 8,
+          "combo_key": "BCHUSDT|os20|ibs0.55"
+        },
+        {
+          "asset": "AVAXUSDT",
+          "oversold": 20.0,
+          "ibs_thr": 0.45,
+          "Sharpe": 0.20849229939007088,
+          "num_trades": 25.0,
+          "oos_rank": 9,
+          "combo_key": "AVAXUSDT|os20|ibs0.45"
+        },
+        {
+          "asset": "UNIUSDT",
+          "oversold": 20.0,
+          "ibs_thr": 0.5,
+          "Sharpe": 0.15987227836334705,
+          "num_trades": 26.0,
           "oos_rank": 10,
-          "combo_key": "STXUSDT|os15|ibs0.4"
+          "combo_key": "UNIUSDT|os20|ibs0.5"
         }
       ],
-      "fold_sharpe": 1.3017929485383297,
-      "fold_return": 0.07036706246879265
+      "n_sleeves": 10,
+      "sleeve_weight": 0.1,
+      "fold_sharpe": 0.03975326965953262,
+      "fold_return": -0.006106286844389519
     },
     {
       "fold": 14,
       "is_start": "2023-07-01 00:00:00+00:00",
       "oos_start": "2025-01-01 00:00:00+00:00",
       "oos_end": "2025-04-01 00:00:00+00:00",
-      "universe_size": 100,
-      "candidates": 1965,
+      "universe_size": 50,
+      "candidates": 50,
       "top10": [
         {
-          "asset": "AUCTIONUSDT",
+          "asset": "TRBUSDT",
           "oversold": 20.0,
-          "ibs_thr": 0.3,
-          "Sharpe": 1.2408455938641199,
-          "num_trades": 16.0,
+          "ibs_thr": 0.5,
+          "Sharpe": 0.7913852394360098,
+          "num_trades": 25.0,
           "oos_rank": 1,
-          "combo_key": "AUCTIONUSDT|os20|ibs0.3"
+          "combo_key": "TRBUSDT|os20|ibs0.5"
         },
         {
-          "asset": "AUCTIONUSDT",
-          "oversold": 20.0,
-          "ibs_thr": 0.35,
-          "Sharpe": 1.2408455938641199,
-          "num_trades": 16.0,
-          "oos_rank": 2,
-          "combo_key": "AUCTIONUSDT|os20|ibs0.35"
-        },
-        {
-          "asset": "ARKMUSDT",
+          "asset": "STXUSDT",
           "oversold": 20.0,
           "ibs_thr": 0.55,
-          "Sharpe": 1.110378991796153,
+          "Sharpe": 0.7341654640093075,
+          "num_trades": 29.0,
+          "oos_rank": 2,
+          "combo_key": "STXUSDT|os20|ibs0.55"
+        },
+        {
+          "asset": "ARBUSDT",
+          "oversold": 15.0,
+          "ibs_thr": 0.55,
+          "Sharpe": 0.6471895862120597,
           "num_trades": 25.0,
           "oos_rank": 3,
-          "combo_key": "ARKMUSDT|os20|ibs0.55"
+          "combo_key": "ARBUSDT|os15|ibs0.55"
         },
         {
-          "asset": "AUCTIONUSDT",
-          "oversold": 18.0,
-          "ibs_thr": 0.3,
-          "Sharpe": 1.0916854907737652,
-          "num_trades": 13.0,
-          "oos_rank": 4,
-          "combo_key": "AUCTIONUSDT|os18|ibs0.3"
-        },
-        {
-          "asset": "AUCTIONUSDT",
-          "oversold": 18.0,
-          "ibs_thr": 0.35,
-          "Sharpe": 1.0916854907737652,
-          "num_trades": 13.0,
-          "oos_rank": 5,
-          "combo_key": "AUCTIONUSDT|os18|ibs0.35"
-        },
-        {
-          "asset": "ARKMUSDT",
+          "asset": "SEIUSDT",
           "oversold": 20.0,
-          "ibs_thr": 0.5,
-          "Sharpe": 1.074723585353279,
-          "num_trades": 24.0,
-          "oos_rank": 6,
-          "combo_key": "ARKMUSDT|os20|ibs0.5"
-        },
-        {
-          "asset": "STXUSDT",
-          "oversold": 15.0,
           "ibs_thr": 0.55,
-          "Sharpe": 1.0191686077537343,
-          "num_trades": 21.0,
-          "oos_rank": 7,
-          "combo_key": "STXUSDT|os15|ibs0.55"
+          "Sharpe": 0.567873609010724,
+          "num_trades": 26.0,
+          "oos_rank": 4,
+          "combo_key": "SEIUSDT|os20|ibs0.55"
         },
         {
-          "asset": "ARKMUSDT",
+          "asset": "INJUSDT",
           "oversold": 20.0,
-          "ibs_thr": 0.25,
-          "Sharpe": 1.0156879077337342,
-          "num_trades": 14.0,
-          "oos_rank": 8,
-          "combo_key": "ARKMUSDT|os20|ibs0.25"
-        },
-        {
-          "asset": "STXUSDT",
-          "oversold": 15.0,
-          "ibs_thr": 0.35,
-          "Sharpe": 1.0019854418067,
-          "num_trades": 13.0,
-          "oos_rank": 9,
-          "combo_key": "STXUSDT|os15|ibs0.35"
-        },
-        {
-          "asset": "STXUSDT",
-          "oversold": 15.0,
           "ibs_thr": 0.5,
-          "Sharpe": 0.9941277274570388,
-          "num_trades": 19.0,
+          "Sharpe": 0.5068262472147408,
+          "num_trades": 25.0,
+          "oos_rank": 5,
+          "combo_key": "INJUSDT|os20|ibs0.5"
+        },
+        {
+          "asset": "XRPUSDT",
+          "oversold": 20.0,
+          "ibs_thr": 0.5,
+          "Sharpe": 0.44663555213883455,
+          "num_trades": 25.0,
+          "oos_rank": 6,
+          "combo_key": "XRPUSDT|os20|ibs0.5"
+        },
+        {
+          "asset": "DOTUSDT",
+          "oversold": 20.0,
+          "ibs_thr": 0.35,
+          "Sharpe": 0.22901847678081605,
+          "num_trades": 25.0,
+          "oos_rank": 7,
+          "combo_key": "DOTUSDT|os20|ibs0.35"
+        },
+        {
+          "asset": "FILUSDT",
+          "oversold": 20.0,
+          "ibs_thr": 0.5,
+          "Sharpe": 0.21617796307009923,
+          "num_trades": 27.0,
+          "oos_rank": 8,
+          "combo_key": "FILUSDT|os20|ibs0.5"
+        },
+        {
+          "asset": "UNIUSDT",
+          "oversold": 20.0,
+          "ibs_thr": 0.5,
+          "Sharpe": 0.19478921999189017,
+          "num_trades": 26.0,
+          "oos_rank": 9,
+          "combo_key": "UNIUSDT|os20|ibs0.5"
+        },
+        {
+          "asset": "BCHUSDT",
+          "oversold": 20.0,
+          "ibs_thr": 0.55,
+          "Sharpe": 0.17432936128791804,
+          "num_trades": 27.0,
           "oos_rank": 10,
-          "combo_key": "STXUSDT|os15|ibs0.5"
+          "combo_key": "BCHUSDT|os20|ibs0.55"
         }
       ],
-      "fold_sharpe": -0.8174041385957792,
-      "fold_return": -0.09135869686973175
+      "n_sleeves": 10,
+      "sleeve_weight": 0.1,
+      "fold_sharpe": 1.4040994241899187,
+      "fold_return": 0.12009887073267
     },
     {
       "fold": 15,
       "is_start": "2023-10-01 00:00:00+00:00",
       "oos_start": "2025-04-01 00:00:00+00:00",
       "oos_end": "2025-07-01 00:00:00+00:00",
-      "universe_size": 100,
-      "candidates": 2526,
+      "universe_size": 50,
+      "candidates": 120,
       "top10": [
         {
-          "asset": "TIAUSDT",
+          "asset": "AAVEUSDT",
           "oversold": 20.0,
-          "ibs_thr": 0.2,
-          "Sharpe": 1.3237354479297967,
-          "num_trades": 13.0,
+          "ibs_thr": 0.4,
+          "Sharpe": 0.9062857662845676,
+          "num_trades": 27.0,
           "oos_rank": 1,
-          "combo_key": "TIAUSDT|os20|ibs0.2"
-        },
-        {
-          "asset": "TAOUSDT",
-          "oversold": 12.0,
-          "ibs_thr": 0.3,
-          "Sharpe": 1.3003628637485485,
-          "num_trades": 13.0,
-          "oos_rank": 2,
-          "combo_key": "TAOUSDT|os12|ibs0.3"
-        },
-        {
-          "asset": "JTOUSDT",
-          "oversold": 20.0,
-          "ibs_thr": 0.2,
-          "Sharpe": 1.1833992499668293,
-          "num_trades": 13.0,
-          "oos_rank": 3,
-          "combo_key": "JTOUSDT|os20|ibs0.2"
+          "combo_key": "AAVEUSDT|os20|ibs0.4"
         },
         {
           "asset": "TIAUSDT",
           "oversold": 20.0,
-          "ibs_thr": 0.25,
-          "Sharpe": 1.1571281496684593,
-          "num_trades": 22.0,
-          "oos_rank": 4,
-          "combo_key": "TIAUSDT|os20|ibs0.25"
-        },
-        {
-          "asset": "1000PEPEUSDT",
-          "oversold": 18.0,
-          "ibs_thr": 0.25,
-          "Sharpe": 1.090968544571038,
-          "num_trades": 12.0,
-          "oos_rank": 5,
-          "combo_key": "1000PEPEUSDT|os18|ibs0.25"
-        },
-        {
-          "asset": "1000PEPEUSDT",
-          "oversold": 20.0,
-          "ibs_thr": 0.25,
-          "Sharpe": 1.090968544571038,
-          "num_trades": 12.0,
-          "oos_rank": 6,
-          "combo_key": "1000PEPEUSDT|os20|ibs0.25"
-        },
-        {
-          "asset": "TAOUSDT",
-          "oversold": 10.0,
           "ibs_thr": 0.35,
-          "Sharpe": 1.0565207658430036,
-          "num_trades": 12.0,
-          "oos_rank": 7,
-          "combo_key": "TAOUSDT|os10|ibs0.35"
+          "Sharpe": 0.7960230779029629,
+          "num_trades": 26.0,
+          "oos_rank": 2,
+          "combo_key": "TIAUSDT|os20|ibs0.35"
         },
         {
-          "asset": "TAOUSDT",
-          "oversold": 10.0,
-          "ibs_thr": 0.4,
-          "Sharpe": 1.0565207658430036,
-          "num_trades": 12.0,
-          "oos_rank": 8,
-          "combo_key": "TAOUSDT|os10|ibs0.4"
+          "asset": "ARBUSDT",
+          "oversold": 15.0,
+          "ibs_thr": 0.45,
+          "Sharpe": 0.7922271476791348,
+          "num_trades": 25.0,
+          "oos_rank": 3,
+          "combo_key": "ARBUSDT|os15|ibs0.45"
         },
         {
-          "asset": "MANTAUSDT",
-          "oversold": 8.0,
-          "ibs_thr": 0.4,
-          "Sharpe": 1.0465093567710966,
-          "num_trades": 12.0,
-          "oos_rank": 9,
-          "combo_key": "MANTAUSDT|os8|ibs0.4"
+          "asset": "LTCUSDT",
+          "oversold": 20.0,
+          "ibs_thr": 0.55,
+          "Sharpe": 0.7666190192578342,
+          "num_trades": 25.0,
+          "oos_rank": 4,
+          "combo_key": "LTCUSDT|os20|ibs0.55"
+        },
+        {
+          "asset": "TRBUSDT",
+          "oversold": 18.0,
+          "ibs_thr": 0.5,
+          "Sharpe": 0.7636511669313303,
+          "num_trades": 28.0,
+          "oos_rank": 5,
+          "combo_key": "TRBUSDT|os18|ibs0.5"
         },
         {
           "asset": "STXUSDT",
-          "oversold": 15.0,
+          "oversold": 18.0,
           "ibs_thr": 0.55,
-          "Sharpe": 1.0464945060978141,
-          "num_trades": 22.0,
+          "Sharpe": 0.6931070468918293,
+          "num_trades": 26.0,
+          "oos_rank": 6,
+          "combo_key": "STXUSDT|os18|ibs0.55"
+        },
+        {
+          "asset": "INJUSDT",
+          "oversold": 20.0,
+          "ibs_thr": 0.5,
+          "Sharpe": 0.627281222680765,
+          "num_trades": 28.0,
+          "oos_rank": 7,
+          "combo_key": "INJUSDT|os20|ibs0.5"
+        },
+        {
+          "asset": "SEIUSDT",
+          "oversold": 20.0,
+          "ibs_thr": 0.55,
+          "Sharpe": 0.6224319486264145,
+          "num_trades": 29.0,
+          "oos_rank": 8,
+          "combo_key": "SEIUSDT|os20|ibs0.55"
+        },
+        {
+          "asset": "UNIUSDT",
+          "oversold": 20.0,
+          "ibs_thr": 0.3,
+          "Sharpe": 0.5910310625966992,
+          "num_trades": 25.0,
+          "oos_rank": 9,
+          "combo_key": "UNIUSDT|os20|ibs0.3"
+        },
+        {
+          "asset": "LINKUSDT",
+          "oversold": 20.0,
+          "ibs_thr": 0.5,
+          "Sharpe": 0.5653264240452327,
+          "num_trades": 25.0,
           "oos_rank": 10,
-          "combo_key": "STXUSDT|os15|ibs0.55"
+          "combo_key": "LINKUSDT|os20|ibs0.5"
         }
       ],
-      "fold_sharpe": 0.9122589445850423,
-      "fold_return": 0.056172764976117895
+      "n_sleeves": 10,
+      "sleeve_weight": 0.1,
+      "fold_sharpe": 1.1627872828622767,
+      "fold_return": 0.10758069017848437
     },
     {
       "fold": 16,
       "is_start": "2024-01-01 00:00:00+00:00",
       "oos_start": "2025-07-01 00:00:00+00:00",
       "oos_end": "2025-10-01 00:00:00+00:00",
-      "universe_size": 100,
-      "candidates": 2781,
+      "universe_size": 50,
+      "candidates": 259,
       "top10": [
         {
-          "asset": "TAOUSDT",
-          "oversold": 12.0,
-          "ibs_thr": 0.3,
-          "Sharpe": 1.4323764702442334,
-          "num_trades": 14.0,
+          "asset": "SEIUSDT",
+          "oversold": 15.0,
+          "ibs_thr": 0.55,
+          "Sharpe": 1.0104844725951356,
+          "num_trades": 26.0,
           "oos_rank": 1,
-          "combo_key": "TAOUSDT|os12|ibs0.3"
+          "combo_key": "SEIUSDT|os15|ibs0.55"
         },
         {
-          "asset": "ENAUSDT",
-          "oversold": 12.0,
-          "ibs_thr": 0.35,
-          "Sharpe": 1.396641844061448,
-          "num_trades": 15.0,
-          "oos_rank": 2,
-          "combo_key": "ENAUSDT|os12|ibs0.35"
-        },
-        {
-          "asset": "TAOUSDT",
-          "oversold": 12.0,
+          "asset": "SUIUSDT",
+          "oversold": 18.0,
           "ibs_thr": 0.5,
-          "Sharpe": 1.3196894588169523,
-          "num_trades": 19.0,
+          "Sharpe": 0.9497243866919688,
+          "num_trades": 26.0,
+          "oos_rank": 2,
+          "combo_key": "SUIUSDT|os18|ibs0.5"
+        },
+        {
+          "asset": "LINKUSDT",
+          "oversold": 15.0,
+          "ibs_thr": 0.5,
+          "Sharpe": 0.9379499676252504,
+          "num_trades": 26.0,
           "oos_rank": 3,
-          "combo_key": "TAOUSDT|os12|ibs0.5"
+          "combo_key": "LINKUSDT|os15|ibs0.5"
         },
         {
           "asset": "TAOUSDT",
-          "oversold": 12.0,
-          "ibs_thr": 0.55,
-          "Sharpe": 1.3196894588169523,
-          "num_trades": 19.0,
+          "oversold": 18.0,
+          "ibs_thr": 0.5,
+          "Sharpe": 0.9101212110299218,
+          "num_trades": 26.0,
           "oos_rank": 4,
-          "combo_key": "TAOUSDT|os12|ibs0.55"
+          "combo_key": "TAOUSDT|os18|ibs0.5"
         },
         {
-          "asset": "ENAUSDT",
-          "oversold": 12.0,
+          "asset": "AAVEUSDT",
+          "oversold": 18.0,
           "ibs_thr": 0.4,
-          "Sharpe": 1.3176721150433206,
-          "num_trades": 15.0,
+          "Sharpe": 0.8986428799406971,
+          "num_trades": 26.0,
           "oos_rank": 5,
-          "combo_key": "ENAUSDT|os12|ibs0.4"
+          "combo_key": "AAVEUSDT|os18|ibs0.4"
         },
         {
-          "asset": "SEIUSDT",
-          "oversold": 10.0,
-          "ibs_thr": 0.55,
-          "Sharpe": 1.28899023963713,
-          "num_trades": 20.0,
-          "oos_rank": 6,
-          "combo_key": "SEIUSDT|os10|ibs0.55"
-        },
-        {
-          "asset": "STXUSDT",
-          "oversold": 8.0,
-          "ibs_thr": 0.45,
-          "Sharpe": 1.2730507266089384,
-          "num_trades": 12.0,
-          "oos_rank": 7,
-          "combo_key": "STXUSDT|os8|ibs0.45"
-        },
-        {
-          "asset": "SEIUSDT",
-          "oversold": 10.0,
+          "asset": "1000BONKUSDT",
+          "oversold": 18.0,
           "ibs_thr": 0.4,
-          "Sharpe": 1.2566090311365428,
-          "num_trades": 16.0,
+          "Sharpe": 0.862042705279909,
+          "num_trades": 26.0,
+          "oos_rank": 6,
+          "combo_key": "1000BONKUSDT|os18|ibs0.4"
+        },
+        {
+          "asset": "TIAUSDT",
+          "oversold": 20.0,
+          "ibs_thr": 0.25,
+          "Sharpe": 0.8295751925463473,
+          "num_trades": 26.0,
+          "oos_rank": 7,
+          "combo_key": "TIAUSDT|os20|ibs0.25"
+        },
+        {
+          "asset": "1000PEPEUSDT",
+          "oversold": 20.0,
+          "ibs_thr": 0.55,
+          "Sharpe": 0.8271931961855089,
+          "num_trades": 25.0,
           "oos_rank": 8,
-          "combo_key": "SEIUSDT|os10|ibs0.4"
+          "combo_key": "1000PEPEUSDT|os20|ibs0.55"
         },
         {
-          "asset": "ENAUSDT",
-          "oversold": 12.0,
-          "ibs_thr": 0.3,
-          "Sharpe": 1.256257745566296,
-          "num_trades": 13.0,
+          "asset": "AVAXUSDT",
+          "oversold": 20.0,
+          "ibs_thr": 0.35,
+          "Sharpe": 0.8205879341941784,
+          "num_trades": 26.0,
           "oos_rank": 9,
-          "combo_key": "ENAUSDT|os12|ibs0.3"
+          "combo_key": "AVAXUSDT|os20|ibs0.35"
         },
         {
-          "asset": "SEIUSDT",
-          "oversold": 10.0,
-          "ibs_thr": 0.45,
-          "Sharpe": 1.2447646193225346,
-          "num_trades": 19.0,
+          "asset": "ONDOUSDT",
+          "oversold": 20.0,
+          "ibs_thr": 0.55,
+          "Sharpe": 0.7787492524794514,
+          "num_trades": 27.0,
           "oos_rank": 10,
-          "combo_key": "SEIUSDT|os10|ibs0.45"
+          "combo_key": "ONDOUSDT|os20|ibs0.55"
         }
       ],
-      "fold_sharpe": 0.45858825994057656,
-      "fold_return": 0.018438146206627204
+      "n_sleeves": 10,
+      "sleeve_weight": 0.1,
+      "fold_sharpe": 0.6954797762496188,
+      "fold_return": 0.03717229065175176
     },
     {
       "fold": 17,
       "is_start": "2024-04-01 00:00:00+00:00",
       "oos_start": "2025-10-01 00:00:00+00:00",
       "oos_end": "2026-01-01 00:00:00+00:00",
-      "universe_size": 100,
-      "candidates": 2841,
+      "universe_size": 50,
+      "candidates": 271,
       "top10": [
         {
-          "asset": "SPXUSDT",
-          "oversold": 18.0,
-          "ibs_thr": 0.45,
-          "Sharpe": 1.4768734853786945,
-          "num_trades": 16.0,
-          "oos_rank": 1,
-          "combo_key": "SPXUSDT|os18|ibs0.45"
-        },
-        {
-          "asset": "SPXUSDT",
-          "oversold": 18.0,
-          "ibs_thr": 0.5,
-          "Sharpe": 1.4768734853786945,
-          "num_trades": 16.0,
-          "oos_rank": 2,
-          "combo_key": "SPXUSDT|os18|ibs0.5"
-        },
-        {
-          "asset": "SPXUSDT",
-          "oversold": 18.0,
+          "asset": "ETHUSDT",
+          "oversold": 15.0,
           "ibs_thr": 0.55,
-          "Sharpe": 1.4768734853786945,
-          "num_trades": 16.0,
-          "oos_rank": 3,
-          "combo_key": "SPXUSDT|os18|ibs0.55"
+          "Sharpe": 0.935112195695201,
+          "num_trades": 25.0,
+          "oos_rank": 1,
+          "combo_key": "ETHUSDT|os15|ibs0.55"
         },
         {
-          "asset": "FARTCOINUSDT",
-          "oversold": 20.0,
-          "ibs_thr": 0.3,
-          "Sharpe": 1.4733577140692335,
-          "num_trades": 15.0,
-          "oos_rank": 4,
-          "combo_key": "FARTCOINUSDT|os20|ibs0.3"
-        },
-        {
-          "asset": "FARTCOINUSDT",
-          "oversold": 20.0,
+          "asset": "AAVEUSDT",
+          "oversold": 18.0,
           "ibs_thr": 0.4,
-          "Sharpe": 1.3986914567107653,
-          "num_trades": 17.0,
-          "oos_rank": 5,
-          "combo_key": "FARTCOINUSDT|os20|ibs0.4"
+          "Sharpe": 0.8852855847039567,
+          "num_trades": 26.0,
+          "oos_rank": 2,
+          "combo_key": "AAVEUSDT|os18|ibs0.4"
         },
         {
-          "asset": "FARTCOINUSDT",
-          "oversold": 20.0,
-          "ibs_thr": 0.45,
-          "Sharpe": 1.3986914567107653,
-          "num_trades": 17.0,
-          "oos_rank": 6,
-          "combo_key": "FARTCOINUSDT|os20|ibs0.45"
-        },
-        {
-          "asset": "ENAUSDT",
-          "oversold": 12.0,
-          "ibs_thr": 0.35,
-          "Sharpe": 1.3579596306482768,
-          "num_trades": 17.0,
-          "oos_rank": 7,
-          "combo_key": "ENAUSDT|os12|ibs0.35"
-        },
-        {
-          "asset": "SEIUSDT",
-          "oversold": 10.0,
-          "ibs_thr": 0.4,
-          "Sharpe": 1.3558271592526714,
-          "num_trades": 19.0,
-          "oos_rank": 8,
-          "combo_key": "SEIUSDT|os10|ibs0.4"
-        },
-        {
-          "asset": "ARCUSDT",
+          "asset": "TIAUSDT",
           "oversold": 20.0,
           "ibs_thr": 0.25,
-          "Sharpe": 1.3522107154710428,
-          "num_trades": 13.0,
-          "oos_rank": 9,
-          "combo_key": "ARCUSDT|os20|ibs0.25"
+          "Sharpe": 0.8792094807388172,
+          "num_trades": 28.0,
+          "oos_rank": 3,
+          "combo_key": "TIAUSDT|os20|ibs0.25"
         },
         {
-          "asset": "SPXUSDT",
+          "asset": "TAOUSDT",
           "oversold": 18.0,
-          "ibs_thr": 0.4,
-          "Sharpe": 1.338356978059335,
-          "num_trades": 15.0,
+          "ibs_thr": 0.5,
+          "Sharpe": 0.8506614157793483,
+          "num_trades": 29.0,
+          "oos_rank": 4,
+          "combo_key": "TAOUSDT|os18|ibs0.5"
+        },
+        {
+          "asset": "UNIUSDT",
+          "oversold": 18.0,
+          "ibs_thr": 0.3,
+          "Sharpe": 0.8360788233504374,
+          "num_trades": 25.0,
+          "oos_rank": 5,
+          "combo_key": "UNIUSDT|os18|ibs0.3"
+        },
+        {
+          "asset": "1000PEPEUSDT",
+          "oversold": 18.0,
+          "ibs_thr": 0.55,
+          "Sharpe": 0.8135808713911783,
+          "num_trades": 26.0,
+          "oos_rank": 6,
+          "combo_key": "1000PEPEUSDT|os18|ibs0.55"
+        },
+        {
+          "asset": "SUIUSDT",
+          "oversold": 18.0,
+          "ibs_thr": 0.5,
+          "Sharpe": 0.7977493262177237,
+          "num_trades": 26.0,
+          "oos_rank": 7,
+          "combo_key": "SUIUSDT|os18|ibs0.5"
+        },
+        {
+          "asset": "XRPUSDT",
+          "oversold": 18.0,
+          "ibs_thr": 0.45,
+          "Sharpe": 0.7463096417812349,
+          "num_trades": 25.0,
+          "oos_rank": 8,
+          "combo_key": "XRPUSDT|os18|ibs0.45"
+        },
+        {
+          "asset": "LINKUSDT",
+          "oversold": 18.0,
+          "ibs_thr": 0.45,
+          "Sharpe": 0.71811025871276,
+          "num_trades": 27.0,
+          "oos_rank": 9,
+          "combo_key": "LINKUSDT|os18|ibs0.45"
+        },
+        {
+          "asset": "CRVUSDT",
+          "oversold": 18.0,
+          "ibs_thr": 0.5,
+          "Sharpe": 0.7150582543590064,
+          "num_trades": 30.0,
           "oos_rank": 10,
-          "combo_key": "SPXUSDT|os18|ibs0.4"
+          "combo_key": "CRVUSDT|os18|ibs0.5"
         }
       ],
-      "fold_sharpe": 2.493246088940869,
-      "fold_return": 0.38159138070169085
+      "n_sleeves": 10,
+      "sleeve_weight": 0.1,
+      "fold_sharpe": 1.4297696578827022,
+      "fold_return": 0.12786030468271958
     },
     {
       "fold": 18,
       "is_start": "2024-07-01 00:00:00+00:00",
       "oos_start": "2026-01-01 00:00:00+00:00",
       "oos_end": "2026-04-01 00:00:00+00:00",
-      "universe_size": 100,
-      "candidates": 3076,
+      "universe_size": 50,
+      "candidates": 328,
       "top10": [
-        {
-          "asset": "FARTCOINUSDT",
-          "oversold": 20.0,
-          "ibs_thr": 0.25,
-          "Sharpe": 2.037333375973852,
-          "num_trades": 12.0,
-          "oos_rank": 1,
-          "combo_key": "FARTCOINUSDT|os20|ibs0.25"
-        },
-        {
-          "asset": "EIGENUSDT",
-          "oversold": 15.0,
-          "ibs_thr": 0.2,
-          "Sharpe": 1.9304567585113321,
-          "num_trades": 13.0,
-          "oos_rank": 2,
-          "combo_key": "EIGENUSDT|os15|ibs0.2"
-        },
-        {
-          "asset": "FARTCOINUSDT",
-          "oversold": 20.0,
-          "ibs_thr": 0.3,
-          "Sharpe": 1.9107264596036642,
-          "num_trades": 19.0,
-          "oos_rank": 3,
-          "combo_key": "FARTCOINUSDT|os20|ibs0.3"
-        },
         {
           "asset": "EIGENUSDT",
           "oversold": 18.0,
-          "ibs_thr": 0.2,
-          "Sharpe": 1.885144001367838,
-          "num_trades": 15.0,
+          "ibs_thr": 0.5,
+          "Sharpe": 1.2180725862446005,
+          "num_trades": 25.0,
+          "oos_rank": 1,
+          "combo_key": "EIGENUSDT|os18|ibs0.5"
+        },
+        {
+          "asset": "ORDIUSDT",
+          "oversold": 20.0,
+          "ibs_thr": 0.5,
+          "Sharpe": 1.1730069141128083,
+          "num_trades": 31.0,
+          "oos_rank": 2,
+          "combo_key": "ORDIUSDT|os20|ibs0.5"
+        },
+        {
+          "asset": "SUIUSDT",
+          "oversold": 18.0,
+          "ibs_thr": 0.5,
+          "Sharpe": 1.1595725919029833,
+          "num_trades": 28.0,
+          "oos_rank": 3,
+          "combo_key": "SUIUSDT|os18|ibs0.5"
+        },
+        {
+          "asset": "AAVEUSDT",
+          "oversold": 18.0,
+          "ibs_thr": 0.55,
+          "Sharpe": 1.0656352175389332,
+          "num_trades": 29.0,
           "oos_rank": 4,
-          "combo_key": "EIGENUSDT|os18|ibs0.2"
+          "combo_key": "AAVEUSDT|os18|ibs0.55"
         },
         {
-          "asset": "FARTCOINUSDT",
-          "oversold": 20.0,
-          "ibs_thr": 0.45,
-          "Sharpe": 1.7451215996550533,
-          "num_trades": 24.0,
+          "asset": "CRVUSDT",
+          "oversold": 18.0,
+          "ibs_thr": 0.5,
+          "Sharpe": 1.0500840830529148,
+          "num_trades": 31.0,
           "oos_rank": 5,
-          "combo_key": "FARTCOINUSDT|os20|ibs0.45"
+          "combo_key": "CRVUSDT|os18|ibs0.5"
         },
         {
-          "asset": "FARTCOINUSDT",
+          "asset": "ETHUSDT",
           "oversold": 15.0,
-          "ibs_thr": 0.5,
-          "Sharpe": 1.6804712419616465,
-          "num_trades": 15.0,
+          "ibs_thr": 0.45,
+          "Sharpe": 0.9764327878337826,
+          "num_trades": 26.0,
           "oos_rank": 6,
-          "combo_key": "FARTCOINUSDT|os15|ibs0.5"
+          "combo_key": "ETHUSDT|os15|ibs0.45"
         },
         {
-          "asset": "FARTCOINUSDT",
-          "oversold": 20.0,
-          "ibs_thr": 0.5,
-          "Sharpe": 1.676462233533821,
-          "num_trades": 24.0,
+          "asset": "UNIUSDT",
+          "oversold": 18.0,
+          "ibs_thr": 0.35,
+          "Sharpe": 0.9730527173119452,
+          "num_trades": 25.0,
           "oos_rank": 7,
-          "combo_key": "FARTCOINUSDT|os20|ibs0.5"
+          "combo_key": "UNIUSDT|os18|ibs0.35"
         },
         {
-          "asset": "FARTCOINUSDT",
-          "oversold": 15.0,
+          "asset": "XRPUSDT",
+          "oversold": 18.0,
           "ibs_thr": 0.55,
-          "Sharpe": 1.659433110709863,
-          "num_trades": 15.0,
+          "Sharpe": 0.8875182447676867,
+          "num_trades": 29.0,
           "oos_rank": 8,
-          "combo_key": "FARTCOINUSDT|os15|ibs0.55"
+          "combo_key": "XRPUSDT|os18|ibs0.55"
         },
         {
-          "asset": "FARTCOINUSDT",
+          "asset": "BCHUSDT",
           "oversold": 20.0,
           "ibs_thr": 0.55,
-          "Sharpe": 1.659143993363008,
-          "num_trades": 24.0,
+          "Sharpe": 0.8867556425546927,
+          "num_trades": 27.0,
           "oos_rank": 9,
-          "combo_key": "FARTCOINUSDT|os20|ibs0.55"
+          "combo_key": "BCHUSDT|os20|ibs0.55"
         },
         {
-          "asset": "FARTCOINUSDT",
+          "asset": "NEIROUSDT",
           "oversold": 20.0,
-          "ibs_thr": 0.4,
-          "Sharpe": 1.6451528806886697,
-          "num_trades": 23.0,
+          "ibs_thr": 0.55,
+          "Sharpe": 0.8843835964046217,
+          "num_trades": 25.0,
           "oos_rank": 10,
-          "combo_key": "FARTCOINUSDT|os20|ibs0.4"
+          "combo_key": "NEIROUSDT|os20|ibs0.55"
         }
       ],
-      "fold_sharpe": 0.8993794952038905,
-      "fold_return": 0.09001398103102853
+      "n_sleeves": 10,
+      "sleeve_weight": 0.1,
+      "fold_sharpe": -0.44848732773845507,
+      "fold_return": -0.09553424478618666
     },
     {
       "fold": 19,
       "is_start": "2024-10-01 00:00:00+00:00",
       "oos_start": "2026-04-01 00:00:00+00:00",
       "oos_end": "2026-07-01 00:00:00+00:00",
-      "universe_size": 100,
-      "candidates": 3063,
+      "universe_size": 50,
+      "candidates": 383,
       "top10": [
         {
           "asset": "FARTCOINUSDT",
           "oversold": 20.0,
-          "ibs_thr": 0.25,
-          "Sharpe": 2.281045005367589,
-          "num_trades": 17.0,
+          "ibs_thr": 0.35,
+          "Sharpe": 1.8791836855374364,
+          "num_trades": 27.0,
           "oos_rank": 1,
-          "combo_key": "FARTCOINUSDT|os20|ibs0.25"
+          "combo_key": "FARTCOINUSDT|os20|ibs0.35"
         },
         {
-          "asset": "FARTCOINUSDT",
-          "oversold": 20.0,
-          "ibs_thr": 0.3,
-          "Sharpe": 2.1164557435022022,
-          "num_trades": 24.0,
-          "oos_rank": 2,
-          "combo_key": "FARTCOINUSDT|os20|ibs0.3"
-        },
-        {
-          "asset": "ZROUSDT",
-          "oversold": 10.0,
-          "ibs_thr": 0.5,
-          "Sharpe": 2.0622533725976266,
-          "num_trades": 17.0,
-          "oos_rank": 3,
-          "combo_key": "ZROUSDT|os10|ibs0.5"
-        },
-        {
-          "asset": "ZROUSDT",
-          "oversold": 10.0,
-          "ibs_thr": 0.55,
-          "Sharpe": 2.0622533725976266,
-          "num_trades": 17.0,
-          "oos_rank": 4,
-          "combo_key": "ZROUSDT|os10|ibs0.55"
-        },
-        {
-          "asset": "ZROUSDT",
-          "oversold": 12.0,
-          "ibs_thr": 0.45,
-          "Sharpe": 2.048828261232216,
-          "num_trades": 20.0,
-          "oos_rank": 5,
-          "combo_key": "ZROUSDT|os12|ibs0.45"
-        },
-        {
-          "asset": "ZROUSDT",
-          "oversold": 12.0,
-          "ibs_thr": 0.5,
-          "Sharpe": 2.048828261232216,
-          "num_trades": 20.0,
-          "oos_rank": 6,
-          "combo_key": "ZROUSDT|os12|ibs0.5"
-        },
-        {
-          "asset": "ZROUSDT",
-          "oversold": 12.0,
-          "ibs_thr": 0.55,
-          "Sharpe": 2.048828261232216,
-          "num_trades": 20.0,
-          "oos_rank": 7,
-          "combo_key": "ZROUSDT|os12|ibs0.55"
-        },
-        {
-          "asset": "ZROUSDT",
+          "asset": "WLDUSDT",
           "oversold": 15.0,
-          "ibs_thr": 0.25,
-          "Sharpe": 1.981545097678574,
-          "num_trades": 19.0,
-          "oos_rank": 8,
-          "combo_key": "ZROUSDT|os15|ibs0.25"
+          "ibs_thr": 0.5,
+          "Sharpe": 1.4946882499601504,
+          "num_trades": 29.0,
+          "oos_rank": 2,
+          "combo_key": "WLDUSDT|os15|ibs0.5"
         },
         {
-          "asset": "ZROUSDT",
-          "oversold": 10.0,
+          "asset": "AVAXUSDT",
+          "oversold": 15.0,
+          "ibs_thr": 0.45,
+          "Sharpe": 1.1867529876404206,
+          "num_trades": 25.0,
+          "oos_rank": 3,
+          "combo_key": "AVAXUSDT|os15|ibs0.45"
+        },
+        {
+          "asset": "1000PEPEUSDT",
+          "oversold": 18.0,
+          "ibs_thr": 0.55,
+          "Sharpe": 1.013096892227192,
+          "num_trades": 32.0,
+          "oos_rank": 4,
+          "combo_key": "1000PEPEUSDT|os18|ibs0.55"
+        },
+        {
+          "asset": "ONDOUSDT",
+          "oversold": 15.0,
+          "ibs_thr": 0.5,
+          "Sharpe": 0.967822006834491,
+          "num_trades": 26.0,
+          "oos_rank": 5,
+          "combo_key": "ONDOUSDT|os15|ibs0.5"
+        },
+        {
+          "asset": "1000BONKUSDT",
+          "oversold": 15.0,
           "ibs_thr": 0.4,
-          "Sharpe": 1.9573694786508495,
-          "num_trades": 14.0,
-          "oos_rank": 9,
-          "combo_key": "ZROUSDT|os10|ibs0.4"
+          "Sharpe": 0.9416778668424205,
+          "num_trades": 25.0,
+          "oos_rank": 6,
+          "combo_key": "1000BONKUSDT|os15|ibs0.4"
         },
         {
-          "asset": "ZROUSDT",
+          "asset": "AAVEUSDT",
+          "oversold": 18.0,
+          "ibs_thr": 0.55,
+          "Sharpe": 0.898732180724249,
+          "num_trades": 30.0,
+          "oos_rank": 7,
+          "combo_key": "AAVEUSDT|os18|ibs0.55"
+        },
+        {
+          "asset": "CRVUSDT",
+          "oversold": 18.0,
+          "ibs_thr": 0.5,
+          "Sharpe": 0.889531660392486,
+          "num_trades": 31.0,
+          "oos_rank": 8,
+          "combo_key": "CRVUSDT|os18|ibs0.5"
+        },
+        {
+          "asset": "NEIROUSDT",
           "oversold": 20.0,
-          "ibs_thr": 0.2,
-          "Sharpe": 1.954897164785926,
-          "num_trades": 17.0,
+          "ibs_thr": 0.55,
+          "Sharpe": 0.8673315845074828,
+          "num_trades": 31.0,
+          "oos_rank": 9,
+          "combo_key": "NEIROUSDT|os20|ibs0.55"
+        },
+        {
+          "asset": "ENAUSDT",
+          "oversold": 18.0,
+          "ibs_thr": 0.45,
+          "Sharpe": 0.8646629962354703,
+          "num_trades": 26.0,
           "oos_rank": 10,
-          "combo_key": "ZROUSDT|os20|ibs0.2"
+          "combo_key": "ENAUSDT|os18|ibs0.45"
         }
       ],
-      "fold_sharpe": -0.24320784963803,
-      "fold_return": -0.027435953822805392
+      "n_sleeves": 10,
+      "sleeve_weight": 0.1,
+      "fold_sharpe": -2.776646213907726,
+      "fold_return": -0.17232190822322846
     },
     {
       "fold": 20,
       "is_start": "2025-01-01 00:00:00+00:00",
       "oos_start": "2026-07-01 00:00:00+00:00",
       "oos_end": "2026-10-01 00:00:00+00:00",
-      "universe_size": 100,
-      "candidates": 2987,
+      "universe_size": 50,
+      "candidates": 361,
       "top10": [
         {
-          "asset": "ZROUSDT",
-          "oversold": 12.0,
-          "ibs_thr": 0.25,
-          "Sharpe": 2.196355339297307,
-          "num_trades": 13.0,
-          "oos_rank": 1,
-          "combo_key": "ZROUSDT|os12|ibs0.25"
-        },
-        {
-          "asset": "ZROUSDT",
+          "asset": "FARTCOINUSDT",
           "oversold": 20.0,
-          "ibs_thr": 0.2,
-          "Sharpe": 2.1196264136261744,
-          "num_trades": 19.0,
+          "ibs_thr": 0.3,
+          "Sharpe": 1.4679160691975186,
+          "num_trades": 25.0,
+          "oos_rank": 1,
+          "combo_key": "FARTCOINUSDT|os20|ibs0.3"
+        },
+        {
+          "asset": "WLDUSDT",
+          "oversold": 15.0,
+          "ibs_thr": 0.4,
+          "Sharpe": 1.2311493943847718,
+          "num_trades": 26.0,
           "oos_rank": 2,
-          "combo_key": "ZROUSDT|os20|ibs0.2"
+          "combo_key": "WLDUSDT|os15|ibs0.4"
         },
         {
-          "asset": "ZROUSDT",
-          "oversold": 18.0,
-          "ibs_thr": 0.2,
-          "Sharpe": 2.057555921071602,
-          "num_trades": 17.0,
+          "asset": "AVAXUSDT",
+          "oversold": 15.0,
+          "ibs_thr": 0.4,
+          "Sharpe": 1.132904231476021,
+          "num_trades": 25.0,
           "oos_rank": 3,
-          "combo_key": "ZROUSDT|os18|ibs0.2"
+          "combo_key": "AVAXUSDT|os15|ibs0.4"
         },
         {
-          "asset": "GIGGLEUSDT",
+          "asset": "ONDOUSDT",
+          "oversold": 15.0,
+          "ibs_thr": 0.4,
+          "Sharpe": 1.0935958237985257,
+          "num_trades": 25.0,
+          "oos_rank": 4,
+          "combo_key": "ONDOUSDT|os15|ibs0.4"
+        },
+        {
+          "asset": "NEARUSDT",
           "oversold": 18.0,
           "ibs_thr": 0.4,
-          "Sharpe": 2.0567569270210537,
-          "num_trades": 14.0,
-          "oos_rank": 4,
-          "combo_key": "GIGGLEUSDT|os18|ibs0.4"
+          "Sharpe": 0.8676749054817564,
+          "num_trades": 27.0,
+          "oos_rank": 5,
+          "combo_key": "NEARUSDT|os18|ibs0.4"
         },
         {
-          "asset": "GIGGLEUSDT",
+          "asset": "HBARUSDT",
+          "oversold": 18.0,
+          "ibs_thr": 0.35,
+          "Sharpe": 0.8100471957261169,
+          "num_trades": 30.0,
+          "oos_rank": 6,
+          "combo_key": "HBARUSDT|os18|ibs0.35"
+        },
+        {
+          "asset": "FILUSDT",
+          "oversold": 20.0,
+          "ibs_thr": 0.45,
+          "Sharpe": 0.7909966040743519,
+          "num_trades": 32.0,
+          "oos_rank": 7,
+          "combo_key": "FILUSDT|os20|ibs0.45"
+        },
+        {
+          "asset": "INJUSDT",
           "oversold": 18.0,
           "ibs_thr": 0.45,
-          "Sharpe": 2.049251047893538,
-          "num_trades": 14.0,
-          "oos_rank": 5,
-          "combo_key": "GIGGLEUSDT|os18|ibs0.45"
-        },
-        {
-          "asset": "ZROUSDT",
-          "oversold": 15.0,
-          "ibs_thr": 0.25,
-          "Sharpe": 2.040618053747724,
-          "num_trades": 19.0,
-          "oos_rank": 6,
-          "combo_key": "ZROUSDT|os15|ibs0.25"
-        },
-        {
-          "asset": "ZROUSDT",
-          "oversold": 12.0,
-          "ibs_thr": 0.4,
-          "Sharpe": 2.0066937303995314,
-          "num_trades": 20.0,
-          "oos_rank": 7,
-          "combo_key": "ZROUSDT|os12|ibs0.4"
-        },
-        {
-          "asset": "GIGGLEUSDT",
-          "oversold": 18.0,
-          "ibs_thr": 0.55,
-          "Sharpe": 2.0010923079317386,
-          "num_trades": 15.0,
+          "Sharpe": 0.7877875259250164,
+          "num_trades": 27.0,
           "oos_rank": 8,
-          "combo_key": "GIGGLEUSDT|os18|ibs0.55"
+          "combo_key": "INJUSDT|os18|ibs0.45"
         },
         {
-          "asset": "ZROUSDT",
-          "oversold": 12.0,
-          "ibs_thr": 0.35,
-          "Sharpe": 1.977718134780726,
-          "num_trades": 19.0,
+          "asset": "XLMUSDT",
+          "oversold": 20.0,
+          "ibs_thr": 0.4,
+          "Sharpe": 0.7710911576664616,
+          "num_trades": 33.0,
           "oos_rank": 9,
-          "combo_key": "ZROUSDT|os12|ibs0.35"
+          "combo_key": "XLMUSDT|os20|ibs0.4"
         },
         {
-          "asset": "GIGGLEUSDT",
+          "asset": "CRVUSDT",
           "oversold": 18.0,
-          "ibs_thr": 0.5,
-          "Sharpe": 1.9736036681136981,
-          "num_trades": 14.0,
+          "ibs_thr": 0.45,
+          "Sharpe": 0.7226084736765844,
+          "num_trades": 28.0,
           "oos_rank": 10,
-          "combo_key": "GIGGLEUSDT|os18|ibs0.5"
+          "combo_key": "CRVUSDT|os18|ibs0.45"
         }
       ],
-      "fold_sharpe": -0.30281225523201344,
-      "fold_return": -0.001836469260598772
+      "n_sleeves": 10,
+      "sleeve_weight": 0.1,
+      "fold_sharpe": 4.5454693322711135,
+      "fold_return": 0.07595221613677117
     }
   ],
   "top_combo_frequency": [
     [
-      "STXUSDT|os15|ibs0.55",
+      "CRVUSDT|os18|ibs0.5",
+      7
+    ],
+    [
+      "DYDXUSDT|os20|ibs0.55",
       6
     ],
     [
-      "CELRUSDT|os20|ibs0.45",
+      "DOTUSDT|os20|ibs0.3",
       5
     ],
     [
-      "STXUSDT|os15|ibs0.5",
-      5
-    ],
-    [
-      "CELRUSDT|os20|ibs0.4",
+      "UNIUSDT|os20|ibs0.5",
       4
     ],
     [
-      "CELRUSDT|os18|ibs0.4",
+      "BCHUSDT|os20|ibs0.55",
       4
     ],
     [
-      "CELRUSDT|os18|ibs0.45",
+      "UNIUSDT|os20|ibs0.55",
       3
     ],
     [
-      "IMXUSDT|os10|ibs0.4",
+      "ADAUSDT|os18|ibs0.35",
       3
     ],
     [
-      "STXUSDT|os20|ibs0.3",
+      "SNXUSDT|os20|ibs0.35",
       3
     ],
     [
-      "STXUSDT|os18|ibs0.5",
+      "MASKUSDT|os20|ibs0.45",
       3
     ],
     [
-      "STXUSDT|os20|ibs0.5",
+      "SUIUSDT|os18|ibs0.5",
       3
     ],
     [
-      "STXUSDT|os18|ibs0.55",
-      3
-    ],
-    [
-      "STXUSDT|os15|ibs0.35",
-      3
-    ],
-    [
-      "FARTCOINUSDT|os20|ibs0.3",
-      3
-    ],
-    [
-      "ZECUSDT|os12|ibs0.5",
+      "ALGOUSDT|os20|ibs0.4",
       2
     ],
     [
-      "SKLUSDT|os15|ibs0.4",
+      "RUNEUSDT|os20|ibs0.5",
       2
     ],
     [
-      "SKLUSDT|os15|ibs0.45",
+      "COMPUSDT|os20|ibs0.45",
       2
     ],
     [
-      "SKLUSDT|os18|ibs0.4",
+      "ZECUSDT|os20|ibs0.35",
       2
     ],
     [
-      "SKLUSDT|os12|ibs0.4",
+      "RUNEUSDT|os20|ibs0.3",
       2
     ],
     [
-      "CELRUSDT|os20|ibs0.5",
+      "MANAUSDT|os20|ibs0.3",
       2
     ],
     [
-      "CELRUSDT|os15|ibs0.4",
+      "MASKUSDT|os18|ibs0.4",
+      2
+    ],
+    [
+      "BTCUSDT|os20|ibs0.45",
+      2
+    ],
+    [
+      "AAVEUSDT|os20|ibs0.55",
+      2
+    ],
+    [
+      "DOTUSDT|os20|ibs0.35",
       2
     ]
   ],
   "top_asset_frequency": [
     [
-      "STXUSDT",
-      43
+      "UNIUSDT",
+      11
     ],
     [
-      "CELRUSDT",
-      21
-    ],
-    [
-      "SKLUSDT",
-      20
-    ],
-    [
-      "ZROUSDT",
-      14
-    ],
-    [
-      "FARTCOINUSDT",
-      13
-    ],
-    [
-      "IMXUSDT",
-      10
-    ],
-    [
-      "ARKMUSDT",
-      8
-    ],
-    [
-      "BCHUSDT",
-      7
+      "DOTUSDT",
+      9
     ],
     [
       "DYDXUSDT",
+      8
+    ],
+    [
+      "CRVUSDT",
+      8
+    ],
+    [
+      "MASKUSDT",
       7
     ],
     [
-      "BATUSDT",
-      6
-    ],
-    [
-      "TAOUSDT",
-      6
-    ],
-    [
-      "ADAUSDT",
-      5
-    ],
-    [
-      "ZECUSDT",
-      4
-    ],
-    [
-      "AUCTIONUSDT",
-      4
-    ],
-    [
-      "ENAUSDT",
-      4
-    ],
-    [
-      "SEIUSDT",
-      4
-    ],
-    [
-      "SPXUSDT",
-      4
-    ],
-    [
-      "GIGGLEUSDT",
-      4
+      "AAVEUSDT",
+      7
     ],
     [
       "RUNEUSDT",
-      2
+      6
     ],
     [
-      "SANDUSDT",
-      2
+      "SNXUSDT",
+      5
+    ],
+    [
+      "BCHUSDT",
+      5
+    ],
+    [
+      "AVAXUSDT",
+      5
+    ],
+    [
+      "ADAUSDT",
+      4
+    ],
+    [
+      "ALICEUSDT",
+      4
+    ],
+    [
+      "STXUSDT",
+      4
+    ],
+    [
+      "XRPUSDT",
+      4
+    ],
+    [
+      "XLMUSDT",
+      3
+    ],
+    [
+      "ATOMUSDT",
+      3
+    ],
+    [
+      "GRTUSDT",
+      3
+    ],
+    [
+      "ARBUSDT",
+      3
+    ],
+    [
+      "TRBUSDT",
+      3
+    ],
+    [
+      "SEIUSDT",
+      3
     ]
   ]
 }

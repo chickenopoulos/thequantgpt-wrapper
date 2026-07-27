@@ -5,9 +5,13 @@ Loading Binance futures daily...
 Cached 496 USDT perpetuals
 Walk-forward folds: 21
 Fold 1/21 IS [2020-01-01 .. 2021-07-01) OOS [2021-07-01 .. 2021-10-01)
+  skip fold — only 7 qualifying combos
 Fold 2/21 IS [2020-04-01 .. 2021-10-01) OOS [2021-10-01 .. 2022-01-01)
+  skip fold — only 4 qualifying combos
 Fold 3/21 IS [2020-07-01 .. 2022-01-01) OOS [2022-01-01 .. 2022-04-01)
+  skip fold — only 6 unique assets after dedupe (need 10)
 Fold 4/21 IS [2020-10-01 .. 2022-04-01) OOS [2022-04-01 .. 2022-07-01)
+  skip fold — only 6 unique assets after dedupe (need 10)
 Fold 5/21 IS [2021-01-01 .. 2022-07-01) OOS [2022-07-01 .. 2022-10-01)
 Fold 6/21 IS [2021-04-01 .. 2022-10-01) OOS [2022-10-01 .. 2023-01-01)
 Fold 7/21 IS [2021-07-01 .. 2023-01-01) OOS [2023-01-01 .. 2023-04-01)
@@ -25,7 +29,7 @@ Fold 18/21 IS [2024-04-01 .. 2025-10-01) OOS [2025-10-01 .. 2026-01-01)
 Fold 19/21 IS [2024-07-01 .. 2026-01-01) OOS [2026-01-01 .. 2026-04-01)
 Fold 20/21 IS [2024-10-01 .. 2026-04-01) OOS [2026-04-01 .. 2026-07-01)
 Fold 21/21 IS [2025-01-01 .. 2026-07-01) OOS [2026-07-01 .. 2026-10-01)
-OOS stitched: Sharpe=0.48 CAGR=11.7% MaxDD=-52.5% folds=21
+OOS stitched: Sharpe=0.25 CAGR=2.7% MaxDD=-33.1% folds=17
 
 
 ## stderr

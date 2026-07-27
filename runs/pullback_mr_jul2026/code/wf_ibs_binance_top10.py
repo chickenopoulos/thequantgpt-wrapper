@@ -36,9 +36,10 @@ SLEEVE_WEIGHT = 1.0 / TOP_K
 TRAIN_MONTHS = 18
 STEP_MONTHS = 3
 FIRST_OOS = pd.Timestamp("2021-07-01", tz="UTC")
-MIN_IS_TRADES = 12
+MIN_IS_TRADES = 25
 MIN_IS_BARS = 200
-UNIVERSE_SIZE = 100  # liquid USDT perps per fold
+UNIVERSE_SIZE = 50  # liquid USDT perps per fold
+DEDUPE_BY_ASSET = True
 
 OVERSOLD_GRID = [5.0, 8.0, 10.0, 12.0, 15.0, 18.0, 20.0]
 IBS_THR_GRID = [0.20, 0.25, 0.30, 0.35, 0.40, 0.45, 0.50, 0.55]
@@ -125,6 +126,21 @@ def _trade_count(entries: np.ndarray, exits: np.ndarray) -> int:
 
 def _slice_idx(index: pd.DatetimeIndex, start: pd.Timestamp, end: pd.Timestamp) -> np.ndarray:
     return (index >= start) & (index < end)
+
+
+def _select_top_k(scores: list[dict], k: int, *, dedupe_by_asset: bool) -> list[dict]:
+    ranked = sorted(scores, key=lambda r: r["Sharpe"], reverse=True)
+    top: list[dict] = []
+    seen_assets: set[str] = set()
+    for row in ranked:
+        if dedupe_by_asset and row["asset"] in seen_assets:
+            continue
+        if dedupe_by_asset:
+            seen_assets.add(row["asset"])
+        top.append(row)
+        if len(top) >= k:
+            break
+    return top
 
 
 class AssetCache:
@@ -246,14 +262,19 @@ for fi, fold in enumerate(folds):
         print(f"  skip fold — only {len(scores)} qualifying combos")
         continue
 
-    top = sorted(scores, key=lambda r: r["Sharpe"], reverse=True)[:TOP_K]
+    top = _select_top_k(scores, TOP_K, dedupe_by_asset=DEDUPE_BY_ASSET)
+    if len(top) < TOP_K:
+        print(f"  skip fold — only {len(top)} unique assets after dedupe (need {TOP_K})")
+        continue
+
+    sleeve_weight = 1.0 / len(top)
     oos_index = pd.date_range(oos_start, oos_end, freq="D", tz="UTC", inclusive="left")
     fold_port = pd.Series(0.0, index=oos_index)
 
     for rank, row in enumerate(top, start=1):
         cache = caches[row["asset"]]
         oos_mask = _slice_idx(cache.times, oos_start, oos_end)
-        sleeve = cache.oos_returns(row["oversold"], row["ibs_thr"], oos_mask) * SLEEVE_WEIGHT
+        sleeve = cache.oos_returns(row["oversold"], row["ibs_thr"], oos_mask) * sleeve_weight
         fold_port = fold_port.add(sleeve.reindex(oos_index).fillna(0.0), fill_value=0.0)
         row["oos_rank"] = rank
         row["combo_key"] = Combo(row["asset"], row["oversold"], row["ibs_thr"]).key()
@@ -268,6 +289,8 @@ for fi, fold in enumerate(folds):
             "universe_size": len(universe),
             "candidates": len(scores),
             "top10": top,
+            "n_sleeves": len(top),
+            "sleeve_weight": sleeve_weight,
             "fold_sharpe": _sharpe(fold_port.to_numpy()),
             "fold_return": float((1 + fold_port).prod() - 1),
         }
@@ -309,6 +332,7 @@ summary = {
         "sleeve_weight": SLEEVE_WEIGHT,
         "universe_size": UNIVERSE_SIZE,
         "min_is_trades": MIN_IS_TRADES,
+        "dedupe_by_asset": DEDUPE_BY_ASSET,
     },
     "param_grid": {"oversold": OVERSOLD_GRID, "ibs_thr": IBS_THR_GRID},
     "n_folds": len(fold_records),
@@ -370,8 +394,8 @@ report = f"""# Walk-forward top-10 IBS + RSI — Binance USDT-M
 **Run:** pullback_mr_jul2026  
 **Universe:** Top {UNIVERSE_SIZE} liquid USDT perpetuals per fold (from Binance futures daily)  
 **WF:** {TRAIN_MONTHS}m rolling IS → {STEP_MONTHS}m OOS, first OOS {FIRST_OOS.date()}  
-**Selection:** Global top {TOP_K} (asset × oversold × IBS) by in-sample Sharpe, min {MIN_IS_TRADES} IS trades  
-**Portfolio:** Equal weight ({SLEEVE_WEIGHT*100:.0f}% per sleeve)  
+**Selection:** Global top {TOP_K} by in-sample Sharpe, min {MIN_IS_TRADES} IS trades, **one combo per asset (deduped)**  
+**Portfolio:** Equal weight across selected sleeves (~{100/TOP_K:.0f}% each when 10 fill)  
 **Stats below:** stitched OOS only ({len(fold_records)} folds)
 
 ## OOS performance (walk-forward stitched)
