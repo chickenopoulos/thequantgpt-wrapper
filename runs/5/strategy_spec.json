@@ -1,0 +1,109 @@
+{
+  "workflow": "single_asset_signals",
+  "symbol": "BTCUSDT",
+  "asset_class": "crypto",
+  "data_source": "local:/root/thequantgpt-wrapper/data/talos/cm_BTCUSDT_market_candles_1d.parquet",
+  "annualization": 365,
+  "oos_start_ts": "2025-01-01",
+  "strategies": [
+    {
+      "id": "S1",
+      "family": "onchain_value",
+      "name": "Puell value + 200DMA gate",
+      "literature": "Miner revenue stress (Puell) within uptrend; Liu/Tsyvinski MA timing",
+      "params": {
+        "puell_entry": 0.7,
+        "puell_exit": 1.5,
+        "trend_ma": 200
+      },
+      "sharpe_full": 0.9437628794626642,
+      "sharpe_is": 1.044338624327419,
+      "sharpe_oos": 0.33660021624553615,
+      "max_dd": -0.24541288575766285,
+      "cagr": 0.22163477437592483,
+      "trades": 6,
+      "exposure": 0.22833675564681724,
+      "meets_sharpe": false,
+      "meets_dd": true
+    },
+    {
+      "id": "S2",
+      "family": "mean_reversion",
+      "name": "IBS + RSI pullback in uptrend",
+      "literature": "Internal bar strength + RSI oversold; Connors short-term MR",
+      "params": {
+        "trend_ma": 125,
+        "ibs_entry": 0.35,
+        "rsi_entry": 35,
+        "ibs_exit": 0.5
+      },
+      "sharpe_full": 0.8031211113532637,
+      "sharpe_is": 0.7153266353791498,
+      "sharpe_oos": 1.8981989421501266,
+      "max_dd": -0.06945424270056932,
+      "cagr": 0.05151211031285019,
+      "trades": 54,
+      "exposure": 0.015605749486652977,
+      "meets_sharpe": false,
+      "meets_dd": true
+    },
+    {
+      "id": "S3",
+      "family": "regime_mr",
+      "name": "RSI oversold in low-efficiency chop",
+      "literature": "Mean reversion when Kaufman ER > 0.5 (ranging market)",
+      "params": {
+        "er_min": 0.5,
+        "rsi_entry": 30,
+        "rsi_exit": 50
+      },
+      "sharpe_full": 0.6350527696152796,
+      "sharpe_is": 0.8130169367627634,
+      "sharpe_oos": -0.032918732214432055,
+      "max_dd": -0.18336099133990014,
+      "cagr": 0.10516192917275125,
+      "trades": 26,
+      "exposure": 0.07063655030800821,
+      "meets_sharpe": false,
+      "meets_dd": true
+    },
+    {
+      "id": "S4",
+      "family": "microstructure",
+      "name": "Negative funding momentum",
+      "literature": "Short-squeeze setup: negative perp funding + rising price",
+      "params": {
+        "funding_thr": 0.0,
+        "momentum_days": 5
+      },
+      "sharpe_full": 0.4809263460793206,
+      "sharpe_is": 0.5614786006728741,
+      "sharpe_oos": -0.03350781924370098,
+      "max_dd": -0.21891631695971603,
+      "cagr": 0.054986156966156274,
+      "trades": 168,
+      "exposure": 0.060369609856262836,
+      "meets_sharpe": false,
+      "meets_dd": true
+    },
+    {
+      "id": "S5",
+      "family": "trend",
+      "name": "CMMA(40) ATR-normalized trend",
+      "literature": "Cumulative MA normalized by ATR; Moskowitz/Ooi/Pedersen TSMOM variant",
+      "params": {
+        "cmma_window": 40
+      },
+      "sharpe_full": 1.2734102386274606,
+      "sharpe_is": 1.412314955490251,
+      "sharpe_oos": 0.4895855928162985,
+      "max_dd": -0.5848069612790711,
+      "cagr": 0.5616440767323081,
+      "trades": 151,
+      "exposure": 0.5318275154004107,
+      "meets_sharpe": true,
+      "meets_dd": false
+    }
+  ],
+  "ensemble_method": "equal_weight_mean_position_clipped"
+}

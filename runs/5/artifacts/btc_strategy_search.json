@@ -1,0 +1,129 @@
+{
+  "symbol": "BTCUSDT",
+  "oos_start_ts": "2025-01-01 00:00:00+00:00",
+  "annualization": 365,
+  "costs": {
+    "fee": 0.00045,
+    "slippage": 0.0005
+  },
+  "criteria": {
+    "per_strategy": {
+      "min_sharpe": 1.0,
+      "max_drawdown": 0.25
+    },
+    "ensemble": {
+      "min_sharpe": 2.0,
+      "max_drawdown": 0.15
+    }
+  },
+  "search_size": 72,
+  "qualified_count": 0,
+  "selected_strategies": [
+    {
+      "id": "S024",
+      "family": "trend_cmma",
+      "name": "CMMA 40",
+      "params": {
+        "k": 40
+      },
+      "sharpe_full": 1.2734102386274606,
+      "sharpe_is": 1.412314955490251,
+      "sharpe_oos": 0.4895855928162985,
+      "max_dd": -0.5848069612790711,
+      "cagr": 0.5616440767323081,
+      "trades": 151,
+      "exposure": 0.5318275154004107
+    },
+    {
+      "id": "S005",
+      "family": "trend_sma",
+      "name": "SMA 100 long-flat",
+      "params": {
+        "window": 100
+      },
+      "sharpe_full": 1.1644187848188379,
+      "sharpe_is": 1.2464038902148715,
+      "sharpe_oos": 0.7744476764059522,
+      "max_dd": -0.46269929328953574,
+      "cagr": 0.49435436570041036,
+      "trades": 91,
+      "exposure": 0.553182751540041
+    },
+    {
+      "id": "S072",
+      "family": "intermarket_dxy",
+      "name": "DXY risk-on MA200",
+      "params": {
+        "ma": 200
+      },
+      "sharpe_full": 1.0465816351825112,
+      "sharpe_is": 1.2141101209059717,
+      "sharpe_oos": 0.3007347445521835,
+      "max_dd": -0.5444092770959412,
+      "cagr": 0.3964508386682244,
+      "trades": 57,
+      "exposure": 0.45544147843942506
+    },
+    {
+      "id": "S018",
+      "family": "trend_tsmom",
+      "name": "TSMOM 252d",
+      "params": {
+        "lookback": 252
+      },
+      "sharpe_full": 1.0436326168292973,
+      "sharpe_is": 1.2160422586356208,
+      "sharpe_oos": 0.13969717057674083,
+      "max_dd": -0.5332710379354562,
+      "cagr": 0.4672308867174446,
+      "trades": 44,
+      "exposure": 0.6817248459958932
+    },
+    {
+      "id": "S033",
+      "family": "trend_er_breakout",
+      "name": "ER breakout 20/20",
+      "params": {
+        "er_window": 20,
+        "don_n": 20,
+        "er_thr": 0.3
+      },
+      "sharpe_full": 1.0185440431460544,
+      "sharpe_is": 1.1265545375379666,
+      "sharpe_oos": 0.3794025113493897,
+      "max_dd": -0.6559993143860512,
+      "cagr": 0.35957846087086565,
+      "trades": 47,
+      "exposure": 0.3535934291581109
+    }
+  ],
+  "ensemble": {
+    "full": {
+      "Sharpe": 0.0,
+      "MaxDD": 0.0,
+      "CAGR": 0.0,
+      "exposure": 0.0
+    },
+    "in_sample": {
+      "Sharpe": 0.0,
+      "MaxDD": 0.0,
+      "CAGR": 0.0,
+      "exposure": 0.0
+    },
+    "out_of_sample": {
+      "Sharpe": 0.0,
+      "MaxDD": 0.0,
+      "CAGR": 0.0,
+      "exposure": 0.0
+    },
+    "n_strategies": 5,
+    "strategy_ids": [
+      "S024",
+      "S005",
+      "S072",
+      "S018",
+      "S033"
+    ]
+  },
+  "all_qualified": []
+}
