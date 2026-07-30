@@ -1,0 +1,879 @@
+[
+  {
+    "id": "rsi_tr_8h_20_30_0.08",
+    "interval": "8h",
+    "family": "mean_reversion",
+    "style": "oscillator",
+    "name": "RSI20 trail8%",
+    "params": {
+      "rsi_w": 20,
+      "ent": 30,
+      "tma": 100,
+      "trail": 0.08
+    },
+    "sharpe": 1.4523980193181467,
+    "max_dd": -0.1690933207417098,
+    "sharpe_is": 1.6062210999900066,
+    "sharpe_oos": 0.0,
+    "trades": 22,
+    "trades_per_year": 2.5713600000000003,
+    "exposure": 0.12225304032430126
+  },
+  {
+    "id": "rsi_tr_12h_20_35_0.04",
+    "interval": "12h",
+    "family": "mean_reversion",
+    "style": "oscillator",
+    "name": "RSI20 trail4%",
+    "params": {
+      "rsi_w": 20,
+      "ent": 35,
+      "tma": 200,
+      "trail": 0.04
+    },
+    "sharpe": 1.4063887040925727,
+    "max_dd": -0.23183897408775278,
+    "sharpe_is": 1.6916375371675751,
+    "sharpe_oos": -0.575672904430279,
+    "trades": 86,
+    "trades_per_year": 10.051680000000001,
+    "exposure": 0.1590145576707727
+  },
+  {
+    "id": "rsi_tr_12h_20_35_0.08",
+    "interval": "12h",
+    "family": "mean_reversion",
+    "style": "oscillator",
+    "name": "RSI20 trail8%",
+    "params": {
+      "rsi_w": 20,
+      "ent": 35,
+      "tma": 200,
+      "trail": 0.08
+    },
+    "sharpe": 1.3524731415557907,
+    "max_dd": -0.2831230716107791,
+    "sharpe_is": 1.6556462005799606,
+    "sharpe_oos": -0.9630534828488176,
+    "trades": 62,
+    "trades_per_year": 7.246560000000001,
+    "exposure": 0.24044152935530316
+  },
+  {
+    "id": "rsi_tr_8h_20_35_0.06",
+    "interval": "8h",
+    "family": "mean_reversion",
+    "style": "oscillator",
+    "name": "RSI20 trail6%",
+    "params": {
+      "rsi_w": 20,
+      "ent": 35,
+      "tma": 100,
+      "trail": 0.06
+    },
+    "sharpe": 1.3397415706625684,
+    "max_dd": -0.30850791391906873,
+    "sharpe_is": 1.634769552950066,
+    "sharpe_oos": -0.9722588380184926,
+    "trades": 74,
+    "trades_per_year": 8.64912,
+    "exposure": 0.1863665457648816
+  },
+  {
+    "id": "rsi_tr_8h_20_30_0.06",
+    "interval": "8h",
+    "family": "mean_reversion",
+    "style": "oscillator",
+    "name": "RSI20 trail6%",
+    "params": {
+      "rsi_w": 20,
+      "ent": 30,
+      "tma": 100,
+      "trail": 0.06
+    },
+    "sharpe": 1.32737319129339,
+    "max_dd": -0.159204047396589,
+    "sharpe_is": 1.4679030713020866,
+    "sharpe_oos": 0.0,
+    "trades": 24,
+    "trades_per_year": 2.80512,
+    "exposure": 0.08310219756774057
+  },
+  {
+    "id": "rsi_tr_12h_20_35_0.06",
+    "interval": "12h",
+    "family": "mean_reversion",
+    "style": "oscillator",
+    "name": "RSI20 trail6%",
+    "params": {
+      "rsi_w": 20,
+      "ent": 35,
+      "tma": 200,
+      "trail": 0.06
+    },
+    "sharpe": 1.3047540138694707,
+    "max_dd": -0.2702486205698752,
+    "sharpe_is": 1.5622300822635549,
+    "sharpe_oos": -0.5149270710975339,
+    "trades": 74,
+    "trades_per_year": 8.64912,
+    "exposure": 0.210206366981283
+  },
+  {
+    "id": "er_mom_tr_2h_40_0.12",
+    "interval": "2h",
+    "family": "momentum",
+    "style": "regime",
+    "name": "ERmom trail12%",
+    "params": {
+      "erw": 40,
+      "mw": 20,
+      "trail": 0.12
+    },
+    "sharpe": 1.272113358063302,
+    "max_dd": -0.29162974660139007,
+    "sharpe_is": 1.427715949966415,
+    "sharpe_oos": -0.34789185862673644,
+    "trades": 42,
+    "trades_per_year": 4.908174692049272,
+    "exposure": 0.2631016899377953
+  },
+  {
+    "id": "rsi_tr_8h_20_35_0.08",
+    "interval": "8h",
+    "family": "mean_reversion",
+    "style": "oscillator",
+    "name": "RSI20 trail8%",
+    "params": {
+      "rsi_w": 20,
+      "ent": 35,
+      "tma": 100,
+      "trail": 0.08
+    },
+    "sharpe": 1.2478717683515255,
+    "max_dd": -0.323217634464394,
+    "sharpe_is": 1.5187807632150405,
+    "sharpe_oos": -0.45703888928243624,
+    "trades": 66,
+    "trades_per_year": 7.714080000000001,
+    "exposure": 0.24461275869426072
+  },
+  {
+    "id": "er_mom_tr_4h_40_0.08",
+    "interval": "4h",
+    "family": "momentum",
+    "style": "regime",
+    "name": "ERmom trail8%",
+    "params": {
+      "erw": 40,
+      "mw": 20,
+      "trail": 0.08
+    },
+    "sharpe": 1.1648737890702663,
+    "max_dd": -0.23005643235582118,
+    "sharpe_is": 1.3611532248269695,
+    "sharpe_oos": -0.19181292176240752,
+    "trades": 42,
+    "trades_per_year": 4.9084364334471,
+    "exposure": 0.15962215818123598
+  },
+  {
+    "id": "er_mom_tr_2h_40_0.08",
+    "interval": "2h",
+    "family": "momentum",
+    "style": "regime",
+    "name": "ERmom trail8%",
+    "params": {
+      "erw": 40,
+      "mw": 20,
+      "trail": 0.08
+    },
+    "sharpe": 1.1477891326648881,
+    "max_dd": -0.2770419780704122,
+    "sharpe_is": 1.2777613445812877,
+    "sharpe_oos": -0.02103199806758917,
+    "trades": 56,
+    "trades_per_year": 6.544232922732363,
+    "exposure": 0.15057265664628774
+  },
+  {
+    "id": "rsi_tr_8h_14_30_0.06",
+    "interval": "8h",
+    "family": "mean_reversion",
+    "style": "oscillator",
+    "name": "RSI14 trail6%",
+    "params": {
+      "rsi_w": 14,
+      "ent": 30,
+      "tma": 100,
+      "trail": 0.06
+    },
+    "sharpe": 1.1349674518106059,
+    "max_dd": -0.28775435544683636,
+    "sharpe_is": 1.330091849096093,
+    "sharpe_oos": -0.37503772219364045,
+    "trades": 102,
+    "trades_per_year": 11.92176,
+    "exposure": 0.21847663750800086
+  },
+  {
+    "id": "er_mom_tr_6h_40_0.08",
+    "interval": "6h",
+    "family": "momentum",
+    "style": "regime",
+    "name": "ERmom trail8%",
+    "params": {
+      "erw": 40,
+      "mw": 20,
+      "trail": 0.08
+    },
+    "sharpe": 1.1333936134512173,
+    "max_dd": -0.20756939741904112,
+    "sharpe_is": 1.3674897123836773,
+    "sharpe_oos": -1.2003130005850953,
+    "trades": 34,
+    "trades_per_year": 3.9736021118310534,
+    "exposure": 0.11914859566295911
+  },
+  {
+    "id": "sqz_tr_8h_20",
+    "interval": "8h",
+    "family": "volatility",
+    "style": "squeeze",
+    "name": "SQZ20",
+    "params": {
+      "bw": 20,
+      "trail": 0.06
+    },
+    "sharpe": 1.095416322531956,
+    "max_dd": -0.3348697375925601,
+    "sharpe_is": 1.262458305434321,
+    "sharpe_oos": 0.25119110898766556,
+    "trades": 77,
+    "trades_per_year": 8.99976,
+    "exposure": 0.17559206315340303
+  },
+  {
+    "id": "er_mom_tr_4h_40_0.12",
+    "interval": "4h",
+    "family": "momentum",
+    "style": "regime",
+    "name": "ERmom trail12%",
+    "params": {
+      "erw": 40,
+      "mw": 20,
+      "trail": 0.12
+    },
+    "sharpe": 1.090059598660266,
+    "max_dd": -0.32604598923083783,
+    "sharpe_is": 1.226521775286912,
+    "sharpe_oos": 0.1978202675636986,
+    "trades": 38,
+    "trades_per_year": 4.440966296928328,
+    "exposure": 0.25248158821645855
+  },
+  {
+    "id": "rsi_tr_12h_14_25_0.04",
+    "interval": "12h",
+    "family": "mean_reversion",
+    "style": "oscillator",
+    "name": "RSI14 trail4%",
+    "params": {
+      "rsi_w": 14,
+      "ent": 25,
+      "tma": 200,
+      "trail": 0.04
+    },
+    "sharpe": 1.0624639529699502,
+    "max_dd": -0.31139573996131786,
+    "sharpe_is": 1.2631393098903951,
+    "sharpe_oos": -1.0882315302720469,
+    "trades": 66,
+    "trades_per_year": 7.714080000000001,
+    "exposure": 0.10222364421692529
+  },
+  {
+    "id": "er_mom_tr_12h_20_0.08",
+    "interval": "12h",
+    "family": "momentum",
+    "style": "regime",
+    "name": "ERmom trail8%",
+    "params": {
+      "erw": 20,
+      "mw": 20,
+      "trail": 0.08
+    },
+    "sharpe": 1.0456654539171508,
+    "max_dd": -0.3149689869930149,
+    "sharpe_is": 1.2571085672240285,
+    "sharpe_oos": -0.5406111311543341,
+    "trades": 68,
+    "trades_per_year": 7.94784,
+    "exposure": 0.2535594304911214
+  },
+  {
+    "id": "rsi_tr_12h_20_30_0.04",
+    "interval": "12h",
+    "family": "mean_reversion",
+    "style": "oscillator",
+    "name": "RSI20 trail4%",
+    "params": {
+      "rsi_w": 20,
+      "ent": 30,
+      "tma": 200,
+      "trail": 0.04
+    },
+    "sharpe": 1.0444766097712699,
+    "max_dd": -0.20308728160750944,
+    "sharpe_is": 1.067637670622624,
+    "sharpe_oos": 1.0170004508443822,
+    "trades": 44,
+    "trades_per_year": 5.142720000000001,
+    "exposure": 0.0804671252599584
+  },
+  {
+    "id": "rsi_tr_4h_20_25_0.08",
+    "interval": "4h",
+    "family": "mean_reversion",
+    "style": "oscillator",
+    "name": "RSI20 trail8%",
+    "params": {
+      "rsi_w": 20,
+      "ent": 25,
+      "tma": 100,
+      "trail": 0.08
+    },
+    "sharpe": 1.0347892930820703,
+    "max_dd": -0.211401851681714,
+    "sharpe_is": 1.200444258298818,
+    "sharpe_oos": -0.2743288097002205,
+    "trades": 24,
+    "trades_per_year": 2.8048208191126283,
+    "exposure": 0.13213790159035116
+  },
+  {
+    "id": "rsi_tr_12h_14_30_0.04",
+    "interval": "12h",
+    "family": "mean_reversion",
+    "style": "oscillator",
+    "name": "RSI14 trail4%",
+    "params": {
+      "rsi_w": 14,
+      "ent": 30,
+      "tma": 200,
+      "trail": 0.04
+    },
+    "sharpe": 1.0179459427292368,
+    "max_dd": -0.3326846961740706,
+    "sharpe_is": 1.1429255285912134,
+    "sharpe_oos": 0.20897348035098462,
+    "trades": 110,
+    "trades_per_year": 12.856800000000002,
+    "exposure": 0.15213565829467285
+  },
+  {
+    "id": "er_mom_tr_8h_40_0.08",
+    "interval": "8h",
+    "family": "momentum",
+    "style": "regime",
+    "name": "ERmom trail8%",
+    "params": {
+      "erw": 40,
+      "mw": 20,
+      "trail": 0.08
+    },
+    "sharpe": 1.0178193590211606,
+    "max_dd": -0.1756842775972436,
+    "sharpe_is": 1.1254935258366399,
+    "sharpe_oos": 0.0,
+    "trades": 24,
+    "trades_per_year": 2.80512,
+    "exposure": 0.08907616812459995
+  },
+  {
+    "id": "rsi_tr_8h_20_30_0.04",
+    "interval": "8h",
+    "family": "mean_reversion",
+    "style": "oscillator",
+    "name": "RSI20 trail4%",
+    "params": {
+      "rsi_w": 20,
+      "ent": 30,
+      "tma": 100,
+      "trail": 0.04
+    },
+    "sharpe": 0.9937664938717433,
+    "max_dd": -0.12444626089348387,
+    "sharpe_is": 1.0988907270640933,
+    "sharpe_oos": 0.0,
+    "trades": 28,
+    "trades_per_year": 3.2726400000000004,
+    "exposure": 0.04747173031790058
+  },
+  {
+    "id": "bb_tr_4h_40_0.08",
+    "interval": "4h",
+    "family": "mean_reversion",
+    "style": "band",
+    "name": "BB40 trail8%",
+    "params": {
+      "bw": 40,
+      "trail": 0.08
+    },
+    "sharpe": 0.9846116326938666,
+    "max_dd": -0.3439387596593386,
+    "sharpe_is": 1.2332005488637614,
+    "sharpe_oos": -0.9083192965033994,
+    "trades": 82,
+    "trades_per_year": 9.583137798634812,
+    "exposure": 0.25877895186252536
+  },
+  {
+    "id": "rsi_tr_8h_20_35_0.04",
+    "interval": "8h",
+    "family": "mean_reversion",
+    "style": "oscillator",
+    "name": "RSI20 trail4%",
+    "params": {
+      "rsi_w": 20,
+      "ent": 35,
+      "tma": 100,
+      "trail": 0.04
+    },
+    "sharpe": 0.9658291185207797,
+    "max_dd": -0.2574444326851276,
+    "sharpe_is": 1.1615511537469851,
+    "sharpe_oos": -0.5795030778156988,
+    "trades": 82,
+    "trades_per_year": 9.58416,
+    "exposure": 0.10966503093663324
+  },
+  {
+    "id": "rsi_tr_12h_14_25_0.06",
+    "interval": "12h",
+    "family": "mean_reversion",
+    "style": "oscillator",
+    "name": "RSI14 trail6%",
+    "params": {
+      "rsi_w": 14,
+      "ent": 25,
+      "tma": 100,
+      "trail": 0.06
+    },
+    "sharpe": 0.8872907270095551,
+    "max_dd": -0.2778983394562513,
+    "sharpe_is": 1.0312021180585398,
+    "sharpe_oos": -0.9183693627792004,
+    "trades": 38,
+    "trades_per_year": 4.44144,
+    "exposure": 0.11566149416093426
+  },
+  {
+    "id": "rsi_tr_4h_20_25_0.06",
+    "interval": "4h",
+    "family": "mean_reversion",
+    "style": "oscillator",
+    "name": "RSI20 trail6%",
+    "params": {
+      "rsi_w": 20,
+      "ent": 25,
+      "tma": 200,
+      "trail": 0.06
+    },
+    "sharpe": 0.8728753841960302,
+    "max_dd": -0.29599193977149685,
+    "sharpe_is": 1.0160120880932655,
+    "sharpe_oos": -0.2695509033040151,
+    "trades": 40,
+    "trades_per_year": 4.674701365187714,
+    "exposure": 0.10235884299284875
+  },
+  {
+    "id": "rsi_tr_8h_14_25_0.06",
+    "interval": "8h",
+    "family": "mean_reversion",
+    "style": "oscillator",
+    "name": "RSI14 trail6%",
+    "params": {
+      "rsi_w": 14,
+      "ent": 25,
+      "tma": 100,
+      "trail": 0.06
+    },
+    "sharpe": 0.8615732207319956,
+    "max_dd": -0.3103782959518748,
+    "sharpe_is": 1.0185847950152833,
+    "sharpe_oos": -0.2652403791699828,
+    "trades": 58,
+    "trades_per_year": 6.77904,
+    "exposure": 0.150416044378067
+  },
+  {
+    "id": "bb_tr_4h_40_0.06",
+    "interval": "4h",
+    "family": "mean_reversion",
+    "style": "band",
+    "name": "BB40 trail6%",
+    "params": {
+      "bw": 40,
+      "trail": 0.06
+    },
+    "sharpe": 0.8535248441747011,
+    "max_dd": -0.3149036903557575,
+    "sharpe_is": 1.0179895573817623,
+    "sharpe_oos": -0.29978718818522015,
+    "trades": 104,
+    "trades_per_year": 12.154223549488055,
+    "exposure": 0.18369089550645745
+  },
+  {
+    "id": "rsi_tr_6h_20_25_0.04",
+    "interval": "6h",
+    "family": "mean_reversion",
+    "style": "oscillator",
+    "name": "RSI20 trail4%",
+    "params": {
+      "rsi_w": 20,
+      "ent": 25,
+      "tma": 200,
+      "trail": 0.04
+    },
+    "sharpe": 0.8284182655221805,
+    "max_dd": -0.15053383734400705,
+    "sharpe_is": 0.984636665489221,
+    "sharpe_oos": -0.45014862003102074,
+    "trades": 40,
+    "trades_per_year": 4.674826013918887,
+    "exposure": 0.05833400016003841
+  },
+  {
+    "id": "bb_tr_6h_40_0.06",
+    "interval": "6h",
+    "family": "mean_reversion",
+    "style": "band",
+    "name": "BB40 trail6%",
+    "params": {
+      "bw": 40,
+      "trail": 0.06
+    },
+    "sharpe": 0.798733499340222,
+    "max_dd": -0.3314713428596876,
+    "sharpe_is": 0.9529420601591682,
+    "sharpe_oos": -0.4767363121031952,
+    "trades": 80,
+    "trades_per_year": 9.349652027837774,
+    "exposure": 0.14427462591021845
+  },
+  {
+    "id": "rsi_tr_12h_20_25_0.06",
+    "interval": "12h",
+    "family": "mean_reversion",
+    "style": "oscillator",
+    "name": "RSI20 trail6%",
+    "params": {
+      "rsi_w": 20,
+      "ent": 25,
+      "tma": 200,
+      "trail": 0.06
+    },
+    "sharpe": 0.7964626513348843,
+    "max_dd": -0.22817334253386945,
+    "sharpe_is": 0.8807487014771238,
+    "sharpe_oos": 0.0,
+    "trades": 20,
+    "trades_per_year": 2.3376,
+    "exposure": 0.06750919852823548
+  },
+  {
+    "id": "rsi_tr_2h_20_25_0.06",
+    "interval": "2h",
+    "family": "mean_reversion",
+    "style": "oscillator",
+    "name": "RSI20 trail6%",
+    "params": {
+      "rsi_w": 20,
+      "ent": 25,
+      "tma": 200,
+      "trail": 0.06
+    },
+    "sharpe": 0.7812287496801408,
+    "max_dd": -0.3433164608668495,
+    "sharpe_is": 1.0862996883373714,
+    "sharpe_oos": -1.010781627463028,
+    "trades": 88,
+    "trades_per_year": 10.28379459286514,
+    "exposure": 0.18381076968256935
+  },
+  {
+    "id": "rsi_tr_6h_14_30_0.06",
+    "interval": "6h",
+    "family": "mean_reversion",
+    "style": "oscillator",
+    "name": "RSI14 trail6%",
+    "params": {
+      "rsi_w": 14,
+      "ent": 30,
+      "tma": 100,
+      "trail": 0.06
+    },
+    "sharpe": 0.7694961235525906,
+    "max_dd": -0.33925578602968076,
+    "sharpe_is": 0.8977766333315228,
+    "sharpe_oos": -0.10937726537233507,
+    "trades": 131,
+    "trades_per_year": 15.310055195584352,
+    "exposure": 0.24797951508362007
+  },
+  {
+    "id": "rsi_tr_8h_14_25_0.08",
+    "interval": "8h",
+    "family": "mean_reversion",
+    "style": "oscillator",
+    "name": "RSI14 trail8%",
+    "params": {
+      "rsi_w": 14,
+      "ent": 25,
+      "tma": 100,
+      "trail": 0.08
+    },
+    "sharpe": 0.7690328823277184,
+    "max_dd": -0.3349803785375768,
+    "sharpe_is": 0.9651202363052851,
+    "sharpe_oos": -0.7902433834020864,
+    "trades": 52,
+    "trades_per_year": 6.0777600000000005,
+    "exposure": 0.17761894602090889
+  },
+  {
+    "id": "er_mom_tr_6h_40_0.12",
+    "interval": "6h",
+    "family": "momentum",
+    "style": "regime",
+    "name": "ERmom trail12%",
+    "params": {
+      "erw": 40,
+      "mw": 20,
+      "trail": 0.12
+    },
+    "sharpe": 0.7672727515076695,
+    "max_dd": -0.3122435823001891,
+    "sharpe_is": 0.9935760193192026,
+    "sharpe_oos": -1.209567833271869,
+    "trades": 32,
+    "trades_per_year": 3.739860811135109,
+    "exposure": 0.17004080979435066
+  },
+  {
+    "id": "rsi_tr_12h_20_25_0.04",
+    "interval": "12h",
+    "family": "mean_reversion",
+    "style": "oscillator",
+    "name": "RSI20 trail4%",
+    "params": {
+      "rsi_w": 20,
+      "ent": 25,
+      "tma": 200,
+      "trail": 0.04
+    },
+    "sharpe": 0.7672037810954151,
+    "max_dd": -0.14176246511504953,
+    "sharpe_is": 0.8483875775740599,
+    "sharpe_oos": 0.0,
+    "trades": 20,
+    "trades_per_year": 2.3376,
+    "exposure": 0.035194368900975846
+  },
+  {
+    "id": "rsi_tr_6h_20_25_0.08",
+    "interval": "6h",
+    "family": "mean_reversion",
+    "style": "oscillator",
+    "name": "RSI20 trail8%",
+    "params": {
+      "rsi_w": 20,
+      "ent": 25,
+      "tma": 200,
+      "trail": 0.08
+    },
+    "sharpe": 0.7405155637465521,
+    "max_dd": -0.28654020529862534,
+    "sharpe_is": 0.9664783682134656,
+    "sharpe_oos": -1.2356811203777838,
+    "trades": 36,
+    "trades_per_year": 4.207343412526998,
+    "exposure": 0.1293110346483156
+  },
+  {
+    "id": "er_mom_tr_8h_40_0.12",
+    "interval": "8h",
+    "family": "momentum",
+    "style": "regime",
+    "name": "ERmom trail12%",
+    "params": {
+      "erw": 40,
+      "mw": 20,
+      "trail": 0.12
+    },
+    "sharpe": 0.7310072986851905,
+    "max_dd": -0.24901352729038817,
+    "sharpe_is": 0.8082986825957721,
+    "sharpe_oos": 0.0,
+    "trades": 20,
+    "trades_per_year": 2.3376,
+    "exposure": 0.10689140174951994
+  },
+  {
+    "id": "rsi_tr_12h_20_25_0.08",
+    "interval": "12h",
+    "family": "mean_reversion",
+    "style": "oscillator",
+    "name": "RSI20 trail8%",
+    "params": {
+      "rsi_w": 20,
+      "ent": 25,
+      "tma": 200,
+      "trail": 0.08
+    },
+    "sharpe": 0.7107616947272966,
+    "max_dd": -0.25835592415141473,
+    "sharpe_is": 0.7859629165635104,
+    "sharpe_oos": 0.0,
+    "trades": 20,
+    "trades_per_year": 2.3376,
+    "exposure": 0.08446648536234203
+  },
+  {
+    "id": "rsi_tr_6h_20_25_0.06",
+    "interval": "6h",
+    "family": "mean_reversion",
+    "style": "oscillator",
+    "name": "RSI20 trail6%",
+    "params": {
+      "rsi_w": 20,
+      "ent": 25,
+      "tma": 200,
+      "trail": 0.06
+    },
+    "sharpe": 0.691509322209772,
+    "max_dd": -0.18811446426483003,
+    "sharpe_is": 0.9022251371666444,
+    "sharpe_oos": -0.9464204573691676,
+    "trades": 40,
+    "trades_per_year": 4.674826013918887,
+    "exposure": 0.09274225814195407
+  },
+  {
+    "id": "bb_tr_12h_40_0.04",
+    "interval": "12h",
+    "family": "mean_reversion",
+    "style": "band",
+    "name": "BB40 trail4%",
+    "params": {
+      "bw": 40,
+      "trail": 0.04
+    },
+    "sharpe": 0.6657607917799491,
+    "max_dd": -0.16646627309086903,
+    "sharpe_is": 0.7678224258347398,
+    "sharpe_oos": 0.1280956816896562,
+    "trades": 54,
+    "trades_per_year": 6.311520000000001,
+    "exposure": 0.09918413053911374
+  },
+  {
+    "id": "vspike_6h_96_8",
+    "interval": "6h",
+    "family": "microstructure",
+    "style": "volume",
+    "name": "Vspike hold8",
+    "params": {
+      "vw": 96,
+      "hold": 8
+    },
+    "sharpe": 0.6643444014638957,
+    "max_dd": -0.3161549902114301,
+    "sharpe_is": 0.7571056080580305,
+    "sharpe_oos": 0.1243377240116624,
+    "trades": 304,
+    "trades_per_year": 35.52867770578354,
+    "exposure": 0.10050412098903737
+  },
+  {
+    "id": "rsi_tr_6h_20_30_0.06",
+    "interval": "6h",
+    "family": "mean_reversion",
+    "style": "oscillator",
+    "name": "RSI20 trail6%",
+    "params": {
+      "rsi_w": 20,
+      "ent": 30,
+      "tma": 100,
+      "trail": 0.06
+    },
+    "sharpe": 0.6629885836168172,
+    "max_dd": -0.30674694827826665,
+    "sharpe_is": 0.8118659193300054,
+    "sharpe_oos": -0.9524459931907894,
+    "trades": 44,
+    "trades_per_year": 5.142308615310775,
+    "exposure": 0.1008241978074738
+  },
+  {
+    "id": "rsi_tr_12h_20_30_0.06",
+    "interval": "12h",
+    "family": "mean_reversion",
+    "style": "oscillator",
+    "name": "RSI20 trail6%",
+    "params": {
+      "rsi_w": 20,
+      "ent": 30,
+      "tma": 200,
+      "trail": 0.06
+    },
+    "sharpe": 0.5910243159506018,
+    "max_dd": -0.2624090067595033,
+    "sharpe_is": 0.6186331177889394,
+    "sharpe_oos": 0.46320909067324073,
+    "trades": 42,
+    "trades_per_year": 4.90896,
+    "exposure": 0.1051031834906415
+  },
+  {
+    "id": "bb_tr_6h_40_0.04",
+    "interval": "6h",
+    "family": "mean_reversion",
+    "style": "band",
+    "name": "BB40 trail4%",
+    "params": {
+      "bw": 40,
+      "trail": 0.04
+    },
+    "sharpe": 0.5725043746495013,
+    "max_dd": -0.21539525604137788,
+    "sharpe_is": 0.6603000463299445,
+    "sharpe_oos": -0.09050614751992694,
+    "trades": 84,
+    "trades_per_year": 9.817134629229662,
+    "exposure": 0.08882131711610787
+  },
+  {
+    "id": "rsi_tr_6h_20_35_0.06",
+    "interval": "6h",
+    "family": "mean_reversion",
+    "style": "oscillator",
+    "name": "RSI20 trail6%",
+    "params": {
+      "rsi_w": 20,
+      "ent": 35,
+      "tma": 200,
+      "trail": 0.06
+    },
+    "sharpe": 0.5560447741015146,
+    "max_dd": -0.3493327177547598,
+    "sharpe_is": 0.7737806309088437,
+    "sharpe_oos": -1.276545733819116,
+    "trades": 132,
+    "trades_per_year": 15.426925845932326,
+    "exposure": 0.2315755781387533
+  }
+]

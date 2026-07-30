@@ -1,0 +1,114 @@
+{
+  "k": 5,
+  "sharpe": 1.8075352852120636,
+  "max_dd": -0.15285682516349397,
+  "sharpe_is": 2.1118156102291046,
+  "sharpe_oos": -0.35303239625288185,
+  "max_corr": 0.41370190795057926,
+  "avg_trades_per_year": 14.699431227503231,
+  "hf_sleeve_count": 3,
+  "hf_avg_trades_per_year": 12.389105477815699,
+  "members": [
+    {
+      "id": "daily_S1",
+      "interval": "1d",
+      "family": "exchange_flow",
+      "style": "exchange_flow",
+      "name": "Binance net flow quantile + 200DMA gate",
+      "params": {
+        "key": "talos_FlowNetBNBUSD",
+        "q_ent": 0.05,
+        "q_ex": 0.85,
+        "gate": true
+      },
+      "sharpe": 1.5216208218840692,
+      "max_dd": -0.15668322375506483,
+      "sharpe_is": 1.7577879969374646,
+      "sharpe_oos": 0.2545522131349671,
+      "trades": 162,
+      "trades_per_year": 24.319975339087545,
+      "exposure": 0.1515400410677618,
+      "direction": "long_only"
+    },
+    {
+      "id": "daily_S4",
+      "interval": "1d",
+      "family": "liquidation_fade",
+      "style": "liquidation_fade",
+      "name": "Short liquidation spike fade (5d hold)",
+      "params": {
+        "key": "cg_short_liq",
+        "q": 0.97,
+        "hold": 5
+      },
+      "sharpe": 1.0571050009797416,
+      "max_dd": -0.16007389577197695,
+      "sharpe_is": 1.361462711528597,
+      "sharpe_oos": -0.8894911312505394,
+      "trades": 80,
+      "trades_per_year": 12.009864364981503,
+      "exposure": 0.07720739219712526,
+      "direction": "long_only"
+    },
+    {
+      "id": "rsi_lo_8h_20_0.08",
+      "interval": "8h",
+      "family": "mean_reversion",
+      "style": "rsi_lo",
+      "name": "RSI LO trail8%",
+      "params": {
+        "rw": 20,
+        "ent": 32,
+        "trail": 0.08
+      },
+      "sharpe": 1.254630555873812,
+      "max_dd": -0.23816151473638192,
+      "sharpe_is": 1.4999151518728129,
+      "sharpe_oos": -0.7367617013101893,
+      "trades": 40,
+      "trades_per_year": 4.6752,
+      "exposure": 0.1657776829528483,
+      "direction": "long_only"
+    },
+    {
+      "id": "ermom_4h_40_0.08",
+      "interval": "4h",
+      "family": "momentum",
+      "style": "er_mom",
+      "name": "ER mom 8%",
+      "params": {
+        "erw": 40,
+        "trail": 0.08
+      },
+      "sharpe": 1.1648737890702663,
+      "max_dd": -0.23005643235582118,
+      "sharpe_is": 1.3611532248269695,
+      "sharpe_oos": -0.19181292176240752,
+      "trades": 42,
+      "trades_per_year": 4.9084364334471,
+      "exposure": 0.15962215818123598,
+      "direction": "long_only"
+    },
+    {
+      "id": "vspike_8h_96",
+      "interval": "8h",
+      "family": "microstructure",
+      "style": "vol_spike",
+      "name": "vol spike",
+      "params": {
+        "vw": 96
+      },
+      "sharpe": 0.7822503200718987,
+      "max_dd": -0.3729486841135745,
+      "sharpe_is": 0.8738973863536377,
+      "sharpe_oos": 0.22575844508791607,
+      "trades": 236,
+      "trades_per_year": 27.58368,
+      "exposure": 0.10326434819714103,
+      "direction": "long_only"
+    }
+  ],
+  "meets_sharpe": false,
+  "meets_dd": false,
+  "meets_target": false
+}

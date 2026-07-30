@@ -22,6 +22,8 @@ runs/**/*
 !runs/pullback_mr_jul2026/**
 !runs/5/
 !runs/5/**
+!runs/6/
+!runs/6/**
 
 reports/**/*
 !reports/.gitkeep
