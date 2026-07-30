@@ -1,19 +1,27 @@
 {
+  "selection": {
+    "method": "is_only_pre_2025",
+    "oos_used_in_selection": false
+  },
   "in_sample": {
-    "sharpe": 2.11,
-    "max_dd": null,
-    "note": "pre-2025-01-01"
+    "sharpe": 2.01,
+    "max_dd": -0.202,
+    "max_pairwise_corr": 0.22,
+    "meets_sharpe_target_2": true,
+    "meets_dd_target_15pct": false
   },
   "out_of_sample": {
-    "sharpe": -0.35,
-    "max_dd": null,
-    "note": "2025-01-01 onward"
+    "sharpe": -0.39,
+    "max_dd": -0.151,
+    "note": "Post-hoc validation only — not used in any selection or optimization"
   },
   "full_sample": {
-    "sharpe": 1.81,
-    "max_dd": -0.153,
-    "max_pairwise_corr": 0.41,
-    "avg_trades_per_year": 14.7,
-    "meets_target_sharpe_2_dd_15": false
+    "sharpe": 1.71,
+    "max_dd": -0.202
+  },
+  "v1_fullsample_selection_reference": {
+    "sharpe_is": 2.11,
+    "sharpe_oos": -0.35,
+    "note": "Prior v1 used full-sample Sharpe for selection (leaky)"
   }
 }

@@ -24,6 +24,8 @@ OOS = pd.Timestamp("2025-01-01", tz="UTC")
 ANN_D = 365
 ANN_MAP = {"2h": 365 * 12, "4h": 365 * 6, "6h": 365 * 4, "8h": 365 * 3, "12h": 365 * 2, "1d": 365}
 MAX_CORR = 0.30
+IS_SHARPE_TARGET = 2.0
+IS_DD_TARGET = 0.15
 
 
 @dataclass
@@ -104,7 +106,12 @@ def eval_r(close: np.ndarray, pos: np.ndarray, idx: pd.DatetimeIndex, ann: int) 
     rr = r[1:]
     tidx = idx[1:]
     if len(rr) < 200 or rr.std() == 0:
-        return {"sharpe": 0, "max_dd": -1, "sharpe_is": 0, "sharpe_oos": 0, "trades": 0, "trades_per_year": 0, "exposure": 0, "returns": pd.Series(r, index=idx)}
+        return {
+            "sharpe": 0, "max_dd": -1, "sharpe_is": 0, "sharpe_oos": 0,
+            "max_dd_is": -1, "max_dd_oos": -1,
+            "trades": 0, "trades_per_year": 0, "exposure": 0,
+            "returns": pd.Series(r, index=idx),
+        }
     sh = float(np.sqrt(ann) * rr.mean() / rr.std())
     cum = np.cumprod(1 + rr)
     dd = float((cum / np.maximum.accumulate(cum) - 1).min())
@@ -114,11 +121,24 @@ def eval_r(close: np.ndarray, pos: np.ndarray, idx: pd.DatetimeIndex, ann: int) 
     def _sh(a: np.ndarray) -> float:
         return float(np.sqrt(ann) * a.mean() / a.std()) if len(a) > 80 and a.std() > 0 else 0.0
 
+    def _dd(a: np.ndarray) -> float:
+        if len(a) < 2:
+            return 0.0
+        cum = np.cumprod(1 + a)
+        return float((cum / np.maximum.accumulate(cum) - 1).min())
+
     yrs = max((tidx[-1] - tidx[0]).total_seconds() / (365.25 * 86400), 0.5)
     return {
-        "sharpe": sh, "max_dd": dd, "sharpe_is": _sh(is_r), "sharpe_oos": _sh(oos_r),
-        "trades": int(dpos.sum()), "trades_per_year": dpos.sum() / yrs,
-        "exposure": float(np.abs(pos).mean()), "returns": pd.Series(r, index=idx),
+        "sharpe": sh,
+        "max_dd": dd,
+        "sharpe_is": _sh(is_r),
+        "sharpe_oos": _sh(oos_r),
+        "max_dd_is": _dd(is_r),
+        "max_dd_oos": _dd(oos_r),
+        "trades": int(dpos.sum()),
+        "trades_per_year": dpos.sum() / yrs,
+        "exposure": float(np.abs(pos).mean()),
+        "returns": pd.Series(r, index=idx),
     }
 
 
@@ -148,7 +168,8 @@ def search_sleeves() -> tuple[list[Sleeve], dict[str, pd.Series]]:
     rets: dict[str, pd.Series] = {}
 
     def add(hid, iv, fam, sty, name, params, m, direction="long_only"):
-        if m["sharpe"] < 0.45 or m["max_dd"] < -0.45:
+        # Pool filter uses in-sample metrics only (pre-OOS).
+        if m["sharpe_is"] < 0.45 or m.get("max_dd_is", m["max_dd"]) < -0.45:
             return
         sleeves.append(Sleeve(hid, iv, fam, sty, name, params, m["sharpe"], m["max_dd"], m["sharpe_is"], m["sharpe_oos"], m["trades"], m["trades_per_year"], m["exposure"], direction))
         rets[hid] = m["returns"]
@@ -263,10 +284,12 @@ def search_sleeves() -> tuple[list[Sleeve], dict[str, pd.Series]]:
     return sleeves, rets
 
 
-def max_corr(ids: list[str], rets: dict[str, pd.Series]) -> float:
-    mat = pd.DataFrame({i: rets[i] for i in ids}).dropna(how="all")
-    if mat.shape[1] < 2:
-        return 0.0
+def max_corr(ids: list[str], rets: dict[str, pd.Series], *, is_only: bool = False) -> float:
+    mat = align_returns(rets, ids)
+    if is_only:
+        mat = mat.loc[mat.index < OOS]
+    if mat.shape[1] < 2 or len(mat) < 80:
+        return 1.0
     c = mat.corr().values
     n = c.shape[0]
     return float(np.nanmax(np.abs(c[np.triu_indices(n, k=1)])))
@@ -307,60 +330,69 @@ def cluster_of(sleeve_id: str, family: str) -> str:
     return family
 
 
-CANONICAL_IDS = [
-    "daily_S1",           # quantile alt-data (Talos flow)
-    "daily_S4",           # liquidation fade (Coinglass)
-    "rsi_lo_8h_20_0.08",  # intraday mean reversion
-    "ermom_4h_40_0.08",   # intraday momentum / regime
-    "vspike_8h_96",       # volume spike microstructure
+CANONICAL_IDS_V1_FULLSAMPLE = [
+    "daily_S1",
+    "daily_S4",
+    "rsi_lo_8h_20_0.08",
+    "ermom_4h_40_0.08",
+    "vspike_8h_96",
 ]
 
 
+def _sharpe_ann(s: pd.Series) -> float:
+    s = s.dropna()
+    return float(np.sqrt(365) * s.mean() / s.std()) if len(s) > 80 and s.std() > 0 else 0.0
+
+
+def _max_dd(s: pd.Series) -> float:
+    s = s.dropna()
+    if len(s) < 2:
+        return 0.0
+    cum = (1 + s).cumprod()
+    return float((cum / cum.cummax() - 1).min())
+
+
 def eval_combo(combo: list[Sleeve], rets: dict[str, pd.Series]) -> dict | None:
+    """Compute full-sample metrics. IS/OOS splits are for reporting only."""
     ids = [s.id for s in combo]
     if not all(i in rets for i in ids):
         return None
     mat = align_returns(rets, ids)
     if len(mat) < 300:
         return None
-    mc = max_corr(ids, {i: mat[i] for i in ids})
     eq = mat.mean(axis=1)
-    ann = 365
-    sh = float(np.sqrt(ann) * eq.mean() / eq.std())
-    cum = (1 + eq).cumprod()
-    dd = float((cum / cum.cummax() - 1).min())
     is_r, oos_r = eq.loc[eq.index < OOS], eq.loc[eq.index >= OOS]
-
-    def _sh(s: pd.Series) -> float:
-        return float(np.sqrt(ann) * s.mean() / s.std()) if len(s) > 80 and s.std() > 0 else 0.0
-
     hf_members = [s for s in combo if s.interval != "1d"]
     return {
         "k": len(combo),
-        "sharpe": sh,
-        "max_dd": dd,
-        "sharpe_is": _sh(is_r),
-        "sharpe_oos": _sh(oos_r),
-        "max_corr": mc,
+        "sharpe": _sharpe_ann(eq),
+        "max_dd": _max_dd(eq),
+        "sharpe_is": _sharpe_ann(is_r),
+        "sharpe_oos": _sharpe_ann(oos_r),
+        "max_dd_is": _max_dd(is_r),
+        "max_dd_oos": _max_dd(oos_r),
+        "max_corr_is": max_corr(ids, rets, is_only=True),
+        "max_corr_full": max_corr(ids, rets, is_only=False),
         "avg_trades_per_year": float(np.mean([s.trades_per_year for s in combo])),
         "hf_sleeve_count": len(hf_members),
         "hf_avg_trades_per_year": float(np.mean([s.trades_per_year for s in hf_members]) if hf_members else 0.0),
         "members": [asdict(s) for s in combo],
         "returns": eq,
-        "meets_sharpe": sh >= 2.0,
-        "meets_dd": dd > -0.15,
-        "meets_target": sh >= 2.0 and dd > -0.15,
+        "meets_is_sharpe": _sharpe_ann(is_r) >= IS_SHARPE_TARGET,
+        "meets_is_dd": _max_dd(is_r) > -IS_DD_TARGET,
+        "meets_is_target": _sharpe_ann(is_r) >= IS_SHARPE_TARGET and _max_dd(is_r) > -IS_DD_TARGET,
     }
 
 
-def _rank(r: dict) -> tuple:
-    return (r["meets_target"], r["sharpe"] + r["max_dd"], r["sharpe"])
+def _rank_is(res: dict) -> tuple:
+    """Selection rank: in-sample Sharpe and DD only."""
+    return (res["meets_is_target"], res["sharpe_is"] + res["max_dd_is"], res["sharpe_is"])
 
 
 def pick_best(sleeves: list[Sleeve], rets: dict[str, pd.Series]) -> dict | None:
-    # One representative per qualitative cluster (highest Sharpe)
+    """Select ensemble using in-sample metrics only. OOS never enters selection."""
     reps: dict[str, Sleeve] = {}
-    for s in sorted(sleeves, key=lambda x: -x.sharpe):
+    for s in sorted(sleeves, key=lambda x: -x.sharpe_is):
         c = cluster_of(s.id, s.family)
         if c not in reps:
             reps[c] = s
@@ -376,53 +408,16 @@ def pick_best(sleeves: list[Sleeve], rets: dict[str, pd.Series]) -> dict | None:
                 continue
             ids = [s.id for s in combo]
             mat = align_returns(rets, ids)
-            if len(mat) < 300:
+            is_mat = mat.loc[mat.index < OOS]
+            if len(is_mat) < 200:
                 continue
-            mc = max_corr(ids, {i: mat[i] for i in ids})
-            if mc > MAX_CORR:
+            if max_corr(ids, rets, is_only=True) > MAX_CORR:
                 continue
-            eq = mat.mean(axis=1)
-            ann = 365
-            sh = float(np.sqrt(ann) * eq.mean() / eq.std())
-            cum = (1 + eq).cumprod()
-            dd = float((cum / cum.cummax() - 1).min())
-            is_r, oos_r = eq.loc[eq.index < OOS], eq.loc[eq.index >= OOS]
-
-            def _sh(s: pd.Series) -> float:
-                return float(np.sqrt(ann) * s.mean() / s.std()) if len(s) > 80 and s.std() > 0 else 0.0
-
-            hf_members = [s for s in combo if s.interval != "1d"]
-            tpy = float(np.mean([s.trades_per_year for s in combo]))
-            res = {
-                "k": k,
-                "sharpe": sh,
-                "max_dd": dd,
-                "sharpe_is": _sh(is_r),
-                "sharpe_oos": _sh(oos_r),
-                "max_corr": mc,
-                "avg_trades_per_year": tpy,
-                "hf_sleeve_count": len(hf_members),
-                "hf_avg_trades_per_year": float(np.mean([s.trades_per_year for s in hf_members]) if hf_members else 0.0),
-                "members": [asdict(s) for s in combo],
-                "returns": eq,
-                "meets_sharpe": sh >= 2.0,
-                "meets_dd": dd > -0.15,
-                "meets_target": sh >= 2.0 and dd > -0.15,
-            }
-            if best is None:
+            res = eval_combo(list(combo), rets)
+            if res is None:
+                continue
+            if best is None or _rank_is(res) > _rank_is(best):
                 best = res
-                continue
-            # rank: meets target first, then sharpe+dd
-            if _rank(res) > _rank(best):
-                best = res
-
-    # Evaluate hand-picked diverse canonical set
-    by_id = {s.id: s for s in sleeves}
-    canonical = [by_id[i] for i in CANONICAL_IDS if i in by_id]
-    if len(canonical) == len(CANONICAL_IDS):
-        can = eval_combo(canonical, rets)
-        if can and (best is None or _rank(can) > _rank(best)):
-            best = can
 
     return best
 
@@ -433,22 +428,40 @@ def main():
     out = RUN / "artifacts"
     out.mkdir(parents=True, exist_ok=True)
     with open(out / "hf_all_sleeves.json", "w") as fp:
-        json.dump([asdict(s) for s in sorted(sleeves, key=lambda x: -x.sharpe)[:100]], fp, indent=2)
+        json.dump([asdict(s) for s in sorted(sleeves, key=lambda x: -x.sharpe_is)[:100]], fp, indent=2)
 
     if best is None:
         print("No ensemble found")
         return
 
+    # Post-hoc validation of prior full-sample selection (not used for v2 spec)
+    by_id = {s.id: s for s in sleeves}
+    v1 = [by_id[i] for i in CANONICAL_IDS_V1_FULLSAMPLE if i in by_id]
+    v1_res = eval_combo(v1, rets) if len(v1) == len(CANONICAL_IDS_V1_FULLSAMPLE) else None
+
     payload = {k: v for k, v in best.items() if k != "returns"}
+    payload["selection_method"] = "is_only_pre_2025"
+    payload["selection_note"] = "All sleeve and ensemble selection uses in-sample metrics only. OOS reported post-hoc."
+    if v1_res:
+        payload["v1_fullsample_reference"] = {
+            "sharpe_is": v1_res["sharpe_is"],
+            "sharpe_oos": v1_res["sharpe_oos"],
+            "note": "Prior v1 ensemble selected on full-sample Sharpe; kept for comparison only.",
+        }
     with open(out / "hf_ensemble_result.json", "w") as fp:
         json.dump(payload, fp, indent=2)
 
-    # equity chart
     import matplotlib.pyplot as plt
-    eq = (1 + best["returns"]).cumprod()
+
     fig, ax = plt.subplots(figsize=(10, 5))
-    eq.plot(ax=ax, label="Equal-weight ensemble")
-    ax.set_title(f"HF Low-Corr Ensemble (Sharpe {best['sharpe']:.2f}, DD {best['max_dd']:.1%})")
+    (1 + best["returns"]).cumprod().plot(ax=ax, label="IS-selected ensemble", color="C0")
+    if v1_res is not None:
+        (1 + v1_res["returns"]).cumprod().plot(ax=ax, label="v1 full-sample (reference)", color="C1", alpha=0.6, linestyle="--")
+    ax.axvline(OOS, color="red", linestyle=":", alpha=0.7, label="OOS start")
+    ax.set_title(
+        f"Run 6 IS-selected ensemble — IS Sharpe {best['sharpe_is']:.2f} | "
+        f"OOS Sharpe {best['sharpe_oos']:.2f} (validation only)"
+    )
     ax.legend()
     ax.grid(True, alpha=0.3)
     fig.tight_layout()
@@ -456,10 +469,12 @@ def main():
     fig.savefig(RUN / "charts" / "hf_ensemble_equity.png", dpi=120)
     plt.close()
 
-    print(f"Sharpe={best['sharpe']:.2f} DD={best['max_dd']:.1%} corr={best['max_corr']:.2f} meets={best['meets_target']}")
-    print(f"avg tpy={best['avg_trades_per_year']:.1f} hf sleeves={best['hf_sleeve_count']} hf tpy={best['hf_avg_trades_per_year']:.1f}")
+    print(f"SELECTION: IS-only (pre-{OOS.date()})")
+    print(f"  IS  Sharpe={best['sharpe_is']:.2f}  DD={best['max_dd_is']:.1%}  meets={best['meets_is_target']}")
+    print(f"  OOS Sharpe={best['sharpe_oos']:.2f}  DD={best['max_dd_oos']:.1%}  (post-hoc, not used in selection)")
+    print(f"  corr_IS={best['max_corr_is']:.2f}  avg_tpy={best['avg_trades_per_year']:.1f}")
     for m in best["members"]:
-        print(f"  {m['id']}: S={m['sharpe']:.2f} tpy={m['trades_per_year']:.0f} {m['family']}/{m['style']}")
+        print(f"    {m['id']}: IS={m['sharpe_is']:.2f} OOS={m['sharpe_oos']:.2f} {m['family']}/{m['style']}")
 
 
 if __name__ == "__main__":
