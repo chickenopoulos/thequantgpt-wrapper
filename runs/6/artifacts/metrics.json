@@ -1,0 +1,19 @@
+{
+  "in_sample": {
+    "sharpe": 2.11,
+    "max_dd": null,
+    "note": "pre-2025-01-01"
+  },
+  "out_of_sample": {
+    "sharpe": -0.35,
+    "max_dd": null,
+    "note": "2025-01-01 onward"
+  },
+  "full_sample": {
+    "sharpe": 1.81,
+    "max_dd": -0.153,
+    "max_pairwise_corr": 0.41,
+    "avg_trades_per_year": 14.7,
+    "meets_target_sharpe_2_dd_15": false
+  }
+}
