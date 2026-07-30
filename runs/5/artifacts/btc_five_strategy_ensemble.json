@@ -11,44 +11,51 @@
     "fee": 0.00045,
     "slippage": 0.0005
   },
-  "selection_criteria": {
+  "version": "final",
+  "criteria": {
     "per_strategy": {
       "min_sharpe": 1.0,
       "max_drawdown": 0.25
     },
-    "ensemble_target": {
+    "ensemble": {
       "min_sharpe": 2.0,
       "max_drawdown": 0.15
     }
   },
-  "search_note": "Exhaustive sweep of 1,300+ pure-signal configs across trend, MR, on-chain, and microstructure families found no daily BTCUSDT strategy with >=5 round-trips simultaneously meeting Sharpe>=1 and MaxDD<25% after costs. These five are the best diverse, literature-motivated sleeves.",
+  "strategies_passing_both": 0,
+  "search_summary": {
+    "catalog_strategies_tested": 79,
+    "deep_search_configs": 1300,
+    "qualifying_individual_hits": 0,
+    "best_individual": "S1 SMA+Puell+trail Sharpe=0.999 MaxDD=-20.2%",
+    "pareto_note": "Sharpe>=1 and MaxDD<25% are in tension on daily BTC after 9.5bps costs"
+  },
   "strategies": [
     {
       "id": "S1",
-      "family": "onchain_value",
-      "name": "Puell value + 200DMA gate",
-      "literature": "Miner revenue stress (Puell) within uptrend; Liu/Tsyvinski MA timing",
+      "family": "trend_onchain",
+      "name": "SMA151 + Puell<0.99 + 8% trail",
+      "literature": "Liu/Tsyvinski MA trend gated by miner stress; peak trail exit",
       "params": {
-        "puell_entry": 0.7,
-        "puell_exit": 1.5,
-        "trend_ma": 200
+        "ma": 151,
+        "puell_max": 0.99,
+        "trail": 0.08
       },
-      "sharpe_full": 0.9437628794626642,
-      "sharpe_is": 1.044338624327419,
-      "sharpe_oos": 0.33660021624553615,
-      "max_dd": -0.24541288575766285,
-      "cagr": 0.22163477437592483,
-      "trades": 6,
-      "exposure": 0.22833675564681724,
+      "sharpe_full": 0.9987003820596575,
+      "sharpe_is": 1.1227166747349946,
+      "sharpe_oos": 0.09347635576528683,
+      "max_dd": -0.2021795421319479,
+      "cagr": 0.18599554548124986,
+      "trades": 97,
+      "exposure": 0.1437371663244353,
       "meets_sharpe": false,
-      "meets_dd": true,
-      "returns_series_len": 2435
+      "meets_dd": true
     },
     {
       "id": "S2",
       "family": "mean_reversion",
-      "name": "IBS + RSI pullback in uptrend",
-      "literature": "Internal bar strength + RSI oversold; Connors short-term MR",
+      "name": "IBS + RSI pullback (125MA)",
+      "literature": "Connors internal bar strength + RSI oversold in uptrend",
       "params": {
         "trend_ma": 125,
         "ibs_entry": 0.35,
@@ -63,13 +70,12 @@
       "trades": 54,
       "exposure": 0.015605749486652977,
       "meets_sharpe": false,
-      "meets_dd": true,
-      "returns_series_len": 2435
+      "meets_dd": true
     },
     {
       "id": "S3",
       "family": "regime_mr",
-      "name": "RSI oversold in low-efficiency chop",
+      "name": "RSI oversold + efficiency gate",
       "literature": "Mean reversion when Kaufman ER > 0.5 (ranging market)",
       "params": {
         "er_min": 0.5,
@@ -84,16 +90,15 @@
       "trades": 26,
       "exposure": 0.07063655030800821,
       "meets_sharpe": false,
-      "meets_dd": true,
-      "returns_series_len": 2435
+      "meets_dd": true
     },
     {
       "id": "S4",
       "family": "microstructure",
-      "name": "Negative funding momentum",
-      "literature": "Short-squeeze setup: negative perp funding + rising price",
+      "name": "Negative funding + 5d momentum",
+      "literature": "Perp funding squeeze: crowded shorts + rising price",
       "params": {
-        "funding_thr": 0.0,
+        "fund_quantile": 0.0,
         "momentum_days": 5
       },
       "sharpe_full": 0.4809263460793206,
@@ -104,14 +109,13 @@
       "trades": 168,
       "exposure": 0.060369609856262836,
       "meets_sharpe": false,
-      "meets_dd": true,
-      "returns_series_len": 2435
+      "meets_dd": true
     },
     {
       "id": "S5",
       "family": "trend",
       "name": "CMMA(40) ATR-normalized trend",
-      "literature": "Cumulative MA normalized by ATR; Moskowitz/Ooi/Pedersen TSMOM variant",
+      "literature": "Carver CMMA / Moskowitz TSMOM variant on log price",
       "params": {
         "cmma_window": 40
       },
@@ -123,21 +127,42 @@
       "trades": 151,
       "exposure": 0.5318275154004107,
       "meets_sharpe": true,
-      "meets_dd": false,
-      "returns_series_len": 2435
+      "meets_dd": false
     }
   ],
-  "ensemble": {
+  "ensemble_equal_weight": {
     "method": "equal_weight_mean_position_clipped",
-    "n_strategies": 5,
-    "sharpe_full": 1.570088205068085,
-    "sharpe_is": 1.7445546396219205,
-    "sharpe_oos": 0.5775939850078191,
-    "max_dd": -0.1800476418873861,
-    "cagr": 0.21094222094927928,
-    "trades": 365,
-    "exposure": 0.18135523613963037,
+    "sharpe_full": 1.6388728984168472,
+    "sharpe_is": 1.826565414240191,
+    "sharpe_oos": 0.5552183089254359,
+    "max_dd": -0.18047993701076415,
+    "cagr": 0.20287536664473227,
     "meets_sharpe_target": false,
     "meets_dd_target": false
+  },
+  "ensemble_low_dd_members": {
+    "members": [
+      "S1",
+      "S2",
+      "S3",
+      "S4"
+    ],
+    "sharpe_full": 1.301963152173476,
+    "max_dd": -0.07088594268292392,
+    "sharpe_is": 1.486439033478293,
+    "sharpe_oos": 0.26467865169628246
+  },
+  "ensemble_optimized_low_dd": {
+    "weights": {
+      "S1": 0.3,
+      "S2": 0.2,
+      "S3": 0.1,
+      "S4": 0.05,
+      "S5": 0.35
+    },
+    "sharpe_full": 1.5252147712026336,
+    "max_dd": -0.2534251112633953,
+    "sharpe_is": 1.6831009138120625,
+    "sharpe_oos": 0.6159555799832147
   }
 }

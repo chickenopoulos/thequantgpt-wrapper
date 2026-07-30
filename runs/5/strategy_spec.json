@@ -2,35 +2,35 @@
   "workflow": "single_asset_signals",
   "symbol": "BTCUSDT",
   "asset_class": "crypto",
-  "data_source": "local:/root/thequantgpt-wrapper/data/talos/cm_BTCUSDT_market_candles_1d.parquet",
   "annualization": 365,
   "oos_start_ts": "2025-01-01",
+  "data_source": "local:/root/thequantgpt-wrapper/data/talos/cm_BTCUSDT_market_candles_1d.parquet",
   "strategies": [
     {
       "id": "S1",
-      "family": "onchain_value",
-      "name": "Puell value + 200DMA gate",
-      "literature": "Miner revenue stress (Puell) within uptrend; Liu/Tsyvinski MA timing",
+      "family": "trend_onchain",
+      "name": "SMA151 + Puell<0.99 + 8% trail",
+      "literature": "Liu/Tsyvinski MA trend gated by miner stress; peak trail exit",
       "params": {
-        "puell_entry": 0.7,
-        "puell_exit": 1.5,
-        "trend_ma": 200
+        "ma": 151,
+        "puell_max": 0.99,
+        "trail": 0.08
       },
-      "sharpe_full": 0.9437628794626642,
-      "sharpe_is": 1.044338624327419,
-      "sharpe_oos": 0.33660021624553615,
-      "max_dd": -0.24541288575766285,
-      "cagr": 0.22163477437592483,
-      "trades": 6,
-      "exposure": 0.22833675564681724,
+      "sharpe_full": 0.9987003820596575,
+      "sharpe_is": 1.1227166747349946,
+      "sharpe_oos": 0.09347635576528683,
+      "max_dd": -0.2021795421319479,
+      "cagr": 0.18599554548124986,
+      "trades": 97,
+      "exposure": 0.1437371663244353,
       "meets_sharpe": false,
       "meets_dd": true
     },
     {
       "id": "S2",
       "family": "mean_reversion",
-      "name": "IBS + RSI pullback in uptrend",
-      "literature": "Internal bar strength + RSI oversold; Connors short-term MR",
+      "name": "IBS + RSI pullback (125MA)",
+      "literature": "Connors internal bar strength + RSI oversold in uptrend",
       "params": {
         "trend_ma": 125,
         "ibs_entry": 0.35,
@@ -50,7 +50,7 @@
     {
       "id": "S3",
       "family": "regime_mr",
-      "name": "RSI oversold in low-efficiency chop",
+      "name": "RSI oversold + efficiency gate",
       "literature": "Mean reversion when Kaufman ER > 0.5 (ranging market)",
       "params": {
         "er_min": 0.5,
@@ -70,10 +70,10 @@
     {
       "id": "S4",
       "family": "microstructure",
-      "name": "Negative funding momentum",
-      "literature": "Short-squeeze setup: negative perp funding + rising price",
+      "name": "Negative funding + 5d momentum",
+      "literature": "Perp funding squeeze: crowded shorts + rising price",
       "params": {
-        "funding_thr": 0.0,
+        "fund_quantile": 0.0,
         "momentum_days": 5
       },
       "sharpe_full": 0.4809263460793206,
@@ -90,7 +90,7 @@
       "id": "S5",
       "family": "trend",
       "name": "CMMA(40) ATR-normalized trend",
-      "literature": "Cumulative MA normalized by ATR; Moskowitz/Ooi/Pedersen TSMOM variant",
+      "literature": "Carver CMMA / Moskowitz TSMOM variant on log price",
       "params": {
         "cmma_window": 40
       },

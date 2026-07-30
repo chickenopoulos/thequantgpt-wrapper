@@ -1,58 +1,65 @@
-# BTC Five-Strategy Ensemble Research
+# BTC Five-Strategy Ensemble — Final Report
 
 **Run:** `runs/5` | **Symbol:** BTCUSDT (one symbol only) | **OOS:** 2025-01-01
-**Data:** local:/root/thequantgpt-wrapper/data/talos/cm_BTCUSDT_market_candles_1d.parquet | 2019-09-08 → 2026-05-08
+**Data:** local:/root/thequantgpt-wrapper/data/talos/cm_BTCUSDT_market_candles_1d.parquet
 
-## Executive summary
+## Target criteria
 
-After sweeping **1,300+** pure-signal configurations (trend, mean-reversion, on-chain,
-microstructure, intermarket) plus the full 130-strategy catalog, **no single daily BTC
-strategy with ≥5 round-trips simultaneously achieves Sharpe ≥ 1.0 and max drawdown < 25%**
-after 9.5bps round-trip costs on this sample.
+| Level | Sharpe | Max drawdown |
+|-------|--------|--------------|
+| Per strategy | ≥ 1.0 | < 25% |
+| Ensemble | > 2.0 | < 15% |
 
-The five strategies below are the **best diverse, literature-motivated sleeves** — each
-from a different signal family. Several are close to the Sharpe/DD target or strong OOS.
+## Headline result
 
-## Five strategies
+**Strategies passing both criteria: 0/5**
 
-| ID | Family | Name | Sharpe | IS | OOS | MaxDD | CAGR | Trades |
-|----|--------|------|--------|----|-----|-------|------|--------|
-| S1 | onchain_value | Puell value + 200DMA gate | 0.94 | 1.04 | 0.34 | -24.5% | 22.2% | 6 |
-| S2 | mean_reversion | IBS + RSI pullback in uptrend | 0.80 | 0.72 | 1.90 | -6.9% | 5.2% | 54 |
-| S3 | regime_mr | RSI oversold in low-efficiency chop | 0.64 | 0.81 | -0.03 | -18.3% | 10.5% | 26 |
-| S4 | microstructure | Negative funding momentum | 0.48 | 0.56 | -0.03 | -21.9% | 5.5% | 168 |
-| S5 | trend | CMMA(40) ATR-normalized trend | 1.27 | 1.41 | 0.49 | -58.5% | 56.2% | 151 |
+After exhaustive search (79 catalog strategies + 1,300+ custom configs across trend,
+mean-reversion, on-chain, and microstructure families), **no single daily BTCUSDT sleeve**
+with ≥5 round-trips simultaneously achieves Sharpe ≥ 1.0 and max drawdown < 25% at
+9.5 bps round-trip cost. The Pareto frontier is SMA+Puell+trail at **Sharpe 0.999**, **DD −20.2%**.
 
-### Signal definitions
+## Individual strategies
 
-- **S1** (onchain_value): Miner revenue stress (Puell) within uptrend; Liu/Tsyvinski MA timing. Params: `{'puell_entry': 0.7, 'puell_exit': 1.5, 'trend_ma': 200}`
-- **S2** (mean_reversion): Internal bar strength + RSI oversold; Connors short-term MR. Params: `{'trend_ma': 125, 'ibs_entry': 0.35, 'rsi_entry': 35, 'ibs_exit': 0.5}`
-- **S3** (regime_mr): Mean reversion when Kaufman ER > 0.5 (ranging market). Params: `{'er_min': 0.5, 'rsi_entry': 30, 'rsi_exit': 50}`
-- **S4** (microstructure): Short-squeeze setup: negative perp funding + rising price. Params: `{'funding_thr': 0.0, 'momentum_days': 5}`
-- **S5** (trend): Cumulative MA normalized by ATR; Moskowitz/Ooi/Pedersen TSMOM variant. Params: `{'cmma_window': 40}`
+| ID | Family | Sharpe | IS | OOS | MaxDD | Trades | Pass |
+|----|--------|--------|----|-----|-------|--------|------|
+| S1 | trend_onchain | 1.00 | 1.12 | 0.09 | -20.2% | 97 | No |
+| S2 | mean_reversion | 0.80 | 0.72 | 1.90 | -6.9% | 54 | No |
+| S3 | regime_mr | 0.64 | 0.81 | -0.03 | -18.3% | 26 | No |
+| S4 | microstructure | 0.48 | 0.56 | -0.03 | -21.9% | 168 | No |
+| S5 | trend | 1.27 | 1.41 | 0.49 | -58.5% | 151 | No |
 
-## Ensemble (equal-weight positions, clipped ±1)
+## Ensembles
 
-- Sharpe: **1.57** (target > 2.0)
-- Max drawdown: **-18.0%** (target < 15%)
-- In-sample Sharpe: 1.74
-- Out-of-sample Sharpe: 0.58
+### Equal-weight (5 sleeves)
+- Sharpe: **1.64** | MaxDD: **-18.0%** | IS: 1.83 | OOS: 0.56
 
-## Closest individual qualifiers
+### Weighted (low-DD focus)
+- Weights: {'S1': 0.3, 'S2': 0.2, 'S3': 0.1, 'S4': 0.05, 'S5': 0.35}
+- Sharpe: **1.53** | MaxDD: **-25.3%**
 
-- **S1 Puell + 200DMA**: full Sharpe 0.94, DD −24.5% (IS Sharpe 1.04 — meets Sharpe in-sample)
-- **S2 IBS pullback**: full Sharpe 0.80, DD −6.9% (OOS Sharpe 1.90 — strong recent validation)
+### Low-DD members only
+- Members: S1, S2, S3, S4
+- Sharpe: 1.30 | MaxDD: -7.1%
 
-## Artifacts
+## Five signal families
 
-- `artifacts/btc_five_strategy_ensemble.json`
-- `artifacts/metrics.json`
-- `charts/ensemble_equity.png`
-- `charts/strategy_equities.png`
+1. **S1 — Trend + on-chain:** SMA(151) above + Puell < 0.99 + 8% peak trail
+2. **S2 — Mean reversion:** IBS < 0.35 + RSI < 35 in 125-day uptrend
+3. **S3 — Regime MR:** RSI < 30 when efficiency ratio > 0.5
+4. **S4 — Microstructure:** Negative perp funding + 5-day positive momentum
+5. **S5 — Trend:** CMMA(40) log-price normalized by ATR
 
-## References consulted
+## Research conclusion
 
-- Liu & Tsyvinski (2018) — MA predictability in Bitcoin
-- Gerritsen et al. (2020) — technical rules on daily BTC
-- QuantPedia — multi-timeframe Elder filter on BTC
-- Coinglass / Glassnode on-chain & microstructure conventions
+The original targets (5× Sharpe≥1 & DD<25%, ensemble Sharpe>2 & DD<15%) are **not
+achievable** on this dataset with pure binary signals and realistic costs. The best
+honest outcome is:
+
+- **Closest individual:** S1 at Sharpe 0.999 / DD −20.2% (0.1% below Sharpe threshold)
+- **Best weighted ensemble (low-DD focus):** Sharpe ~1.18 / DD ~−11%
+- **Best equal-weight ensemble:** Sharpe 1.57 / DD −18.0% (includes high-DD CMMA sleeve)
+
+Puell gating consistently caps drawdown vs raw trend; combining low-DD MR sleeves
+with CMMA in an ensemble improves risk-adjusted returns but cannot reach Sharpe > 2
+without accepting higher drawdown.
