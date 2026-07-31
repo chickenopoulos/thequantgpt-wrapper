@@ -1,0 +1,47 @@
+{
+  "workflow": "single_asset_signals",
+  "strategy_type": "MEAN_REVERSION",
+  "oos_start_ts": "2025-01-01",
+  "description": "Pullback mean reversion pair from QS newsletter Jul 2026 (SPY RSI drop + QQQ normalized IBS/RSI).",
+  "strategies": {
+    "spy_rsi_drop": {
+      "symbol": "SPY",
+      "asset_class": "equity",
+      "data_source": "yfinance:SPY",
+      "annualization": 252,
+      "rules": "1. **Sample:** daily bars from 1995-01-01\n2. **Trend filter:** close > SMA(200) and close > SMA(50)\n3. **Entry:** RSI(2) < 10.0 at close\n4. **Exit:** close > SMA(16)\n5. **Sizing:** 100% of equity; fee 0.00045, slippage 0.0005",
+      "params": {
+        "rsi_window": 2,
+        "oversold": 10.0,
+        "position_size": 1.0,
+        "fee": 0.00045,
+        "slippage": 0.0005,
+        "trend_ma": 200,
+        "trend_ma2": 50,
+        "exit_sma": 16,
+        "sample_start": "1995-01-01"
+      }
+    },
+    "qqq_norm_ibs_rsi": {
+      "symbol": "QQQ",
+      "asset_class": "equity",
+      "data_source": "yfinance:QQQ",
+      "annualization": 252,
+      "rules": "1. **IBS:** (close - low) / (high - low); normalized IBS = 2-day average\n2. **Entry:** RSI(3) < 10.0 AND normalized IBS < 0.45\n3. **Exit:** close > prior day high\n4. **Sizing:** 100% of equity; fee 0.00045, slippage 0.0005",
+      "params": {
+        "rsi_window": 3,
+        "oversold": 10.0,
+        "position_size": 1.0,
+        "fee": 0.00045,
+        "slippage": 0.0005,
+        "ibs_window": 2,
+        "ibs_thr": 0.45,
+        "exit_rule": "close > prior day high"
+      }
+    }
+  },
+  "costs": {
+    "fee": 0.00045,
+    "slippage": 0.0005
+  }
+}

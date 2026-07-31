@@ -1,0 +1,65 @@
+{
+  "version": "hf_lowcorr_v2_is_only",
+  "symbol": "BTCUSDT",
+  "asset_class": "crypto",
+  "interval": "mixed",
+  "intervals": ["1d", "8h"],
+  "annualization": 365,
+  "oos_start_ts": "2025-01-01",
+  "fee": 0.00045,
+  "slippage": 0.0005,
+  "lag_bars": 1,
+  "ensemble_type": "equal_weight",
+  "selection": {
+    "method": "is_only_pre_2025",
+    "max_pairwise_corr_is": 0.30,
+    "cluster_unique": true,
+    "clusters": ["quantile_alt", "rsi_mr", "liquidation", "vol_spike"],
+    "note": "No OOS data used in sleeve search, ranking, or ensemble selection."
+  },
+  "targets": {
+    "ensemble_sharpe_is": 2.0,
+    "ensemble_max_dd_is": 0.15,
+    "meets_is_target": false
+  },
+  "ensemble_metrics": {
+    "sharpe_is": 2.01,
+    "max_dd_is": -0.202,
+    "max_corr_is": 0.22,
+    "avg_trades_per_year": 17.1,
+    "sharpe_full": 1.71,
+    "max_dd_full": -0.202,
+    "sharpe_oos_posthoc": -0.39,
+    "max_dd_oos_posthoc": -0.151
+  },
+  "strategies": [
+    {
+      "id": "daily_S1",
+      "interval": "1d",
+      "family": "exchange_flow",
+      "cluster": "quantile_alt",
+      "name": "Binance net flow quantile + 200DMA gate"
+    },
+    {
+      "id": "rsi_lo_8h_20_0.08",
+      "interval": "8h",
+      "family": "mean_reversion",
+      "cluster": "rsi_mr",
+      "params": {"rw": 20, "ent": 32, "trail": 0.08, "tma": 100}
+    },
+    {
+      "id": "daily_S4",
+      "interval": "1d",
+      "family": "liquidation_fade",
+      "cluster": "liquidation",
+      "name": "Short liquidation spike fade"
+    },
+    {
+      "id": "vspike_8h_96",
+      "interval": "8h",
+      "family": "microstructure",
+      "cluster": "vol_spike",
+      "params": {"vw": 96, "hold": 8}
+    }
+  ]
+}

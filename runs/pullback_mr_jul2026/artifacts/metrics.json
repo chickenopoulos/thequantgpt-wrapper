@@ -1,0 +1,207 @@
+{
+  "spy_rsi_drop": {
+    "in_sample": {
+      "Sharpe": 0.4113300360736173,
+      "Total Return": 1.2293961448040047,
+      "MaxDD": -0.1752451398332917,
+      "CAGR": 0.027113733688713282,
+      "exposure": 0.20458156779661016,
+      "risk_adjusted_return": 0.13253263224411826,
+      "num_trades": 207.0,
+      "win_rate": 0.8067632850241546,
+      "avg_gain_per_trade": 0.004070433929953548,
+      "avg_win": 0.009235364891161429,
+      "avg_loss": -0.017493152833089363,
+      "profit_factor": 2.204156608502547,
+      "avg_hold_bars": 7.463768115942029
+    },
+    "out_of_sample": {
+      "Sharpe": 0.956608669812087,
+      "Total Return": 0.105194883334075,
+      "MaxDD": -0.08174728036621892,
+      "CAGR": 0.06676360435548268,
+      "exposure": 0.2282051282051282,
+      "risk_adjusted_return": 0.2925596145914409,
+      "num_trades": 15.0,
+      "win_rate": 0.8666666666666667,
+      "avg_gain_per_trade": 0.005808869993033678,
+      "avg_win": 0.00994370198326275,
+      "avg_loss": -0.021067537943455273,
+      "profit_factor": 3.067945721264821,
+      "avg_hold_bars": 5.933333333333334
+    },
+    "full_sample": {
+      "Sharpe": 0.4377281629420988,
+      "Total Return": 1.463917212162098,
+      "MaxDD": -0.1752451398332917,
+      "CAGR": 0.029025917614262653,
+      "exposure": 0.20574162679425836,
+      "risk_adjusted_return": 0.14107946003211383,
+      "num_trades": 222.0,
+      "win_rate": 0.8108108108108109,
+      "avg_gain_per_trade": 0.00418789582610761,
+      "avg_win": 0.009286522570035413,
+      "avg_loss": -0.01766336164786869,
+      "profit_factor": 2.2532167566082313,
+      "avg_hold_bars": 7.36036036036036
+    },
+    "article_benchmark": {
+      "num_trades": 244,
+      "avg_gain_per_trade": 0.007,
+      "win_rate": 0.81,
+      "profit_factor": 3.6,
+      "CAGR": 0.051,
+      "exposure": 0.12,
+      "risk_adjusted_return": 0.42,
+      "MaxDD": -0.14
+    }
+  },
+  "qqq_norm_ibs_rsi": {
+    "in_sample": {
+      "Sharpe": 0.8075990317112367,
+      "Total Return": 17.786161860248495,
+      "MaxDD": -0.27249033583866855,
+      "CAGR": 0.12051101881838289,
+      "exposure": 0.2960283251231527,
+      "risk_adjusted_return": 0.407092864401568,
+      "num_trades": 364.0,
+      "win_rate": 0.7252747252747253,
+      "avg_gain_per_trade": 0.008573923518227906,
+      "avg_win": 0.02016798926980935,
+      "avg_loss": -0.022034410065947103,
+      "profit_factor": 2.41637926828735,
+      "avg_hold_bars": 5.282967032967033
+    },
+    "out_of_sample": {
+      "Sharpe": 0.6663691410292184,
+      "Total Return": 0.1418087493001754,
+      "MaxDD": -0.11060037778070864,
+      "CAGR": 0.0894672391118636,
+      "exposure": 0.2923076923076923,
+      "risk_adjusted_return": 0.3060721338037439,
+      "num_trades": 19.0,
+      "win_rate": 0.7368421052631579,
+      "avg_gain_per_trade": 0.006856057162176486,
+      "avg_win": 0.01883848443037278,
+      "avg_loss": -0.02669473918877315,
+      "profit_factor": 1.975960732638572,
+      "avg_hold_bars": 6.0
+    },
+    "full_sample": {
+      "Sharpe": 0.8001079578612855,
+      "Total Return": 20.450203977801003,
+      "MaxDD": -0.27249033583866855,
+      "CAGR": 0.11872940578043933,
+      "exposure": 0.295817600929422,
+      "risk_adjusted_return": 0.4013601807580291,
+      "num_trades": 383.0,
+      "win_rate": 0.7258485639686684,
+      "avg_gain_per_trade": 0.008488702994037365,
+      "avg_win": 0.020101035788686644,
+      "avg_loss": -0.02225633050036739,
+      "profit_factor": 2.391224610459501,
+      "avg_hold_bars": 5.318537859007833
+    },
+    "article_benchmark": {
+      "num_trades": 393,
+      "avg_gain_per_trade": 0.008,
+      "win_rate": 0.72,
+      "profit_factor": 2.0,
+      "CAGR": 0.112,
+      "exposure": 0.22,
+      "risk_adjusted_return": 0.5,
+      "MaxDD": -0.25
+    }
+  },
+  "strategy_snapshot": {
+    "spec_version": 2,
+    "workflow": "single_asset_signals",
+    "execution_mode": "hybrid",
+    "strategies": {
+      "spy_rsi_drop": {
+        "symbol": "SPY",
+        "asset_class": "equity",
+        "data_source": "yfinance:SPY",
+        "annualization": 252,
+        "params": {
+          "rsi_window": 2,
+          "oversold": 10.0,
+          "position_size": 1.0,
+          "fee": 0.00045,
+          "slippage": 0.0005,
+          "trend_ma": 200,
+          "trend_ma2": 50,
+          "exit_sma": 16,
+          "sample_start": "1995-01-01"
+        }
+      },
+      "qqq_norm_ibs_rsi": {
+        "symbol": "QQQ",
+        "asset_class": "equity",
+        "data_source": "yfinance:QQQ",
+        "annualization": 252,
+        "params": {
+          "rsi_window": 3,
+          "oversold": 10.0,
+          "position_size": 1.0,
+          "fee": 0.00045,
+          "slippage": 0.0005,
+          "ibs_window": 2,
+          "ibs_thr": 0.45,
+          "exit_rule": "close > prior day high"
+        }
+      }
+    },
+    "oos_start_ts": "2025-01-01 00:00:00+00:00",
+    "strategy_type": "MEAN_REVERSION",
+    "costs": {
+      "fee": 0.00045,
+      "slippage": 0.0005
+    }
+  },
+  "in_sample": {
+    "Sharpe": 0.4113300360736173,
+    "Total Return": 1.2293961448040047,
+    "MaxDD": -0.1752451398332917,
+    "CAGR": 0.027113733688713282,
+    "exposure": 0.20458156779661016,
+    "risk_adjusted_return": 0.13253263224411826,
+    "num_trades": 207.0,
+    "win_rate": 0.8067632850241546,
+    "avg_gain_per_trade": 0.004070433929953548,
+    "avg_win": 0.009235364891161429,
+    "avg_loss": -0.017493152833089363,
+    "profit_factor": 2.204156608502547,
+    "avg_hold_bars": 7.463768115942029
+  },
+  "out_of_sample": {
+    "Sharpe": 0.956608669812087,
+    "Total Return": 0.105194883334075,
+    "MaxDD": -0.08174728036621892,
+    "CAGR": 0.06676360435548268,
+    "exposure": 0.2282051282051282,
+    "risk_adjusted_return": 0.2925596145914409,
+    "num_trades": 15.0,
+    "win_rate": 0.8666666666666667,
+    "avg_gain_per_trade": 0.005808869993033678,
+    "avg_win": 0.00994370198326275,
+    "avg_loss": -0.021067537943455273,
+    "profit_factor": 3.067945721264821,
+    "avg_hold_bars": 5.933333333333334
+  },
+  "full_sample": {
+    "Sharpe": 0.4377281629420988,
+    "Total Return": 1.463917212162098,
+    "MaxDD": -0.1752451398332917,
+    "CAGR": 0.029025917614262653,
+    "exposure": 0.20574162679425836,
+    "risk_adjusted_return": 0.14107946003211383,
+    "num_trades": 222.0,
+    "win_rate": 0.8108108108108109,
+    "avg_gain_per_trade": 0.00418789582610761,
+    "avg_win": 0.009286522570035413,
+    "avg_loss": -0.01766336164786869,
+    "profit_factor": 2.2532167566082313,
+    "avg_hold_bars": 7.36036036036036
+  }
+}

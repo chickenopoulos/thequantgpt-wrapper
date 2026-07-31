@@ -1,0 +1,169 @@
+{
+  "symbol": "BTCUSDT",
+  "version": "v3_all_providers",
+  "data_providers": [
+    "talos",
+    "coinglass",
+    "binance",
+    "hyperliquid"
+  ],
+  "n_features_loaded": 134,
+  "data_source": "local:/root/thequantgpt-wrapper/data/talos/cm_BTCUSDT_market_candles_1d.parquet",
+  "search_configs": 4984,
+  "qualifying_hits_total": 38,
+  "oos_start_ts": "2025-01-01 00:00:00+00:00",
+  "annualization": 365,
+  "costs": {
+    "fee": 0.00045,
+    "slippage": 0.0005
+  },
+  "criteria": {
+    "per_strategy": {
+      "min_sharpe": 1.0,
+      "max_drawdown": 0.25
+    },
+    "ensemble": {
+      "min_sharpe": 2.0,
+      "max_drawdown": 0.15
+    }
+  },
+  "strategies_passing_both": 5,
+  "strategies": [
+    {
+      "id": "S1",
+      "provider": "talos",
+      "family": "exchange_flow",
+      "name": "Binance net flow quantile + 200DMA gate",
+      "literature": "Talos FlowNetBNBUSD: buy when Binance net outflow extreme + uptrend",
+      "params": {
+        "key": "talos_FlowNetBNBUSD",
+        "q_ent": 0.05,
+        "q_ex": 0.85,
+        "gate": true
+      },
+      "sharpe_full": 1.5209939451152137,
+      "sharpe_is": 1.756879024638457,
+      "sharpe_oos": 0.25429391554116426,
+      "max_dd": -0.15668322375506483,
+      "cagr": 0.3612278030540861,
+      "trades": 162,
+      "exposure": 0.1515400410677618,
+      "meets_sharpe": true,
+      "meets_dd": true
+    },
+    {
+      "id": "S2",
+      "provider": "talos",
+      "family": "derivatives_funding",
+      "name": "Cumulative funding 30d quantile + trend",
+      "literature": "Talos USD-margin 30d cumulative funding: extreme negative = crowded shorts",
+      "params": {
+        "key": "talos_futures_cumulative_funding_rate_usd_margin_rolling_30d",
+        "q_ent": 0.15,
+        "q_ex": 0.85,
+        "gate": true
+      },
+      "sharpe_full": 1.3263930764339407,
+      "sharpe_is": 1.3496754834060778,
+      "sharpe_oos": 1.2487859051227774,
+      "max_dd": -0.2094509312399676,
+      "cagr": 0.2541603299005126,
+      "trades": 8,
+      "exposure": 0.1462012320328542,
+      "meets_sharpe": true,
+      "meets_dd": true
+    },
+    {
+      "id": "S3",
+      "provider": "talos",
+      "family": "open_interest",
+      "name": "Coin-margined OI quantile + trend",
+      "literature": "Talos reported coin-margined perp OI: low OI growth = accumulation",
+      "params": {
+        "key": "talos_open_interest_reported_future_coin_margined_usd",
+        "q_ent": 0.1,
+        "q_ex": 0.8,
+        "gate": true
+      },
+      "sharpe_full": 1.1239987977180534,
+      "sharpe_is": 1.2590965537530223,
+      "sharpe_oos": 0.0,
+      "max_dd": -0.18952188942410253,
+      "cagr": 0.1863023076834287,
+      "trades": 6,
+      "exposure": 0.11457905544147844,
+      "meets_sharpe": true,
+      "meets_dd": true
+    },
+    {
+      "id": "S4",
+      "provider": "coinglass",
+      "family": "liquidation_fade",
+      "name": "Short liquidation spike fade (5d hold)",
+      "literature": "Coinglass short liq > 97th pctile: squeeze / capitulation fade",
+      "params": {
+        "key": "cg_short_liq",
+        "q": 0.97,
+        "hold": 5
+      },
+      "sharpe_full": 1.0566702073319456,
+      "sharpe_is": 1.3607598701872181,
+      "sharpe_oos": -0.8885885524983004,
+      "max_dd": -0.16007389577197695,
+      "cagr": 0.18702719497719178,
+      "trades": 80,
+      "exposure": 0.07720739219712526,
+      "meets_sharpe": true,
+      "meets_dd": true
+    },
+    {
+      "id": "S5",
+      "provider": "talos",
+      "family": "derivatives_funding",
+      "name": "Cumulative funding 7d quantile + trend",
+      "literature": "Talos all-margin 7d cumulative funding: short-term crowded positioning fade",
+      "params": {
+        "key": "talos_futures_cumulative_funding_rate_all_margin_rolling_7d",
+        "q_ent": 0.15,
+        "q_ex": 0.85,
+        "gate": true
+      },
+      "sharpe_full": 1.2789823832223264,
+      "sharpe_is": 1.2286431113220748,
+      "sharpe_oos": 1.4693916746644875,
+      "max_dd": -0.24541288575766362,
+      "cagr": 0.27743946663954744,
+      "trades": 10,
+      "exposure": 0.1921971252566735,
+      "meets_sharpe": true,
+      "meets_dd": true
+    }
+  ],
+  "ensemble_equal_weight": {
+    "method": "equal_weight_mean_position_clipped",
+    "sharpe_full": 1.905795278700569,
+    "sharpe_is": 2.094809268292837,
+    "sharpe_oos": 0.9987073135699055,
+    "max_dd": -0.09690310988056072,
+    "cagr": 0.26483794896328305,
+    "trades": 234,
+    "exposure": 0.13634496919917866,
+    "meets_sharpe_target": false,
+    "meets_dd_target": true
+  },
+  "ensemble_optimized": {
+    "weights": {
+      "S1": 0.31,
+      "S2": 0.23,
+      "S3": 0.2,
+      "S4": 0.2,
+      "S5": 0.06
+    },
+    "sharpe_full": 1.9727710722485068,
+    "sharpe_is": 2.212356650980544,
+    "sharpe_oos": 0.7455457804332691,
+    "max_dd": -0.0792142468117939,
+    "meets_sharpe_target": false,
+    "meets_dd_target": true
+  }
+}

@@ -1,0 +1,1423 @@
+[
+  {
+    "id": "daily_S1",
+    "interval": "1d",
+    "family": "exchange_flow",
+    "style": "exchange_flow",
+    "name": "Binance net flow quantile + 200DMA gate",
+    "params": {
+      "key": "talos_FlowNetBNBUSD",
+      "q_ent": 0.05,
+      "q_ex": 0.85,
+      "gate": true
+    },
+    "sharpe": 1.5216208218840692,
+    "max_dd": -0.15668322375506483,
+    "sharpe_is": 1.7577879969374646,
+    "sharpe_oos": 0.2545522131349671,
+    "trades": 162,
+    "trades_per_year": 24.319975339087545,
+    "exposure": 0.1515400410677618,
+    "direction": "long_only"
+  },
+  {
+    "id": "rsi_lo_8h_20_0.08",
+    "interval": "8h",
+    "family": "mean_reversion",
+    "style": "rsi_lo",
+    "name": "RSI LO trail8%",
+    "params": {
+      "rw": 20,
+      "ent": 32,
+      "trail": 0.08
+    },
+    "sharpe": 1.254630555873812,
+    "max_dd": -0.23816151473638192,
+    "sharpe_is": 1.4999151518728129,
+    "sharpe_oos": -0.7367617013101893,
+    "trades": 40,
+    "trades_per_year": 4.6752,
+    "exposure": 0.1657776829528483,
+    "direction": "long_only"
+  },
+  {
+    "id": "ermom_2h_40_0.12",
+    "interval": "2h",
+    "family": "momentum",
+    "style": "er_mom",
+    "name": "ER mom 12%",
+    "params": {
+      "erw": 40,
+      "trail": 0.12
+    },
+    "sharpe": 1.272113358063302,
+    "max_dd": -0.29162974660139007,
+    "sharpe_is": 1.427715949966415,
+    "sharpe_oos": -0.34789185862673644,
+    "trades": 42,
+    "trades_per_year": 4.908174692049272,
+    "exposure": 0.2631016899377953,
+    "direction": "long_only"
+  },
+  {
+    "id": "rsi_lo_8h_20_0.05",
+    "interval": "8h",
+    "family": "mean_reversion",
+    "style": "rsi_lo",
+    "name": "RSI LO trail5%",
+    "params": {
+      "rw": 20,
+      "ent": 32,
+      "trail": 0.05
+    },
+    "sharpe": 1.182599128680168,
+    "max_dd": -0.18786545656352704,
+    "sharpe_is": 1.3938602259081574,
+    "sharpe_oos": -0.29515911846540016,
+    "trades": 50,
+    "trades_per_year": 5.844,
+    "exposure": 0.09793044591423085,
+    "direction": "long_only"
+  },
+  {
+    "id": "ermom_6h_40_0.08",
+    "interval": "6h",
+    "family": "momentum",
+    "style": "er_mom",
+    "name": "ER mom 8%",
+    "params": {
+      "erw": 40,
+      "trail": 0.08
+    },
+    "sharpe": 1.1333936134512173,
+    "max_dd": -0.20756939741904112,
+    "sharpe_is": 1.3674897123836773,
+    "sharpe_oos": -1.2003130005850953,
+    "trades": 34,
+    "trades_per_year": 3.9736021118310534,
+    "exposure": 0.11914859566295911,
+    "direction": "long_only"
+  },
+  {
+    "id": "daily_S4",
+    "interval": "1d",
+    "family": "liquidation_fade",
+    "style": "liquidation_fade",
+    "name": "Short liquidation spike fade (5d hold)",
+    "params": {
+      "key": "cg_short_liq",
+      "q": 0.97,
+      "hold": 5
+    },
+    "sharpe": 1.0571050009797416,
+    "max_dd": -0.16007389577197695,
+    "sharpe_is": 1.361462711528597,
+    "sharpe_oos": -0.8894911312505394,
+    "trades": 80,
+    "trades_per_year": 12.009864364981503,
+    "exposure": 0.07720739219712526,
+    "direction": "long_only"
+  },
+  {
+    "id": "ermom_4h_40_0.08",
+    "interval": "4h",
+    "family": "momentum",
+    "style": "er_mom",
+    "name": "ER mom 8%",
+    "params": {
+      "erw": 40,
+      "trail": 0.08
+    },
+    "sharpe": 1.1648737890702663,
+    "max_dd": -0.23005643235582118,
+    "sharpe_is": 1.3611532248269695,
+    "sharpe_oos": -0.19181292176240752,
+    "trades": 42,
+    "trades_per_year": 4.9084364334471,
+    "exposure": 0.15962215818123598,
+    "direction": "long_only"
+  },
+  {
+    "id": "daily_S2",
+    "interval": "1d",
+    "family": "derivatives_funding",
+    "style": "derivatives_funding",
+    "name": "Cumulative funding 30d quantile + trend",
+    "params": {
+      "key": "talos_futures_cumulative_funding_rate_usd_margin_rolling_30d",
+      "q_ent": 0.15,
+      "q_ex": 0.85,
+      "gate": true
+    },
+    "sharpe": 1.3269393345890277,
+    "max_dd": -0.2094509312399676,
+    "sharpe_is": 1.3503725709423389,
+    "sharpe_oos": 1.2500543522807903,
+    "trades": 8,
+    "trades_per_year": 1.2009864364981504,
+    "exposure": 0.1462012320328542,
+    "direction": "long_only"
+  },
+  {
+    "id": "ermom_6h_40_0.08",
+    "interval": "6h",
+    "family": "momentum",
+    "style": "er_mom",
+    "name": "ER mom 8%",
+    "params": {
+      "erw": 40,
+      "trail": 0.08
+    },
+    "sharpe": 1.1041934016790598,
+    "max_dd": -0.2075693974190418,
+    "sharpe_is": 1.3378191260014534,
+    "sharpe_oos": -1.2003130005850953,
+    "trades": 32,
+    "trades_per_year": 3.739860811135109,
+    "exposure": 0.1151476354325038,
+    "direction": "long_only"
+  },
+  {
+    "id": "ermom_4h_40_0.08",
+    "interval": "4h",
+    "family": "momentum",
+    "style": "er_mom",
+    "name": "ER mom 8%",
+    "params": {
+      "erw": 40,
+      "trail": 0.08
+    },
+    "sharpe": 1.1255432423533203,
+    "max_dd": -0.23713953802426302,
+    "sharpe_is": 1.312875399865625,
+    "sharpe_oos": -0.19181292176240752,
+    "trades": 46,
+    "trades_per_year": 5.375906569965871,
+    "exposure": 0.16794748639129042,
+    "direction": "long_only"
+  },
+  {
+    "id": "rsi_lo_8h_20_0.08",
+    "interval": "8h",
+    "family": "mean_reversion",
+    "style": "rsi_lo",
+    "name": "RSI LO trail8%",
+    "params": {
+      "rw": 20,
+      "ent": 28,
+      "trail": 0.08
+    },
+    "sharpe": 1.17740110962512,
+    "max_dd": -0.11915581350718296,
+    "sharpe_is": 1.3020036354209141,
+    "sharpe_oos": 0.0,
+    "trades": 14,
+    "trades_per_year": 1.6363200000000002,
+    "exposure": 0.08096863665457649,
+    "direction": "long_only"
+  },
+  {
+    "id": "ermom_2h_40_0.08",
+    "interval": "2h",
+    "family": "momentum",
+    "style": "er_mom",
+    "name": "ER mom 8%",
+    "params": {
+      "erw": 40,
+      "trail": 0.08
+    },
+    "sharpe": 1.1477891326648881,
+    "max_dd": -0.2770419780704122,
+    "sharpe_is": 1.2777613445812877,
+    "sharpe_oos": -0.02103199806758917,
+    "trades": 56,
+    "trades_per_year": 6.544232922732363,
+    "exposure": 0.15057265664628774,
+    "direction": "long_only"
+  },
+  {
+    "id": "ermom_2h_40_0.12",
+    "interval": "2h",
+    "family": "momentum",
+    "style": "er_mom",
+    "name": "ER mom 12%",
+    "params": {
+      "erw": 40,
+      "trail": 0.12
+    },
+    "sharpe": 1.1304663898347704,
+    "max_dd": -0.4424206740152543,
+    "sharpe_is": 1.2697467475842337,
+    "sharpe_oos": -0.34789185862673644,
+    "trades": 44,
+    "trades_per_year": 5.14189729643257,
+    "exposure": 0.2637424246469285,
+    "direction": "long_only"
+  },
+  {
+    "id": "daily_S3",
+    "interval": "1d",
+    "family": "open_interest",
+    "style": "open_interest",
+    "name": "Coin-margined OI quantile + trend",
+    "params": {
+      "key": "talos_open_interest_reported_future_coin_margined_usd",
+      "q_ent": 0.1,
+      "q_ex": 0.8,
+      "gate": true
+    },
+    "sharpe": 1.1244613883693213,
+    "max_dd": -0.18952188942410253,
+    "sharpe_is": 1.2597466484090925,
+    "sharpe_oos": 0.0,
+    "trades": 6,
+    "trades_per_year": 0.9007398273736128,
+    "exposure": 0.11457905544147844,
+    "direction": "long_only"
+  },
+  {
+    "id": "ermom_8h_20_0.08",
+    "interval": "8h",
+    "family": "momentum",
+    "style": "er_mom",
+    "name": "ER mom 8%",
+    "params": {
+      "erw": 20,
+      "trail": 0.08
+    },
+    "sharpe": 1.0301373433582628,
+    "max_dd": -0.388454940291878,
+    "sharpe_is": 1.2582163992053326,
+    "sharpe_oos": -0.7706342940779095,
+    "trades": 89,
+    "trades_per_year": 10.402320000000001,
+    "exposure": 0.29784510347770426,
+    "direction": "long_only"
+  },
+  {
+    "id": "ermom_8h_20_0.08",
+    "interval": "8h",
+    "family": "momentum",
+    "style": "er_mom",
+    "name": "ER mom 8%",
+    "params": {
+      "erw": 20,
+      "trail": 0.08
+    },
+    "sharpe": 1.0594076991839663,
+    "max_dd": -0.388454940291878,
+    "sharpe_is": 1.2582163992053326,
+    "sharpe_oos": -0.4315233545209557,
+    "trades": 89,
+    "trades_per_year": 10.402320000000001,
+    "exposure": 0.3015788350757414,
+    "direction": "long_only"
+  },
+  {
+    "id": "ermom_12h_20_0.08",
+    "interval": "12h",
+    "family": "momentum",
+    "style": "er_mom",
+    "name": "ER mom 8%",
+    "params": {
+      "erw": 20,
+      "trail": 0.08
+    },
+    "sharpe": 1.0456654539171508,
+    "max_dd": -0.3149689869930149,
+    "sharpe_is": 1.2571085672240285,
+    "sharpe_oos": -0.5406111311543341,
+    "trades": 68,
+    "trades_per_year": 7.94784,
+    "exposure": 0.2535594304911214,
+    "direction": "long_only"
+  },
+  {
+    "id": "ermom_12h_20_0.08",
+    "interval": "12h",
+    "family": "momentum",
+    "style": "er_mom",
+    "name": "ER mom 8%",
+    "params": {
+      "erw": 20,
+      "trail": 0.08
+    },
+    "sharpe": 1.0235372984769706,
+    "max_dd": -0.3149689869930148,
+    "sharpe_is": 1.2309507700471447,
+    "sharpe_oos": -0.5406111311543341,
+    "trades": 70,
+    "trades_per_year": 8.181600000000001,
+    "exposure": 0.25931850903855386,
+    "direction": "long_only"
+  },
+  {
+    "id": "daily_S5",
+    "interval": "1d",
+    "family": "derivatives_funding",
+    "style": "derivatives_funding",
+    "name": "Cumulative funding 7d quantile + trend",
+    "params": {
+      "key": "talos_futures_cumulative_funding_rate_all_margin_rolling_7d",
+      "q_ent": 0.15,
+      "q_ex": 0.85,
+      "gate": true
+    },
+    "sharpe": 1.2795090268982707,
+    "max_dd": -0.24541288575766362,
+    "sharpe_is": 1.229277416546115,
+    "sharpe_oos": 1.4708842008742167,
+    "trades": 10,
+    "trades_per_year": 1.501233045622688,
+    "exposure": 0.1921971252566735,
+    "direction": "long_only"
+  },
+  {
+    "id": "ermom_4h_40_0.12",
+    "interval": "4h",
+    "family": "momentum",
+    "style": "er_mom",
+    "name": "ER mom 12%",
+    "params": {
+      "erw": 40,
+      "trail": 0.12
+    },
+    "sharpe": 1.090059598660266,
+    "max_dd": -0.32604598923083783,
+    "sharpe_is": 1.226521775286912,
+    "sharpe_oos": 0.1978202675636986,
+    "trades": 38,
+    "trades_per_year": 4.440966296928328,
+    "exposure": 0.25248158821645855,
+    "direction": "long_only"
+  },
+  {
+    "id": "rsi_lo_8h_20_0.05",
+    "interval": "8h",
+    "family": "mean_reversion",
+    "style": "rsi_lo",
+    "name": "RSI LO trail5%",
+    "params": {
+      "rw": 20,
+      "ent": 28,
+      "trail": 0.05
+    },
+    "sharpe": 1.1054232304663212,
+    "max_dd": -0.08745941550140901,
+    "sharpe_is": 1.2223880363132118,
+    "sharpe_oos": 0.0,
+    "trades": 18,
+    "trades_per_year": 2.10384,
+    "exposure": 0.04416471090249627,
+    "direction": "long_only"
+  },
+  {
+    "id": "ermom_4h_40_0.12",
+    "interval": "4h",
+    "family": "momentum",
+    "style": "er_mom",
+    "name": "ER mom 12%",
+    "params": {
+      "erw": 40,
+      "trail": 0.12
+    },
+    "sharpe": 1.0879407331091144,
+    "max_dd": -0.35201345564821607,
+    "sharpe_is": 1.221999883092712,
+    "sharpe_oos": 0.1978202675636986,
+    "trades": 40,
+    "trades_per_year": 4.674701365187714,
+    "exposure": 0.2792186999679795,
+    "direction": "long_only"
+  },
+  {
+    "id": "ermom_2h_40_0.08",
+    "interval": "2h",
+    "family": "momentum",
+    "style": "er_mom",
+    "name": "ER mom 8%",
+    "params": {
+      "erw": 40,
+      "trail": 0.08
+    },
+    "sharpe": 1.0942157428439272,
+    "max_dd": -0.3386407374443128,
+    "sharpe_is": 1.2180750513856424,
+    "sharpe_oos": -0.02103199806758917,
+    "trades": 58,
+    "trades_per_year": 6.777955527115661,
+    "exposure": 0.15115999679632647,
+    "direction": "long_only"
+  },
+  {
+    "id": "sqz_4h_20",
+    "interval": "4h",
+    "family": "volatility",
+    "style": "squeeze",
+    "name": "BB squeeze 20",
+    "params": {
+      "bw": 20
+    },
+    "sharpe": 0.9175674889622071,
+    "max_dd": -0.4571807886998328,
+    "sharpe_is": 1.1902845300793068,
+    "sharpe_oos": -0.6973165488761449,
+    "trades": 146,
+    "trades_per_year": 17.062659982935156,
+    "exposure": 0.4336642117621945,
+    "direction": "long_only"
+  },
+  {
+    "id": "ermom_8h_40_0.08",
+    "interval": "8h",
+    "family": "momentum",
+    "style": "er_mom",
+    "name": "ER mom 8%",
+    "params": {
+      "erw": 40,
+      "trail": 0.08
+    },
+    "sharpe": 1.0178193590211606,
+    "max_dd": -0.1756842775972436,
+    "sharpe_is": 1.1254935258366399,
+    "sharpe_oos": 0.0,
+    "trades": 24,
+    "trades_per_year": 2.80512,
+    "exposure": 0.08907616812459995,
+    "direction": "long_only"
+  },
+  {
+    "id": "ermom_8h_40_0.08",
+    "interval": "8h",
+    "family": "momentum",
+    "style": "er_mom",
+    "name": "ER mom 8%",
+    "params": {
+      "erw": 40,
+      "trail": 0.08
+    },
+    "sharpe": 1.0178193590211606,
+    "max_dd": -0.1756842775972436,
+    "sharpe_is": 1.1254935258366399,
+    "sharpe_oos": 0.0,
+    "trades": 24,
+    "trades_per_year": 2.80512,
+    "exposure": 0.08907616812459995,
+    "direction": "long_only"
+  },
+  {
+    "id": "rsi_lo_12h_14_0.05",
+    "interval": "12h",
+    "family": "mean_reversion",
+    "style": "rsi_lo",
+    "name": "RSI LO trail5%",
+    "params": {
+      "rw": 14,
+      "ent": 28,
+      "trail": 0.05
+    },
+    "sharpe": 0.9681360110899113,
+    "max_dd": -0.3854120889681518,
+    "sharpe_is": 1.1144245316264387,
+    "sharpe_oos": -0.14348357384385088,
+    "trades": 80,
+    "trades_per_year": 9.3504,
+    "exposure": 0.17645176771716525,
+    "direction": "long_only"
+  },
+  {
+    "id": "ermom_12h_20_0.12",
+    "interval": "12h",
+    "family": "momentum",
+    "style": "er_mom",
+    "name": "ER mom 12%",
+    "params": {
+      "erw": 20,
+      "trail": 0.12
+    },
+    "sharpe": 0.9116837970724879,
+    "max_dd": -0.38176947927202964,
+    "sharpe_is": 1.105645657208246,
+    "sharpe_oos": -0.4495369736663361,
+    "trades": 58,
+    "trades_per_year": 6.77904,
+    "exposure": 0.3564229723244281,
+    "direction": "long_only"
+  },
+  {
+    "id": "rsi_lo_8h_14_0.08",
+    "interval": "8h",
+    "family": "mean_reversion",
+    "style": "rsi_lo",
+    "name": "RSI LO trail8%",
+    "params": {
+      "rw": 14,
+      "ent": 32,
+      "trail": 0.08
+    },
+    "sharpe": 0.8703403832817799,
+    "max_dd": -0.4195591940728989,
+    "sharpe_is": 1.090465676044359,
+    "sharpe_oos": -0.8738004070127672,
+    "trades": 94,
+    "trades_per_year": 10.98672,
+    "exposure": 0.27885641135054406,
+    "direction": "long_only"
+  },
+  {
+    "id": "rsi_lo_4h_14_0.08",
+    "interval": "4h",
+    "family": "mean_reversion",
+    "style": "rsi_lo",
+    "name": "RSI LO trail8%",
+    "params": {
+      "rw": 14,
+      "ent": 28,
+      "trail": 0.08
+    },
+    "sharpe": 0.8969981448263452,
+    "max_dd": -0.43115830929033006,
+    "sharpe_is": 1.0723215882020416,
+    "sharpe_oos": -0.24780721647870646,
+    "trades": 132,
+    "trades_per_year": 15.426514505119455,
+    "exposure": 0.3691962856227986,
+    "direction": "long_only"
+  },
+  {
+    "id": "ermom_12h_20_0.12",
+    "interval": "12h",
+    "family": "momentum",
+    "style": "er_mom",
+    "name": "ER mom 12%",
+    "params": {
+      "erw": 20,
+      "trail": 0.12
+    },
+    "sharpe": 0.870052701167034,
+    "max_dd": -0.3817694792720301,
+    "sharpe_is": 1.0594067100909845,
+    "sharpe_oos": -0.4495369736663361,
+    "trades": 58,
+    "trades_per_year": 6.77904,
+    "exposure": 0.3380259158534634,
+    "direction": "long_only"
+  },
+  {
+    "id": "rsi_lo_12h_14_0.05",
+    "interval": "12h",
+    "family": "mean_reversion",
+    "style": "rsi_lo",
+    "name": "RSI LO trail5%",
+    "params": {
+      "rw": 14,
+      "ent": 32,
+      "trail": 0.05
+    },
+    "sharpe": 0.9183837311536238,
+    "max_dd": -0.32836142798562684,
+    "sharpe_is": 1.0563814966006504,
+    "sharpe_oos": 0.011392109792391953,
+    "trades": 108,
+    "trades_per_year": 12.623040000000001,
+    "exposure": 0.21900495920652696,
+    "direction": "long_only"
+  },
+  {
+    "id": "rsi_lo_12h_14_0.08",
+    "interval": "12h",
+    "family": "mean_reversion",
+    "style": "rsi_lo",
+    "name": "RSI LO trail8%",
+    "params": {
+      "rw": 14,
+      "ent": 32,
+      "trail": 0.08
+    },
+    "sharpe": 0.856660200481425,
+    "max_dd": -0.421297096344433,
+    "sharpe_is": 1.050713124312629,
+    "sharpe_oos": -0.37418975271467175,
+    "trades": 84,
+    "trades_per_year": 9.81792,
+    "exposure": 0.2989921612541993,
+    "direction": "long_only"
+  },
+  {
+    "id": "ermom_8h_20_0.12",
+    "interval": "8h",
+    "family": "momentum",
+    "style": "er_mom",
+    "name": "ER mom 12%",
+    "params": {
+      "erw": 20,
+      "trail": 0.12
+    },
+    "sharpe": 0.8216414444322253,
+    "max_dd": -0.41788507221737825,
+    "sharpe_is": 1.0473731067978818,
+    "sharpe_oos": -0.568527764137238,
+    "trades": 71,
+    "trades_per_year": 8.298480000000001,
+    "exposure": 0.3953488372093023,
+    "direction": "long_only"
+  },
+  {
+    "id": "ermom_8h_20_0.12",
+    "interval": "8h",
+    "family": "momentum",
+    "style": "er_mom",
+    "name": "ER mom 12%",
+    "params": {
+      "erw": 20,
+      "trail": 0.12
+    },
+    "sharpe": 0.8216414444322253,
+    "max_dd": -0.41788507221737825,
+    "sharpe_is": 1.0473731067978818,
+    "sharpe_oos": -0.568527764137238,
+    "trades": 71,
+    "trades_per_year": 8.298480000000001,
+    "exposure": 0.3953488372093023,
+    "direction": "long_only"
+  },
+  {
+    "id": "rsi_lo_12h_20_0.05",
+    "interval": "12h",
+    "family": "mean_reversion",
+    "style": "rsi_lo",
+    "name": "RSI LO trail5%",
+    "params": {
+      "rw": 20,
+      "ent": 32,
+      "trail": 0.05
+    },
+    "sharpe": 0.8477387243699253,
+    "max_dd": -0.2567429908128661,
+    "sharpe_is": 1.0357825530457132,
+    "sharpe_oos": -0.3153017088957004,
+    "trades": 56,
+    "trades_per_year": 6.545280000000001,
+    "exposure": 0.12813949768037114,
+    "direction": "long_only"
+  },
+  {
+    "id": "rsi_lo_6h_20_0.08",
+    "interval": "6h",
+    "family": "mean_reversion",
+    "style": "rsi_lo",
+    "name": "RSI LO trail8%",
+    "params": {
+      "rw": 20,
+      "ent": 28,
+      "trail": 0.08
+    },
+    "sharpe": 0.770656050465556,
+    "max_dd": -0.3374814858978451,
+    "sharpe_is": 1.0252082899481871,
+    "sharpe_oos": -1.2418372623429443,
+    "trades": 48,
+    "trades_per_year": 5.609791216702663,
+    "exposure": 0.15571737216932063,
+    "direction": "long_only"
+  },
+  {
+    "id": "rsi_lo_6h_20_0.08",
+    "interval": "6h",
+    "family": "mean_reversion",
+    "style": "rsi_lo",
+    "name": "RSI LO trail8%",
+    "params": {
+      "rw": 20,
+      "ent": 32,
+      "trail": 0.08
+    },
+    "sharpe": 0.8474802099245223,
+    "max_dd": -0.4242626214623144,
+    "sharpe_is": 1.0117404945579749,
+    "sharpe_oos": -0.6243746428373841,
+    "trades": 62,
+    "trades_per_year": 7.245980321574274,
+    "exposure": 0.18788509242218132,
+    "direction": "long_only"
+  },
+  {
+    "id": "ermom_2h_20_0.08",
+    "interval": "2h",
+    "family": "momentum",
+    "style": "er_mom",
+    "name": "ER mom 8%",
+    "params": {
+      "erw": 20,
+      "trail": 0.08
+    },
+    "sharpe": 0.735686252525196,
+    "max_dd": -0.45712015994191546,
+    "sharpe_is": 1.009306613653275,
+    "sharpe_oos": -0.9187108141614927,
+    "trades": 215,
+    "trades_per_year": 25.125179971204606,
+    "exposure": 0.47198120511519875,
+    "direction": "long_only"
+  },
+  {
+    "id": "sqz_8h_20",
+    "interval": "8h",
+    "family": "volatility",
+    "style": "squeeze",
+    "name": "BB squeeze 20",
+    "params": {
+      "bw": 20
+    },
+    "sharpe": 0.8080239633338597,
+    "max_dd": -0.4606443633595424,
+    "sharpe_is": 1.0027800497551516,
+    "sharpe_oos": -0.157184860714308,
+    "trades": 75,
+    "trades_per_year": 8.766,
+    "exposure": 0.24141241732451463,
+    "direction": "long_only"
+  },
+  {
+    "id": "ermom_6h_40_0.12",
+    "interval": "6h",
+    "family": "momentum",
+    "style": "er_mom",
+    "name": "ER mom 12%",
+    "params": {
+      "erw": 40,
+      "trail": 0.12
+    },
+    "sharpe": 0.7672727515076695,
+    "max_dd": -0.3122435823001891,
+    "sharpe_is": 0.9935760193192026,
+    "sharpe_oos": -1.209567833271869,
+    "trades": 32,
+    "trades_per_year": 3.739860811135109,
+    "exposure": 0.17004080979435066,
+    "direction": "long_only"
+  },
+  {
+    "id": "ermom_6h_40_0.12",
+    "interval": "6h",
+    "family": "momentum",
+    "style": "er_mom",
+    "name": "ER mom 12%",
+    "params": {
+      "erw": 40,
+      "trail": 0.12
+    },
+    "sharpe": 0.7497644050919562,
+    "max_dd": -0.3122435823001882,
+    "sharpe_is": 0.9808153263569589,
+    "sharpe_oos": -1.209567833271869,
+    "trades": 30,
+    "trades_per_year": 3.5061195104391647,
+    "exposure": 0.1579579098983756,
+    "direction": "long_only"
+  },
+  {
+    "id": "rsi_lo_8h_20_0.05",
+    "interval": "8h",
+    "family": "mean_reversion",
+    "style": "rsi_lo",
+    "name": "RSI LO trail5%",
+    "params": {
+      "rw": 20,
+      "ent": 32,
+      "trail": 0.05
+    },
+    "sharpe": 0.753005441749076,
+    "max_dd": -0.279824269176564,
+    "sharpe_is": 0.9659265950972405,
+    "sharpe_oos": -0.8757386905533215,
+    "trades": 94,
+    "trades_per_year": 10.98672,
+    "exposure": 0.13761467889908258,
+    "direction": "long_only"
+  },
+  {
+    "id": "rsi_lo_12h_20_0.05",
+    "interval": "12h",
+    "family": "mean_reversion",
+    "style": "rsi_lo",
+    "name": "RSI LO trail5%",
+    "params": {
+      "rw": 20,
+      "ent": 28,
+      "trail": 0.05
+    },
+    "sharpe": 0.8204644934660751,
+    "max_dd": -0.2204977386709176,
+    "sharpe_is": 0.9577720373983319,
+    "sharpe_oos": -1.5115922191728803,
+    "trades": 30,
+    "trades_per_year": 3.5064,
+    "exposure": 0.07198848184290514,
+    "direction": "long_only"
+  },
+  {
+    "id": "rsi_lo_2h_20_0.08",
+    "interval": "2h",
+    "family": "mean_reversion",
+    "style": "rsi_lo",
+    "name": "RSI LO trail8%",
+    "params": {
+      "rw": 20,
+      "ent": 28,
+      "trail": 0.08
+    },
+    "sharpe": 0.7257521921380677,
+    "max_dd": -0.39993797212108695,
+    "sharpe_is": 0.9405896938622733,
+    "sharpe_oos": -0.6226325897219852,
+    "trades": 54,
+    "trades_per_year": 6.310510318349063,
+    "exposure": 0.1672584563632966,
+    "direction": "long_only"
+  },
+  {
+    "id": "sqz_4h_40",
+    "interval": "4h",
+    "family": "volatility",
+    "style": "squeeze",
+    "name": "BB squeeze 40",
+    "params": {
+      "bw": 40
+    },
+    "sharpe": 0.6259283209810782,
+    "max_dd": -0.4535844740505227,
+    "sharpe_is": 0.8754804926071968,
+    "sharpe_oos": -0.6189469194657895,
+    "trades": 93,
+    "trades_per_year": 10.868680674061434,
+    "exposure": 0.39657380723663144,
+    "direction": "long_only"
+  },
+  {
+    "id": "vspike_8h_96",
+    "interval": "8h",
+    "family": "microstructure",
+    "style": "vol_spike",
+    "name": "vol spike",
+    "params": {
+      "vw": 96
+    },
+    "sharpe": 0.7822503200718987,
+    "max_dd": -0.3729486841135745,
+    "sharpe_is": 0.8738973863536377,
+    "sharpe_oos": 0.22575844508791607,
+    "trades": 236,
+    "trades_per_year": 27.58368,
+    "exposure": 0.10326434819714103,
+    "direction": "long_only"
+  },
+  {
+    "id": "ermom_12h_40_0.08",
+    "interval": "12h",
+    "family": "momentum",
+    "style": "er_mom",
+    "name": "ER mom 8%",
+    "params": {
+      "erw": 40,
+      "trail": 0.08
+    },
+    "sharpe": 0.7829031227621058,
+    "max_dd": -0.3952996137116964,
+    "sharpe_is": 0.8657514016538644,
+    "sharpe_oos": 0.0,
+    "trades": 26,
+    "trades_per_year": 3.0388800000000002,
+    "exposure": 0.11038233882578788,
+    "direction": "long_only"
+  },
+  {
+    "id": "ermom_12h_40_0.08",
+    "interval": "12h",
+    "family": "momentum",
+    "style": "er_mom",
+    "name": "ER mom 8%",
+    "params": {
+      "erw": 40,
+      "trail": 0.08
+    },
+    "sharpe": 0.7829031227621058,
+    "max_dd": -0.3952996137116964,
+    "sharpe_is": 0.8657514016538644,
+    "sharpe_oos": 0.0,
+    "trades": 26,
+    "trades_per_year": 3.0388800000000002,
+    "exposure": 0.11038233882578788,
+    "direction": "long_only"
+  },
+  {
+    "id": "rsi_lo_6h_20_0.08",
+    "interval": "6h",
+    "family": "mean_reversion",
+    "style": "rsi_lo",
+    "name": "RSI LO trail8%",
+    "params": {
+      "rw": 20,
+      "ent": 28,
+      "trail": 0.08
+    },
+    "sharpe": 0.7045737321667889,
+    "max_dd": -0.2604137538785516,
+    "sharpe_is": 0.8599802812125836,
+    "sharpe_oos": -0.9524459931907894,
+    "trades": 20,
+    "trades_per_year": 2.3374130069594434,
+    "exposure": 0.08089941585980635,
+    "direction": "long_only"
+  },
+  {
+    "id": "rsi_lo_4h_14_0.05",
+    "interval": "4h",
+    "family": "mean_reversion",
+    "style": "rsi_lo",
+    "name": "RSI LO trail5%",
+    "params": {
+      "rw": 14,
+      "ent": 32,
+      "trail": 0.05
+    },
+    "sharpe": 0.7004365483655571,
+    "max_dd": -0.3684221620286119,
+    "sharpe_is": 0.8427231613747046,
+    "sharpe_oos": -0.22567372262882276,
+    "trades": 261,
+    "trades_per_year": 30.502426407849832,
+    "exposure": 0.32372718539865514,
+    "direction": "long_only"
+  },
+  {
+    "id": "rsi_lo_6h_14_0.08",
+    "interval": "6h",
+    "family": "mean_reversion",
+    "style": "rsi_lo",
+    "name": "RSI LO trail8%",
+    "params": {
+      "rw": 14,
+      "ent": 28,
+      "trail": 0.08
+    },
+    "sharpe": 0.6500249875705701,
+    "max_dd": -0.3935571826738077,
+    "sharpe_is": 0.8401495522422135,
+    "sharpe_oos": -0.8908408033235945,
+    "trades": 95,
+    "trades_per_year": 11.102711783057355,
+    "exposure": 0.27126510362487,
+    "direction": "long_only"
+  },
+  {
+    "id": "rsi_lo_4h_14_0.08",
+    "interval": "4h",
+    "family": "mean_reversion",
+    "style": "rsi_lo",
+    "name": "RSI LO trail8%",
+    "params": {
+      "rw": 14,
+      "ent": 28,
+      "trail": 0.08
+    },
+    "sharpe": 0.6061637796786076,
+    "max_dd": -0.38018427481702954,
+    "sharpe_is": 0.8330448640109522,
+    "sharpe_oos": -0.7516989246351282,
+    "trades": 121,
+    "trades_per_year": 14.140971629692833,
+    "exposure": 0.33850997972035435,
+    "direction": "long_only"
+  },
+  {
+    "id": "rsi_lo_4h_14_0.05",
+    "interval": "4h",
+    "family": "mean_reversion",
+    "style": "rsi_lo",
+    "name": "RSI LO trail5%",
+    "params": {
+      "rw": 14,
+      "ent": 28,
+      "trail": 0.05
+    },
+    "sharpe": 0.622457861352452,
+    "max_dd": -0.4402993441288281,
+    "sharpe_is": 0.8195532153234537,
+    "sharpe_oos": -0.6503925958619711,
+    "trades": 206,
+    "trades_per_year": 24.074712030716725,
+    "exposure": 0.25445618529192016,
+    "direction": "long_only"
+  },
+  {
+    "id": "rsi_lo_8h_14_0.05",
+    "interval": "8h",
+    "family": "mean_reversion",
+    "style": "rsi_lo",
+    "name": "RSI LO trail5%",
+    "params": {
+      "rw": 14,
+      "ent": 32,
+      "trail": 0.05
+    },
+    "sharpe": 0.6397513768908621,
+    "max_dd": -0.3069314954847059,
+    "sharpe_is": 0.8110105224645301,
+    "sharpe_oos": -0.5602095999170756,
+    "trades": 134,
+    "trades_per_year": 15.66192,
+    "exposure": 0.19628760401109452,
+    "direction": "long_only"
+  },
+  {
+    "id": "ermom_8h_40_0.12",
+    "interval": "8h",
+    "family": "momentum",
+    "style": "er_mom",
+    "name": "ER mom 12%",
+    "params": {
+      "erw": 40,
+      "trail": 0.12
+    },
+    "sharpe": 0.7310072986851905,
+    "max_dd": -0.24901352729038817,
+    "sharpe_is": 0.8082986825957721,
+    "sharpe_oos": 0.0,
+    "trades": 20,
+    "trades_per_year": 2.3376,
+    "exposure": 0.10689140174951994,
+    "direction": "long_only"
+  },
+  {
+    "id": "ermom_8h_40_0.12",
+    "interval": "8h",
+    "family": "momentum",
+    "style": "er_mom",
+    "name": "ER mom 12%",
+    "params": {
+      "erw": 40,
+      "trail": 0.12
+    },
+    "sharpe": 0.7310072986851905,
+    "max_dd": -0.24901352729038817,
+    "sharpe_is": 0.8082986825957721,
+    "sharpe_oos": 0.0,
+    "trades": 20,
+    "trades_per_year": 2.3376,
+    "exposure": 0.10689140174951994,
+    "direction": "long_only"
+  },
+  {
+    "id": "rsi_lo_4h_20_0.08",
+    "interval": "4h",
+    "family": "mean_reversion",
+    "style": "rsi_lo",
+    "name": "RSI LO trail8%",
+    "params": {
+      "rw": 20,
+      "ent": 32,
+      "trail": 0.08
+    },
+    "sharpe": 0.6332383014593297,
+    "max_dd": -0.40353544478083625,
+    "sharpe_is": 0.790278618608518,
+    "sharpe_oos": -0.3759874833613529,
+    "trades": 81,
+    "trades_per_year": 9.46627026450512,
+    "exposure": 0.2367915465898175,
+    "direction": "long_only"
+  },
+  {
+    "id": "rsi_lo_12h_20_0.08",
+    "interval": "12h",
+    "family": "mean_reversion",
+    "style": "rsi_lo",
+    "name": "RSI LO trail8%",
+    "params": {
+      "rw": 20,
+      "ent": 32,
+      "trail": 0.08
+    },
+    "sharpe": 0.5402724630861918,
+    "max_dd": -0.3463732489565585,
+    "sharpe_is": 0.786311019019912,
+    "sharpe_oos": -1.413550486923813,
+    "trades": 44,
+    "trades_per_year": 5.142720000000001,
+    "exposure": 0.14493681011038234,
+    "direction": "long_only"
+  },
+  {
+    "id": "vspike_6h_96",
+    "interval": "6h",
+    "family": "microstructure",
+    "style": "vol_spike",
+    "name": "vol spike",
+    "params": {
+      "vw": 96
+    },
+    "sharpe": 0.6643444014638957,
+    "max_dd": -0.3161549902114301,
+    "sharpe_is": 0.7571056080580305,
+    "sharpe_oos": 0.1243377240116624,
+    "trades": 304,
+    "trades_per_year": 35.52867770578354,
+    "exposure": 0.10050412098903737,
+    "direction": "long_only"
+  },
+  {
+    "id": "rsi_lo_6h_20_0.05",
+    "interval": "6h",
+    "family": "mean_reversion",
+    "style": "rsi_lo",
+    "name": "RSI LO trail5%",
+    "params": {
+      "rw": 20,
+      "ent": 28,
+      "trail": 0.05
+    },
+    "sharpe": 0.5445539229804498,
+    "max_dd": -0.17408554299083434,
+    "sharpe_is": 0.6825541248726026,
+    "sharpe_oos": -0.980729441887897,
+    "trades": 24,
+    "trades_per_year": 2.8048956083513317,
+    "exposure": 0.03784908378010723,
+    "direction": "long_only"
+  },
+  {
+    "id": "rsi_lo_12h_20_0.08",
+    "interval": "12h",
+    "family": "mean_reversion",
+    "style": "rsi_lo",
+    "name": "RSI LO trail8%",
+    "params": {
+      "rw": 20,
+      "ent": 28,
+      "trail": 0.08
+    },
+    "sharpe": 0.534485687883187,
+    "max_dd": -0.270226994580828,
+    "sharpe_is": 0.6822089599982666,
+    "sharpe_oos": -1.9038117070682885,
+    "trades": 28,
+    "trades_per_year": 3.2726400000000004,
+    "exposure": 0.09822428411454168,
+    "direction": "long_only"
+  },
+  {
+    "id": "ermom_12h_40_0.12",
+    "interval": "12h",
+    "family": "momentum",
+    "style": "er_mom",
+    "name": "ER mom 12%",
+    "params": {
+      "erw": 40,
+      "trail": 0.12
+    },
+    "sharpe": 0.6028182004418635,
+    "max_dd": -0.4099797596037251,
+    "sharpe_is": 0.6665841869989165,
+    "sharpe_oos": 0.0,
+    "trades": 24,
+    "trades_per_year": 2.80512,
+    "exposure": 0.1311790113581827,
+    "direction": "long_only"
+  },
+  {
+    "id": "ermom_12h_40_0.12",
+    "interval": "12h",
+    "family": "momentum",
+    "style": "er_mom",
+    "name": "ER mom 12%",
+    "params": {
+      "erw": 40,
+      "trail": 0.12
+    },
+    "sharpe": 0.6028182004418635,
+    "max_dd": -0.4099797596037251,
+    "sharpe_is": 0.6665841869989165,
+    "sharpe_oos": 0.0,
+    "trades": 24,
+    "trades_per_year": 2.80512,
+    "exposure": 0.1311790113581827,
+    "direction": "long_only"
+  },
+  {
+    "id": "vspike_6h_48",
+    "interval": "6h",
+    "family": "microstructure",
+    "style": "vol_spike",
+    "name": "vol spike",
+    "params": {
+      "vw": 48
+    },
+    "sharpe": 0.48362999894222625,
+    "max_dd": -0.3118394436858789,
+    "sharpe_is": 0.651514874171559,
+    "sharpe_oos": -0.453256067632684,
+    "trades": 312,
+    "trades_per_year": 36.463642908567316,
+    "exposure": 0.07825878210770584,
+    "direction": "long_only"
+  },
+  {
+    "id": "rsi_lo_8h_14_0.05",
+    "interval": "8h",
+    "family": "mean_reversion",
+    "style": "rsi_lo",
+    "name": "RSI LO trail5%",
+    "params": {
+      "rw": 14,
+      "ent": 28,
+      "trail": 0.05
+    },
+    "sharpe": 0.4947515400722766,
+    "max_dd": -0.3341568514148281,
+    "sharpe_is": 0.6380992554133997,
+    "sharpe_oos": -0.5050849258387462,
+    "trades": 88,
+    "trades_per_year": 10.285440000000001,
+    "exposure": 0.14017495199487945,
+    "direction": "long_only"
+  },
+  {
+    "id": "rsi_lo_4h_20_0.08",
+    "interval": "4h",
+    "family": "mean_reversion",
+    "style": "rsi_lo",
+    "name": "RSI LO trail8%",
+    "params": {
+      "rw": 20,
+      "ent": 28,
+      "trail": 0.08
+    },
+    "sharpe": 0.44923944608622784,
+    "max_dd": -0.41323528185830394,
+    "sharpe_is": 0.6173458423426812,
+    "sharpe_oos": -0.6940201582605987,
+    "trades": 53,
+    "trades_per_year": 6.19397930887372,
+    "exposure": 0.17061586081758992,
+    "direction": "long_only"
+  },
+  {
+    "id": "vspike_8h_48",
+    "interval": "8h",
+    "family": "microstructure",
+    "style": "vol_spike",
+    "name": "vol spike",
+    "params": {
+      "vw": 48
+    },
+    "sharpe": 0.5561700863604437,
+    "max_dd": -0.3515959688183864,
+    "sharpe_is": 0.6066401229559667,
+    "sharpe_oos": 0.26074437079087814,
+    "trades": 244,
+    "trades_per_year": 28.518720000000002,
+    "exposure": 0.08064860251760188,
+    "direction": "long_only"
+  },
+  {
+    "id": "rsi_lo_12h_14_0.05",
+    "interval": "12h",
+    "family": "mean_reversion",
+    "style": "rsi_lo",
+    "name": "RSI LO trail5%",
+    "params": {
+      "rw": 14,
+      "ent": 32,
+      "trail": 0.05
+    },
+    "sharpe": 0.5349849811656263,
+    "max_dd": -0.32067383659952997,
+    "sharpe_is": 0.6052411713884217,
+    "sharpe_oos": 0.07064807889499368,
+    "trades": 80,
+    "trades_per_year": 9.3504,
+    "exposure": 0.16365381538953766,
+    "direction": "long_only"
+  },
+  {
+    "id": "rsi_lo_6h_20_0.05",
+    "interval": "6h",
+    "family": "mean_reversion",
+    "style": "rsi_lo",
+    "name": "RSI LO trail5%",
+    "params": {
+      "rw": 20,
+      "ent": 28,
+      "trail": 0.05
+    },
+    "sharpe": 0.38867049104095386,
+    "max_dd": -0.21755151527500005,
+    "sharpe_is": 0.5876534545169769,
+    "sharpe_oos": -0.9620150592170706,
+    "trades": 56,
+    "trades_per_year": 6.544756419486441,
+    "exposure": 0.09122189325438106,
+    "direction": "long_only"
+  },
+  {
+    "id": "rsi_lo_12h_14_0.05",
+    "interval": "12h",
+    "family": "mean_reversion",
+    "style": "rsi_lo",
+    "name": "RSI LO trail5%",
+    "params": {
+      "rw": 14,
+      "ent": 28,
+      "trail": 0.05
+    },
+    "sharpe": 0.49627348121557224,
+    "max_dd": -0.3048914154743758,
+    "sharpe_is": 0.522597149819401,
+    "sharpe_oos": 0.3595158746156246,
+    "trades": 56,
+    "trades_per_year": 6.545280000000001,
+    "exposure": 0.12494000959846424,
+    "direction": "long_only"
+  },
+  {
+    "id": "rsi_lo_8h_20_0.05",
+    "interval": "8h",
+    "family": "mean_reversion",
+    "style": "rsi_lo",
+    "name": "RSI LO trail5%",
+    "params": {
+      "rw": 20,
+      "ent": 28,
+      "trail": 0.05
+    },
+    "sharpe": 0.3332216604707572,
+    "max_dd": -0.3023818338299584,
+    "sharpe_is": 0.4766102972423751,
+    "sharpe_oos": -0.8590544013320786,
+    "trades": 50,
+    "trades_per_year": 5.844,
+    "exposure": 0.06550032003413697,
+    "direction": "long_only"
+  },
+  {
+    "id": "rsi_lo_2h_20_0.05",
+    "interval": "2h",
+    "family": "mean_reversion",
+    "style": "rsi_lo",
+    "name": "RSI LO trail5%",
+    "params": {
+      "rw": 20,
+      "ent": 32,
+      "trail": 0.05
+    },
+    "sharpe": 0.5214671960834688,
+    "max_dd": -0.324835641315096,
+    "sharpe_is": 0.4675772526566158,
+    "sharpe_oos": 0.7692573032584676,
+    "trades": 137,
+    "trades_per_year": 16.009998400255956,
+    "exposure": 0.19414261686734122,
+    "direction": "long_only"
+  }
+]

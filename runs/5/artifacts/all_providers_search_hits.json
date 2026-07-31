@@ -1,0 +1,758 @@
+{
+  "meta": {
+    "source": "local:/root/thequantgpt-wrapper/data/talos/cm_BTCUSDT_market_candles_1d.parquet",
+    "n_features": 134,
+    "providers": [
+      "talos",
+      "coinglass",
+      "binance",
+      "hyperliquid"
+    ],
+    "date_range": [
+      "2019-09-08 00:00:00+00:00",
+      "2026-05-08 00:00:00+00:00"
+    ]
+  },
+  "search_counts": {
+    "talos_onchain": 581,
+    "coinglass": 2151,
+    "price_mr": 137,
+    "cross_venue": 27,
+    "systematic_talos": 2088
+  },
+  "min_trades": 5,
+  "total_hits": 38,
+  "top_50": [
+    {
+      "provider": "talos",
+      "family": "quantile",
+      "name": "talos_FlowNetBNBUSD q0.05/0.8",
+      "params": {
+        "key": "talos_FlowNetBNBUSD",
+        "q_ent": 0.05,
+        "q_ex": 0.8,
+        "gate": true
+      },
+      "sharpe": 1.5813432987898286,
+      "max_dd": -0.17475285986461764,
+      "sharpe_is": 1.8619021371242406,
+      "sharpe_oos": 0.12694756367647433,
+      "trades": 164,
+      "exposure": 0.12772073921971253
+    },
+    {
+      "provider": "talos",
+      "family": "quantile",
+      "name": "talos_FlowNetBNBUSD q0.05/0.85",
+      "params": {
+        "key": "talos_FlowNetBNBUSD",
+        "q_ent": 0.05,
+        "q_ex": 0.85,
+        "gate": true
+      },
+      "sharpe": 1.5209939451152137,
+      "max_dd": -0.15668322375506483,
+      "sharpe_is": 1.756879024638457,
+      "sharpe_oos": 0.25429391554116426,
+      "trades": 162,
+      "exposure": 0.1515400410677618
+    },
+    {
+      "provider": "talos",
+      "family": "quantile",
+      "name": "talos_FlowNetBNBUSD q0.05/0.9",
+      "params": {
+        "key": "talos_FlowNetBNBUSD",
+        "q_ent": 0.05,
+        "q_ex": 0.9,
+        "gate": true
+      },
+      "sharpe": 1.4413688745332454,
+      "max_dd": -0.16681354050576935,
+      "sharpe_is": 1.6889007294674607,
+      "sharpe_oos": 0.2851342742203447,
+      "trades": 158,
+      "exposure": 0.17946611909650925
+    },
+    {
+      "provider": "talos",
+      "family": "quantile",
+      "name": "talos_futures_cumulative_funding_rate_usd_margin_rolling_30d q0.15/0.85",
+      "params": {
+        "key": "talos_futures_cumulative_funding_rate_usd_margin_rolling_30d",
+        "q_ent": 0.15,
+        "q_ex": 0.85,
+        "gate": true
+      },
+      "sharpe": 1.3263930764339407,
+      "max_dd": -0.2094509312399676,
+      "sharpe_is": 1.3496754834060778,
+      "sharpe_oos": 1.2487859051227774,
+      "trades": 8,
+      "exposure": 0.1462012320328542
+    },
+    {
+      "provider": "talos",
+      "family": "quantile",
+      "name": "talos_futures_cumulative_funding_rate_all_margin_rolling_7d q0.15/0.85",
+      "params": {
+        "key": "talos_futures_cumulative_funding_rate_all_margin_rolling_7d",
+        "q_ent": 0.15,
+        "q_ex": 0.85,
+        "gate": true
+      },
+      "sharpe": 1.2789823832223264,
+      "max_dd": -0.24541288575766362,
+      "sharpe_is": 1.2286431113220748,
+      "sharpe_oos": 1.4693916746644875,
+      "trades": 10,
+      "exposure": 0.1921971252566735
+    },
+    {
+      "provider": "talos",
+      "family": "quantile",
+      "name": "talos_futures_cumulative_funding_rate_usd_margin_rolling_7d q0.15/0.85",
+      "params": {
+        "key": "talos_futures_cumulative_funding_rate_usd_margin_rolling_7d",
+        "q_ent": 0.15,
+        "q_ex": 0.85,
+        "gate": true
+      },
+      "sharpe": 1.2789823832223264,
+      "max_dd": -0.24541288575766362,
+      "sharpe_is": 1.2286431113220748,
+      "sharpe_oos": 1.4693916746644875,
+      "trades": 10,
+      "exposure": 0.1921971252566735
+    },
+    {
+      "provider": "talos",
+      "family": "quantile",
+      "name": "talos_futures_cumulative_funding_rate_all_margin_rolling_30d q0.05/0.85",
+      "params": {
+        "key": "talos_futures_cumulative_funding_rate_all_margin_rolling_30d",
+        "q_ent": 0.05,
+        "q_ex": 0.85,
+        "gate": true
+      },
+      "sharpe": 1.2431895144214327,
+      "max_dd": -0.2244714633209013,
+      "sharpe_is": 1.2673725134244154,
+      "sharpe_oos": 1.1437449884752964,
+      "trades": 6,
+      "exposure": 0.10308008213552361
+    },
+    {
+      "provider": "talos",
+      "family": "quantile",
+      "name": "talos_futures_cumulative_funding_rate_usd_margin_rolling_30d q0.05/0.85",
+      "params": {
+        "key": "talos_futures_cumulative_funding_rate_usd_margin_rolling_30d",
+        "q_ent": 0.05,
+        "q_ex": 0.85,
+        "gate": true
+      },
+      "sharpe": 1.2431895144214327,
+      "max_dd": -0.2244714633209013,
+      "sharpe_is": 1.2673725134244154,
+      "sharpe_oos": 1.1437449884752964,
+      "trades": 6,
+      "exposure": 0.10308008213552361
+    },
+    {
+      "provider": "talos",
+      "family": "quantile",
+      "name": "talos_futures_cumulative_funding_rate_all_margin_rolling_7d q0.1/0.85",
+      "params": {
+        "key": "talos_futures_cumulative_funding_rate_all_margin_rolling_7d",
+        "q_ent": 0.1,
+        "q_ex": 0.85,
+        "gate": true
+      },
+      "sharpe": 1.2219492174731845,
+      "max_dd": -0.2454128857576635,
+      "sharpe_is": 1.2045741582281415,
+      "sharpe_oos": 1.2952280648909291,
+      "trades": 10,
+      "exposure": 0.18562628336755646
+    },
+    {
+      "provider": "talos",
+      "family": "quantile",
+      "name": "talos_futures_cumulative_funding_rate_usd_margin_rolling_7d q0.1/0.85",
+      "params": {
+        "key": "talos_futures_cumulative_funding_rate_usd_margin_rolling_7d",
+        "q_ent": 0.1,
+        "q_ex": 0.85,
+        "gate": true
+      },
+      "sharpe": 1.2219492174731845,
+      "max_dd": -0.2454128857576635,
+      "sharpe_is": 1.2045741582281415,
+      "sharpe_oos": 1.2952280648909291,
+      "trades": 10,
+      "exposure": 0.18562628336755646
+    },
+    {
+      "provider": "talos",
+      "family": "quantile",
+      "name": "talos_futures_cumulative_funding_rate_usd_margin_rolling_30d q0.15/0.8",
+      "params": {
+        "key": "talos_futures_cumulative_funding_rate_usd_margin_rolling_30d",
+        "q_ent": 0.15,
+        "q_ex": 0.8,
+        "gate": true
+      },
+      "sharpe": 1.2216543490148235,
+      "max_dd": -0.2094509312399675,
+      "sharpe_is": 1.2448446142833887,
+      "sharpe_oos": 1.1440810695130057,
+      "trades": 8,
+      "exposure": 0.13880903490759752
+    },
+    {
+      "provider": "talos",
+      "family": "quantile",
+      "name": "talos_futures_cumulative_funding_rate_all_margin_rolling_7d q0.15/0.9",
+      "params": {
+        "key": "talos_futures_cumulative_funding_rate_all_margin_rolling_7d",
+        "q_ent": 0.15,
+        "q_ex": 0.9,
+        "gate": true
+      },
+      "sharpe": 1.196974242924459,
+      "max_dd": -0.24541288575766318,
+      "sharpe_is": 1.2051476301073711,
+      "sharpe_oos": 1.172029437482234,
+      "trades": 10,
+      "exposure": 0.20903490759753593
+    },
+    {
+      "provider": "talos",
+      "family": "quantile",
+      "name": "talos_futures_cumulative_funding_rate_usd_margin_rolling_7d q0.15/0.9",
+      "params": {
+        "key": "talos_futures_cumulative_funding_rate_usd_margin_rolling_7d",
+        "q_ent": 0.15,
+        "q_ex": 0.9,
+        "gate": true
+      },
+      "sharpe": 1.196974242924459,
+      "max_dd": -0.24541288575766318,
+      "sharpe_is": 1.2051476301073711,
+      "sharpe_oos": 1.172029437482234,
+      "trades": 10,
+      "exposure": 0.20903490759753593
+    },
+    {
+      "provider": "talos",
+      "family": "quantile",
+      "name": "talos_futures_cumulative_funding_rate_all_margin_rolling_30d q0.15/0.85",
+      "params": {
+        "key": "talos_futures_cumulative_funding_rate_all_margin_rolling_30d",
+        "q_ent": 0.15,
+        "q_ex": 0.85,
+        "gate": true
+      },
+      "sharpe": 1.1737763479055103,
+      "max_dd": -0.2094509312399676,
+      "sharpe_is": 1.1543486115795247,
+      "sharpe_oos": 1.2487859051227774,
+      "trades": 6,
+      "exposure": 0.1371663244353183
+    },
+    {
+      "provider": "talos",
+      "family": "quantile",
+      "name": "talos_futures_cumulative_funding_rate_all_margin_rolling_30d q0.1/0.85",
+      "params": {
+        "key": "talos_futures_cumulative_funding_rate_all_margin_rolling_30d",
+        "q_ent": 0.1,
+        "q_ex": 0.85,
+        "gate": true
+      },
+      "sharpe": 1.1721558977311466,
+      "max_dd": -0.2094509312399676,
+      "sharpe_is": 1.1543486115795247,
+      "sharpe_oos": 1.2765147882371486,
+      "trades": 6,
+      "exposure": 0.12114989733059549
+    },
+    {
+      "provider": "talos",
+      "family": "quantile",
+      "name": "talos_futures_cumulative_funding_rate_usd_margin_rolling_30d q0.1/0.85",
+      "params": {
+        "key": "talos_futures_cumulative_funding_rate_usd_margin_rolling_30d",
+        "q_ent": 0.1,
+        "q_ex": 0.85,
+        "gate": true
+      },
+      "sharpe": 1.1721558977311466,
+      "max_dd": -0.2094509312399676,
+      "sharpe_is": 1.1543486115795247,
+      "sharpe_oos": 1.2765147882371486,
+      "trades": 6,
+      "exposure": 0.12114989733059549
+    },
+    {
+      "provider": "talos",
+      "family": "quantile",
+      "name": "talos_futures_cumulative_funding_rate_all_margin_rolling_7d q0.15/0.8",
+      "params": {
+        "key": "talos_futures_cumulative_funding_rate_all_margin_rolling_7d",
+        "q_ent": 0.15,
+        "q_ex": 0.8,
+        "gate": true
+      },
+      "sharpe": 1.1670892826109156,
+      "max_dd": -0.24541288575766296,
+      "sharpe_is": 1.1017923198099528,
+      "sharpe_oos": 1.410516445902553,
+      "trades": 10,
+      "exposure": 0.1864476386036961
+    },
+    {
+      "provider": "talos",
+      "family": "quantile",
+      "name": "talos_futures_cumulative_funding_rate_usd_margin_rolling_7d q0.15/0.8",
+      "params": {
+        "key": "talos_futures_cumulative_funding_rate_usd_margin_rolling_7d",
+        "q_ent": 0.15,
+        "q_ex": 0.8,
+        "gate": true
+      },
+      "sharpe": 1.1578595646819925,
+      "max_dd": -0.2454128857576634,
+      "sharpe_is": 1.0900668705706622,
+      "sharpe_oos": 1.410516445902553,
+      "trades": 10,
+      "exposure": 0.18603696098562628
+    },
+    {
+      "provider": "talos",
+      "family": "quantile",
+      "name": "talos_futures_cumulative_funding_rate_all_margin_rolling_7d q0.1/0.9",
+      "params": {
+        "key": "talos_futures_cumulative_funding_rate_all_margin_rolling_7d",
+        "q_ent": 0.1,
+        "q_ex": 0.9,
+        "gate": true
+      },
+      "sharpe": 1.1390034702079408,
+      "max_dd": -0.24541288575766296,
+      "sharpe_is": 1.181211463063536,
+      "sharpe_oos": 0.9756196441524002,
+      "trades": 10,
+      "exposure": 0.20246406570841888
+    },
+    {
+      "provider": "talos",
+      "family": "quantile",
+      "name": "talos_futures_cumulative_funding_rate_usd_margin_rolling_7d q0.1/0.9",
+      "params": {
+        "key": "talos_futures_cumulative_funding_rate_usd_margin_rolling_7d",
+        "q_ent": 0.1,
+        "q_ex": 0.9,
+        "gate": true
+      },
+      "sharpe": 1.1390034702079408,
+      "max_dd": -0.24541288575766296,
+      "sharpe_is": 1.181211463063536,
+      "sharpe_oos": 0.9756196441524002,
+      "trades": 10,
+      "exposure": 0.20246406570841888
+    },
+    {
+      "provider": "talos",
+      "family": "quantile",
+      "name": "talos_open_interest_reported_future_coin_margined_usd q0.1/0.8",
+      "params": {
+        "key": "talos_open_interest_reported_future_coin_margined_usd",
+        "q_ent": 0.1,
+        "q_ex": 0.8,
+        "gate": true
+      },
+      "sharpe": 1.1239987977180534,
+      "max_dd": -0.18952188942410253,
+      "sharpe_is": 1.2590965537530223,
+      "sharpe_oos": 0.0,
+      "trades": 6,
+      "exposure": 0.11457905544147844
+    },
+    {
+      "provider": "talos",
+      "family": "quantile",
+      "name": "talos_futures_cumulative_funding_rate_all_margin_rolling_30d q0.05/0.8",
+      "params": {
+        "key": "talos_futures_cumulative_funding_rate_all_margin_rolling_30d",
+        "q_ent": 0.05,
+        "q_ex": 0.8,
+        "gate": true
+      },
+      "sharpe": 1.1189981042242902,
+      "max_dd": -0.2496040029059513,
+      "sharpe_is": 1.1481792130473087,
+      "sharpe_oos": 0.9986659924069593,
+      "trades": 6,
+      "exposure": 0.09609856262833676
+    },
+    {
+      "provider": "talos",
+      "family": "quantile",
+      "name": "talos_futures_cumulative_funding_rate_usd_margin_rolling_30d q0.05/0.8",
+      "params": {
+        "key": "talos_futures_cumulative_funding_rate_usd_margin_rolling_30d",
+        "q_ent": 0.05,
+        "q_ex": 0.8,
+        "gate": true
+      },
+      "sharpe": 1.1189981042242902,
+      "max_dd": -0.2496040029059513,
+      "sharpe_is": 1.1481792130473087,
+      "sharpe_oos": 0.9986659924069593,
+      "trades": 6,
+      "exposure": 0.09609856262833676
+    },
+    {
+      "provider": "talos",
+      "family": "quantile",
+      "name": "talos_open_interest_reported_future_coin_margined_usd q0.05/0.8",
+      "params": {
+        "key": "talos_open_interest_reported_future_coin_margined_usd",
+        "q_ent": 0.05,
+        "q_ex": 0.8,
+        "gate": true
+      },
+      "sharpe": 1.1147751245099653,
+      "max_dd": -0.18952188942410253,
+      "sharpe_is": 1.2487552727028164,
+      "sharpe_oos": 0.0,
+      "trades": 6,
+      "exposure": 0.1137577002053388
+    },
+    {
+      "provider": "talos",
+      "family": "quantile",
+      "name": "talos_futures_cumulative_funding_rate_all_margin_rolling_7d q0.1/0.8",
+      "params": {
+        "key": "talos_futures_cumulative_funding_rate_all_margin_rolling_7d",
+        "q_ent": 0.1,
+        "q_ex": 0.8,
+        "gate": true
+      },
+      "sharpe": 1.107009680584234,
+      "max_dd": -0.24541288575766285,
+      "sharpe_is": 1.0770019933557125,
+      "sharpe_oos": 1.2300187134431237,
+      "trades": 10,
+      "exposure": 0.17987679671457907
+    },
+    {
+      "provider": "talos",
+      "family": "quantile",
+      "name": "talos_futures_cumulative_funding_rate_all_margin_rolling_7d q0.2/0.85",
+      "params": {
+        "key": "talos_futures_cumulative_funding_rate_all_margin_rolling_7d",
+        "q_ent": 0.2,
+        "q_ex": 0.85,
+        "gate": true
+      },
+      "sharpe": 1.1022334704571188,
+      "max_dd": -0.24541288575766362,
+      "sharpe_is": 1.2286431113220748,
+      "sharpe_oos": 0.7375675106958351,
+      "trades": 10,
+      "exposure": 0.20451745379876796
+    },
+    {
+      "provider": "talos",
+      "family": "quantile",
+      "name": "talos_futures_cumulative_funding_rate_usd_margin_rolling_7d q0.2/0.85",
+      "params": {
+        "key": "talos_futures_cumulative_funding_rate_usd_margin_rolling_7d",
+        "q_ent": 0.2,
+        "q_ex": 0.85,
+        "gate": true
+      },
+      "sharpe": 1.1022334704571188,
+      "max_dd": -0.24541288575766362,
+      "sharpe_is": 1.2286431113220748,
+      "sharpe_oos": 0.7375675106958351,
+      "trades": 10,
+      "exposure": 0.20451745379876796
+    },
+    {
+      "provider": "talos",
+      "family": "quantile",
+      "name": "talos_futures_cumulative_funding_rate_all_margin_rolling_7d q0.05/0.85",
+      "params": {
+        "key": "talos_futures_cumulative_funding_rate_all_margin_rolling_7d",
+        "q_ent": 0.05,
+        "q_ex": 0.85,
+        "gate": true
+      },
+      "sharpe": 1.0990644700050782,
+      "max_dd": -0.24541288575766318,
+      "sharpe_is": 1.0459283063793285,
+      "sharpe_oos": 1.3076884965359026,
+      "trades": 8,
+      "exposure": 0.1593429158110883
+    },
+    {
+      "provider": "talos",
+      "family": "quantile",
+      "name": "talos_futures_cumulative_funding_rate_usd_margin_rolling_7d q0.05/0.85",
+      "params": {
+        "key": "talos_futures_cumulative_funding_rate_usd_margin_rolling_7d",
+        "q_ent": 0.05,
+        "q_ex": 0.85,
+        "gate": true
+      },
+      "sharpe": 1.0990644700050782,
+      "max_dd": -0.24541288575766318,
+      "sharpe_is": 1.0459283063793285,
+      "sharpe_oos": 1.3076884965359026,
+      "trades": 8,
+      "exposure": 0.1593429158110883
+    },
+    {
+      "provider": "talos",
+      "family": "quantile",
+      "name": "talos_futures_cumulative_funding_rate_usd_margin_rolling_7d q0.1/0.8",
+      "params": {
+        "key": "talos_futures_cumulative_funding_rate_usd_margin_rolling_7d",
+        "q_ent": 0.1,
+        "q_ex": 0.8,
+        "gate": true
+      },
+      "sharpe": 1.0975664260926612,
+      "max_dd": -0.24541288575766262,
+      "sharpe_is": 1.0652486912792036,
+      "sharpe_oos": 1.2300187134431237,
+      "trades": 10,
+      "exposure": 0.17946611909650925
+    },
+    {
+      "provider": "talos",
+      "family": "quantile",
+      "name": "talos_futures_cumulative_funding_rate_all_margin_rolling_30d q0.15/0.8",
+      "params": {
+        "key": "talos_futures_cumulative_funding_rate_all_margin_rolling_30d",
+        "q_ent": 0.15,
+        "q_ex": 0.8,
+        "gate": true
+      },
+      "sharpe": 1.0693740660008553,
+      "max_dd": -0.2094509312399675,
+      "sharpe_is": 1.0498154274018516,
+      "sharpe_oos": 1.1440810695130057,
+      "trades": 6,
+      "exposure": 0.13018480492813142
+    },
+    {
+      "provider": "talos",
+      "family": "quantile",
+      "name": "talos_futures_cumulative_funding_rate_all_margin_rolling_30d q0.1/0.8",
+      "params": {
+        "key": "talos_futures_cumulative_funding_rate_all_margin_rolling_30d",
+        "q_ent": 0.1,
+        "q_ex": 0.8,
+        "gate": true
+      },
+      "sharpe": 1.061241191434524,
+      "max_dd": -0.2094509312399675,
+      "sharpe_is": 1.0498154274018516,
+      "sharpe_oos": 1.1357726219436461,
+      "trades": 6,
+      "exposure": 0.11416837782340862
+    },
+    {
+      "provider": "talos",
+      "family": "quantile",
+      "name": "talos_futures_cumulative_funding_rate_usd_margin_rolling_30d q0.1/0.8",
+      "params": {
+        "key": "talos_futures_cumulative_funding_rate_usd_margin_rolling_30d",
+        "q_ent": 0.1,
+        "q_ex": 0.8,
+        "gate": true
+      },
+      "sharpe": 1.061241191434524,
+      "max_dd": -0.2094509312399675,
+      "sharpe_is": 1.0498154274018516,
+      "sharpe_oos": 1.1357726219436461,
+      "trades": 6,
+      "exposure": 0.11416837782340862
+    },
+    {
+      "provider": "coinglass",
+      "family": "liq_fade",
+      "name": "cg_short_liq q=0.97 hold=5",
+      "params": {
+        "key": "cg_short_liq",
+        "q": 0.97,
+        "hold": 5
+      },
+      "sharpe": 1.0566702073319456,
+      "max_dd": -0.16007389577197695,
+      "sharpe_is": 1.3607598701872181,
+      "sharpe_oos": -0.8885885524983004,
+      "trades": 80,
+      "exposure": 0.07720739219712526
+    },
+    {
+      "provider": "talos",
+      "family": "quantile",
+      "name": "talos_futures_cumulative_funding_rate_all_margin_rolling_7d q0.2/0.9",
+      "params": {
+        "key": "talos_futures_cumulative_funding_rate_all_margin_rolling_7d",
+        "q_ent": 0.2,
+        "q_ex": 0.9,
+        "gate": true
+      },
+      "sharpe": 1.0293518760394993,
+      "max_dd": -0.24541288575766318,
+      "sharpe_is": 1.2051476301073711,
+      "sharpe_oos": 0.5428080995975776,
+      "trades": 10,
+      "exposure": 0.2213552361396304
+    },
+    {
+      "provider": "talos",
+      "family": "quantile",
+      "name": "talos_futures_cumulative_funding_rate_usd_margin_rolling_7d q0.2/0.9",
+      "params": {
+        "key": "talos_futures_cumulative_funding_rate_usd_margin_rolling_7d",
+        "q_ent": 0.2,
+        "q_ex": 0.9,
+        "gate": true
+      },
+      "sharpe": 1.0293518760394993,
+      "max_dd": -0.24541288575766318,
+      "sharpe_is": 1.2051476301073711,
+      "sharpe_oos": 0.5428080995975776,
+      "trades": 10,
+      "exposure": 0.2213552361396304
+    },
+    {
+      "provider": "talos",
+      "family": "quantile",
+      "name": "talos_futures_cumulative_funding_rate_all_margin_rolling_7d q0.05/0.9",
+      "params": {
+        "key": "talos_futures_cumulative_funding_rate_all_margin_rolling_7d",
+        "q_ent": 0.05,
+        "q_ex": 0.9,
+        "gate": true
+      },
+      "sharpe": 1.0150818982175234,
+      "max_dd": -0.2454128857576634,
+      "sharpe_is": 1.0232873408546845,
+      "sharpe_oos": 0.986802642359225,
+      "trades": 8,
+      "exposure": 0.1757700205338809
+    },
+    {
+      "provider": "talos",
+      "family": "quantile",
+      "name": "talos_futures_cumulative_funding_rate_usd_margin_rolling_7d q0.05/0.9",
+      "params": {
+        "key": "talos_futures_cumulative_funding_rate_usd_margin_rolling_7d",
+        "q_ent": 0.05,
+        "q_ex": 0.9,
+        "gate": true
+      },
+      "sharpe": 1.0150818982175234,
+      "max_dd": -0.2454128857576634,
+      "sharpe_is": 1.0232873408546845,
+      "sharpe_oos": 0.986802642359225,
+      "trades": 8,
+      "exposure": 0.1757700205338809
+    }
+  ],
+  "diverse_5": [
+    {
+      "provider": "talos",
+      "family": "quantile",
+      "name": "talos_futures_cumulative_funding_rate_all_margin_rolling_7d q0.05/0.9",
+      "params": {
+        "key": "talos_futures_cumulative_funding_rate_all_margin_rolling_7d",
+        "q_ent": 0.05,
+        "q_ex": 0.9,
+        "gate": true
+      },
+      "sharpe": 1.0150818982175234,
+      "max_dd": -0.2454128857576634,
+      "sharpe_is": 1.0232873408546845,
+      "sharpe_oos": 0.986802642359225,
+      "trades": 8,
+      "exposure": 0.1757700205338809
+    },
+    {
+      "provider": "coinglass",
+      "family": "liq_fade",
+      "name": "cg_short_liq q=0.97 hold=5",
+      "params": {
+        "key": "cg_short_liq",
+        "q": 0.97,
+        "hold": 5
+      },
+      "sharpe": 1.0566702073319456,
+      "max_dd": -0.16007389577197695,
+      "sharpe_is": 1.3607598701872181,
+      "sharpe_oos": -0.8885885524983004,
+      "trades": 80,
+      "exposure": 0.07720739219712526
+    },
+    {
+      "provider": "talos",
+      "family": "quantile",
+      "name": "talos_futures_cumulative_funding_rate_usd_margin_rolling_7d q0.05/0.9",
+      "params": {
+        "key": "talos_futures_cumulative_funding_rate_usd_margin_rolling_7d",
+        "q_ent": 0.05,
+        "q_ex": 0.9,
+        "gate": true
+      },
+      "sharpe": 1.0150818982175234,
+      "max_dd": -0.2454128857576634,
+      "sharpe_is": 1.0232873408546845,
+      "sharpe_oos": 0.986802642359225,
+      "trades": 8,
+      "exposure": 0.1757700205338809
+    },
+    {
+      "provider": "talos",
+      "family": "quantile",
+      "name": "talos_futures_cumulative_funding_rate_all_margin_rolling_7d q0.2/0.9",
+      "params": {
+        "key": "talos_futures_cumulative_funding_rate_all_margin_rolling_7d",
+        "q_ent": 0.2,
+        "q_ex": 0.9,
+        "gate": true
+      },
+      "sharpe": 1.0293518760394993,
+      "max_dd": -0.24541288575766318,
+      "sharpe_is": 1.2051476301073711,
+      "sharpe_oos": 0.5428080995975776,
+      "trades": 10,
+      "exposure": 0.2213552361396304
+    },
+    {
+      "provider": "talos",
+      "family": "quantile",
+      "name": "talos_futures_cumulative_funding_rate_usd_margin_rolling_7d q0.2/0.9",
+      "params": {
+        "key": "talos_futures_cumulative_funding_rate_usd_margin_rolling_7d",
+        "q_ent": 0.2,
+        "q_ex": 0.9,
+        "gate": true
+      },
+      "sharpe": 1.0293518760394993,
+      "max_dd": -0.24541288575766318,
+      "sharpe_is": 1.2051476301073711,
+      "sharpe_oos": 0.5428080995975776,
+      "trades": 10,
+      "exposure": 0.2213552361396304
+    }
+  ]
+}

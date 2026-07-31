@@ -24,7 +24,7 @@
 | CG-16 | Puell multiple bottom | 0.67 | -35.4% | 14.6% | 4 | BTCUSDT | crypto | OK |
 | CG-17 | Basis carry | 0.69 | -71.9% | 23.5% | 78 | BTCUSDT | crypto | OK |
 | CG-18 | Multi-factor bottoming | 0.00 | 0.0% | 0.0% | 0 | BTCUSDT | crypto | OK |
-| CG-19 | Funding-weighted CS mom | 0.44 | -92.2% | -3.7% | 2254 | Binance perps | cross-section | OK |
+| CG-19 | Funding-weighted CS mom | 0.33 | -92.2% | -11.5% | 2334 | Binance perps | cross-section | OK |
 | CG-20 | Funding extreme MR | 0.00 | 0.0% | 0.0% | 0 | BTCUSDT | crypto | OK |
 | DV-01 | Funding trend | 0.78 | -80.3% | 31.6% | 6 | BTC | crypto | OK |
 | DV-02 | run_DV_02 | — | — | — | — | — | — | SKIP (OI/MCAP talos join) |
@@ -61,7 +61,7 @@
 | MR-04 | Z-score vs MA | 0.26 | -51.4% | 2.6% | 39 | BTCUSDT | crypto | OK |
 | MR-05 | Intraday gap fade | 0.00 | 0.0% | 0.0% | 0 | BTCUSDT 1h | crypto | OK |
 | MR-06 | Short-term reversal | -0.51 | -68.4% | -13.0% | 59 | BTCUSDT | crypto | OK |
-| MR-07 | Turnaround Tuesday | -0.04 | -49.5% | -0.6% | 700 | SPY | equity | OK |
+| MR-07 | Turnaround Tuesday | -0.04 | -49.5% | -0.7% | 701 | SPY | equity | OK |
 | MR-08 | Turn-of-month | 0.00 | 0.0% | 0.0% | 0 | SPY | equity | OK |
 | MR-09 | run_MR_09 | — | — | — | — | — | — | ERROR ('numpy.ndarray' object has no attribute 'shift') |
 | MR-10 | Pairs ratio MR | -0.48 | -83.1% | -21.6% | 13 | BTC/ETH | crypto | OK |
@@ -69,7 +69,7 @@
 | MR-12 | Overnight reversal | 0.00 | 0.0% | 0.0% | 0 | BTCUSDT 1h | crypto | OK |
 | MR-13 | 24h ticker fade | 0.04 | -80.4% | -4.7% | 343 | BTCUSDT 1h | crypto | OK |
 | MR-14 | Low-volume fade | 0.98 | -30.5% | 16.6% | 87 | BTCUSDT | crypto | OK |
-| MR-15 | QQQ RSI MR | 0.23 | -36.5% | 2.0% | 295 | QQQ | equity | OK |
+| MR-15 | QQQ RSI MR | 0.21 | -37.2% | 1.7% | 295 | QQQ | equity | OK |
 | NA-01 | Active address momentum | 0.13 | -71.2% | -4.9% | 477 | BTC | crypto | OK |
 | NA-02 | Tx count breakout | 0.21 | -76.3% | -0.5% | 336 | BTC | crypto | OK |
 | NA-03 | run_NA_03 | — | — | — | — | — | — | SKIP (TxTfrValAdjUSD not verified) |
@@ -90,7 +90,7 @@
 | Q-03 | run_Q_03 | — | — | — | — | — | — | SKIP (fundamentals required) |
 | Q-04 | run_Q_04 | — | — | — | — | — | — | SKIP (short interest/options required) |
 | Q-05 | run_Q_05 | — | — | — | — | — | — | SKIP (crack spread data required) |
-| Q-06 | VIX risk premium | -1.24 | -100.0% | -68.1% | 5219 | ^VIX | vol | OK |
+| Q-06 | VIX risk premium | -1.24 | -100.0% | -68.1% | 5220 | ^VIX | vol | OK |
 | Q-07 | run_Q_07 | — | — | — | — | — | — | SKIP (intraday SPY upload required) |
 | Q-08 | Recursive LS proxy | 0.75 | -69.9% | 26.1% | 121 | BTCUSDT | crypto | OK |
 | Q-09 | Regime overlay proxy | 0.36 | -60.7% | 6.4% | 73 | BTCUSDT | crypto | OK |
@@ -110,29 +110,29 @@
 | T-13 | Network momentum hub | 0.89 | -68.4% | 42.1% | 130 | ETHUSDT (BTC signal) | crypto | OK |
 | T-14 | FX trend MA | 0.04 | -27.1% | 0.0% | 16 | EURUSD | fx | OK |
 | T-15 | Commodity dual momentum | 0.59 | -33.4% | 8.0% | 78 | GLD vs USO | commodity | OK |
-| TAA-01 | Faber 10M SMA | 0.70 | -24.9% | 8.0% | 108 | SPY | equity | OK |
+| TAA-01 | Faber 10M SMA | 0.70 | -24.9% | 7.9% | 108 | SPY | equity | OK |
 | TAA-02 | Dual momentum TAA | 0.00 | 0.0% | 0.0% | 0 | SPY+GLD | equity | OK |
 | TAA-03 | run_TAA_03 | — | — | — | — | — | — | SKIP (requires strategy return panel) |
-| TAA-04 | Risk parity lite | 0.80 | -47.5% | 9.6% | 8330 | SPY+GLD+TLT | multi-asset | OK |
+| TAA-04 | Risk parity lite | 0.80 | -47.5% | 9.5% | 8334 | SPY+GLD+TLT | multi-asset | OK |
 | TAA-05 | Bond filter equities | 0.46 | -47.6% | 6.1% | 178 | SPY+TLT | equity | OK |
 | TAA-06 | Gold/rates triangle | 0.31 | -40.7% | 3.3% | 241 | GLD+TLT | commodity | OK |
 | TAA-07 | Crypto vs equity rotation | 0.87 | -75.1% | 40.4% | 62 | BTC+SPY | multi-asset | OK |
-| TAA-08 | Crisis convexity | -0.37 | -100.0% | -30.3% | 1125 | ^VIX | vol | OK |
+| TAA-08 | Crisis convexity | -0.37 | -100.0% | -30.2% | 1125 | ^VIX | vol | OK |
 | V-01 | Realized vol breakout | 0.54 | -52.8% | 14.9% | 1024 | BTCUSDT | crypto | OK |
 | V-02 | Vol targeting overlay | 0.95 | -18.3% | 13.3% | 1660 | BTCUSDT | crypto | OK |
 | V-03 | Vol regime switch | -0.07 | -66.6% | -5.9% | 34 | BTCUSDT | crypto | OK |
 | V-04 | SAR vol forecast sizing | 0.41 | -95.4% | 0.9% | 38740 | BTCUSDT 1h | crypto | OK |
-| V-05 | VIX term structure | -1.24 | -100.0% | -68.1% | 5219 | ^VIX | vol | OK |
+| V-05 | VIX term structure | -1.24 | -100.0% | -68.1% | 5220 | ^VIX | vol | OK |
 | V-06 | DVOL proxy spike | -0.81 | -35.0% | -6.0% | 365 | BTCUSDT | crypto | OK |
 | V-07 | GARCH vol gate | 1.00 | -45.8% | 28.5% | 176 | BTCUSDT | crypto | OK |
 | V-08 | Entropy chop filter | 0.00 | 0.0% | 0.0% | 0 | BTCUSDT | crypto | OK |
-| XS-01 | CS momentum | 0.44 | -92.2% | -3.7% | 2254 | Binance perps | cross-section | OK |
-| XS-02 | RSI rank L/S | 1.36 | -58.3% | 101.5% | 2260 | Binance perps | cross-section | OK |
-| XS-03 | Vol-scaled momentum | 0.78 | -90.4% | 23.8% | 2254 | Binance perps | cross-section | OK |
-| XS-04 | STR CS | 0.79 | -81.2% | 30.7% | 2269 | Binance perps | cross-section | OK |
-| XS-05 | Path convexity | 1.05 | -83.1% | 56.3% | 2255 | Binance perps | cross-section | OK |
-| XS-06 | Network momentum CS | 0.44 | -92.2% | -3.7% | 2254 | Binance perps | cross-section | OK |
-| XS-07 | Dollar vol filter mom | 0.86 | -98.0% | 32.8% | 2254 | Top 50 liq perps | cross-section | OK |
+| XS-01 | CS momentum | 0.33 | -92.2% | -11.5% | 2334 | Binance perps | cross-section | OK |
+| XS-02 | RSI rank L/S | 1.25 | -58.3% | 86.8% | 2340 | Binance perps | cross-section | OK |
+| XS-03 | Vol-scaled momentum | 0.75 | -90.4% | 21.5% | 2334 | Binance perps | cross-section | OK |
+| XS-04 | STR CS | 0.71 | -81.2% | 22.4% | 2349 | Binance perps | cross-section | OK |
+| XS-05 | Path convexity | 1.01 | -83.1% | 51.7% | 2335 | Binance perps | cross-section | OK |
+| XS-06 | Network momentum CS | 0.33 | -92.2% | -11.5% | 2334 | Binance perps | cross-section | OK |
+| XS-07 | Dollar vol filter mom | 0.73 | -99.4% | 10.7% | 2334 | Top 50 liq perps | cross-section | OK |
 | XS-08 | run_XS_08 | — | — | — | — | — | — | SKIP (funding cross-section join not in sweep v1) |
-| XS-09 | Beta-neutral mom | 0.08 | -95.7% | -30.5% | 2319 | Binance perps | cross-section | OK |
-| XS-10 | Demeaned return target | -0.32 | -97.8% | -38.6% | 2273 | Binance perps | cross-section | OK |
+| XS-09 | Beta-neutral mom | 0.00 | -95.7% | -34.6% | 2399 | Binance perps | cross-section | OK |
+| XS-10 | Demeaned return target | -0.40 | -98.0% | -41.8% | 2353 | Binance perps | cross-section | OK |
