@@ -11,8 +11,6 @@ Daily composite stress per symbol:
 
 **Hypothesis (fade):** highest-stress names mean-revert after a flush → long top decile / short bottom.
 
-**Result:** The fade hypothesis **fails**. High-stress deciles (D10) underperform low-stress (D1) monotonically at 1d/3d/5d horizons — stress is closer to a **continuation / avoid** signal than a mean-reversion entry.
-
 ## Decile forward returns (full sample)
 
 | Horizon | D1 (low stress) | D10 (high stress) | Top − Bottom |
@@ -30,6 +28,14 @@ Daily composite stress per symbol:
 ### Continuation (inverse)
 - Full-sample Sharpe: **-0.06**, CAGR: **-16.4%**, MaxDD: **-89.1%**
 - IS Sharpe: 0.18 | OOS Sharpe: -2.07
+
+## Gross returns (no fees/slippage)
+
+| Sleeve | Full Sharpe | IS Sharpe | OOS Sharpe | CAGR | MaxDD |
+| --- | --- | --- | --- | --- | --- |
+| Fade stress L/S | -1.22 | -1.38 | -0.12 | -55.5% | -98.6% |
+| Continuation L/S | 1.22 | 1.38 | 0.12 | 67.2% | -57.1% |
+| Fade long-only | 0.35 | 0.64 | -1.15 | -10.1% | -91.5% |
 
 ## Charts
 

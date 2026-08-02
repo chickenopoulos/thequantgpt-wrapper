@@ -81,6 +81,7 @@ def cross_section_ls_returns(
     bottom_pct: float = BOTTOM_PCT,
     invert: bool = False,
     long_only: bool = False,
+    apply_costs: bool = True,
 ) -> pd.Series:
     rets = wide_close.pct_change()
     fwd = rets.shift(-1)
@@ -106,7 +107,7 @@ def cross_section_ls_returns(
         port.loc[t] = leg
 
     gross_turnover = 2.0 if not long_only else 1.0
-    costs = gross_turnover * (FEE + SLIPPAGE)
+    costs = gross_turnover * (FEE + SLIPPAGE) if apply_costs else 0.0
     return (port - costs).dropna()
 
 
@@ -267,11 +268,20 @@ def main() -> None:
         "continuation_ls": cross_section_ls_returns(close, stress, invert=True),
         "fade_stress_long_only": cross_section_ls_returns(close, stress, long_only=True),
     }
+    strategies_gross = {
+        "fade_stress_ls": cross_section_ls_returns(close, stress, invert=False, apply_costs=False),
+        "continuation_ls": cross_section_ls_returns(close, stress, invert=True, apply_costs=False),
+        "fade_stress_long_only": cross_section_ls_returns(close, stress, long_only=True, apply_costs=False),
+    }
 
     deciles = decile_forward_returns(close, stress)
     metrics = {
         name: metrics_from_returns(rets)
         for name, rets in strategies.items()
+    }
+    metrics_gross = {
+        name: metrics_from_returns(rets)
+        for name, rets in strategies_gross.items()
     }
 
     universe_summary = {
@@ -291,6 +301,7 @@ def main() -> None:
         "universe": universe_summary,
         "decile_forward_returns": deciles,
         "strategies": metrics,
+        "strategies_gross": metrics_gross,
         "signal_definition": {
             "composite": "mean(cs_rank(funding), cs_rank(OI), cs_rank(liq_z))",
             "liq_z_window": LIQ_Z_WINDOW,
@@ -308,6 +319,9 @@ def main() -> None:
 
     fade = metrics["fade_stress_ls"]
     cont = metrics["continuation_ls"]
+    fade_g = metrics_gross["fade_stress_ls"]
+    cont_g = metrics_gross["continuation_ls"]
+    lo_g = metrics_gross["fade_stress_long_only"]
     d1 = deciles["fwd_1d"]
     report = "\n".join(
         [
@@ -348,6 +362,17 @@ def main() -> None:
             f"- Full-sample Sharpe: **{cont['Sharpe']:.2f}**, CAGR: **{cont['CAGR']*100:.1f}%**, MaxDD: **{cont['MaxDD']*100:.1f}%**",
             f"- IS Sharpe: {cont['in_sample']['Sharpe']:.2f} | OOS Sharpe: {cont['out_of_sample']['Sharpe']:.2f}",
             "",
+            "## Gross returns (no fees/slippage)",
+            "",
+            "| Sleeve | Full Sharpe | IS Sharpe | OOS Sharpe | CAGR | MaxDD |",
+            "| --- | --- | --- | --- | --- | --- |",
+            f"| Fade stress L/S | {fade_g['Sharpe']:.2f} | {fade_g['in_sample']['Sharpe']:.2f} | "
+            f"{fade_g['out_of_sample']['Sharpe']:.2f} | {fade_g['CAGR']*100:.1f}% | {fade_g['MaxDD']*100:.1f}% |",
+            f"| Continuation L/S | {cont_g['Sharpe']:.2f} | {cont_g['in_sample']['Sharpe']:.2f} | "
+            f"{cont_g['out_of_sample']['Sharpe']:.2f} | {cont_g['CAGR']*100:.1f}% | {cont_g['MaxDD']*100:.1f}% |",
+            f"| Fade long-only | {lo_g['Sharpe']:.2f} | {lo_g['in_sample']['Sharpe']:.2f} | "
+            f"{lo_g['out_of_sample']['Sharpe']:.2f} | {lo_g['CAGR']*100:.1f}% | {lo_g['MaxDD']*100:.1f}% |",
+            "",
             "## Charts",
             "",
             "![Equity](charts/equity_curve.png)",
@@ -359,7 +384,7 @@ def main() -> None:
     )
     (RUN / "report.md").write_text(report + "\n", encoding="utf-8")
 
-    print(json.dumps({"universe": universe_summary, "fade_stress_ls": fade, "continuation_ls": cont}, indent=2))
+    print(json.dumps({"universe": universe_summary, "fade_stress_ls": fade, "continuation_ls": cont, "gross": metrics_gross}, indent=2))
 
 
 if __name__ == "__main__":
