@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
-from binance_market_indicators import FUTURES_PATH, load_close_panel, rolling_mean_pairwise_corr
+from binance_market_indicators import FUTURES_PATH, load_close_panel, market_depth_pct, rolling_mean_pairwise_corr
 from correlation_cluster_signal import expanding_corr_quintile, spread_signal_stats
 
 REPO = Path(__file__).resolve().parents[3]
@@ -55,7 +55,17 @@ def calibrate_baskets(
     return long_basket, short_basket, spread
 
 
-def regime_direction(quintile: pd.Series, mode: str) -> pd.Series:
+def depth_gated_direction(base_dir: pd.Series, depth: pd.Series) -> pd.Series:
+    """Only trade low-corr longs when market breadth is above expanding median."""
+    depth_lag = depth.shift(1)
+    med = depth_lag.expanding(min_periods=120).median()
+    gate = depth_lag >= med
+    out = base_dir.copy()
+    out[(base_dir > 0) & ~gate] = 0.0
+    return out
+
+
+def regime_direction(quintile: pd.Series, mode: str, *, depth: pd.Series | None = None) -> pd.Series:
     """+1 = long dispersion/short cluster, -1 = flipped, 0 = flat."""
     q = quintile.shift(1)
     if mode == "regime_flip":
@@ -67,6 +77,10 @@ def regime_direction(quintile: pd.Series, mode: str) -> pd.Series:
         direction = pd.Series(0.0, index=quintile.index)
         direction[q.isin([1, 2])] = 1.0
         return direction
+    if mode == "low_only_depth_gate":
+        if depth is None:
+            raise ValueError("depth required for low_only_depth_gate")
+        return depth_gated_direction(regime_direction(quintile, "low_only"), depth)
     if mode == "always_on":
         return pd.Series(1.0, index=quintile.index)
     raise ValueError(f"unknown mode: {mode}")
@@ -157,7 +171,13 @@ def portfolio_btc_beta(returns: pd.DataFrame, port_ret: pd.Series, btc_col: str 
     return float(cov / var) if var > 0 else float("nan")
 
 
-def plot_equity(curves: dict[str, pd.Series], out_path: Path, highlight: str | None = None) -> None:
+def plot_equity(
+    curves: dict[str, pd.Series],
+    out_path: Path,
+    highlight: str | None = None,
+    *,
+    log_scale: bool = True,
+) -> None:
     fig, axes = plt.subplots(2, 1, figsize=(12, 8), sharex=True, gridspec_kw={"height_ratios": [3, 1]})
 
     for name, ret in curves.items():
@@ -172,10 +192,14 @@ def plot_equity(curves: dict[str, pd.Series], out_path: Path, highlight: str | N
 
     axes[0].axvline(OOS, color="gray", linestyle="--", linewidth=0.8, label="OOS start")
     axes[0].set_ylabel("Growth of $1")
-    axes[0].set_title("Correlation-regime market-neutral portfolio")
+    title = "Correlation-regime market-neutral portfolio"
+    if not log_scale:
+        title += " (linear)"
+    axes[0].set_title(title)
     axes[0].legend(loc="upper left", fontsize=8)
     axes[0].grid(alpha=0.3)
-    axes[0].set_yscale("log")
+    if log_scale:
+        axes[0].set_yscale("log")
 
     axes[1].set_ylabel("Drawdown")
     axes[1].set_xlabel("Date (UTC)")
@@ -187,11 +211,30 @@ def plot_equity(curves: dict[str, pd.Series], out_path: Path, highlight: str | N
     plt.close(fig)
 
 
+def export_equity_csv(returns: pd.Series, out_path: Path) -> None:
+    cum = (1 + returns).cumprod()
+    dd = cum / cum.cummax() - 1
+    sample = pd.Series(
+        ["in_sample" if t < OOS else "out_of_sample" for t in returns.index],
+        index=returns.index,
+        name="sample",
+    )
+    pd.DataFrame(
+        {
+            "daily_return": returns,
+            "equity": cum,
+            "drawdown": dd,
+            "sample": sample,
+        }
+    ).to_csv(out_path)
+
+
 def main() -> None:
     close = load_close_panel(FUTURES_PATH)
     returns = close.pct_change()
     corr = rolling_mean_pairwise_corr(returns)
     quintile = expanding_corr_quintile(corr)
+    depth = market_depth_pct(close)
 
     long_basket, short_basket, spread_tbl = calibrate_baskets(
         close, quintile, oos=OOS, basket_size=BASKET_SIZE
@@ -202,7 +245,7 @@ def main() -> None:
         "liquid_majors": (LIQUID_LONG_BASKET, LIQUID_SHORT_BASKET),
     }
 
-    modes = ["regime_flip", "low_only", "always_on"]
+    modes = ["regime_flip", "low_only", "low_only_depth_gate", "always_on"]
     curves: dict[str, pd.Series] = {}
     metrics_out: dict = {
         "baskets": {
@@ -224,14 +267,14 @@ def main() -> None:
     for basket_name, (lb, sb) in basket_sets.items():
         for mode in modes:
             key = f"{basket_name}_{mode}"
-            direction = regime_direction(quintile, mode)
+            direction = regime_direction(quintile, mode, depth=depth)
             weights = build_target_weights(direction, lb, sb, close.columns)
             port_ret = backtest_weights(close, weights)
             curves[key] = port_ret
             m = compute_metrics(port_ret, weights)
             m["btc_beta"] = portfolio_btc_beta(returns, port_ret)
             metrics_out["strategies"][key] = m
-            if basket_name == "liquid_majors" and mode == "regime_flip":
+            if basket_name == "liquid_majors" and mode == "low_only_depth_gate":
                 weights_main = weights
 
     artifacts = RUN / "artifacts"
@@ -244,7 +287,25 @@ def main() -> None:
         weights_main.to_parquet(artifacts / "mn_weights_regime_flip.parquet")
     pd.DataFrame(curves).to_parquet(artifacts / "mn_equity_returns.parquet")
 
-    plot_equity(curves, charts / "mn_equity_curve.png", highlight="liquid_majors_regime_flip")
+    plot_equity(curves, charts / "mn_equity_curve.png", highlight="liquid_majors_regime_flip", log_scale=True)
+    plot_equity(
+        {
+            "liquid_majors_regime_flip": curves["liquid_majors_regime_flip"],
+            "liquid_majors_low_only": curves["liquid_majors_low_only"],
+            "liquid_majors_low_only_depth_gate": curves["liquid_majors_low_only_depth_gate"],
+        },
+        charts / "mn_equity_curve_linear.png",
+        highlight="liquid_majors_low_only_depth_gate",
+        log_scale=False,
+    )
+    export_equity_csv(
+        curves["liquid_majors_low_only_depth_gate"],
+        artifacts / "mn_equity_curve_linear.csv",
+    )
+    export_equity_csv(
+        curves["liquid_majors_low_only"],
+        artifacts / "mn_equity_curve_low_only.csv",
+    )
 
     spec = json.loads((RUN / "strategy_spec.json").read_text(encoding="utf-8"))
     spec["strategy_type"] = "market_neutral_corr_regime"
@@ -259,6 +320,8 @@ def main() -> None:
     (RUN / "strategy_spec.json").write_text(json.dumps(spec, indent=2), encoding="utf-8")
 
     main_m = metrics_out["strategies"]["liquid_majors_regime_flip"]
+    low_m = metrics_out["strategies"]["liquid_majors_low_only"]
+    best_m = metrics_out["strategies"]["liquid_majors_low_only_depth_gate"]
     opt_m = metrics_out["strategies"]["optimized_is_regime_flip"]
     report = [
         "# Market-neutral correlation-regime portfolio",
@@ -279,6 +342,34 @@ def main() -> None:
         f"| Out-of-sample | {main_m['out_of_sample']['Sharpe']:.2f} | {main_m['out_of_sample']['CAGR']*100:.1f}% | {main_m['out_of_sample']['MaxDD']*100:.1f}% |",
         "",
         f"BTC beta: {main_m['btc_beta']:.3f}",
+        "",
+        "## Higher-Sharpe variant: low_corr_only",
+        "",
+        "Trade only in Q1–Q2 (low correlation); flat in Q3–Q5. Improves Sharpe by avoiding noisy high-corr flips.",
+        "",
+        "| Segment | Sharpe | CAGR | Max DD |",
+        "|---------|--------|------|--------|",
+        f"| Full | {low_m['Sharpe']:.2f} | {low_m['CAGR']*100:.1f}% | {low_m['MaxDD']*100:.1f}% |",
+        f"| In-sample | {low_m['in_sample']['Sharpe']:.2f} | {low_m['in_sample']['CAGR']*100:.1f}% | {low_m['in_sample']['MaxDD']*100:.1f}% |",
+        f"| Out-of-sample | {low_m['out_of_sample']['Sharpe']:.2f} | {low_m['out_of_sample']['CAGR']*100:.1f}% | {low_m['out_of_sample']['MaxDD']*100:.1f}% |",
+        "",
+        "## Best Sharpe variant: low_corr + market depth gate",
+        "",
+        "Trade Q1–Q2 only when % pairs above 90d SMA is above its expanding median.",
+        "",
+        "| Segment | Sharpe | CAGR | Max DD |",
+        "|---------|--------|------|--------|",
+        f"| Full | {best_m['Sharpe']:.2f} | {best_m['CAGR']*100:.1f}% | {best_m['MaxDD']*100:.1f}% |",
+        f"| In-sample | {best_m['in_sample']['Sharpe']:.2f} | {best_m['in_sample']['CAGR']*100:.1f}% | {best_m['in_sample']['MaxDD']*100:.1f}% |",
+        f"| Out-of-sample | {best_m['out_of_sample']['Sharpe']:.2f} | {best_m['out_of_sample']['CAGR']*100:.1f}% | {best_m['out_of_sample']['MaxDD']*100:.1f}% |",
+        "",
+        "## Exports",
+        "",
+        "- Log equity: `charts/mn_equity_curve.png`",
+        "- **Linear equity:** `charts/mn_equity_curve_linear.png`",
+        "- **Linear CSV (best variant):** `artifacts/mn_equity_curve_linear.csv`",
+        "- Linear CSV (low_only): `artifacts/mn_equity_curve_low_only.csv`",
+        "- Sharpe sweep: `artifacts/sharpe_enhancement_sweep.json`",
         "",
         "## IS-optimized basket variant (regime_flip)",
         "",

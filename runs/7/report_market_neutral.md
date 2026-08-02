@@ -17,6 +17,34 @@ Dollar-neutral L/S book using correlation-regime insights. Baskets fixed from IS
 
 BTC beta: 0.051
 
+## Higher-Sharpe variant: low_corr_only
+
+Trade only in Q1–Q2 (low correlation); flat in Q3–Q5. Improves Sharpe by avoiding noisy high-corr flips.
+
+| Segment | Sharpe | CAGR | Max DD |
+|---------|--------|------|--------|
+| Full | 1.81 | 48.7% | -29.6% |
+| In-sample | 1.99 | 59.5% | -29.6% |
+| Out-of-sample | 1.09 | 18.9% | -23.1% |
+
+## Best Sharpe variant: low_corr + market depth gate
+
+Trade Q1–Q2 only when % pairs above 90d SMA is above its expanding median.
+
+| Segment | Sharpe | CAGR | Max DD |
+|---------|--------|------|--------|
+| Full | 1.86 | 37.5% | -12.7% |
+| In-sample | 1.92 | 44.8% | -12.7% |
+| Out-of-sample | 2.39 | 16.6% | -2.7% |
+
+## Exports
+
+- Log equity: `charts/mn_equity_curve.png`
+- **Linear equity:** `charts/mn_equity_curve_linear.png`
+- **Linear CSV (best variant):** `artifacts/mn_equity_curve_linear.csv`
+- Linear CSV (low_only): `artifacts/mn_equity_curve_low_only.csv`
+- Sharpe sweep: `artifacts/sharpe_enhancement_sweep.json`
+
 ## IS-optimized basket variant (regime_flip)
 
 | Segment | Sharpe | CAGR | Max DD |

@@ -47,6 +47,7 @@
     "modes": [
       "regime_flip",
       "low_only",
+      "low_only_depth_gate",
       "always_on"
     ],
     "fee": 0.00045,
