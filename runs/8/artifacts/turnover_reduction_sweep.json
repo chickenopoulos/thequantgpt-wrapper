@@ -1,0 +1,639 @@
+{
+  "oos_start": "2025-01-01",
+  "costs": {
+    "fee": 0.00045,
+    "slippage": 0.0005
+  },
+  "variants": [
+    {
+      "name": "04_weekly_5d",
+      "description": "Rebalance every 5 trading days",
+      "turnover": {
+        "daily_gross_turnover": 0.2816181114003847,
+        "annualized_gross_turnover": 102.7906106611404,
+        "daily_one_way_turnover": 0.14080905570019234
+      },
+      "gross": {
+        "Sharpe": 0.9683722090399096,
+        "CAGR": 0.2488700549235412,
+        "MaxDD": -0.21013694227366442,
+        "trades": 1794,
+        "in_sample": {
+          "Sharpe": 1.1303746232290666,
+          "CAGR": 0.3250959313744397,
+          "MaxDD": -0.20594070307717893
+        },
+        "out_of_sample": {
+          "Sharpe": -0.2151012238594945,
+          "CAGR": -0.04374417782578621,
+          "MaxDD": -0.11996678244659864
+        }
+      },
+      "net": {
+        "Sharpe": 0.6008499779907294,
+        "CAGR": 0.1327467761796277,
+        "MaxDD": -0.3275335002645996,
+        "trades": 1794,
+        "in_sample": {
+          "Sharpe": 0.7848671218145513,
+          "CAGR": 0.20107799356159184,
+          "MaxDD": -0.2629548761666096
+        },
+        "out_of_sample": {
+          "Sharpe": -0.8274119899556455,
+          "CAGR": -0.13003038618815788,
+          "MaxDD": -0.1645329298496503
+        }
+      },
+      "n_weight_days": 1795
+    },
+    {
+      "name": "07_min_hold_5d",
+      "description": "Minimum 5-day hold per name",
+      "turnover": {
+        "daily_gross_turnover": 0.43256664819377477,
+        "annualized_gross_turnover": 157.8868265907278,
+        "daily_one_way_turnover": 0.21628332409688739
+      },
+      "gross": {
+        "Sharpe": 1.231422520694671,
+        "CAGR": 0.24796993229048758,
+        "MaxDD": -0.2148600199891827,
+        "trades": 1794,
+        "in_sample": {
+          "Sharpe": 1.3648095899064523,
+          "CAGR": 0.3029454799825124,
+          "MaxDD": -0.2148600199891827
+        },
+        "out_of_sample": {
+          "Sharpe": 0.3097079760461018,
+          "CAGR": 0.027636957007723728,
+          "MaxDD": -0.09228435485863518
+        }
+      },
+      "net": {
+        "Sharpe": 0.4642740286099291,
+        "CAGR": 0.07430446762055753,
+        "MaxDD": -0.23098786271450644,
+        "trades": 1795,
+        "in_sample": {
+          "Sharpe": 0.6435657615345503,
+          "CAGR": 0.11981024079058833,
+          "MaxDD": -0.23098786271450644
+        },
+        "out_of_sample": {
+          "Sharpe": -1.031907166750824,
+          "CAGR": -0.10887196055184833,
+          "MaxDD": -0.15624388283327273
+        }
+      },
+      "n_weight_days": 1795
+    },
+    {
+      "name": "11_smooth3d_weekly",
+      "description": "3-day smooth + weekly rebalance",
+      "turnover": {
+        "daily_gross_turnover": 0.2747497974139248,
+        "annualized_gross_turnover": 100.28367605608256,
+        "daily_one_way_turnover": 0.1373748987069624
+      },
+      "gross": {
+        "Sharpe": 0.7961757550548908,
+        "CAGR": 0.11725947391425962,
+        "MaxDD": -0.16796808206508007,
+        "trades": 1794,
+        "in_sample": {
+          "Sharpe": 0.9397594569827549,
+          "CAGR": 0.1459170046139957,
+          "MaxDD": -0.13143546697273156
+        },
+        "out_of_sample": {
+          "Sharpe": 0.042050024976462916,
+          "CAGR": -0.0032401518890987635,
+          "MaxDD": -0.12468869789641224
+        }
+      },
+      "net": {
+        "Sharpe": 0.17524722714114557,
+        "CAGR": 0.015710968528361846,
+        "MaxDD": -0.3669646928203536,
+        "trades": 1794,
+        "in_sample": {
+          "Sharpe": 0.3307920968433362,
+          "CAGR": 0.04116275090977384,
+          "MaxDD": -0.29649338376596945
+        },
+        "out_of_sample": {
+          "Sharpe": -0.6438856259913366,
+          "CAGR": -0.09147675904121844,
+          "MaxDD": -0.14600440399933257
+        }
+      },
+      "n_weight_days": 1795
+    },
+    {
+      "name": "06_min_hold_3d",
+      "description": "Minimum 3-day hold per name",
+      "turnover": {
+        "daily_gross_turnover": 0.6366903367935403,
+        "annualized_gross_turnover": 232.3919729296422,
+        "daily_one_way_turnover": 0.31834516839677013
+      },
+      "gross": {
+        "Sharpe": 1.1215299167953998,
+        "CAGR": 0.25154818484208086,
+        "MaxDD": -0.24257321310229585,
+        "trades": 1794,
+        "in_sample": {
+          "Sharpe": 1.2355185582529344,
+          "CAGR": 0.30461452011943946,
+          "MaxDD": -0.24257321310229585
+        },
+        "out_of_sample": {
+          "Sharpe": 0.3593519373385655,
+          "CAGR": 0.03796111431018767,
+          "MaxDD": -0.0849267225640209
+        }
+      },
+      "net": {
+        "Sharpe": 0.12731505893523562,
+        "CAGR": 0.003798653429480492,
+        "MaxDD": -0.40420344121571616,
+        "trades": 1795,
+        "in_sample": {
+          "Sharpe": 0.2990834096762293,
+          "CAGR": 0.0439941713679195,
+          "MaxDD": -0.29468774740761206
+        },
+        "out_of_sample": {
+          "Sharpe": -1.3162583534077559,
+          "CAGR": -0.1589720966677809,
+          "MaxDD": -0.2121792999523442
+        }
+      },
+      "n_weight_days": 1795
+    },
+    {
+      "name": "05_hysteresis",
+      "description": "Enter top/bottom 8%, exit outside 15%",
+      "turnover": {
+        "daily_gross_turnover": 0.9740261778787651,
+        "annualized_gross_turnover": 355.5195549257493,
+        "daily_one_way_turnover": 0.48701308893938255
+      },
+      "gross": {
+        "Sharpe": 1.3372124815680937,
+        "CAGR": 0.38332706952675233,
+        "MaxDD": -0.29806582251099023,
+        "trades": 1794,
+        "in_sample": {
+          "Sharpe": 1.4717973537822218,
+          "CAGR": 0.4665545064134018,
+          "MaxDD": -0.29806582251099023
+        },
+        "out_of_sample": {
+          "Sharpe": 0.4599402452511675,
+          "CAGR": 0.06313694657713409,
+          "MaxDD": -0.18494764671863317
+        }
+      },
+      "net": {
+        "Sharpe": 0.0865727100910657,
+        "CAGR": -0.012858434675139585,
+        "MaxDD": -0.5223753578552799,
+        "trades": 1795,
+        "in_sample": {
+          "Sharpe": 0.297997711431468,
+          "CAGR": 0.04548490853661158,
+          "MaxDD": -0.371208131282315
+        },
+        "out_of_sample": {
+          "Sharpe": -1.6065729160969275,
+          "CAGR": -0.2379140379281549,
+          "MaxDD": -0.3229734027398834
+        }
+      },
+      "n_weight_days": 1795
+    },
+    {
+      "name": "14_hysteresis_minhold3d",
+      "description": "Hysteresis + 3-day minimum hold",
+      "turnover": {
+        "daily_gross_turnover": 0.9740261778787651,
+        "annualized_gross_turnover": 355.5195549257493,
+        "daily_one_way_turnover": 0.48701308893938255
+      },
+      "gross": {
+        "Sharpe": 1.3372124815680937,
+        "CAGR": 0.38332706952675233,
+        "MaxDD": -0.29806582251099023,
+        "trades": 1794,
+        "in_sample": {
+          "Sharpe": 1.4717973537822218,
+          "CAGR": 0.4665545064134018,
+          "MaxDD": -0.29806582251099023
+        },
+        "out_of_sample": {
+          "Sharpe": 0.4599402452511675,
+          "CAGR": 0.06313694657713409,
+          "MaxDD": -0.18494764671863317
+        }
+      },
+      "net": {
+        "Sharpe": 0.0865727100910657,
+        "CAGR": -0.012858434675139585,
+        "MaxDD": -0.5223753578552799,
+        "trades": 1795,
+        "in_sample": {
+          "Sharpe": 0.297997711431468,
+          "CAGR": 0.04548490853661158,
+          "MaxDD": -0.371208131282315
+        },
+        "out_of_sample": {
+          "Sharpe": -1.6065729160969275,
+          "CAGR": -0.2379140379281549,
+          "MaxDD": -0.3229734027398834
+        }
+      },
+      "n_weight_days": 1795
+    },
+    {
+      "name": "08_dispersion_gate",
+      "description": "Trade only when xs stress std > expanding median",
+      "turnover": {
+        "daily_gross_turnover": 0.48770817649485243,
+        "annualized_gross_turnover": 178.01348442062113,
+        "daily_one_way_turnover": 0.24385408824742622
+      },
+      "gross": {
+        "Sharpe": 0.5708512694422773,
+        "CAGR": 0.11747896143611247,
+        "MaxDD": -0.2675042953886311,
+        "trades": 1794,
+        "in_sample": {
+          "Sharpe": 0.5626363314829543,
+          "CAGR": 0.12082851857869792,
+          "MaxDD": -0.2675042953886311
+        },
+        "out_of_sample": {
+          "Sharpe": 0.7092223191641535,
+          "CAGR": 0.10250915338439337,
+          "MaxDD": -0.09752959456972754
+        }
+      },
+      "net": {
+        "Sharpe": -0.10853112921081905,
+        "CAGR": -0.05627462917005588,
+        "MaxDD": -0.4253873695100303,
+        "trades": 1794,
+        "in_sample": {
+          "Sharpe": -0.01424413652637649,
+          "CAGR": -0.03815296472910357,
+          "MaxDD": -0.35184854614650596
+        },
+        "out_of_sample": {
+          "Sharpe": -0.8479831739415056,
+          "CAGR": -0.13378989999024538,
+          "MaxDD": -0.2021305356751013
+        }
+      },
+      "n_weight_days": 1795
+    },
+    {
+      "name": "10_hysteresis_dispersion",
+      "description": "Hysteresis + dispersion gate",
+      "turnover": {
+        "daily_gross_turnover": 0.38937043032304397,
+        "annualized_gross_turnover": 142.12020706791105,
+        "daily_one_way_turnover": 0.19468521516152199
+      },
+      "gross": {
+        "Sharpe": 0.3775628022057094,
+        "CAGR": 0.06527688043813096,
+        "MaxDD": -0.3093850465427339,
+        "trades": 1794,
+        "in_sample": {
+          "Sharpe": 0.34941730324137166,
+          "CAGR": 0.059477333078176375,
+          "MaxDD": -0.3093850465427339
+        },
+        "out_of_sample": {
+          "Sharpe": 0.648910699191278,
+          "CAGR": 0.09180678980192014,
+          "MaxDD": -0.10348571574340404
+        }
+      },
+      "net": {
+        "Sharpe": -0.16343406738729588,
+        "CAGR": -0.06915478313349988,
+        "MaxDD": -0.37585804865764627,
+        "trades": 1794,
+        "in_sample": {
+          "Sharpe": -0.10728406301815083,
+          "CAGR": -0.06170668431940962,
+          "MaxDD": -0.3293338462274358
+        },
+        "out_of_sample": {
+          "Sharpe": -0.6225451252769436,
+          "CAGR": -0.10199023756770564,
+          "MaxDD": -0.1893378913788919
+        }
+      },
+      "n_weight_days": 1795
+    },
+    {
+      "name": "01_baseline_daily",
+      "description": "Daily decile L/S continuation",
+      "turnover": {
+        "daily_gross_turnover": 1.201409875811035,
+        "annualized_gross_turnover": 438.51460467102777,
+        "daily_one_way_turnover": 0.6007049379055175
+      },
+      "gross": {
+        "Sharpe": 1.1978281450243096,
+        "CAGR": 0.3337252985366026,
+        "MaxDD": -0.33766737573852856,
+        "trades": 1794,
+        "in_sample": {
+          "Sharpe": 1.353270625039576,
+          "CAGR": 0.4197981343938215,
+          "MaxDD": -0.33766737573852856
+        },
+        "out_of_sample": {
+          "Sharpe": 0.11769685494822688,
+          "CAGR": 0.006187244910900169,
+          "MaxDD": -0.15877363471920303
+        }
+      },
+      "net": {
+        "Sharpe": -0.33669791255590165,
+        "CAGR": -0.12042880683531176,
+        "MaxDD": -0.7315855214914583,
+        "trades": 1795,
+        "in_sample": {
+          "Sharpe": -0.08540020793180761,
+          "CAGR": -0.06494793629550977,
+          "MaxDD": -0.5958690766184287
+        },
+        "out_of_sample": {
+          "Sharpe": -2.4676278664529714,
+          "CAGR": -0.33232295943572665,
+          "MaxDD": -0.3971428255166283
+        }
+      },
+      "n_weight_days": 1795
+    },
+    {
+      "name": "15_all_moderate",
+      "description": "Top-50 + smooth3d + hysteresis + dispersion (no weekly)",
+      "turnover": {
+        "daily_gross_turnover": 0.20975650758259456,
+        "annualized_gross_turnover": 76.56112526764701,
+        "daily_one_way_turnover": 0.10487825379129728
+      },
+      "gross": {
+        "Sharpe": -0.5857488902058556,
+        "CAGR": -0.20926879286345934,
+        "MaxDD": -0.7812243139464985,
+        "trades": 1794,
+        "in_sample": {
+          "Sharpe": -0.499410362997123,
+          "CAGR": -0.18886184250616656,
+          "MaxDD": -0.6735410106092516
+        },
+        "out_of_sample": {
+          "Sharpe": -0.9902365739158849,
+          "CAGR": -0.2950404439404565,
+          "MaxDD": -0.3838412682402471
+        }
+      },
+      "net": {
+        "Sharpe": -0.815439698951757,
+        "CAGR": -0.2648002891934579,
+        "MaxDD": -0.8464013482568838,
+        "trades": 1794,
+        "in_sample": {
+          "Sharpe": -0.7694997898787048,
+          "CAGR": -0.25577063672893885,
+          "MaxDD": -0.7681209448560761
+        },
+        "out_of_sample": {
+          "Sharpe": -1.029717741461978,
+          "CAGR": -0.3041491326441438,
+          "MaxDD": -0.39095684529368613
+        }
+      },
+      "n_weight_days": 1795
+    },
+    {
+      "name": "09_top50_liquidity",
+      "description": "Universe restricted to top-50 20d quote volume",
+      "turnover": {
+        "daily_gross_turnover": 1.259169453734671,
+        "annualized_gross_turnover": 459.5968506131549,
+        "daily_one_way_turnover": 0.6295847268673355
+      },
+      "gross": {
+        "Sharpe": 0.2078349368182166,
+        "CAGR": 0.005029093720755107,
+        "MaxDD": -0.7300996459585537,
+        "trades": 1794,
+        "in_sample": {
+          "Sharpe": 0.6953655431434932,
+          "CAGR": 0.20338724461980395,
+          "MaxDD": -0.40453386594073115
+        },
+        "out_of_sample": {
+          "Sharpe": -1.3249235749961044,
+          "CAGR": -0.5536472132296699,
+          "MaxDD": -0.6274932975225631
+        }
+      },
+      "net": {
+        "Sharpe": -0.9052770231356905,
+        "CAGR": -0.3505844216888747,
+        "MaxDD": -0.9443010867864932,
+        "trades": 1795,
+        "in_sample": {
+          "Sharpe": -0.510833521343489,
+          "CAGR": -0.22027314478872684,
+          "MaxDD": -0.8179870911425746
+        },
+        "out_of_sample": {
+          "Sharpe": -2.2001120666975416,
+          "CAGR": -0.7151302008802011,
+          "MaxDD": -0.7430068925861675
+        }
+      },
+      "n_weight_days": 1795
+    },
+    {
+      "name": "12_top50_hysteresis",
+      "description": "Top-50 liquidity + hysteresis",
+      "turnover": {
+        "daily_gross_turnover": 1.083658491267187,
+        "annualized_gross_turnover": 395.53534931252324,
+        "daily_one_way_turnover": 0.5418292456335935
+      },
+      "gross": {
+        "Sharpe": 0.0632214100830901,
+        "CAGR": -0.04735888325004811,
+        "MaxDD": -0.748673368463064,
+        "trades": 1794,
+        "in_sample": {
+          "Sharpe": 0.6191321886388463,
+          "CAGR": 0.17010814116407236,
+          "MaxDD": -0.41053617367266915
+        },
+        "out_of_sample": {
+          "Sharpe": -1.7778988507366167,
+          "CAGR": -0.6228219295130477,
+          "MaxDD": -0.6691465491136642
+        }
+      },
+      "net": {
+        "Sharpe": -0.9179709274019937,
+        "CAGR": -0.345796131665158,
+        "MaxDD": -0.9424037149310321,
+        "trades": 1795,
+        "in_sample": {
+          "Sharpe": -0.4305755912775017,
+          "CAGR": -0.19476107287311273,
+          "MaxDD": -0.8039233005922943
+        },
+        "out_of_sample": {
+          "Sharpe": -2.57272560072618,
+          "CAGR": -0.7434292047705384,
+          "MaxDD": -0.7634917602163573
+        }
+      },
+      "n_weight_days": 1795
+    },
+    {
+      "name": "13_top50_hysteresis_dispersion",
+      "description": "Top-50 + hysteresis + dispersion gate",
+      "turnover": {
+        "daily_gross_turnover": 0.4144834633965068,
+        "annualized_gross_turnover": 151.28646413972498,
+        "daily_one_way_turnover": 0.2072417316982534
+      },
+      "gross": {
+        "Sharpe": -0.7811163224154549,
+        "CAGR": -0.28758475025669505,
+        "MaxDD": -0.8252564250999124,
+        "trades": 1794,
+        "in_sample": {
+          "Sharpe": -0.2774173754704768,
+          "CAGR": -0.14246118873294056,
+          "MaxDD": -0.5701661810963776
+        },
+        "out_of_sample": {
+          "Sharpe": -2.7499119667894125,
+          "CAGR": -0.6910440120098189,
+          "MaxDD": -0.6728787699458121
+        }
+      },
+      "net": {
+        "Sharpe": -1.186510675842559,
+        "CAGR": -0.38306970815449126,
+        "MaxDD": -0.9074504829636236,
+        "trades": 1794,
+        "in_sample": {
+          "Sharpe": -0.6575643674947819,
+          "CAGR": -0.24733071265631013,
+          "MaxDD": -0.7249944157422485
+        },
+        "out_of_sample": {
+          "Sharpe": -3.259602368942665,
+          "CAGR": -0.7482034476155137,
+          "MaxDD": -0.7264653074109896
+        }
+      },
+      "n_weight_days": 1795
+    },
+    {
+      "name": "02_smooth_3d",
+      "description": "3-day rolling mean on stress",
+      "turnover": {
+        "daily_gross_turnover": 1.1775322014423228,
+        "annualized_gross_turnover": 429.79925352644784,
+        "daily_one_way_turnover": 0.5887661007211614
+      },
+      "gross": {
+        "Sharpe": 0.6315748100568548,
+        "CAGR": 0.07536462206041317,
+        "MaxDD": -0.1994574619653927,
+        "trades": 1794,
+        "in_sample": {
+          "Sharpe": 0.9269194254543612,
+          "CAGR": 0.11357282178377748,
+          "MaxDD": -0.10545609892941521
+        },
+        "out_of_sample": {
+          "Sharpe": -0.5204637430231822,
+          "CAGR": -0.0811814189328467,
+          "MaxDD": -0.19945746196539327
+        }
+      },
+      "net": {
+        "Sharpe": -2.558445874466744,
+        "CAGR": -0.28506266071518394,
+        "MaxDD": -0.8207195148811619,
+        "trades": 1795,
+        "in_sample": {
+          "Sharpe": -2.3442634487228666,
+          "CAGR": -0.2585618562171551,
+          "MaxDD": -0.7159765847775152
+        },
+        "out_of_sample": {
+          "Sharpe": -3.419057209634466,
+          "CAGR": -0.39320813255477594,
+          "MaxDD": -0.4018326939765794
+        }
+      },
+      "n_weight_days": 1795
+    },
+    {
+      "name": "03_smooth_5d",
+      "description": "5-day rolling mean on stress",
+      "turnover": {
+        "daily_gross_turnover": 1.182782887309767,
+        "annualized_gross_turnover": 431.71575386806495,
+        "daily_one_way_turnover": 0.5913914436548835
+      },
+      "gross": {
+        "Sharpe": 0.5130281787682361,
+        "CAGR": 0.05193677735684776,
+        "MaxDD": -0.13610673569363452,
+        "trades": 1794,
+        "in_sample": {
+          "Sharpe": 0.7613609452612274,
+          "CAGR": 0.0733034517684783,
+          "MaxDD": -0.08674145129023536
+        },
+        "out_of_sample": {
+          "Sharpe": -0.19027643635146976,
+          "CAGR": -0.03918876847017039,
+          "MaxDD": -0.13610673569363374
+        }
+      },
+      "net": {
+        "Sharpe": -3.1955078650573747,
+        "CAGR": -0.3019361325095935,
+        "MaxDD": -0.8415072349028053,
+        "trades": 1795,
+        "in_sample": {
+          "Sharpe": -3.326772908221895,
+          "CAGR": -0.28511027678590795,
+          "MaxDD": -0.754198153997899
+        },
+        "out_of_sample": {
+          "Sharpe": -3.014426362672999,
+          "CAGR": -0.3729759881612117,
+          "MaxDD": -0.375072131103402
+        }
+      },
+      "n_weight_days": 1795
+    }
+  ]
+}

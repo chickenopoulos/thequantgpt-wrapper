@@ -26,6 +26,8 @@ runs/**/*
 !runs/6/**
 !runs/7/
 !runs/7/**
+!runs/8/
+!runs/8/**
 
 reports/**/*
 !reports/.gitkeep

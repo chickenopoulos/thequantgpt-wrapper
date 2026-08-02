@@ -1,0 +1,32 @@
+{
+  "title": "Cross-sectional liquidation stress factor",
+  "workflow": "cross_sectional",
+  "universe": "binance_futures_usdt_perpetuals",
+  "asset_class": "crypto",
+  "annualization": 365,
+  "data_source": {
+    "ohlcv": "data/binance/binance_futures_ohlcv_1d.parquet",
+    "funding": "data/coinglass/futures_funding_rate_binance_1d.parquet",
+    "open_interest": "data/coinglass/futures_open_interest_history_ohlc_binance_1d.parquet",
+    "liquidations": "data/coinglass/futures_liquidations_binance_1d.parquet"
+  },
+  "oos_start_ts": "2025-01-01",
+  "signal": {
+    "description": "Composite stress = mean of cross-sectional funding rank, OI rank, and liquidation z-score rank",
+    "funding_col": "close",
+    "oi_col": "close",
+    "liq_cols": [
+      "long_liquidation_usd",
+      "short_liquidation_usd"
+    ],
+    "liq_z_window": 30,
+    "lag_bars": 1,
+    "min_universe": 30,
+    "decile_pct": 0.1
+  },
+  "costs": {
+    "fee": 0.00045,
+    "slippage": 0.0005
+  },
+  "hypothesis": "Assets with extreme funding, elevated OI, and liquidation spikes mean-revert (fade the flush)"
+}

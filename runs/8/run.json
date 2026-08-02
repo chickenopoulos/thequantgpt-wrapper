@@ -1,0 +1,54 @@
+{
+  "run_id": "8",
+  "title": "Cross-sectional liquidation stress factor",
+  "created_at": "2026-08-02T16:41:06.045016+00:00",
+  "root": "runs/8",
+  "status": "baseline_complete",
+  "numeric_id": 8,
+  "source": "cursor_agent",
+  "symbol": null,
+  "oos_start_ts": "2025-01-01",
+  "workflow": "cross_sectional",
+  "strategy_type": null,
+  "last_scope": null,
+  "strategy_spec_path": "strategy_spec.json",
+  "artifacts": {
+    "metrics": {
+      "path": "runs/8/artifacts/metrics.json",
+      "format": "json"
+    },
+    "drawdown": {
+      "path": "runs/8/charts/drawdown.png",
+      "format": "png"
+    },
+    "equity_curve": {
+      "path": "runs/8/charts/equity_curve.png",
+      "format": "png"
+    },
+    "stress_decile_forward_returns": {
+      "path": "runs/8/charts/stress_decile_forward_returns.png",
+      "format": "png"
+    },
+    "strategy_spec": {
+      "path": "runs/8/strategy_spec.json",
+      "format": "json"
+    },
+    "report": {
+      "path": "runs/8/report.md",
+      "format": "md"
+    }
+  },
+  "completed_steps": [
+    "baseline"
+  ],
+  "defaults": {
+    "oos_start": "2025-01-01",
+    "fee": 0.00045,
+    "slippage": 0.0005,
+    "interval": "1d"
+  },
+  "validation_passed": true,
+  "last_validation_at": "2026-08-02T16:45:31.322910+00:00",
+  "last_execution_at": "2026-08-02T16:45:31.322910+00:00",
+  "last_error": null
+}
