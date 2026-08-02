@@ -65,6 +65,23 @@ def depth_gated_direction(base_dir: pd.Series, depth: pd.Series) -> pd.Series:
     return out
 
 
+def always_in_market_direction(
+    quintile: pd.Series,
+    depth: pd.Series,
+    *,
+    q_threshold: int = 3,
+    depth_quantile: float = 0.35,
+) -> pd.Series:
+    """100% gross exposure; flip L/S when high-corr AND weak breadth."""
+    q = quintile.shift(1)
+    depth_lag = depth.shift(1)
+    depth_thr = depth_lag.expanding(min_periods=120).quantile(depth_quantile)
+    direction = pd.Series(1.0, index=quintile.index)
+    flip = (q >= q_threshold) & (depth_lag < depth_thr)
+    direction[flip] = -1.0
+    return direction
+
+
 def regime_direction(quintile: pd.Series, mode: str, *, depth: pd.Series | None = None) -> pd.Series:
     """+1 = long dispersion/short cluster, -1 = flipped, 0 = flat."""
     q = quintile.shift(1)
@@ -83,6 +100,10 @@ def regime_direction(quintile: pd.Series, mode: str, *, depth: pd.Series | None 
         return depth_gated_direction(regime_direction(quintile, "low_only"), depth)
     if mode == "always_on":
         return pd.Series(1.0, index=quintile.index)
+    if mode == "always_in_max_sharpe":
+        if depth is None:
+            raise ValueError("depth required for always_in_max_sharpe")
+        return always_in_market_direction(quintile, depth)
     raise ValueError(f"unknown mode: {mode}")
 
 
@@ -211,7 +232,7 @@ def plot_equity(
     plt.close(fig)
 
 
-RECOMMENDED_KEY = "liquid_majors_low_only_depth_gate"
+RECOMMENDED_KEY = "liquid_majors_always_in_max_sharpe"
 
 
 def btc_buy_hold_returns(close: pd.DataFrame, btc_col: str = "BTCUSDT") -> pd.Series:
@@ -230,7 +251,7 @@ def plot_vs_btc(
     btc_eq = (1 + aligned["btc"]).cumprod()
 
     fig, axes = plt.subplots(2, 1, figsize=(12, 8), sharex=True, gridspec_kw={"height_ratios": [3, 1]})
-    axes[0].plot(port_eq.index, port_eq.values, color="#27ae60", linewidth=1.8, label="Recommended (depth gate)")
+    axes[0].plot(port_eq.index, port_eq.values, color="#27ae60", linewidth=1.8, label="Recommended (always-in)")
     axes[0].plot(btc_eq.index, btc_eq.values, color="#f7931a", linewidth=1.4, label="BTC buy & hold")
     axes[0].axvline(OOS, color="gray", linestyle="--", linewidth=0.8, label="OOS start")
     axes[0].set_ylabel("Growth of $1")
@@ -312,7 +333,7 @@ def main() -> None:
         "liquid_majors": (LIQUID_LONG_BASKET, LIQUID_SHORT_BASKET),
     }
 
-    modes = ["regime_flip", "low_only", "low_only_depth_gate", "always_on"]
+    modes = ["regime_flip", "low_only", "low_only_depth_gate", "always_on", "always_in_max_sharpe"]
     curves: dict[str, pd.Series] = {}
     metrics_out: dict = {
         "baskets": {
@@ -341,7 +362,7 @@ def main() -> None:
             m = compute_metrics(port_ret, weights)
             m["btc_beta"] = portfolio_btc_beta(returns, port_ret)
             metrics_out["strategies"][key] = m
-            if basket_name == "liquid_majors" and mode == "low_only_depth_gate":
+            if basket_name == "liquid_majors" and mode == "always_in_max_sharpe":
                 weights_main = weights
 
     artifacts = RUN / "artifacts"
@@ -379,11 +400,13 @@ def main() -> None:
     plot_vs_btc(recommended, btc_ret, charts / "recommended_vs_btc_linear.png", log_scale=False)
     plot_vs_btc(recommended, btc_ret, charts / "recommended_vs_btc_log.png", log_scale=True)
     export_vs_btc_csv(recommended, btc_ret, artifacts / "recommended_vs_btc.csv")
+    export_equity_csv(recommended, artifacts / "recommended_equity.csv")
 
     spec = json.loads((RUN / "strategy_spec.json").read_text(encoding="utf-8"))
     spec["strategy_type"] = "market_neutral_corr_regime"
     spec["portfolio"] = {
         "primary_basket": "liquid_majors",
+        "recommended_mode": "always_in_max_sharpe",
         "long_basket": LIQUID_LONG_BASKET,
         "short_basket": LIQUID_SHORT_BASKET,
         "modes": modes,
@@ -392,43 +415,20 @@ def main() -> None:
     }
     (RUN / "strategy_spec.json").write_text(json.dumps(spec, indent=2), encoding="utf-8")
 
-    main_m = metrics_out["strategies"]["liquid_majors_regime_flip"]
-    low_m = metrics_out["strategies"]["liquid_majors_low_only"]
-    best_m = metrics_out["strategies"]["liquid_majors_low_only_depth_gate"]
-    opt_m = metrics_out["strategies"]["optimized_is_regime_flip"]
+    best_m = metrics_out["strategies"]["liquid_majors_always_in_max_sharpe"]
+    depth_m = metrics_out["strategies"]["liquid_majors_low_only_depth_gate"]
     report = [
         "# Market-neutral correlation-regime portfolio",
         "",
         "Dollar-neutral L/S book using correlation-regime insights. Baskets fixed from IS study; OOS is post-2025.",
         "",
-        "## Primary portfolio (liquid majors, regime_flip)",
+        "## Recommended: always-invested max-Sharpe",
         "",
         f"- **Long (dispersion winners):** {', '.join(LIQUID_LONG_BASKET)}",
         f"- **Short (cluster beneficiaries):** {', '.join(LIQUID_SHORT_BASKET)}",
-        "- **Rules:** Q1–Q2 → long dispersion / short cluster; Q4–Q5 → reversed; Q3 → flat",
-        "- **Neutrality:** 50% gross long + 50% gross short when active; ~0 BTC beta",
-        "",
-        "| Segment | Sharpe | CAGR | Max DD |",
-        "|---------|--------|------|--------|",
-        f"| Full | {main_m['Sharpe']:.2f} | {main_m['CAGR']*100:.1f}% | {main_m['MaxDD']*100:.1f}% |",
-        f"| In-sample | {main_m['in_sample']['Sharpe']:.2f} | {main_m['in_sample']['CAGR']*100:.1f}% | {main_m['in_sample']['MaxDD']*100:.1f}% |",
-        f"| Out-of-sample | {main_m['out_of_sample']['Sharpe']:.2f} | {main_m['out_of_sample']['CAGR']*100:.1f}% | {main_m['out_of_sample']['MaxDD']*100:.1f}% |",
-        "",
-        f"BTC beta: {main_m['btc_beta']:.3f}",
-        "",
-        "## Higher-Sharpe variant: low_corr_only",
-        "",
-        "Trade only in Q1–Q2 (low correlation); flat in Q3–Q5. Improves Sharpe by avoiding noisy high-corr flips.",
-        "",
-        "| Segment | Sharpe | CAGR | Max DD |",
-        "|---------|--------|------|--------|",
-        f"| Full | {low_m['Sharpe']:.2f} | {low_m['CAGR']*100:.1f}% | {low_m['MaxDD']*100:.1f}% |",
-        f"| In-sample | {low_m['in_sample']['Sharpe']:.2f} | {low_m['in_sample']['CAGR']*100:.1f}% | {low_m['in_sample']['MaxDD']*100:.1f}% |",
-        f"| Out-of-sample | {low_m['out_of_sample']['Sharpe']:.2f} | {low_m['out_of_sample']['CAGR']*100:.1f}% | {low_m['out_of_sample']['MaxDD']*100:.1f}% |",
-        "",
-        "## Best Sharpe variant: low_corr + market depth gate",
-        "",
-        "Trade Q1–Q2 only when % pairs above 90d SMA is above its expanding median.",
+        "- **Default:** long dispersion / short cluster (100% gross exposure)",
+        "- **Flip:** when correlation quintile ≥ Q3 **and** market depth below 35th percentile → reverse legs",
+        "- **Always in market:** no flat periods",
         "",
         "| Segment | Sharpe | CAGR | Max DD |",
         "|---------|--------|------|--------|",
@@ -436,25 +436,24 @@ def main() -> None:
         f"| In-sample | {best_m['in_sample']['Sharpe']:.2f} | {best_m['in_sample']['CAGR']*100:.1f}% | {best_m['in_sample']['MaxDD']*100:.1f}% |",
         f"| Out-of-sample | {best_m['out_of_sample']['Sharpe']:.2f} | {best_m['out_of_sample']['CAGR']*100:.1f}% | {best_m['out_of_sample']['MaxDD']*100:.1f}% |",
         "",
+        f"BTC beta: {best_m['btc_beta']:.3f} | Avg gross exposure: {best_m['avg_gross_exposure']*100:.0f}%",
+        "",
+        "## Prior variant: selective depth gate (higher OOS Sharpe, often flat)",
+        "",
+        f"| Segment | Sharpe | Max DD |",
+        f"|---------|--------|--------|",
+        f"| Full | {depth_m['Sharpe']:.2f} | {depth_m['MaxDD']*100:.1f}% |",
+        f"| Out-of-sample | {depth_m['out_of_sample']['Sharpe']:.2f} | {depth_m['out_of_sample']['MaxDD']*100:.1f}% |",
+        "",
         "## Exports",
         "",
-        "- Log equity: `charts/mn_equity_curve.png`",
-        "- **Linear equity:** `charts/mn_equity_curve_linear.png`",
-        "- **Linear CSV (best variant):** `artifacts/mn_equity_curve_linear.csv`",
-        "- Linear CSV (low_only): `artifacts/mn_equity_curve_low_only.csv`",
-        "- Sharpe sweep: `artifacts/sharpe_enhancement_sweep.json`",
         "- **vs BTC linear:** `charts/recommended_vs_btc_linear.png`",
         "- **vs BTC log:** `charts/recommended_vs_btc_log.png`",
         "- **vs BTC CSV:** `artifacts/recommended_vs_btc.csv`",
+        "- **Portfolio CSV:** `artifacts/recommended_equity.csv`",
+        "- Always-in sweep: `artifacts/always_in_market_sweep.json`",
         "",
-        "## IS-optimized basket variant (regime_flip)",
-        "",
-        f"| Segment | Sharpe | CAGR | Max DD |",
-        f"|---------|--------|------|--------|",
-        f"| In-sample | {opt_m['in_sample']['Sharpe']:.2f} | {opt_m['in_sample']['CAGR']*100:.1f}% | {opt_m['in_sample']['MaxDD']*100:.1f}% |",
-        f"| Out-of-sample | {opt_m['out_of_sample']['Sharpe']:.2f} | {opt_m['out_of_sample']['CAGR']*100:.1f}% | {opt_m['out_of_sample']['MaxDD']*100:.1f}% |",
-        "",
-        "![Equity curve](charts/mn_equity_curve.png)",
+        "![Equity vs BTC linear](charts/recommended_vs_btc_linear.png)",
         "",
     ]
     (RUN / "report_market_neutral.md").write_text("\n".join(report), encoding="utf-8")
