@@ -11,6 +11,8 @@ Daily composite stress per symbol:
 
 **Hypothesis (fade):** highest-stress names mean-revert after a flush → long top decile / short bottom.
 
+**Result:** The fade hypothesis **fails**. High-stress deciles (D10) underperform low-stress (D1) monotonically at 1d/3d/5d horizons — stress is closer to a **continuation / avoid** signal than a mean-reversion entry.
+
 ## Decile forward returns (full sample)
 
 | Horizon | D1 (low stress) | D10 (high stress) | Top − Bottom |
