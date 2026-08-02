@@ -1,0 +1,14 @@
+{
+  "baseline": "baseline_equal_weight",
+  "variants": [
+    "Baseline (equal weight)",
+    "Spread-weighted legs",
+    "Conviction sizing 50\u2013100%",
+    "Conviction sizing 70\u2013100%",
+    "Vol target 15%",
+    "Vol target 20%"
+  ],
+  "chart": "charts/dynamic_allocation_vs_baseline_linear.png",
+  "csv": "artifacts/dynamic_allocation_vs_baseline.csv",
+  "oos_start": "2025-01-01"
+}
