@@ -1,0 +1,14 @@
+{
+  "universe": "binance_futures_usdt_perpetuals",
+  "data_source": "data/binance/binance_futures_ohlcv_1d.parquet",
+  "n_assets": 618,
+  "start": "2020-01-01 00:00:00+00:00",
+  "end": "2026-07-27 00:00:00+00:00",
+  "sma_window": 90,
+  "corr_window": 30,
+  "latest": {
+    "btc_close": 65140.0,
+    "market_depth_pct": 16.472868217054263,
+    "market_corr_30d": 0.20443622390887237
+  }
+}

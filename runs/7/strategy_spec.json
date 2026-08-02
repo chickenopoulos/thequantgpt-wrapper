@@ -1,0 +1,20 @@
+{
+  "title": "Binance market breadth correlation chart",
+  "asset_class": "crypto",
+  "universe": "binance_futures_usdt_perpetuals",
+  "symbol": "BTCUSDT",
+  "data_source": "data/binance/binance_futures_ohlcv_1d.parquet",
+  "interval": "1d",
+  "annualization": 365,
+  "oos_start_ts": "2025-01-01",
+  "indicators": {
+    "market_depth": {
+      "description": "Percent of pairs with close above 90-day SMA",
+      "sma_window": 90
+    },
+    "market_correlation": {
+      "description": "30-day rolling average pairwise return correlation across cross-section",
+      "window": 30
+    }
+  }
+}
