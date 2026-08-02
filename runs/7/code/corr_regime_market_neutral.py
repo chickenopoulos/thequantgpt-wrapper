@@ -211,6 +211,73 @@ def plot_equity(
     plt.close(fig)
 
 
+RECOMMENDED_KEY = "liquid_majors_low_only_depth_gate"
+
+
+def btc_buy_hold_returns(close: pd.DataFrame, btc_col: str = "BTCUSDT") -> pd.Series:
+    return close[btc_col].pct_change().fillna(0.0).rename("btc_buy_hold")
+
+
+def plot_vs_btc(
+    portfolio_ret: pd.Series,
+    btc_ret: pd.Series,
+    out_path: Path,
+    *,
+    log_scale: bool,
+) -> None:
+    aligned = pd.concat({"portfolio": portfolio_ret, "btc": btc_ret}, axis=1).dropna()
+    port_eq = (1 + aligned["portfolio"]).cumprod()
+    btc_eq = (1 + aligned["btc"]).cumprod()
+
+    fig, axes = plt.subplots(2, 1, figsize=(12, 8), sharex=True, gridspec_kw={"height_ratios": [3, 1]})
+    axes[0].plot(port_eq.index, port_eq.values, color="#27ae60", linewidth=1.8, label="Recommended (depth gate)")
+    axes[0].plot(btc_eq.index, btc_eq.values, color="#f7931a", linewidth=1.4, label="BTC buy & hold")
+    axes[0].axvline(OOS, color="gray", linestyle="--", linewidth=0.8, label="OOS start")
+    axes[0].set_ylabel("Growth of $1")
+    scale = "log" if log_scale else "linear"
+    axes[0].set_title(f"Recommended portfolio vs BTC buy & hold ({scale})")
+    axes[0].legend(loc="upper left")
+    axes[0].grid(alpha=0.3)
+    if log_scale:
+        axes[0].set_yscale("log")
+
+    port_dd = port_eq / port_eq.cummax() - 1
+    btc_dd = btc_eq / btc_eq.cummax() - 1
+    axes[1].plot(port_dd.index, port_dd.values, color="#27ae60", linewidth=1.0, label="Portfolio DD")
+    axes[1].plot(btc_dd.index, btc_dd.values, color="#f7931a", linewidth=0.9, alpha=0.8, label="BTC DD")
+    axes[1].set_ylabel("Drawdown")
+    axes[1].set_xlabel("Date (UTC)")
+    axes[1].legend(loc="lower left", fontsize=8)
+    axes[1].grid(alpha=0.3)
+
+    fig.tight_layout()
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    fig.savefig(out_path, dpi=140)
+    plt.close(fig)
+
+
+def export_vs_btc_csv(portfolio_ret: pd.Series, btc_ret: pd.Series, out_path: Path) -> None:
+    aligned = pd.concat({"portfolio_return": portfolio_ret, "btc_return": btc_ret}, axis=1).dropna()
+    port_eq = (1 + aligned["portfolio_return"]).cumprod()
+    btc_eq = (1 + aligned["btc_return"]).cumprod()
+    sample = pd.Series(
+        ["in_sample" if t < OOS else "out_of_sample" for t in aligned.index],
+        index=aligned.index,
+        name="sample",
+    )
+    pd.DataFrame(
+        {
+            "portfolio_return": aligned["portfolio_return"],
+            "portfolio_equity": port_eq,
+            "portfolio_drawdown": port_eq / port_eq.cummax() - 1,
+            "btc_return": aligned["btc_return"],
+            "btc_equity": btc_eq,
+            "btc_drawdown": btc_eq / btc_eq.cummax() - 1,
+            "sample": sample,
+        }
+    ).to_csv(out_path)
+
+
 def export_equity_csv(returns: pd.Series, out_path: Path) -> None:
     cum = (1 + returns).cumprod()
     dd = cum / cum.cummax() - 1
@@ -307,6 +374,12 @@ def main() -> None:
         artifacts / "mn_equity_curve_low_only.csv",
     )
 
+    recommended = curves[RECOMMENDED_KEY]
+    btc_ret = btc_buy_hold_returns(close)
+    plot_vs_btc(recommended, btc_ret, charts / "recommended_vs_btc_linear.png", log_scale=False)
+    plot_vs_btc(recommended, btc_ret, charts / "recommended_vs_btc_log.png", log_scale=True)
+    export_vs_btc_csv(recommended, btc_ret, artifacts / "recommended_vs_btc.csv")
+
     spec = json.loads((RUN / "strategy_spec.json").read_text(encoding="utf-8"))
     spec["strategy_type"] = "market_neutral_corr_regime"
     spec["portfolio"] = {
@@ -370,6 +443,9 @@ def main() -> None:
         "- **Linear CSV (best variant):** `artifacts/mn_equity_curve_linear.csv`",
         "- Linear CSV (low_only): `artifacts/mn_equity_curve_low_only.csv`",
         "- Sharpe sweep: `artifacts/sharpe_enhancement_sweep.json`",
+        "- **vs BTC linear:** `charts/recommended_vs_btc_linear.png`",
+        "- **vs BTC log:** `charts/recommended_vs_btc_log.png`",
+        "- **vs BTC CSV:** `artifacts/recommended_vs_btc.csv`",
         "",
         "## IS-optimized basket variant (regime_flip)",
         "",

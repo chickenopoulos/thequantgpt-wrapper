@@ -44,6 +44,9 @@ Trade Q1–Q2 only when % pairs above 90d SMA is above its expanding median.
 - **Linear CSV (best variant):** `artifacts/mn_equity_curve_linear.csv`
 - Linear CSV (low_only): `artifacts/mn_equity_curve_low_only.csv`
 - Sharpe sweep: `artifacts/sharpe_enhancement_sweep.json`
+- **vs BTC linear:** `charts/recommended_vs_btc_linear.png`
+- **vs BTC log:** `charts/recommended_vs_btc_log.png`
+- **vs BTC CSV:** `artifacts/recommended_vs_btc.csv`
 
 ## IS-optimized basket variant (regime_flip)
 
