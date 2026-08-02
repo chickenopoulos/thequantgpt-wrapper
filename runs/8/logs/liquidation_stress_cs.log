@@ -1,0 +1,154 @@
+{
+  "success": true,
+  "log_path": "runs/8/logs/liquidation_stress_cs.log",
+  "code_path": "runs/8/code/liquidation_stress_cs.py",
+  "artifacts": {
+    "metrics": "runs/8/artifacts/metrics.json",
+    "drawdown": "runs/8/charts/drawdown.png",
+    "equity_curve": "runs/8/charts/equity_curve.png",
+    "stress_decile_forward_returns": "runs/8/charts/stress_decile_forward_returns.png",
+    "strategy_spec": "runs/8/strategy_spec.json",
+    "report": "runs/8/report.md"
+  },
+  "validation_passed": true,
+  "strategy_snapshot": {},
+  "has_pf": false,
+  "strategy_spec": {
+    "title": "Cross-sectional liquidation stress factor",
+    "workflow": "cross_sectional",
+    "universe": "binance_futures_usdt_perpetuals",
+    "asset_class": "crypto",
+    "annualization": 365,
+    "data_source": {
+      "ohlcv": "data/binance/binance_futures_ohlcv_1d.parquet",
+      "funding": "data/coinglass/futures_funding_rate_binance_1d.parquet",
+      "open_interest": "data/coinglass/futures_open_interest_history_ohlc_binance_1d.parquet",
+      "liquidations": "data/coinglass/futures_liquidations_binance_1d.parquet"
+    },
+    "oos_start_ts": "2025-01-01",
+    "signal": {
+      "description": "Composite stress = mean of cross-sectional funding rank, OI rank, and liquidation z-score rank",
+      "funding_col": "close",
+      "oi_col": "close",
+      "liq_cols": [
+        "long_liquidation_usd",
+        "short_liquidation_usd"
+      ],
+      "liq_z_window": 30,
+      "lag_bars": 1,
+      "min_universe": 30,
+      "decile_pct": 0.1
+    },
+    "costs": {
+      "fee": 0.00045,
+      "slippage": 0.0005
+    },
+    "hypothesis": "Assets with extreme funding, elevated OI, and liquidation spikes mean-revert (fade the flush)"
+  },
+  "completed_step": "baseline",
+  "metrics": {
+    "universe": {
+      "n_symbols": 296,
+      "start": "2020-12-24 00:00:00+00:00",
+      "end": "2025-11-22 00:00:00+00:00",
+      "avg_daily_universe": 130.22116991643455,
+      "oos_start": "2025-01-01"
+    },
+    "decile_forward_returns": {
+      "fwd_1d": {
+        "D1": 0.0026814142376736893,
+        "D2": 0.0026965151923865776,
+        "D3": 0.001160845882790516,
+        "D4": 0.0011764471206794711,
+        "D5": 0.0017843495579493223,
+        "D6": 0.00040391440020930055,
+        "D7": 0.000992916107068441,
+        "D8": 0.0018214031711819545,
+        "D9": 0.00042941096063416165,
+        "D10": 0.0006631934300487968,
+        "top_minus_bottom_spread": -0.0020182208076248926
+      },
+      "fwd_3d": {
+        "D1": 0.007053501063747782,
+        "D2": 0.006185678925875074,
+        "D3": 0.00483408191597595,
+        "D4": 0.0030242594336277596,
+        "D5": 0.00408337993098212,
+        "D6": 0.002491196695943082,
+        "D7": 0.00468875466026812,
+        "D8": 0.0030159800189211564,
+        "D9": 0.0020929711371204876,
+        "D10": 0.0022850590770887662,
+        "top_minus_bottom_spread": -0.004768441986659017
+      },
+      "fwd_5d": {
+        "D1": 0.012040664056603628,
+        "D2": 0.009948926349189332,
+        "D3": 0.007879217402163827,
+        "D4": 0.00574159349975881,
+        "D5": 0.006760820560408075,
+        "D6": 0.004704577600324704,
+        "D7": 0.007342081283325094,
+        "D8": 0.005450299475484093,
+        "D9": 0.0040388712095156785,
+        "D10": 0.0034349750793449493,
+        "top_minus_bottom_spread": -0.008605688977258677
+      }
+    },
+    "strategies": {
+      "fade_stress_ls": {
+        "Sharpe": -2.500082853744742,
+        "CAGR": -0.7782775811590581,
+        "MaxDD": -0.9995336517266292,
+        "trades": 1794,
+        "in_sample": {
+          "Sharpe": -2.5750233405892358,
+          "CAGR": -0.8110853691406176,
+          "MaxDD": -0.9990782155304085
+        },
+        "out_of_sample": {
+          "Sharpe": -2.3012352145705477,
+          "CAGR": -0.5427554368760419,
+          "MaxDD": -0.5149047693659454
+        }
+      },
+      "continuation_ls": {
+        "Sharpe": -0.057049561078095376,
+        "CAGR": -0.16443145977597695,
+        "MaxDD": -0.8909175016714086,
+        "trades": 1794,
+        "in_sample": {
+          "Sharpe": 0.18499184995771836,
+          "CAGR": -0.06106362927377784,
+          "MaxDD": -0.7729753881405464
+        },
+        "out_of_sample": {
+          "Sharpe": -2.0654807408474913,
+          "CAGR": -0.5067970917858542,
+          "MaxDD": -0.6028106254264808
+        }
+      },
+      "fade_stress_long_only": {
+        "Sharpe": -0.01948514222537773,
+        "CAGR": -0.3646520373419886,
+        "MaxDD": -0.982463513660105,
+        "trades": 1794,
+        "in_sample": {
+          "Sharpe": 0.2767856775898727,
+          "CAGR": -0.17570300145619677,
+          "MaxDD": -0.9623414516324076
+        },
+        "out_of_sample": {
+          "Sharpe": -1.5783716964277605,
+          "CAGR": -0.8041489725401334,
+          "MaxDD": -0.7821688609361572
+        }
+      }
+    },
+    "signal_definition": {
+      "composite": "mean(cs_rank(funding), cs_rank(OI), cs_rank(liq_z))",
+      "liq_z_window": 30,
+      "lag_bars": 1
+    }
+  }
+}
