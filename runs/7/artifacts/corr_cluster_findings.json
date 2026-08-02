@@ -1,0 +1,236 @@
+{
+  "method": {
+    "corr_window": 30,
+    "signal_lag_bars": 1,
+    "quintile_method": "expanding percentile rank on lagged market correlation",
+    "forward_horizons_days": [
+      1,
+      5,
+      10
+    ],
+    "oos_start": "2025-01-01"
+  },
+  "btc_5d_mean_fwd_by_quintile": {
+    "in_sample": {
+      "1": 0.01340018419004042,
+      "2": 0.007976371086438361,
+      "3": 0.009966568505790422,
+      "4": 0.012476379733547005,
+      "5": -0.005275906417904645
+    },
+    "out_of_sample": {
+      "1": -0.006032474720429099,
+      "2": -0.002447529080429477,
+      "3": 0.0005976119731719619,
+      "4": 0.001528703022282737
+    }
+  },
+  "interpretation": {
+    "high_corr_cluster": "Top correlation quintile \u2014 broad risk-on/off coupling; alts move with BTC.",
+    "low_corr_cluster": "Bottom quintile \u2014 dispersion; idiosyncratic moves dominate."
+  },
+  "directional_signal": {
+    "btc": {
+      "rule": "Low prior-day correlation (Q1) vs high (Q5) favors long BTC on 5d horizon",
+      "is_spread_q1_minus_q5": 0.018676090607945065,
+      "oos_spread_q1_minus_q5": NaN
+    },
+    "best_pairs_long_when_low_corr": [
+      {
+        "asset": "DOGEUSDT",
+        "spread_q1_minus_q5": 0.07699566103075625,
+        "tstat": 2.263190714717573,
+        "median_beta_90d": 1.1996897424718838
+      },
+      {
+        "asset": "AVAXUSDT",
+        "spread_q1_minus_q5": 0.060737680409015796,
+        "tstat": 3.631769420315316,
+        "median_beta_90d": 1.2536484925669629
+      },
+      {
+        "asset": "ENJUSDT",
+        "spread_q1_minus_q5": 0.05729418571110997,
+        "tstat": 3.0894396457362094,
+        "median_beta_90d": 1.22184452924222
+      },
+      {
+        "asset": "SOLUSDT",
+        "spread_q1_minus_q5": 0.054936788703571736,
+        "tstat": 4.618517081813313,
+        "median_beta_90d": 1.2447877218934644
+      },
+      {
+        "asset": "RUNEUSDT",
+        "spread_q1_minus_q5": 0.049562230991358536,
+        "tstat": 3.6918941734081807,
+        "median_beta_90d": 1.4368434000868993
+      },
+      {
+        "asset": "NEARUSDT",
+        "spread_q1_minus_q5": 0.04913690649215538,
+        "tstat": 4.114951200440249,
+        "median_beta_90d": 1.3265875853775158
+      },
+      {
+        "asset": "EGLDUSDT",
+        "spread_q1_minus_q5": 0.04218339186109465,
+        "tstat": 3.056950676404569,
+        "median_beta_90d": 0.9924023805717731
+      },
+      {
+        "asset": "QTUMUSDT",
+        "spread_q1_minus_q5": 0.04084454904894566,
+        "tstat": 3.5974544526051435,
+        "median_beta_90d": 1.118821181524448
+      },
+      {
+        "asset": "ZECUSDT",
+        "spread_q1_minus_q5": 0.03985763435712561,
+        "tstat": 3.0721316365250133,
+        "median_beta_90d": 1.0747167762000416
+      },
+      {
+        "asset": "BNBUSDT",
+        "spread_q1_minus_q5": 0.03941603458864123,
+        "tstat": 3.2332441123448405,
+        "median_beta_90d": 0.8317962787014581
+      }
+    ],
+    "best_pairs_short_when_low_corr_or_long_when_high_corr": [
+      {
+        "asset": "RLCUSDT",
+        "spread_q1_minus_q5": 0.01338760512291362,
+        "tstat": 1.1759350786148997,
+        "median_beta_90d": 1.175456396544162
+      },
+      {
+        "asset": "BTCUSDT",
+        "spread_q1_minus_q5": 0.011652288277709729,
+        "tstat": 2.0357681612049205,
+        "median_beta_90d": NaN
+      },
+      {
+        "asset": "LTCUSDT",
+        "spread_q1_minus_q5": 0.011175896222323027,
+        "tstat": 1.4166750231733776,
+        "median_beta_90d": 1.0398209346804124
+      },
+      {
+        "asset": "KSMUSDT",
+        "spread_q1_minus_q5": 0.007761290872724141,
+        "tstat": 0.7036476819838896,
+        "median_beta_90d": 1.1490459335032936
+      },
+      {
+        "asset": "XMRUSDT",
+        "spread_q1_minus_q5": 0.0023591891678191347,
+        "tstat": 0.28793334868198994,
+        "median_beta_90d": 0.7612610295980796
+      },
+      {
+        "asset": "KAVAUSDT",
+        "spread_q1_minus_q5": -0.002955217751283657,
+        "tstat": -0.2474211209767809,
+        "median_beta_90d": 1.0765549079613224
+      },
+      {
+        "asset": "TRBUSDT",
+        "spread_q1_minus_q5": -0.004015029870285885,
+        "tstat": -0.2839769091744516,
+        "median_beta_90d": 1.3074175227413352
+      },
+      {
+        "asset": "KNCUSDT",
+        "spread_q1_minus_q5": -0.006808506126191443,
+        "tstat": -0.6020005334803396,
+        "median_beta_90d": 1.0531323638646384
+      },
+      {
+        "asset": "ICXUSDT",
+        "spread_q1_minus_q5": -0.010509438420635914,
+        "tstat": -0.888491053625192,
+        "median_beta_90d": 1.1485448892400205
+      },
+      {
+        "asset": "SNXUSDT",
+        "spread_q1_minus_q5": -0.011814926627519616,
+        "tstat": -1.1384647555925222,
+        "median_beta_90d": 1.2893777160990496
+      }
+    ],
+    "full_universe_favor_high_corr": [
+      {
+        "asset": "BELUSDT",
+        "spread_q1_minus_q5": -0.06780910521176173,
+        "tstat": -3.868213194347762
+      },
+      {
+        "asset": "SUPERUSDT",
+        "spread_q1_minus_q5": -0.05363856997371366,
+        "tstat": -2.584489128339219
+      },
+      {
+        "asset": "BIGTIMEUSDT",
+        "spread_q1_minus_q5": -0.04821401107063336,
+        "tstat": -1.8283154693984076
+      },
+      {
+        "asset": "TNSRUSDT",
+        "spread_q1_minus_q5": -0.042248488917610794,
+        "tstat": -2.0817514993927353
+      },
+      {
+        "asset": "1000RATSUSDT",
+        "spread_q1_minus_q5": -0.04221030980050482,
+        "tstat": -1.4147405740914272
+      },
+      {
+        "asset": "LQTYUSDT",
+        "spread_q1_minus_q5": -0.03474221020086763,
+        "tstat": -1.8636742820746925
+      },
+      {
+        "asset": "MTLUSDT",
+        "spread_q1_minus_q5": -0.03232510941913324,
+        "tstat": -3.5569353515710027
+      },
+      {
+        "asset": "BSVUSDT",
+        "spread_q1_minus_q5": -0.03216536325972614,
+        "tstat": -1.2764739858762304
+      },
+      {
+        "asset": "C98USDT",
+        "spread_q1_minus_q5": -0.031699106601322816,
+        "tstat": -2.9481247051514496
+      },
+      {
+        "asset": "MEWUSDT",
+        "spread_q1_minus_q5": -0.03113971680132388,
+        "tstat": -1.5321522664106442
+      }
+    ],
+    "full_universe_counts": {
+      "n_positive_spread": 153,
+      "n_negative_spread": 94
+    },
+    "beta_bucket_avg_spread_q1_minus_q5": [
+      {
+        "beta_bucket": "low_beta",
+        "mean": 0.02536724219367682,
+        "count": 17
+      },
+      {
+        "beta_bucket": "mid_beta",
+        "mean": 0.022988865346487336,
+        "count": 16
+      },
+      {
+        "beta_bucket": "high_beta",
+        "mean": 0.03233549647415479,
+        "count": 16
+      }
+    ]
+  }
+}

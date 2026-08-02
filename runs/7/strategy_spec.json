@@ -1,0 +1,58 @@
+{
+  "title": "Binance market breadth correlation chart",
+  "asset_class": "crypto",
+  "universe": "binance_futures_usdt_perpetuals",
+  "symbol": "BTCUSDT",
+  "data_source": "data/binance/binance_futures_ohlcv_1d.parquet",
+  "interval": "1d",
+  "annualization": 365,
+  "oos_start_ts": "2025-01-01",
+  "indicators": {
+    "market_depth": {
+      "description": "Percent of pairs with close above 90-day SMA",
+      "sma_window": 90
+    },
+    "market_correlation": {
+      "description": "30-day rolling average pairwise return correlation across cross-section",
+      "window": 30
+    }
+  },
+  "strategy_type": "market_neutral_corr_regime",
+  "portfolio": {
+    "primary_basket": "liquid_majors",
+    "recommended_mode": "always_in_max_sharpe",
+    "long_basket": [
+      "SOLUSDT",
+      "AVAXUSDT",
+      "DOGEUSDT",
+      "NEARUSDT",
+      "RUNEUSDT",
+      "BNBUSDT",
+      "EGLDUSDT",
+      "QTUMUSDT",
+      "ZECUSDT",
+      "ENJUSDT"
+    ],
+    "short_basket": [
+      "BELUSDT",
+      "SUPERUSDT",
+      "BIGTIMEUSDT",
+      "TNSRUSDT",
+      "C98USDT",
+      "MTLUSDT",
+      "LQTYUSDT",
+      "KASUSDT",
+      "MEWUSDT",
+      "ARKUSDT"
+    ],
+    "modes": [
+      "regime_flip",
+      "low_only",
+      "low_only_depth_gate",
+      "always_on",
+      "always_in_max_sharpe"
+    ],
+    "fee": 0.00045,
+    "slippage": 0.0005
+  }
+}

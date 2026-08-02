@@ -1,0 +1,75 @@
+{
+  "min_gross_exposure": 0.95,
+  "ranked_by_is_sharpe": [
+    {
+      "variant": "regime_switch_q3",
+      "full_sharpe": 1.4822058354388077,
+      "is_sharpe": 1.669105202968733,
+      "oos_sharpe": 0.6527741429138015,
+      "max_dd": -0.39698954187745383,
+      "cagr": 0.5088626539327701,
+      "avg_gross_exposure": 1.0000000000000002,
+      "trades": 66
+    },
+    {
+      "variant": "quintile_half_split",
+      "full_sharpe": 1.4822058354388077,
+      "is_sharpe": 1.669105202968733,
+      "oos_sharpe": 0.6527741429138015,
+      "max_dd": -0.39698954187745383,
+      "cagr": 0.5088626539327701,
+      "avg_gross_exposure": 1.0000000000000002,
+      "trades": 66
+    },
+    {
+      "variant": "flip_high_corr_weak_depth",
+      "full_sharpe": 1.381900717704803,
+      "is_sharpe": 1.5939061225240967,
+      "oos_sharpe": 0.40624575014141473,
+      "max_dd": -0.43745789915715516,
+      "cagr": 0.4626574063018247,
+      "avg_gross_exposure": 1.0000000000000002,
+      "trades": 80
+    },
+    {
+      "variant": "regime_switch_q4",
+      "full_sharpe": 1.2875768823721832,
+      "is_sharpe": 1.4619020403266603,
+      "oos_sharpe": 0.5017534329774559,
+      "max_dd": -0.4941814699211037,
+      "cagr": 0.4207496846645111,
+      "avg_gross_exposure": 1.0000000000000002,
+      "trades": 84
+    },
+    {
+      "variant": "quintile_linear_scaled",
+      "full_sharpe": 1.2875768823721832,
+      "is_sharpe": 1.4619020403266603,
+      "oos_sharpe": 0.5017534329774559,
+      "max_dd": -0.4941814699211037,
+      "cagr": 0.4207496846645111,
+      "avg_gross_exposure": 1.0000000000000002,
+      "trades": 84
+    },
+    {
+      "variant": "always_on",
+      "full_sharpe": 1.2568927749269536,
+      "is_sharpe": 1.2865048355043116,
+      "oos_sharpe": 1.2469363318292517,
+      "max_dd": -0.4983892532833233,
+      "cagr": 0.4071787009328587,
+      "avg_gross_exposure": 1.0000000000000002,
+      "trades": 0
+    },
+    {
+      "variant": "flip_high_corr_or_low_depth",
+      "full_sharpe": 1.285467239007702,
+      "is_sharpe": 1.2435380998946048,
+      "oos_sharpe": 1.6658955589762867,
+      "max_dd": -0.4751831112271907,
+      "cagr": 0.4201035724960904,
+      "avg_gross_exposure": 1.0000000000000002,
+      "trades": 130
+    }
+  ]
+}
