@@ -1,0 +1,168 @@
+{
+  "baskets": {
+    "optimized_is": {
+      "long_dispersion": [
+        "TIAUSDT",
+        "1000BONKUSDT",
+        "1000FLOKIUSDT",
+        "PYTHUSDT",
+        "YGGUSDT",
+        "SEIUSDT",
+        "BEAMXUSDT",
+        "PENDLEUSDT",
+        "GALAUSDT",
+        "DOGEUSDT"
+      ],
+      "short_cluster": [
+        "BELUSDT",
+        "MTLUSDT",
+        "UMAUSDT",
+        "C98USDT",
+        "HIGHUSDT",
+        "OGNUSDT",
+        "ALICEUSDT",
+        "BIGTIMEUSDT",
+        "TRBUSDT",
+        "USTCUSDT"
+      ]
+    },
+    "liquid_majors": {
+      "long_dispersion": [
+        "SOLUSDT",
+        "AVAXUSDT",
+        "DOGEUSDT",
+        "NEARUSDT",
+        "RUNEUSDT",
+        "BNBUSDT",
+        "EGLDUSDT",
+        "QTUMUSDT",
+        "ZECUSDT",
+        "ENJUSDT"
+      ],
+      "short_cluster": [
+        "BELUSDT",
+        "SUPERUSDT",
+        "BIGTIMEUSDT",
+        "TNSRUSDT",
+        "C98USDT",
+        "MTLUSDT",
+        "LQTYUSDT",
+        "KASUSDT",
+        "MEWUSDT",
+        "ARKUSDT"
+      ]
+    },
+    "calibration": "in_sample_only",
+    "oos_start": "2025-01-01"
+  },
+  "strategies": {
+    "optimized_is_regime_flip": {
+      "Sharpe": 0.676650016621228,
+      "MaxDD": -0.39786121028956756,
+      "CAGR": 0.13345166040611267,
+      "trades": 146,
+      "avg_gross_exposure": 0.7504166666666668,
+      "in_sample": {
+        "Sharpe": 1.0925249682139033,
+        "CAGR": 0.2523331127901869,
+        "MaxDD": -0.19090636784052828
+      },
+      "out_of_sample": {
+        "Sharpe": -0.9302312672009819,
+        "CAGR": -0.17531520775541576,
+        "MaxDD": -0.3567835252645575
+      },
+      "btc_beta": 0.020998649405299347
+    },
+    "optimized_is_low_only": {
+      "Sharpe": 0.5594095272267068,
+      "MaxDD": -0.3097106764056987,
+      "CAGR": 0.08813965144531855,
+      "trades": 67,
+      "avg_gross_exposure": 0.4900000000000002,
+      "in_sample": {
+        "Sharpe": 0.9986123249271835,
+        "CAGR": 0.18219824346180724,
+        "MaxDD": -0.21335928884235877
+      },
+      "out_of_sample": {
+        "Sharpe": -1.0322991064026694,
+        "CAGR": -0.16462551639299428,
+        "MaxDD": -0.2881115378058273
+      },
+      "btc_beta": -0.014363789475539556
+    },
+    "optimized_is_always_on": {
+      "Sharpe": 0.4224047618254436,
+      "MaxDD": -0.36079796702901346,
+      "CAGR": 0.07590432863182195,
+      "trades": 0,
+      "avg_gross_exposure": 1.0000000000000002,
+      "in_sample": {
+        "Sharpe": 0.6610511834616577,
+        "CAGR": 0.14478582546898622,
+        "MaxDD": -0.36079796702901346
+      },
+      "out_of_sample": {
+        "Sharpe": -0.5063251936218772,
+        "CAGR": -0.11724091308475426,
+        "MaxDD": -0.3031471247746085
+      },
+      "btc_beta": -0.07091272256013041
+    },
+    "liquid_majors_regime_flip": {
+      "Sharpe": 1.5213132829090932,
+      "MaxDD": -0.38908086398246644,
+      "CAGR": 0.4758318165679598,
+      "trades": 146,
+      "avg_gross_exposure": 0.7504166666666668,
+      "in_sample": {
+        "Sharpe": 1.7304255713310377,
+        "CAGR": 0.6178329958088342,
+        "MaxDD": -0.38908086398246644
+      },
+      "out_of_sample": {
+        "Sharpe": 0.6018564930152162,
+        "CAGR": 0.1010995619481827,
+        "MaxDD": -0.29995755279204817
+      },
+      "btc_beta": 0.05125324006493738
+    },
+    "liquid_majors_low_only": {
+      "Sharpe": 1.8071922790196115,
+      "MaxDD": -0.29602932631932055,
+      "CAGR": 0.4867771219288024,
+      "trades": 67,
+      "avg_gross_exposure": 0.4900000000000002,
+      "in_sample": {
+        "Sharpe": 1.9852633440639336,
+        "CAGR": 0.5945899687034246,
+        "MaxDD": -0.29602932631932055
+      },
+      "out_of_sample": {
+        "Sharpe": 1.090582958577249,
+        "CAGR": 0.18933981415671042,
+        "MaxDD": -0.23110273270717063
+      },
+      "btc_beta": 0.12864000092853975
+    },
+    "liquid_majors_always_on": {
+      "Sharpe": 1.2568927749269536,
+      "MaxDD": -0.4983892532833233,
+      "CAGR": 0.4071787009328587,
+      "trades": 0,
+      "avg_gross_exposure": 1.0000000000000002,
+      "in_sample": {
+        "Sharpe": 1.2865048355043116,
+        "CAGR": 0.45843263356354336,
+        "MaxDD": -0.4983892532833233
+      },
+      "out_of_sample": {
+        "Sharpe": 1.2469363318292517,
+        "CAGR": 0.2554789319837749,
+        "MaxDD": -0.23110273270717108
+      },
+      "btc_beta": 0.26734074518833734
+    }
+  }
+}

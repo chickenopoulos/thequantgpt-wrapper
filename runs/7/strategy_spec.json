@@ -16,5 +16,40 @@
       "description": "30-day rolling average pairwise return correlation across cross-section",
       "window": 30
     }
+  },
+  "strategy_type": "market_neutral_corr_regime",
+  "portfolio": {
+    "primary_basket": "liquid_majors",
+    "long_basket": [
+      "SOLUSDT",
+      "AVAXUSDT",
+      "DOGEUSDT",
+      "NEARUSDT",
+      "RUNEUSDT",
+      "BNBUSDT",
+      "EGLDUSDT",
+      "QTUMUSDT",
+      "ZECUSDT",
+      "ENJUSDT"
+    ],
+    "short_basket": [
+      "BELUSDT",
+      "SUPERUSDT",
+      "BIGTIMEUSDT",
+      "TNSRUSDT",
+      "C98USDT",
+      "MTLUSDT",
+      "LQTYUSDT",
+      "KASUSDT",
+      "MEWUSDT",
+      "ARKUSDT"
+    ],
+    "modes": [
+      "regime_flip",
+      "low_only",
+      "always_on"
+    ],
+    "fee": 0.00045,
+    "slippage": 0.0005
   }
 }
