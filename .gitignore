@@ -23,3 +23,6 @@ runs/**/*
 reports/**/*
 !reports/.gitkeep
 !reports/sample/**
+
+# Standalone research project outputs
+research/**/results/

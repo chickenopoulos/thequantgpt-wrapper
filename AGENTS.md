@@ -56,6 +56,12 @@ Durable memory lives in `runs/<run_id>/run.json` — read it before follow-ups.
 - `examples/btc_mean_reversion.md`
 - `examples/sample_run_instructions.md`
 
+## Standalone research projects
+
+Self-contained studies outside the `runs/<id>/` workflow live under `research/`:
+
+- `research/triangular-pairs-trading/` — statistical triangular pairs on Binance USDT-M perps (see project README)
+
 ## Data loading
 
 - Inspect `data/` first; prefer local parquet/CSV when available.

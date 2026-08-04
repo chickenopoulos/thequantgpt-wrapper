@@ -48,6 +48,7 @@ scripts/
   tqg_init.py                # Smoke test (--run-demo for local execution)
 tqg_client/                  # API client, run state, execution helpers
 examples/                    # Demo prompt sequences
+research/                    # Standalone research projects (e.g. triangular pairs)
 docs/                        # Setup SOP, FAQ, commercial templates
 ```
 
