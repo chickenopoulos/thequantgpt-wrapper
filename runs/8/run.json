@@ -3,7 +3,7 @@
   "title": "Cross-sectional liquidation stress factor",
   "created_at": "2026-08-02T16:41:06.045016+00:00",
   "root": "runs/8",
-  "status": "baseline_complete",
+  "status": "robustness_complete",
   "numeric_id": 8,
   "source": "cursor_agent",
   "symbol": null,
@@ -36,10 +36,27 @@
     "report": {
       "path": "runs/8/report.md",
       "format": "md"
+    },
+    "fee_drag_grid_heatmap": {
+      "path": "runs/8/charts/fee_drag_grid_heatmap.png",
+      "format": "png"
+    },
+    "fee_drag_grid_top_equity": {
+      "path": "runs/8/charts/fee_drag_grid_top_equity.png",
+      "format": "png"
+    },
+    "turnover_followup_comparison": {
+      "path": "runs/8/charts/turnover_followup_comparison.png",
+      "format": "png"
+    },
+    "turnover_reduction_comparison": {
+      "path": "runs/8/charts/turnover_reduction_comparison.png",
+      "format": "png"
     }
   },
   "completed_steps": [
-    "baseline"
+    "baseline",
+    "robustness"
   ],
   "defaults": {
     "oos_start": "2025-01-01",
@@ -48,7 +65,7 @@
     "interval": "1d"
   },
   "validation_passed": true,
-  "last_validation_at": "2026-08-02T16:45:31.322910+00:00",
-  "last_execution_at": "2026-08-02T16:45:31.322910+00:00",
+  "last_validation_at": "2026-08-04T00:54:11.539400+00:00",
+  "last_execution_at": "2026-08-04T00:54:11.539400+00:00",
   "last_error": null
 }
