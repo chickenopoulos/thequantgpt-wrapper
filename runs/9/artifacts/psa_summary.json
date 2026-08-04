@@ -1,0 +1,137 @@
+{
+  "test": "parameter_sensitivity_analysis",
+  "sample": "in_sample",
+  "oos_start_ts": "2025-01-01 00:00:00+00:00",
+  "baseline_config": {
+    "fund_window": 7,
+    "beta_window": 120,
+    "top_pct": 0.15,
+    "min_abs_funding": 3e-05,
+    "rebalance_days": 5,
+    "liquidity_top_n": 75,
+    "long_short": false,
+    "vol_adjust": false,
+    "portfolio_hedge": false
+  },
+  "sharpe_tolerance": 0.05,
+  "min_stable_cells": 3,
+  "grids_tested": 3,
+  "stable_grids": 3,
+  "overall_status": "STABLE",
+  "grids": [
+    {
+      "id": "fund_window_x_top_pct",
+      "x_key": "fund_window",
+      "y_key": "top_pct",
+      "baseline_params": {
+        "fund_window": 7,
+        "top_pct": 0.15
+      },
+      "baseline_is": {
+        "Sharpe": 0.8454263913886249,
+        "CAGR": 0.23547315933924584,
+        "MaxDD": -0.29634506165510255,
+        "n_days": 1737
+      },
+      "grid_axes": {
+        "fund_window": [
+          3,
+          5,
+          7,
+          10,
+          14
+        ],
+        "top_pct": [
+          0.1,
+          0.15,
+          0.2,
+          0.25
+        ]
+      },
+      "grid_cells": 20,
+      "stable_cells": 8,
+      "stable_status": "STABLE",
+      "representative_params": {
+        "fund_window": 14,
+        "top_pct": 0.1,
+        "Sharpe": 1.1058143223661334,
+        "MaxDD": -0.39451707327296726
+      }
+    },
+    {
+      "id": "beta_window_x_rebalance",
+      "x_key": "beta_window",
+      "y_key": "rebalance_days",
+      "baseline_params": {
+        "beta_window": 120,
+        "rebalance_days": 5
+      },
+      "baseline_is": {
+        "Sharpe": 0.8454263913886249,
+        "CAGR": 0.23547315933924584,
+        "MaxDD": -0.29634506165510255,
+        "n_days": 1737
+      },
+      "grid_axes": {
+        "beta_window": [
+          60,
+          90,
+          120,
+          150
+        ],
+        "rebalance_days": [
+          3,
+          5,
+          7,
+          10
+        ]
+      },
+      "grid_cells": 16,
+      "stable_cells": 11,
+      "stable_status": "STABLE",
+      "representative_params": {
+        "beta_window": 120,
+        "rebalance_days": 3,
+        "Sharpe": 0.9776226756778506,
+        "MaxDD": -0.3276268708828194
+      }
+    },
+    {
+      "id": "min_funding_x_liquidity",
+      "x_key": "min_abs_funding",
+      "y_key": "liquidity_top_n",
+      "baseline_params": {
+        "min_abs_funding": 3e-05,
+        "liquidity_top_n": 75
+      },
+      "baseline_is": {
+        "Sharpe": 0.8454263913886249,
+        "CAGR": 0.23547315933924584,
+        "MaxDD": -0.29634506165510255,
+        "n_days": 1737
+      },
+      "grid_axes": {
+        "min_abs_funding": [
+          0.0,
+          3e-05,
+          0.0001,
+          0.0002
+        ],
+        "liquidity_top_n": [
+          50,
+          75,
+          100
+        ]
+      },
+      "grid_cells": 12,
+      "stable_cells": 4,
+      "stable_status": "STABLE",
+      "representative_params": {
+        "min_abs_funding": 0.0,
+        "liquidity_top_n": 50,
+        "Sharpe": 1.0886326408968132,
+        "MaxDD": -0.3275424627066028
+      }
+    }
+  ]
+}
