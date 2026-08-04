@@ -1,0 +1,735 @@
+{
+  "oos_start": "2025-01-01",
+  "costs": {
+    "fee": 0.00045,
+    "slippage": 0.0005
+  },
+  "no_trade_band": 0.005,
+  "lambda_sweep": [
+    0.002,
+    0.005,
+    0.01,
+    0.02,
+    0.05
+  ],
+  "best_lambda_variant": {
+    "name": "02_lambda_0p050",
+    "description": "Daily turnover-penalized optimizer (\u03bb=0.05)",
+    "turnover": {
+      "daily_gross_turnover": 0.03826607787728188,
+      "annualized_gross_turnover": 13.967118425207886,
+      "daily_one_way_turnover": 0.01913303893864094
+    },
+    "gross": {
+      "Sharpe": 1.2728133090213003,
+      "CAGR": 0.4584738420974732,
+      "MaxDD": -0.4593286268571515,
+      "trades": 1794,
+      "in_sample": {
+        "Sharpe": 1.428507019946842,
+        "CAGR": 0.5916405037672741,
+        "MaxDD": -0.43299789680347156
+      },
+      "out_of_sample": {
+        "Sharpe": -0.08088023944291006,
+        "CAGR": -0.016198855319445538,
+        "MaxDD": -0.14532210221087638
+      }
+    },
+    "net": {
+      "Sharpe": 1.2346825961939454,
+      "CAGR": 0.43936314048625524,
+      "MaxDD": -0.46522932717696486,
+      "trades": 1794,
+      "in_sample": {
+        "Sharpe": 1.3858591523231818,
+        "CAGR": 0.5661937978101812,
+        "MaxDD": -0.43918596160190637
+      },
+      "out_of_sample": {
+        "Sharpe": -0.08088023944291006,
+        "CAGR": -0.016198855319445538,
+        "MaxDD": -0.14532210221087638
+      }
+    },
+    "n_weight_days": 1795
+  },
+  "primary_tests": {
+    "weekly_minhold5d": {
+      "name": "01_weekly_minhold5d",
+      "description": "Weekly rebalance (5d) + 5-day minimum hold per name",
+      "turnover": {
+        "daily_gross_turnover": 0.2816181114003847,
+        "annualized_gross_turnover": 102.7906106611404,
+        "daily_one_way_turnover": 0.14080905570019234
+      },
+      "gross": {
+        "Sharpe": 0.9683722090399096,
+        "CAGR": 0.2488700549235412,
+        "MaxDD": -0.21013694227366442,
+        "trades": 1794,
+        "in_sample": {
+          "Sharpe": 1.1303746232290666,
+          "CAGR": 0.3250959313744397,
+          "MaxDD": -0.20594070307717893
+        },
+        "out_of_sample": {
+          "Sharpe": -0.2151012238594945,
+          "CAGR": -0.04374417782578621,
+          "MaxDD": -0.11996678244659864
+        }
+      },
+      "net": {
+        "Sharpe": 0.6008499779907294,
+        "CAGR": 0.1327467761796277,
+        "MaxDD": -0.3275335002645996,
+        "trades": 1794,
+        "in_sample": {
+          "Sharpe": 0.7848671218145513,
+          "CAGR": 0.20107799356159184,
+          "MaxDD": -0.2629548761666096
+        },
+        "out_of_sample": {
+          "Sharpe": -0.8274119899556455,
+          "CAGR": -0.13003038618815788,
+          "MaxDD": -0.1645329298496503
+        }
+      },
+      "n_weight_days": 1795
+    },
+    "weekly_no_trade_band": {
+      "name": "03_weekly_no_trade_band",
+      "description": "Weekly rebalance + 0.5% per-name no-trade band",
+      "turnover": {
+        "daily_gross_turnover": 0.2816181114003847,
+        "annualized_gross_turnover": 102.7906106611404,
+        "daily_one_way_turnover": 0.14080905570019234
+      },
+      "gross": {
+        "Sharpe": 0.9680443144220401,
+        "CAGR": 0.24891591012302117,
+        "MaxDD": -0.21073493920603303,
+        "trades": 1794,
+        "in_sample": {
+          "Sharpe": 1.1312133246976743,
+          "CAGR": 0.3255673516472579,
+          "MaxDD": -0.20594070307717893
+        },
+        "out_of_sample": {
+          "Sharpe": -0.22296180600860985,
+          "CAGR": -0.04508263391837375,
+          "MaxDD": -0.12015489350845299
+        }
+      },
+      "net": {
+        "Sharpe": 0.6007686171028079,
+        "CAGR": 0.13278869547613503,
+        "MaxDD": -0.328065308916903,
+        "trades": 1794,
+        "in_sample": {
+          "Sharpe": 0.785886565441424,
+          "CAGR": 0.20150842769522703,
+          "MaxDD": -0.26316302628706634
+        },
+        "out_of_sample": {
+          "Sharpe": -0.8332107134005315,
+          "CAGR": -0.13125689837464583,
+          "MaxDD": -0.16472243806614484
+        }
+      },
+      "n_weight_days": 1795
+    }
+  },
+  "baseline": {
+    "name": "00_baseline_daily",
+    "description": "Daily decile L/S continuation (reference)",
+    "turnover": {
+      "daily_gross_turnover": 1.201409875811035,
+      "annualized_gross_turnover": 438.51460467102777,
+      "daily_one_way_turnover": 0.6007049379055175
+    },
+    "gross": {
+      "Sharpe": 1.1978281450243096,
+      "CAGR": 0.3337252985366026,
+      "MaxDD": -0.33766737573852856,
+      "trades": 1794,
+      "in_sample": {
+        "Sharpe": 1.353270625039576,
+        "CAGR": 0.4197981343938215,
+        "MaxDD": -0.33766737573852856
+      },
+      "out_of_sample": {
+        "Sharpe": 0.11769685494822688,
+        "CAGR": 0.006187244910900169,
+        "MaxDD": -0.15877363471920303
+      }
+    },
+    "net": {
+      "Sharpe": -0.33669791255590165,
+      "CAGR": -0.12042880683531176,
+      "MaxDD": -0.7315855214914583,
+      "trades": 1795,
+      "in_sample": {
+        "Sharpe": -0.08540020793180761,
+        "CAGR": -0.06494793629550977,
+        "MaxDD": -0.5958690766184287
+      },
+      "out_of_sample": {
+        "Sharpe": -2.4676278664529714,
+        "CAGR": -0.33232295943572665,
+        "MaxDD": -0.3971428255166283
+      }
+    },
+    "n_weight_days": 1795
+  },
+  "lambda_variants": [
+    {
+      "name": "02_lambda_0p050",
+      "description": "Daily turnover-penalized optimizer (\u03bb=0.05)",
+      "turnover": {
+        "daily_gross_turnover": 0.03826607787728188,
+        "annualized_gross_turnover": 13.967118425207886,
+        "daily_one_way_turnover": 0.01913303893864094
+      },
+      "gross": {
+        "Sharpe": 1.2728133090213003,
+        "CAGR": 0.4584738420974732,
+        "MaxDD": -0.4593286268571515,
+        "trades": 1794,
+        "in_sample": {
+          "Sharpe": 1.428507019946842,
+          "CAGR": 0.5916405037672741,
+          "MaxDD": -0.43299789680347156
+        },
+        "out_of_sample": {
+          "Sharpe": -0.08088023944291006,
+          "CAGR": -0.016198855319445538,
+          "MaxDD": -0.14532210221087638
+        }
+      },
+      "net": {
+        "Sharpe": 1.2346825961939454,
+        "CAGR": 0.43936314048625524,
+        "MaxDD": -0.46522932717696486,
+        "trades": 1794,
+        "in_sample": {
+          "Sharpe": 1.3858591523231818,
+          "CAGR": 0.5661937978101812,
+          "MaxDD": -0.43918596160190637
+        },
+        "out_of_sample": {
+          "Sharpe": -0.08088023944291006,
+          "CAGR": -0.016198855319445538,
+          "MaxDD": -0.14532210221087638
+        }
+      },
+      "n_weight_days": 1795
+    },
+    {
+      "name": "02_lambda_0p020",
+      "description": "Daily turnover-penalized optimizer (\u03bb=0.02)",
+      "turnover": {
+        "daily_gross_turnover": 0.33889642128284286,
+        "annualized_gross_turnover": 123.69719376823764,
+        "daily_one_way_turnover": 0.16944821064142143
+      },
+      "gross": {
+        "Sharpe": 1.1342882991574972,
+        "CAGR": 0.3385192690602019,
+        "MaxDD": -0.33497848389471685,
+        "trades": 1794,
+        "in_sample": {
+          "Sharpe": 1.261367550415401,
+          "CAGR": 0.4188747687274852,
+          "MaxDD": -0.33497848389471685
+        },
+        "out_of_sample": {
+          "Sharpe": 0.25739893792315643,
+          "CAGR": 0.029275940583850746,
+          "MaxDD": -0.19472609845326816
+        }
+      },
+      "net": {
+        "Sharpe": 0.7376233764636778,
+        "CAGR": 0.1903628392452561,
+        "MaxDD": -0.40152021544118865,
+        "trades": 1795,
+        "in_sample": {
+          "Sharpe": 0.8121450452037412,
+          "CAGR": 0.23033371928761448,
+          "MaxDD": -0.40152021544118865
+        },
+        "out_of_sample": {
+          "Sharpe": 0.23662359288289933,
+          "CAGR": 0.025758951886019954,
+          "MaxDD": -0.19521846762408046
+        }
+      },
+      "n_weight_days": 1795
+    },
+    {
+      "name": "02_lambda_0p010",
+      "description": "Daily turnover-penalized optimizer (\u03bb=0.01)",
+      "turnover": {
+        "daily_gross_turnover": 0.6536599637065693,
+        "annualized_gross_turnover": 238.5858867528978,
+        "daily_one_way_turnover": 0.32682998185328466
+      },
+      "gross": {
+        "Sharpe": 1.2997345370681457,
+        "CAGR": 0.38482281629239834,
+        "MaxDD": -0.2977247955691624,
+        "trades": 1794,
+        "in_sample": {
+          "Sharpe": 1.3702321671555724,
+          "CAGR": 0.4238852605777865,
+          "MaxDD": -0.2977247955691624
+        },
+        "out_of_sample": {
+          "Sharpe": 0.9391017245837521,
+          "CAGR": 0.22167747565231233,
+          "MaxDD": -0.16272861128448146
+        }
+      },
+      "net": {
+        "Sharpe": 0.4937501790068092,
+        "CAGR": 0.10427323470185623,
+        "MaxDD": -0.3726704630371367,
+        "trades": 1795,
+        "in_sample": {
+          "Sharpe": 0.4415485920895585,
+          "CAGR": 0.08945089675716145,
+          "MaxDD": -0.3726704630371367
+        },
+        "out_of_sample": {
+          "Sharpe": 0.775375494621541,
+          "CAGR": 0.17360657711985605,
+          "MaxDD": -0.16614561631147884
+        }
+      },
+      "n_weight_days": 1795
+    },
+    {
+      "name": "02_lambda_0p005",
+      "description": "Daily turnover-penalized optimizer (\u03bb=0.005)",
+      "turnover": {
+        "daily_gross_turnover": 0.923243766557969,
+        "annualized_gross_turnover": 336.9839747936587,
+        "daily_one_way_turnover": 0.4616218832789845
+      },
+      "gross": {
+        "Sharpe": 1.2832921229381289,
+        "CAGR": 0.3603635403064773,
+        "MaxDD": -0.3179159231360733,
+        "trades": 1794,
+        "in_sample": {
+          "Sharpe": 1.3860601172382303,
+          "CAGR": 0.4232435660064422,
+          "MaxDD": -0.3179159231360733
+        },
+        "out_of_sample": {
+          "Sharpe": 0.6706475937076279,
+          "CAGR": 0.10975084619284581,
+          "MaxDD": -0.14110322456422209
+        }
+      },
+      "net": {
+        "Sharpe": 0.08916811798485384,
+        "CAGR": -0.012005270582328031,
+        "MaxDD": -0.5603238671587635,
+        "trades": 1795,
+        "in_sample": {
+          "Sharpe": 0.17846962128071597,
+          "CAGR": 0.01030626477947938,
+          "MaxDD": -0.4946689380468048
+        },
+        "out_of_sample": {
+          "Sharpe": -0.5406123346766243,
+          "CAGR": -0.1065870436293056,
+          "MaxDD": -0.22432829596190096
+        }
+      },
+      "n_weight_days": 1795
+    },
+    {
+      "name": "02_lambda_0p002",
+      "description": "Daily turnover-penalized optimizer (\u03bb=0.002)",
+      "turnover": {
+        "daily_gross_turnover": 1.0901434321098085,
+        "annualized_gross_turnover": 397.9023527200801,
+        "daily_one_way_turnover": 0.5450717160549042
+      },
+      "gross": {
+        "Sharpe": 1.239075852754918,
+        "CAGR": 0.34436215620284893,
+        "MaxDD": -0.3298192156475157,
+        "trades": 1794,
+        "in_sample": {
+          "Sharpe": 1.3713186923944372,
+          "CAGR": 0.4212871841462509,
+          "MaxDD": -0.3298192156475157
+        },
+        "out_of_sample": {
+          "Sharpe": 0.36297720275053,
+          "CAGR": 0.046219950193406634,
+          "MaxDD": -0.1512871537921887
+        }
+      },
+      "net": {
+        "Sharpe": -0.1708140904604234,
+        "CAGR": -0.07852919270923864,
+        "MaxDD": -0.6730306880478758,
+        "trades": 1795,
+        "in_sample": {
+          "Sharpe": 0.01776144671836334,
+          "CAGR": -0.035465274587973106,
+          "MaxDD": -0.5580280654854914
+        },
+        "out_of_sample": {
+          "Sharpe": -1.727589695318689,
+          "CAGR": -0.24993898082599664,
+          "MaxDD": -0.33043563574865153
+        }
+      },
+      "n_weight_days": 1795
+    }
+  ],
+  "all_variants": [
+    {
+      "name": "00_baseline_daily",
+      "description": "Daily decile L/S continuation (reference)",
+      "turnover": {
+        "daily_gross_turnover": 1.201409875811035,
+        "annualized_gross_turnover": 438.51460467102777,
+        "daily_one_way_turnover": 0.6007049379055175
+      },
+      "gross": {
+        "Sharpe": 1.1978281450243096,
+        "CAGR": 0.3337252985366026,
+        "MaxDD": -0.33766737573852856,
+        "trades": 1794,
+        "in_sample": {
+          "Sharpe": 1.353270625039576,
+          "CAGR": 0.4197981343938215,
+          "MaxDD": -0.33766737573852856
+        },
+        "out_of_sample": {
+          "Sharpe": 0.11769685494822688,
+          "CAGR": 0.006187244910900169,
+          "MaxDD": -0.15877363471920303
+        }
+      },
+      "net": {
+        "Sharpe": -0.33669791255590165,
+        "CAGR": -0.12042880683531176,
+        "MaxDD": -0.7315855214914583,
+        "trades": 1795,
+        "in_sample": {
+          "Sharpe": -0.08540020793180761,
+          "CAGR": -0.06494793629550977,
+          "MaxDD": -0.5958690766184287
+        },
+        "out_of_sample": {
+          "Sharpe": -2.4676278664529714,
+          "CAGR": -0.33232295943572665,
+          "MaxDD": -0.3971428255166283
+        }
+      },
+      "n_weight_days": 1795
+    },
+    {
+      "name": "01_weekly_minhold5d",
+      "description": "Weekly rebalance (5d) + 5-day minimum hold per name",
+      "turnover": {
+        "daily_gross_turnover": 0.2816181114003847,
+        "annualized_gross_turnover": 102.7906106611404,
+        "daily_one_way_turnover": 0.14080905570019234
+      },
+      "gross": {
+        "Sharpe": 0.9683722090399096,
+        "CAGR": 0.2488700549235412,
+        "MaxDD": -0.21013694227366442,
+        "trades": 1794,
+        "in_sample": {
+          "Sharpe": 1.1303746232290666,
+          "CAGR": 0.3250959313744397,
+          "MaxDD": -0.20594070307717893
+        },
+        "out_of_sample": {
+          "Sharpe": -0.2151012238594945,
+          "CAGR": -0.04374417782578621,
+          "MaxDD": -0.11996678244659864
+        }
+      },
+      "net": {
+        "Sharpe": 0.6008499779907294,
+        "CAGR": 0.1327467761796277,
+        "MaxDD": -0.3275335002645996,
+        "trades": 1794,
+        "in_sample": {
+          "Sharpe": 0.7848671218145513,
+          "CAGR": 0.20107799356159184,
+          "MaxDD": -0.2629548761666096
+        },
+        "out_of_sample": {
+          "Sharpe": -0.8274119899556455,
+          "CAGR": -0.13003038618815788,
+          "MaxDD": -0.1645329298496503
+        }
+      },
+      "n_weight_days": 1795
+    },
+    {
+      "name": "03_weekly_no_trade_band",
+      "description": "Weekly rebalance + 0.5% per-name no-trade band",
+      "turnover": {
+        "daily_gross_turnover": 0.2816181114003847,
+        "annualized_gross_turnover": 102.7906106611404,
+        "daily_one_way_turnover": 0.14080905570019234
+      },
+      "gross": {
+        "Sharpe": 0.9680443144220401,
+        "CAGR": 0.24891591012302117,
+        "MaxDD": -0.21073493920603303,
+        "trades": 1794,
+        "in_sample": {
+          "Sharpe": 1.1312133246976743,
+          "CAGR": 0.3255673516472579,
+          "MaxDD": -0.20594070307717893
+        },
+        "out_of_sample": {
+          "Sharpe": -0.22296180600860985,
+          "CAGR": -0.04508263391837375,
+          "MaxDD": -0.12015489350845299
+        }
+      },
+      "net": {
+        "Sharpe": 0.6007686171028079,
+        "CAGR": 0.13278869547613503,
+        "MaxDD": -0.328065308916903,
+        "trades": 1794,
+        "in_sample": {
+          "Sharpe": 0.785886565441424,
+          "CAGR": 0.20150842769522703,
+          "MaxDD": -0.26316302628706634
+        },
+        "out_of_sample": {
+          "Sharpe": -0.8332107134005315,
+          "CAGR": -0.13125689837464583,
+          "MaxDD": -0.16472243806614484
+        }
+      },
+      "n_weight_days": 1795
+    },
+    {
+      "name": "02_lambda_0p050",
+      "description": "Daily turnover-penalized optimizer (\u03bb=0.05)",
+      "turnover": {
+        "daily_gross_turnover": 0.03826607787728188,
+        "annualized_gross_turnover": 13.967118425207886,
+        "daily_one_way_turnover": 0.01913303893864094
+      },
+      "gross": {
+        "Sharpe": 1.2728133090213003,
+        "CAGR": 0.4584738420974732,
+        "MaxDD": -0.4593286268571515,
+        "trades": 1794,
+        "in_sample": {
+          "Sharpe": 1.428507019946842,
+          "CAGR": 0.5916405037672741,
+          "MaxDD": -0.43299789680347156
+        },
+        "out_of_sample": {
+          "Sharpe": -0.08088023944291006,
+          "CAGR": -0.016198855319445538,
+          "MaxDD": -0.14532210221087638
+        }
+      },
+      "net": {
+        "Sharpe": 1.2346825961939454,
+        "CAGR": 0.43936314048625524,
+        "MaxDD": -0.46522932717696486,
+        "trades": 1794,
+        "in_sample": {
+          "Sharpe": 1.3858591523231818,
+          "CAGR": 0.5661937978101812,
+          "MaxDD": -0.43918596160190637
+        },
+        "out_of_sample": {
+          "Sharpe": -0.08088023944291006,
+          "CAGR": -0.016198855319445538,
+          "MaxDD": -0.14532210221087638
+        }
+      },
+      "n_weight_days": 1795
+    },
+    {
+      "name": "02_lambda_0p020",
+      "description": "Daily turnover-penalized optimizer (\u03bb=0.02)",
+      "turnover": {
+        "daily_gross_turnover": 0.33889642128284286,
+        "annualized_gross_turnover": 123.69719376823764,
+        "daily_one_way_turnover": 0.16944821064142143
+      },
+      "gross": {
+        "Sharpe": 1.1342882991574972,
+        "CAGR": 0.3385192690602019,
+        "MaxDD": -0.33497848389471685,
+        "trades": 1794,
+        "in_sample": {
+          "Sharpe": 1.261367550415401,
+          "CAGR": 0.4188747687274852,
+          "MaxDD": -0.33497848389471685
+        },
+        "out_of_sample": {
+          "Sharpe": 0.25739893792315643,
+          "CAGR": 0.029275940583850746,
+          "MaxDD": -0.19472609845326816
+        }
+      },
+      "net": {
+        "Sharpe": 0.7376233764636778,
+        "CAGR": 0.1903628392452561,
+        "MaxDD": -0.40152021544118865,
+        "trades": 1795,
+        "in_sample": {
+          "Sharpe": 0.8121450452037412,
+          "CAGR": 0.23033371928761448,
+          "MaxDD": -0.40152021544118865
+        },
+        "out_of_sample": {
+          "Sharpe": 0.23662359288289933,
+          "CAGR": 0.025758951886019954,
+          "MaxDD": -0.19521846762408046
+        }
+      },
+      "n_weight_days": 1795
+    },
+    {
+      "name": "02_lambda_0p010",
+      "description": "Daily turnover-penalized optimizer (\u03bb=0.01)",
+      "turnover": {
+        "daily_gross_turnover": 0.6536599637065693,
+        "annualized_gross_turnover": 238.5858867528978,
+        "daily_one_way_turnover": 0.32682998185328466
+      },
+      "gross": {
+        "Sharpe": 1.2997345370681457,
+        "CAGR": 0.38482281629239834,
+        "MaxDD": -0.2977247955691624,
+        "trades": 1794,
+        "in_sample": {
+          "Sharpe": 1.3702321671555724,
+          "CAGR": 0.4238852605777865,
+          "MaxDD": -0.2977247955691624
+        },
+        "out_of_sample": {
+          "Sharpe": 0.9391017245837521,
+          "CAGR": 0.22167747565231233,
+          "MaxDD": -0.16272861128448146
+        }
+      },
+      "net": {
+        "Sharpe": 0.4937501790068092,
+        "CAGR": 0.10427323470185623,
+        "MaxDD": -0.3726704630371367,
+        "trades": 1795,
+        "in_sample": {
+          "Sharpe": 0.4415485920895585,
+          "CAGR": 0.08945089675716145,
+          "MaxDD": -0.3726704630371367
+        },
+        "out_of_sample": {
+          "Sharpe": 0.775375494621541,
+          "CAGR": 0.17360657711985605,
+          "MaxDD": -0.16614561631147884
+        }
+      },
+      "n_weight_days": 1795
+    },
+    {
+      "name": "02_lambda_0p005",
+      "description": "Daily turnover-penalized optimizer (\u03bb=0.005)",
+      "turnover": {
+        "daily_gross_turnover": 0.923243766557969,
+        "annualized_gross_turnover": 336.9839747936587,
+        "daily_one_way_turnover": 0.4616218832789845
+      },
+      "gross": {
+        "Sharpe": 1.2832921229381289,
+        "CAGR": 0.3603635403064773,
+        "MaxDD": -0.3179159231360733,
+        "trades": 1794,
+        "in_sample": {
+          "Sharpe": 1.3860601172382303,
+          "CAGR": 0.4232435660064422,
+          "MaxDD": -0.3179159231360733
+        },
+        "out_of_sample": {
+          "Sharpe": 0.6706475937076279,
+          "CAGR": 0.10975084619284581,
+          "MaxDD": -0.14110322456422209
+        }
+      },
+      "net": {
+        "Sharpe": 0.08916811798485384,
+        "CAGR": -0.012005270582328031,
+        "MaxDD": -0.5603238671587635,
+        "trades": 1795,
+        "in_sample": {
+          "Sharpe": 0.17846962128071597,
+          "CAGR": 0.01030626477947938,
+          "MaxDD": -0.4946689380468048
+        },
+        "out_of_sample": {
+          "Sharpe": -0.5406123346766243,
+          "CAGR": -0.1065870436293056,
+          "MaxDD": -0.22432829596190096
+        }
+      },
+      "n_weight_days": 1795
+    },
+    {
+      "name": "02_lambda_0p002",
+      "description": "Daily turnover-penalized optimizer (\u03bb=0.002)",
+      "turnover": {
+        "daily_gross_turnover": 1.0901434321098085,
+        "annualized_gross_turnover": 397.9023527200801,
+        "daily_one_way_turnover": 0.5450717160549042
+      },
+      "gross": {
+        "Sharpe": 1.239075852754918,
+        "CAGR": 0.34436215620284893,
+        "MaxDD": -0.3298192156475157,
+        "trades": 1794,
+        "in_sample": {
+          "Sharpe": 1.3713186923944372,
+          "CAGR": 0.4212871841462509,
+          "MaxDD": -0.3298192156475157
+        },
+        "out_of_sample": {
+          "Sharpe": 0.36297720275053,
+          "CAGR": 0.046219950193406634,
+          "MaxDD": -0.1512871537921887
+        }
+      },
+      "net": {
+        "Sharpe": -0.1708140904604234,
+        "CAGR": -0.07852919270923864,
+        "MaxDD": -0.6730306880478758,
+        "trades": 1795,
+        "in_sample": {
+          "Sharpe": 0.01776144671836334,
+          "CAGR": -0.035465274587973106,
+          "MaxDD": -0.5580280654854914
+        },
+        "out_of_sample": {
+          "Sharpe": -1.727589695318689,
+          "CAGR": -0.24993898082599664,
+          "MaxDD": -0.33043563574865153
+        }
+      },
+      "n_weight_days": 1795
+    }
+  ]
+}
