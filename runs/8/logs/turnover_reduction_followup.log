@@ -1,0 +1,27 @@
+# execution: turnover_reduction_followup.py
+
+## stdout
+{
+  "baseline_net_sharpe": -0.33669791255590165,
+  "weekly_minhold5d": {
+    "net_sharpe": 0.6008499779907294,
+    "gross_sharpe": 0.9683722090399096,
+    "turnover": 102.7906106611404
+  },
+  "weekly_no_trade_band": {
+    "net_sharpe": 0.6007686171028079,
+    "gross_sharpe": 0.9680443144220401,
+    "turnover": 102.7906106611404
+  },
+  "best_lambda": {
+    "name": "02_lambda_0p050",
+    "net_sharpe": 1.2346825961939454,
+    "gross_sharpe": 1.2728133090213003,
+    "turnover": 13.967118425207886
+  }
+}
+
+
+## stderr
+
+
