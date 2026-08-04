@@ -1,0 +1,74 @@
+{
+  "in_sample": {
+    "Sharpe": 0.6370642460047368,
+    "CAGR": 0.1127497961682391,
+    "MaxDD": -0.29380601303980813,
+    "n_days": 1827
+  },
+  "out_of_sample": {
+    "Sharpe": 1.6581689467084073,
+    "CAGR": 0.0927656182225709,
+    "MaxDD": -0.03200477430237614,
+    "n_days": 573
+  },
+  "full": {
+    "Sharpe": 0.6729412043433057,
+    "CAGR": 0.10794561060729868,
+    "MaxDD": -0.29380601303980813,
+    "n_days": 2400
+  },
+  "strategy_snapshot": {
+    "spec_version": 2,
+    "workflow": "multi_asset_triangular_pairs",
+    "execution_mode": "custom_engine",
+    "symbol": "UNIVERSE",
+    "oos_start_ts": "2025-01-01 00:00:00+00:00",
+    "strategy_type": "MEAN_REVERSION",
+    "params": {
+      "n_triangles": 10,
+      "window": 120,
+      "entry_z": 2.5,
+      "exit_z": 0.5,
+      "weight_cap": 0.15,
+      "adf_max": 0.05
+    },
+    "triangles": [
+      "SFPUSDT|BTCUSDT|BNBUSDT",
+      "SFPUSDT|BNBUSDT|SOLUSDT",
+      "SFPUSDT|BTCUSDT|ETHUSDT",
+      "SFPUSDT|BTCUSDT|SOLUSDT",
+      "DOGEUSDT|BNBUSDT|SOLUSDT",
+      "DOGEUSDT|ETHUSDT|SOLUSDT",
+      "DOGEUSDT|BTCUSDT|BNBUSDT",
+      "DOGEUSDT|BTCUSDT|SOLUSDT",
+      "SFPUSDT|ETHUSDT|BNBUSDT",
+      "SFPUSDT|ETHUSDT|SOLUSDT"
+    ],
+    "costs": {
+      "fee": 0.00045,
+      "slippage": 0.0005,
+      "cost_per_leg": 0.00095
+    },
+    "signal_lag_bars": 1
+  },
+  "yearly_sharpes_is": {
+    "2020": NaN,
+    "2021": 0.9845480070490686,
+    "2022": 0.7511318650266268,
+    "2023": 0.8984139727998556,
+    "2024": 0.46131125083240154
+  },
+  "triangles": [
+    "SFPUSDT|BTCUSDT|BNBUSDT",
+    "SFPUSDT|BNBUSDT|SOLUSDT",
+    "SFPUSDT|BTCUSDT|ETHUSDT",
+    "SFPUSDT|BTCUSDT|SOLUSDT",
+    "DOGEUSDT|BNBUSDT|SOLUSDT",
+    "DOGEUSDT|ETHUSDT|SOLUSDT",
+    "DOGEUSDT|BTCUSDT|BNBUSDT",
+    "DOGEUSDT|BTCUSDT|SOLUSDT",
+    "SFPUSDT|ETHUSDT|BNBUSDT",
+    "SFPUSDT|ETHUSDT|SOLUSDT"
+  ],
+  "selection_method": "IS-only robust_score (see artifacts/is_best_params.json)"
+}

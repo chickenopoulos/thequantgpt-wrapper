@@ -60,7 +60,11 @@ Durable memory lives in `runs/<run_id>/run.json` — read it before follow-ups.
 
 Self-contained studies outside the `runs/<id>/` workflow live under `research/`:
 
-- `research/triangular-pairs-trading/` — statistical triangular pairs on Binance USDT-M perps (see project README)
+- `research/triangular-pairs-trading/` — statistical triangular pairs on Binance USDT-M perps (legacy standalone; see canonical run below)
+
+Canonical TQG run (IS-selected, OOS holdout):
+
+- `runs/triangular_pairs/` — daily triangular pairs with IS robust_score selection + PSA
 
 ## Data loading
 

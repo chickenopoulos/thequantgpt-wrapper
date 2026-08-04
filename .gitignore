@@ -19,6 +19,7 @@ data/**/*.feather
 runs/**/*
 !runs/.gitkeep
 !runs/demo_btc_mr/**
+!runs/triangular_pairs/**
 
 reports/**/*
 !reports/.gitkeep

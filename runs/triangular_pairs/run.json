@@ -1,0 +1,54 @@
+{
+  "run_id": "triangular_pairs",
+  "title": "Triangular pairs (Binance perps)",
+  "created_at": "2026-08-04T22:07:05.846566+00:00",
+  "root": "runs/triangular_pairs",
+  "status": "baseline_complete",
+  "numeric_id": null,
+  "source": "cursor_agent",
+  "symbol": "UNIVERSE",
+  "oos_start_ts": "2025-01-01T00:00:00+00:00",
+  "workflow": "multi_asset_triangular_pairs",
+  "strategy_type": "MEAN_REVERSION",
+  "last_scope": null,
+  "strategy_spec_path": "strategy_spec.json",
+  "artifacts": {
+    "metrics": {
+      "path": "runs/triangular_pairs/artifacts/metrics.json",
+      "format": "json"
+    },
+    "drawdown": {
+      "path": "runs/triangular_pairs/charts/drawdown.png",
+      "format": "png"
+    },
+    "equity_curve": {
+      "path": "runs/triangular_pairs/charts/equity_curve.png",
+      "format": "png"
+    },
+    "psa_heatmap": {
+      "path": "runs/triangular_pairs/charts/psa_heatmap.png",
+      "format": "png"
+    },
+    "strategy_spec": {
+      "path": "runs/triangular_pairs/strategy_spec.json",
+      "format": "json"
+    },
+    "report": {
+      "path": "runs/triangular_pairs/report.md",
+      "format": "md"
+    }
+  },
+  "completed_steps": [
+    "baseline"
+  ],
+  "defaults": {
+    "oos_start": "2025-01-01",
+    "fee": 0.00045,
+    "slippage": 0.0005,
+    "interval": "1d"
+  },
+  "validation_passed": true,
+  "last_validation_at": "2026-08-04T22:20:07.362244+00:00",
+  "last_execution_at": "2026-08-04T22:20:07.362244+00:00",
+  "last_error": null
+}
