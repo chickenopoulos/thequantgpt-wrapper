@@ -1,0 +1,1460 @@
+{
+  "oos_start": "2025-01-01",
+  "costs": {
+    "fee": 0.00045,
+    "slippage": 0.0005
+  },
+  "grid": {
+    "rebalance_days": [
+      1,
+      3,
+      5
+    ],
+    "hysteresis_bands": [
+      {
+        "name": "none",
+        "entry_pct": null,
+        "exit_pct": null
+      },
+      {
+        "name": "e08_x15",
+        "entry_pct": 0.08,
+        "exit_pct": 0.15
+      },
+      {
+        "name": "e10_x20",
+        "entry_pct": 0.1,
+        "exit_pct": 0.2
+      }
+    ],
+    "turnover_blend": [
+      1.0,
+      0.5,
+      0.25
+    ],
+    "n_configs": 27
+  },
+  "baseline": {
+    "name": "rb1_none_b1",
+    "description": "rebalance every 1d, no hysteresis, blend=1 toward target",
+    "params": {
+      "rebalance_days": 1,
+      "hysteresis": "none",
+      "entry_pct": null,
+      "exit_pct": null,
+      "blend": 1.0
+    },
+    "turnover": {
+      "daily_gross_turnover": 1.201409875811035,
+      "annualized_gross_turnover": 438.51460467102777,
+      "daily_one_way_turnover": 0.6007049379055175
+    },
+    "gross": {
+      "Sharpe": 1.1978281450243096,
+      "CAGR": 0.3337252985366026,
+      "MaxDD": -0.33766737573852856,
+      "trades": 1794,
+      "in_sample": {
+        "Sharpe": 1.353270625039576,
+        "CAGR": 0.4197981343938215,
+        "MaxDD": -0.33766737573852856
+      },
+      "out_of_sample": {
+        "Sharpe": 0.11769685494822688,
+        "CAGR": 0.006187244910900169,
+        "MaxDD": -0.15877363471920303
+      }
+    },
+    "net": {
+      "Sharpe": -0.33669791255590165,
+      "CAGR": -0.12042880683531176,
+      "MaxDD": -0.7315855214914583,
+      "trades": 1795,
+      "in_sample": {
+        "Sharpe": -0.08540020793180761,
+        "CAGR": -0.06494793629550977,
+        "MaxDD": -0.5958690766184287
+      },
+      "out_of_sample": {
+        "Sharpe": -2.4676278664529714,
+        "CAGR": -0.33232295943572665,
+        "MaxDD": -0.3971428255166283
+      }
+    },
+    "n_weight_days": 1795
+  },
+  "best": {
+    "name": "rb3_e10_x20_b0.25",
+    "description": "rebalance every 3d, hysteresis enter 10%/exit 20%, blend=0.25 toward target",
+    "params": {
+      "rebalance_days": 3,
+      "hysteresis": "e10_x20",
+      "entry_pct": 0.1,
+      "exit_pct": 0.2,
+      "blend": 0.25
+    },
+    "turnover": {
+      "daily_gross_turnover": 0.10311766173523387,
+      "annualized_gross_turnover": 37.63794653336036,
+      "daily_one_way_turnover": 0.05155883086761694
+    },
+    "gross": {
+      "Sharpe": 1.8026443159688388,
+      "CAGR": 0.3727757372459646,
+      "MaxDD": -0.13950212866380407,
+      "trades": 1794,
+      "in_sample": {
+        "Sharpe": 2.0269214316172377,
+        "CAGR": 0.46747011360214685,
+        "MaxDD": -0.13950212866380407
+      },
+      "out_of_sample": {
+        "Sharpe": 0.2107708269335295,
+        "CAGR": 0.01638524030605959,
+        "MaxDD": -0.07338053167511938
+      }
+    },
+    "net": {
+      "Sharpe": 1.6105040178162162,
+      "CAGR": 0.32464039217349727,
+      "MaxDD": -0.14125127230138246,
+      "trades": 1795,
+      "in_sample": {
+        "Sharpe": 1.8459015910842125,
+        "CAGR": 0.4153878383556766,
+        "MaxDD": -0.14125127230138246
+      },
+      "out_of_sample": {
+        "Sharpe": -0.12171593679178,
+        "CAGR": -0.01729571711775313,
+        "MaxDD": -0.08994722200880301
+      }
+    },
+    "n_weight_days": 1795
+  },
+  "variants": [
+    {
+      "name": "rb3_e10_x20_b0.25",
+      "description": "rebalance every 3d, hysteresis enter 10%/exit 20%, blend=0.25 toward target",
+      "params": {
+        "rebalance_days": 3,
+        "hysteresis": "e10_x20",
+        "entry_pct": 0.1,
+        "exit_pct": 0.2,
+        "blend": 0.25
+      },
+      "turnover": {
+        "daily_gross_turnover": 0.10311766173523387,
+        "annualized_gross_turnover": 37.63794653336036,
+        "daily_one_way_turnover": 0.05155883086761694
+      },
+      "gross": {
+        "Sharpe": 1.8026443159688388,
+        "CAGR": 0.3727757372459646,
+        "MaxDD": -0.13950212866380407,
+        "trades": 1794,
+        "in_sample": {
+          "Sharpe": 2.0269214316172377,
+          "CAGR": 0.46747011360214685,
+          "MaxDD": -0.13950212866380407
+        },
+        "out_of_sample": {
+          "Sharpe": 0.2107708269335295,
+          "CAGR": 0.01638524030605959,
+          "MaxDD": -0.07338053167511938
+        }
+      },
+      "net": {
+        "Sharpe": 1.6105040178162162,
+        "CAGR": 0.32464039217349727,
+        "MaxDD": -0.14125127230138246,
+        "trades": 1795,
+        "in_sample": {
+          "Sharpe": 1.8459015910842125,
+          "CAGR": 0.4153878383556766,
+          "MaxDD": -0.14125127230138246
+        },
+        "out_of_sample": {
+          "Sharpe": -0.12171593679178,
+          "CAGR": -0.01729571711775313,
+          "MaxDD": -0.08994722200880301
+        }
+      },
+      "n_weight_days": 1795
+    },
+    {
+      "name": "rb3_e08_x15_b0.25",
+      "description": "rebalance every 3d, hysteresis enter 8%/exit 15%, blend=0.25 toward target",
+      "params": {
+        "rebalance_days": 3,
+        "hysteresis": "e08_x15",
+        "entry_pct": 0.08,
+        "exit_pct": 0.15,
+        "blend": 0.25
+      },
+      "turnover": {
+        "daily_gross_turnover": 0.1121690665596617,
+        "annualized_gross_turnover": 40.94170929427652,
+        "daily_one_way_turnover": 0.05608453327983085
+      },
+      "gross": {
+        "Sharpe": 1.7567167312379948,
+        "CAGR": 0.3839686239156628,
+        "MaxDD": -0.1527178211465524,
+        "trades": 1794,
+        "in_sample": {
+          "Sharpe": 1.9460126604224035,
+          "CAGR": 0.4734870850018147,
+          "MaxDD": -0.1527178211465524
+        },
+        "out_of_sample": {
+          "Sharpe": 0.4544870754152527,
+          "CAGR": 0.04344328332616909,
+          "MaxDD": -0.07154207921967126
+        }
+      },
+      "net": {
+        "Sharpe": 1.559115891450019,
+        "CAGR": 0.33126850163230404,
+        "MaxDD": -0.15934184507447302,
+        "trades": 1795,
+        "in_sample": {
+          "Sharpe": 1.76056814016215,
+          "CAGR": 0.41685657440365986,
+          "MaxDD": -0.15934184507447302
+        },
+        "out_of_sample": {
+          "Sharpe": 0.10333680124495642,
+          "CAGR": 0.0053761850568896374,
+          "MaxDD": -0.08694888067054662
+        }
+      },
+      "n_weight_days": 1795
+    },
+    {
+      "name": "rb3_e10_x20_b0.5",
+      "description": "rebalance every 3d, hysteresis enter 10%/exit 20%, blend=0.5 toward target",
+      "params": {
+        "rebalance_days": 3,
+        "hysteresis": "e10_x20",
+        "entry_pct": 0.1,
+        "exit_pct": 0.2,
+        "blend": 0.5
+      },
+      "turnover": {
+        "daily_gross_turnover": 0.18973373984246972,
+        "annualized_gross_turnover": 69.25281504250145,
+        "daily_one_way_turnover": 0.09486686992123486
+      },
+      "gross": {
+        "Sharpe": 1.824272508564381,
+        "CAGR": 0.4221972072804343,
+        "MaxDD": -0.15206616835027242,
+        "trades": 1794,
+        "in_sample": {
+          "Sharpe": 2.089429139450399,
+          "CAGR": 0.544245613068322,
+          "MaxDD": -0.15206616835027242
+        },
+        "out_of_sample": {
+          "Sharpe": -0.11035252000546636,
+          "CAGR": -0.01862280958484952,
+          "MaxDD": -0.08826999516175982
+        }
+      },
+      "net": {
+        "Sharpe": 1.5039240176645807,
+        "CAGR": 0.33180314710813064,
+        "MaxDD": -0.15954387950479376,
+        "trades": 1795,
+        "in_sample": {
+          "Sharpe": 1.7871485497021398,
+          "CAGR": 0.44481855476811116,
+          "MaxDD": -0.15708379366086234
+        },
+        "out_of_sample": {
+          "Sharpe": -0.6571241620087699,
+          "CAGR": -0.07733660307647328,
+          "MaxDD": -0.11811697719363734
+        }
+      },
+      "n_weight_days": 1795
+    },
+    {
+      "name": "rb3_none_b0.25",
+      "description": "rebalance every 3d, no hysteresis, blend=0.25 toward target",
+      "params": {
+        "rebalance_days": 3,
+        "hysteresis": "none",
+        "entry_pct": null,
+        "exit_pct": null,
+        "blend": 0.25
+      },
+      "turnover": {
+        "daily_gross_turnover": 0.12061748956817833,
+        "annualized_gross_turnover": 44.02538369238509,
+        "daily_one_way_turnover": 0.060308744784089166
+      },
+      "gross": {
+        "Sharpe": 1.7035490153369217,
+        "CAGR": 0.357432926069021,
+        "MaxDD": -0.15215131248742741,
+        "trades": 1794,
+        "in_sample": {
+          "Sharpe": 1.9030940520682817,
+          "CAGR": 0.44425819580858583,
+          "MaxDD": -0.15215131248742741
+        },
+        "out_of_sample": {
+          "Sharpe": 0.30446778747469755,
+          "CAGR": 0.026559460650553035,
+          "MaxDD": -0.06863346694765715
+        }
+      },
+      "net": {
+        "Sharpe": 1.4842788585442799,
+        "CAGR": 0.30192335011039084,
+        "MaxDD": -0.15674676098203033,
+        "trades": 1795,
+        "in_sample": {
+          "Sharpe": 1.6973641947385065,
+          "CAGR": 0.38470176445909665,
+          "MaxDD": -0.15674676098203033
+        },
+        "out_of_sample": {
+          "Sharpe": -0.0827772295688447,
+          "CAGR": -0.013828504251964469,
+          "MaxDD": -0.08868024832982513
+        }
+      },
+      "n_weight_days": 1795
+    },
+    {
+      "name": "rb3_e08_x15_b0.5",
+      "description": "rebalance every 3d, hysteresis enter 8%/exit 15%, blend=0.5 toward target",
+      "params": {
+        "rebalance_days": 3,
+        "hysteresis": "e08_x15",
+        "entry_pct": 0.08,
+        "exit_pct": 0.15,
+        "blend": 0.5
+      },
+      "turnover": {
+        "daily_gross_turnover": 0.20819883362635386,
+        "annualized_gross_turnover": 75.99257427361916,
+        "daily_one_way_turnover": 0.10409941681317693
+      },
+      "gross": {
+        "Sharpe": 1.7353921543239155,
+        "CAGR": 0.4395105575468481,
+        "MaxDD": -0.17475926108543938,
+        "trades": 1794,
+        "in_sample": {
+          "Sharpe": 1.936427858472682,
+          "CAGR": 0.5504476791647095,
+          "MaxDD": -0.17475926108543938
+        },
+        "out_of_sample": {
+          "Sharpe": 0.310018084196,
+          "CAGR": 0.03021264251724398,
+          "MaxDD": -0.0823526171025245
+        }
+      },
+      "net": {
+        "Sharpe": 1.4150167916424863,
+        "CAGR": 0.3394372638363736,
+        "MaxDD": -0.17850848955676846,
+        "trades": 1795,
+        "in_sample": {
+          "Sharpe": 1.6359750123525842,
+          "CAGR": 0.44162944023787887,
+          "MaxDD": -0.17850848955676846
+        },
+        "out_of_sample": {
+          "Sharpe": -0.2704142122368239,
+          "CAGR": -0.038308484516661134,
+          "MaxDD": -0.1156017203405626
+        }
+      },
+      "n_weight_days": 1795
+    },
+    {
+      "name": "rb5_e10_x20_b0.25",
+      "description": "rebalance every 5d, hysteresis enter 10%/exit 20%, blend=0.25 toward target",
+      "params": {
+        "rebalance_days": 5,
+        "hysteresis": "e10_x20",
+        "entry_pct": 0.1,
+        "exit_pct": 0.2,
+        "blend": 0.25
+      },
+      "turnover": {
+        "daily_gross_turnover": 0.06381485221836385,
+        "annualized_gross_turnover": 23.292421059702804,
+        "daily_one_way_turnover": 0.03190742610918192
+      },
+      "gross": {
+        "Sharpe": 1.4929162769224402,
+        "CAGR": 0.2726747604983897,
+        "MaxDD": -0.15078232999545593,
+        "trades": 1794,
+        "in_sample": {
+          "Sharpe": 1.677398372347337,
+          "CAGR": 0.33688740721252874,
+          "MaxDD": -0.14266827307493601
+        },
+        "out_of_sample": {
+          "Sharpe": 0.23983055335705888,
+          "CAGR": 0.01950175204077187,
+          "MaxDD": -0.061286492501336665
+        }
+      },
+      "net": {
+        "Sharpe": 1.363751169989902,
+        "CAGR": 0.24485242616834868,
+        "MaxDD": -0.16304206983003577,
+        "trades": 1794,
+        "in_sample": {
+          "Sharpe": 1.5548149076840043,
+          "CAGR": 0.30720243769451816,
+          "MaxDD": -0.15305389373340794
+        },
+        "out_of_sample": {
+          "Sharpe": 0.03923545212562076,
+          "CAGR": -0.0012075519407062085,
+          "MaxDD": -0.06612789804000041
+        }
+      },
+      "n_weight_days": 1795
+    },
+    {
+      "name": "rb5_e08_x15_b0.5",
+      "description": "rebalance every 5d, hysteresis enter 8%/exit 15%, blend=0.5 toward target",
+      "params": {
+        "rebalance_days": 5,
+        "hysteresis": "e08_x15",
+        "entry_pct": 0.08,
+        "exit_pct": 0.15,
+        "blend": 0.5
+      },
+      "turnover": {
+        "daily_gross_turnover": 0.13029574562383797,
+        "annualized_gross_turnover": 47.55794715270086,
+        "daily_one_way_turnover": 0.06514787281191899
+      },
+      "gross": {
+        "Sharpe": 1.5405885836645568,
+        "CAGR": 0.3429034580853778,
+        "MaxDD": -0.1677072359370405,
+        "trades": 1794,
+        "in_sample": {
+          "Sharpe": 1.640978773677579,
+          "CAGR": 0.39894237210320216,
+          "MaxDD": -0.1677072359370405
+        },
+        "out_of_sample": {
+          "Sharpe": 0.9702072599849006,
+          "CAGR": 0.11696154085456145,
+          "MaxDD": -0.07617229838639683
+        }
+      },
+      "net": {
+        "Sharpe": 1.319773436909172,
+        "CAGR": 0.28363313664747225,
+        "MaxDD": -0.18789977642068412,
+        "trades": 1794,
+        "in_sample": {
+          "Sharpe": 1.4319634712187848,
+          "CAGR": 0.3364253091482261,
+          "MaxDD": -0.17981646946395136
+        },
+        "out_of_sample": {
+          "Sharpe": 0.6188165749252463,
+          "CAGR": 0.07045043011037988,
+          "MaxDD": -0.07729602355345522
+        }
+      },
+      "n_weight_days": 1795
+    },
+    {
+      "name": "rb5_e10_x20_b0.5",
+      "description": "rebalance every 5d, hysteresis enter 10%/exit 20%, blend=0.5 toward target",
+      "params": {
+        "rebalance_days": 5,
+        "hysteresis": "e10_x20",
+        "entry_pct": 0.1,
+        "exit_pct": 0.2,
+        "blend": 0.5
+      },
+      "turnover": {
+        "daily_gross_turnover": 0.11957292084784019,
+        "annualized_gross_turnover": 43.64411610946167,
+        "daily_one_way_turnover": 0.05978646042392009
+      },
+      "gross": {
+        "Sharpe": 1.5301481331553017,
+        "CAGR": 0.3073575274664928,
+        "MaxDD": -0.1578271925609226,
+        "trades": 1794,
+        "in_sample": {
+          "Sharpe": 1.72392481229412,
+          "CAGR": 0.38160115317745236,
+          "MaxDD": -0.14517607983936887
+        },
+        "out_of_sample": {
+          "Sharpe": 0.22469029532280255,
+          "CAGR": 0.019294745893898124,
+          "MaxDD": -0.07348843931961702
+        }
+      },
+      "net": {
+        "Sharpe": 1.3076612843403461,
+        "CAGR": 0.25431379307830326,
+        "MaxDD": -0.1834785206215408,
+        "trades": 1794,
+        "in_sample": {
+          "Sharpe": 1.5117484341788645,
+          "CAGR": 0.32452258390261624,
+          "MaxDD": -0.1638608711198264
+        },
+        "out_of_sample": {
+          "Sharpe": -0.10819761198427845,
+          "CAGR": -0.01865475361611857,
+          "MaxDD": -0.08157659520542448
+        }
+      },
+      "n_weight_days": 1795
+    },
+    {
+      "name": "rb5_e08_x15_b0.25",
+      "description": "rebalance every 5d, hysteresis enter 8%/exit 15%, blend=0.25 toward target",
+      "params": {
+        "rebalance_days": 5,
+        "hysteresis": "e08_x15",
+        "entry_pct": 0.08,
+        "exit_pct": 0.15,
+        "blend": 0.25
+      },
+      "turnover": {
+        "daily_gross_turnover": 0.06916580878510907,
+        "annualized_gross_turnover": 25.245520206564812,
+        "daily_one_way_turnover": 0.034582904392554535
+      },
+      "gross": {
+        "Sharpe": 1.4021577611342468,
+        "CAGR": 0.26229042124808255,
+        "MaxDD": -0.17170699146812696,
+        "trades": 1794,
+        "in_sample": {
+          "Sharpe": 1.516939015237642,
+          "CAGR": 0.30925976479637174,
+          "MaxDD": -0.17170699146812696
+        },
+        "out_of_sample": {
+          "Sharpe": 0.6947888053487965,
+          "CAGR": 0.07068702133514537,
+          "MaxDD": -0.06388507348854788
+        }
+      },
+      "net": {
+        "Sharpe": 1.266786814150512,
+        "CAGR": 0.23240428402581959,
+        "MaxDD": -0.1736274720799471,
+        "trades": 1794,
+        "in_sample": {
+          "Sharpe": 1.3888489277722282,
+          "CAGR": 0.2778907073885122,
+          "MaxDD": -0.1736274720799471
+        },
+        "out_of_sample": {
+          "Sharpe": 0.4810191541461446,
+          "CAGR": 0.04670506220289794,
+          "MaxDD": -0.06470796466113604
+        }
+      },
+      "n_weight_days": 1795
+    },
+    {
+      "name": "rb3_none_b0.5",
+      "description": "rebalance every 3d, no hysteresis, blend=0.5 toward target",
+      "params": {
+        "rebalance_days": 3,
+        "hysteresis": "none",
+        "entry_pct": null,
+        "exit_pct": null,
+        "blend": 0.5
+      },
+      "turnover": {
+        "daily_gross_turnover": 0.23592808362891846,
+        "annualized_gross_turnover": 86.11375052455524,
+        "daily_one_way_turnover": 0.11796404181445923
+      },
+      "gross": {
+        "Sharpe": 1.6301119653245624,
+        "CAGR": 0.3896232308000862,
+        "MaxDD": -0.17907829923440466,
+        "trades": 1794,
+        "in_sample": {
+          "Sharpe": 1.8277649967020766,
+          "CAGR": 0.4884491065516354,
+          "MaxDD": -0.17907829923440466
+        },
+        "out_of_sample": {
+          "Sharpe": 0.2246869564293436,
+          "CAGR": 0.019642335922601006,
+          "MaxDD": -0.07401622279628439
+        }
+      },
+      "net": {
+        "Sharpe": 1.2528952298026914,
+        "CAGR": 0.28064770670547134,
+        "MaxDD": -0.18645305083890096,
+        "trades": 1795,
+        "in_sample": {
+          "Sharpe": 1.4740329946274806,
+          "CAGR": 0.37075629293071133,
+          "MaxDD": -0.18645305083890096
+        },
+        "out_of_sample": {
+          "Sharpe": -0.4471027626807906,
+          "CAGR": -0.057327295552434765,
+          "MaxDD": -0.11243144819792783
+        }
+      },
+      "n_weight_days": 1795
+    },
+    {
+      "name": "rb5_e08_x15_b1",
+      "description": "rebalance every 5d, hysteresis enter 8%/exit 15%, blend=1 toward target",
+      "params": {
+        "rebalance_days": 5,
+        "hysteresis": "e08_x15",
+        "entry_pct": 0.08,
+        "exit_pct": 0.15,
+        "blend": 1.0
+      },
+      "turnover": {
+        "daily_gross_turnover": 0.23991362694493715,
+        "annualized_gross_turnover": 87.56847383490206,
+        "daily_one_way_turnover": 0.11995681347246857
+      },
+      "gross": {
+        "Sharpe": 1.5549772539655364,
+        "CAGR": 0.4555764570455807,
+        "MaxDD": -0.17580843861497863,
+        "trades": 1794,
+        "in_sample": {
+          "Sharpe": 1.6381977068833828,
+          "CAGR": 0.5262938827985535,
+          "MaxDD": -0.17580843861497863
+        },
+        "out_of_sample": {
+          "Sharpe": 1.1303473941899564,
+          "CAGR": 0.17542382173309723,
+          "MaxDD": -0.08828738531267699
+        }
+      },
+      "net": {
+        "Sharpe": 1.2387246952682163,
+        "CAGR": 0.3394741033448263,
+        "MaxDD": -0.22569008843135452,
+        "trades": 1794,
+        "in_sample": {
+          "Sharpe": 1.339506924868953,
+          "CAGR": 0.4032437912740583,
+          "MaxDD": -0.22569008843135452
+        },
+        "out_of_sample": {
+          "Sharpe": 0.6144531739365762,
+          "CAGR": 0.08621492983268553,
+          "MaxDD": -0.10287594541462519
+        }
+      },
+      "n_weight_days": 1795
+    },
+    {
+      "name": "rb5_none_b0.25",
+      "description": "rebalance every 5d, no hysteresis, blend=0.25 toward target",
+      "params": {
+        "rebalance_days": 5,
+        "hysteresis": "none",
+        "entry_pct": null,
+        "exit_pct": null,
+        "blend": 0.25
+      },
+      "turnover": {
+        "daily_gross_turnover": 0.07374756683170969,
+        "annualized_gross_turnover": 26.917861893574035,
+        "daily_one_way_turnover": 0.036873783415854844
+      },
+      "gross": {
+        "Sharpe": 1.3265025745883892,
+        "CAGR": 0.2431821133135894,
+        "MaxDD": -0.1578244336320197,
+        "trades": 1794,
+        "in_sample": {
+          "Sharpe": 1.4967770289815756,
+          "CAGR": 0.30180420668222596,
+          "MaxDD": -0.1526281539457247
+        },
+        "out_of_sample": {
+          "Sharpe": 0.14881120831743905,
+          "CAGR": 0.010096478808176768,
+          "MaxDD": -0.062072012654466935
+        }
+      },
+      "net": {
+        "Sharpe": 1.180812393348001,
+        "CAGR": 0.21182098169668362,
+        "MaxDD": -0.17266011593156183,
+        "trades": 1794,
+        "in_sample": {
+          "Sharpe": 1.3594608214841024,
+          "CAGR": 0.2686566819004339,
+          "MaxDD": -0.16482599979232948
+        },
+        "out_of_sample": {
+          "Sharpe": -0.08810730251575898,
+          "CAGR": -0.014308636472211367,
+          "MaxDD": -0.07358853405719545
+        }
+      },
+      "n_weight_days": 1795
+    },
+    {
+      "name": "rb1_e08_x15_b0.25",
+      "description": "rebalance every 1d, hysteresis enter 8%/exit 15%, blend=0.25 toward target",
+      "params": {
+        "rebalance_days": 1,
+        "hysteresis": "e08_x15",
+        "entry_pct": 0.08,
+        "exit_pct": 0.15,
+        "blend": 0.25
+      },
+      "turnover": {
+        "daily_gross_turnover": 0.29887115720720525,
+        "annualized_gross_turnover": 109.08797238062992,
+        "daily_one_way_turnover": 0.14943557860360263
+      },
+      "gross": {
+        "Sharpe": 1.6359412948523866,
+        "CAGR": 0.38983174985778835,
+        "MaxDD": -0.21013436381373685,
+        "trades": 1794,
+        "in_sample": {
+          "Sharpe": 1.7670062138390916,
+          "CAGR": 0.46581429599684965,
+          "MaxDD": -0.21013436381373685
+        },
+        "out_of_sample": {
+          "Sharpe": 0.8243574817640213,
+          "CAGR": 0.09344048200332855,
+          "MaxDD": -0.0735103653525595
+        }
+      },
+      "net": {
+        "Sharpe": 1.15510964959114,
+        "CAGR": 0.2531797444069499,
+        "MaxDD": -0.21740991639910645,
+        "trades": 1795,
+        "in_sample": {
+          "Sharpe": 1.3170037287547405,
+          "CAGR": 0.32084975207105804,
+          "MaxDD": -0.21740991639910645
+        },
+        "out_of_sample": {
+          "Sharpe": -0.03892984255044236,
+          "CAGR": -0.011235175776876272,
+          "MaxDD": -0.11875501533798305
+        }
+      },
+      "n_weight_days": 1795
+    },
+    {
+      "name": "rb1_e10_x20_b0.25",
+      "description": "rebalance every 1d, hysteresis enter 10%/exit 20%, blend=0.25 toward target",
+      "params": {
+        "rebalance_days": 1,
+        "hysteresis": "e10_x20",
+        "entry_pct": 0.1,
+        "exit_pct": 0.2,
+        "blend": 0.25
+      },
+      "turnover": {
+        "daily_gross_turnover": 0.2730210600835785,
+        "annualized_gross_turnover": 99.65268693050616,
+        "daily_one_way_turnover": 0.13651053004178926
+      },
+      "gross": {
+        "Sharpe": 1.5995269278966227,
+        "CAGR": 0.3440976774140556,
+        "MaxDD": -0.19568904165735435,
+        "trades": 1794,
+        "in_sample": {
+          "Sharpe": 1.7836935431901022,
+          "CAGR": 0.4260586482837281,
+          "MaxDD": -0.19568904165735435
+        },
+        "out_of_sample": {
+          "Sharpe": 0.3203994648662316,
+          "CAGR": 0.02942241206121743,
+          "MaxDD": -0.07796094974132362
+        }
+      },
+      "net": {
+        "Sharpe": 1.119365614545934,
+        "CAGR": 0.22283231127919545,
+        "MaxDD": -0.202434510497976,
+        "trades": 1795,
+        "in_sample": {
+          "Sharpe": 1.332464612235785,
+          "CAGR": 0.2963066568128674,
+          "MaxDD": -0.202434510497976
+        },
+        "out_of_sample": {
+          "Sharpe": -0.5125710699203396,
+          "CAGR": -0.059892244346233525,
+          "MaxDD": -0.11956641211039842
+        }
+      },
+      "n_weight_days": 1795
+    },
+    {
+      "name": "rb5_e10_x20_b1",
+      "description": "rebalance every 5d, hysteresis enter 10%/exit 20%, blend=1 toward target",
+      "params": {
+        "rebalance_days": 5,
+        "hysteresis": "e10_x20",
+        "entry_pct": 0.1,
+        "exit_pct": 0.2,
+        "blend": 1.0
+      },
+      "turnover": {
+        "daily_gross_turnover": 0.21536911976584638,
+        "annualized_gross_turnover": 78.60972871453393,
+        "daily_one_way_turnover": 0.10768455988292319
+      },
+      "gross": {
+        "Sharpe": 1.3798119526050934,
+        "CAGR": 0.3370539383240294,
+        "MaxDD": -0.16639337017357592,
+        "trades": 1794,
+        "in_sample": {
+          "Sharpe": 1.562974656940418,
+          "CAGR": 0.42336022014614794,
+          "MaxDD": -0.15796216383582284
+        },
+        "out_of_sample": {
+          "Sharpe": 0.1310592136792339,
+          "CAGR": 0.00863894148965394,
+          "MaxDD": -0.108231490820205
+        }
+      },
+      "net": {
+        "Sharpe": 1.0542167018410777,
+        "CAGR": 0.24092858228536507,
+        "MaxDD": -0.2114637963328625,
+        "trades": 1794,
+        "in_sample": {
+          "Sharpe": 1.2522892986728384,
+          "CAGR": 0.31918942815504203,
+          "MaxDD": -0.1909181434313173
+        },
+        "out_of_sample": {
+          "Sharpe": -0.35839716860362353,
+          "CAGR": -0.05797559215453674,
+          "MaxDD": -0.12288913722077233
+        }
+      },
+      "n_weight_days": 1795
+    },
+    {
+      "name": "rb3_e10_x20_b1",
+      "description": "rebalance every 3d, hysteresis enter 10%/exit 20%, blend=1 toward target",
+      "params": {
+        "rebalance_days": 3,
+        "hysteresis": "e10_x20",
+        "entry_pct": 0.1,
+        "exit_pct": 0.2,
+        "blend": 1.0
+      },
+      "turnover": {
+        "daily_gross_turnover": 0.3426624578250256,
+        "annualized_gross_turnover": 125.07179710613434,
+        "daily_one_way_turnover": 0.1713312289125128
+      },
+      "gross": {
+        "Sharpe": 1.5174651839727928,
+        "CAGR": 0.4062333020471989,
+        "MaxDD": -0.18585718826878106,
+        "trades": 1794,
+        "in_sample": {
+          "Sharpe": 1.7531142899640964,
+          "CAGR": 0.5290468690788905,
+          "MaxDD": -0.18585718826878106
+        },
+        "out_of_sample": {
+          "Sharpe": -0.19184625583321316,
+          "CAGR": -0.03572944911303788,
+          "MaxDD": -0.11478903389179118
+        }
+      },
+      "net": {
+        "Sharpe": 1.0318293395182054,
+        "CAGR": 0.24891417126957327,
+        "MaxDD": -0.24590052712130372,
+        "trades": 1795,
+        "in_sample": {
+          "Sharpe": 1.293381833643394,
+          "CAGR": 0.35564239393420105,
+          "MaxDD": -0.19944942196112692
+        },
+        "out_of_sample": {
+          "Sharpe": -0.9866800009313846,
+          "CAGR": -0.1369068999258356,
+          "MaxDD": -0.1556187792365149
+        }
+      },
+      "n_weight_days": 1795
+    },
+    {
+      "name": "rb5_none_b0.5",
+      "description": "rebalance every 5d, no hysteresis, blend=0.5 toward target",
+      "params": {
+        "rebalance_days": 5,
+        "hysteresis": "none",
+        "entry_pct": null,
+        "exit_pct": null,
+        "blend": 0.5
+      },
+      "turnover": {
+        "daily_gross_turnover": 0.14600704810372256,
+        "annualized_gross_turnover": 53.29257255785873,
+        "daily_one_way_turnover": 0.07300352405186128
+      },
+      "gross": {
+        "Sharpe": 1.2453209206839606,
+        "CAGR": 0.2578864791494615,
+        "MaxDD": -0.17308539672266887,
+        "trades": 1794,
+        "in_sample": {
+          "Sharpe": 1.4070998675696182,
+          "CAGR": 0.321569993606323,
+          "MaxDD": -0.16497581341275191
+        },
+        "out_of_sample": {
+          "Sharpe": 0.11711206642728123,
+          "CAGR": 0.006909920893999111,
+          "MaxDD": -0.07335093094701761
+        }
+      },
+      "net": {
+        "Sharpe": 0.9922520335294811,
+        "CAGR": 0.19583236633058299,
+        "MaxDD": -0.21029328830073624,
+        "trades": 1794,
+        "in_sample": {
+          "Sharpe": 1.1684265697030318,
+          "CAGR": 0.2557245604334659,
+          "MaxDD": -0.18946847515320853
+        },
+        "out_of_sample": {
+          "Sharpe": -0.2961880975958263,
+          "CAGR": -0.040529308118885,
+          "MaxDD": -0.08646371092915994
+        }
+      },
+      "n_weight_days": 1795
+    },
+    {
+      "name": "rb1_none_b0.25",
+      "description": "rebalance every 1d, no hysteresis, blend=0.25 toward target",
+      "params": {
+        "rebalance_days": 1,
+        "hysteresis": "none",
+        "entry_pct": null,
+        "exit_pct": null,
+        "blend": 0.25
+      },
+      "turnover": {
+        "daily_gross_turnover": 0.3306761724760859,
+        "annualized_gross_turnover": 120.69680295377135,
+        "daily_one_way_turnover": 0.16533808623804294
+      },
+      "gross": {
+        "Sharpe": 1.5149626157230287,
+        "CAGR": 0.3349926382296604,
+        "MaxDD": -0.20159643444370123,
+        "trades": 1794,
+        "in_sample": {
+          "Sharpe": 1.6837628579657338,
+          "CAGR": 0.41303498995071375,
+          "MaxDD": -0.20159643444370123
+        },
+        "out_of_sample": {
+          "Sharpe": 0.3486001895979158,
+          "CAGR": 0.033461476628603215,
+          "MaxDD": -0.07917532815534045
+        }
+      },
+      "net": {
+        "Sharpe": 0.9547255346048927,
+        "CAGR": 0.19052706924247587,
+        "MaxDD": -0.21167567242837182,
+        "trades": 1795,
+        "in_sample": {
+          "Sharpe": 1.1586155104021578,
+          "CAGR": 0.25915642353232315,
+          "MaxDD": -0.21167567242837182
+        },
+        "out_of_sample": {
+          "Sharpe": -0.6387777571857102,
+          "CAGR": -0.07517811591291379,
+          "MaxDD": -0.1296815969271512
+        }
+      },
+      "n_weight_days": 1795
+    },
+    {
+      "name": "rb3_e08_x15_b1",
+      "description": "rebalance every 3d, hysteresis enter 8%/exit 15%, blend=1 toward target",
+      "params": {
+        "rebalance_days": 3,
+        "hysteresis": "e08_x15",
+        "entry_pct": 0.08,
+        "exit_pct": 0.15,
+        "blend": 1.0
+      },
+      "turnover": {
+        "daily_gross_turnover": 0.3816765770156495,
+        "annualized_gross_turnover": 139.31195061071207,
+        "daily_one_way_turnover": 0.19083828850782475
+      },
+      "gross": {
+        "Sharpe": 1.277969244237432,
+        "CAGR": 0.3751123752525205,
+        "MaxDD": -0.26252923869124956,
+        "trades": 1794,
+        "in_sample": {
+          "Sharpe": 1.4017171056788933,
+          "CAGR": 0.45814277377627577,
+          "MaxDD": -0.26252923869124956
+        },
+        "out_of_sample": {
+          "Sharpe": 0.4437132249678292,
+          "CAGR": 0.05585338200267875,
+          "MaxDD": -0.09211829162056329
+        }
+      },
+      "net": {
+        "Sharpe": 0.8054259303937152,
+        "CAGR": 0.2048809034410901,
+        "MaxDD": -0.28307906139894246,
+        "trades": 1795,
+        "in_sample": {
+          "Sharpe": 0.9588751146058606,
+          "CAGR": 0.2760078315140755,
+          "MaxDD": -0.2758297703046597
+        },
+        "out_of_sample": {
+          "Sharpe": -0.417818946718345,
+          "CAGR": -0.06953547547016381,
+          "MaxDD": -0.11991188241295025
+        }
+      },
+      "n_weight_days": 1795
+    },
+    {
+      "name": "rb1_e10_x20_b0.5",
+      "description": "rebalance every 1d, hysteresis enter 10%/exit 20%, blend=0.5 toward target",
+      "params": {
+        "rebalance_days": 1,
+        "hysteresis": "e10_x20",
+        "entry_pct": 0.1,
+        "exit_pct": 0.2,
+        "blend": 0.5
+      },
+      "turnover": {
+        "daily_gross_turnover": 0.4890829785270612,
+        "annualized_gross_turnover": 178.51528716237732,
+        "daily_one_way_turnover": 0.2445414892635306
+      },
+      "gross": {
+        "Sharpe": 1.4376970503711866,
+        "CAGR": 0.3225195116950992,
+        "MaxDD": -0.2067414981965856,
+        "trades": 1794,
+        "in_sample": {
+          "Sharpe": 1.6150947836005487,
+          "CAGR": 0.4016975885650327,
+          "MaxDD": -0.2067414981965856
+        },
+        "out_of_sample": {
+          "Sharpe": 0.20573440484494723,
+          "CAGR": 0.017682004173124932,
+          "MaxDD": -0.09542440832722299
+        }
+      },
+      "net": {
+        "Sharpe": 0.6295779049655951,
+        "CAGR": 0.11642314407842802,
+        "MaxDD": -0.27819960460312354,
+        "trades": 1795,
+        "in_sample": {
+          "Sharpe": 0.8554133959354504,
+          "CAGR": 0.1818266221143754,
+          "MaxDD": -0.22382077472764894
+        },
+        "out_of_sample": {
+          "Sharpe": -1.1587485369678745,
+          "CAGR": -0.13619656903917265,
+          "MaxDD": -0.18252585347107175
+        }
+      },
+      "n_weight_days": 1795
+    },
+    {
+      "name": "rb5_none_b1",
+      "description": "rebalance every 5d, no hysteresis, blend=1 toward target",
+      "params": {
+        "rebalance_days": 5,
+        "hysteresis": "none",
+        "entry_pct": null,
+        "exit_pct": null,
+        "blend": 1.0
+      },
+      "turnover": {
+        "daily_gross_turnover": 0.28161811140038473,
+        "annualized_gross_turnover": 102.79061066114042,
+        "daily_one_way_turnover": 0.14080905570019236
+      },
+      "gross": {
+        "Sharpe": 0.9683722090399098,
+        "CAGR": 0.2488700549235412,
+        "MaxDD": -0.21013694227366442,
+        "trades": 1794,
+        "in_sample": {
+          "Sharpe": 1.1303746232290666,
+          "CAGR": 0.3250959313744397,
+          "MaxDD": -0.20594070307717915
+        },
+        "out_of_sample": {
+          "Sharpe": -0.2151012238594943,
+          "CAGR": -0.04374417782578621,
+          "MaxDD": -0.11996678244659864
+        }
+      },
+      "net": {
+        "Sharpe": 0.6008499779907294,
+        "CAGR": 0.1327467761796277,
+        "MaxDD": -0.3275335002645996,
+        "trades": 1794,
+        "in_sample": {
+          "Sharpe": 0.7848671218145514,
+          "CAGR": 0.20107799356159184,
+          "MaxDD": -0.2629548761666096
+        },
+        "out_of_sample": {
+          "Sharpe": -0.8274119899556456,
+          "CAGR": -0.13003038618815788,
+          "MaxDD": -0.1645329298496503
+        }
+      },
+      "n_weight_days": 1795
+    },
+    {
+      "name": "rb1_e08_x15_b0.5",
+      "description": "rebalance every 1d, hysteresis enter 8%/exit 15%, blend=0.5 toward target",
+      "params": {
+        "rebalance_days": 1,
+        "hysteresis": "e08_x15",
+        "entry_pct": 0.08,
+        "exit_pct": 0.15,
+        "blend": 0.5
+      },
+      "turnover": {
+        "daily_gross_turnover": 0.5412032281238482,
+        "annualized_gross_turnover": 197.5391782652046,
+        "daily_one_way_turnover": 0.2706016140619241
+      },
+      "gross": {
+        "Sharpe": 1.4082456107538002,
+        "CAGR": 0.34664193462625703,
+        "MaxDD": -0.24821004154567816,
+        "trades": 1794,
+        "in_sample": {
+          "Sharpe": 1.5148732204143291,
+          "CAGR": 0.40973187556031276,
+          "MaxDD": -0.24821004154567816
+        },
+        "out_of_sample": {
+          "Sharpe": 0.7638503613100344,
+          "CAGR": 0.09559592942854733,
+          "MaxDD": -0.10266671293426599
+        }
+      },
+      "net": {
+        "Sharpe": 0.5933415453410643,
+        "CAGR": 0.1164530762628353,
+        "MaxDD": -0.2798918041579853,
+        "trades": 1795,
+        "in_sample": {
+          "Sharpe": 0.7516436819574763,
+          "CAGR": 0.16782455925910877,
+          "MaxDD": -0.25827251285896224
+        },
+        "out_of_sample": {
+          "Sharpe": -0.6437169608036404,
+          "CAGR": -0.08840164607797951,
+          "MaxDD": -0.17728152572693612
+        }
+      },
+      "n_weight_days": 1795
+    },
+    {
+      "name": "rb3_none_b1",
+      "description": "rebalance every 3d, no hysteresis, blend=1 toward target",
+      "params": {
+        "rebalance_days": 3,
+        "hysteresis": "none",
+        "entry_pct": null,
+        "exit_pct": null,
+        "blend": 1.0
+      },
+      "turnover": {
+        "daily_gross_turnover": 0.45396678756319686,
+        "annualized_gross_turnover": 165.69787746056684,
+        "daily_one_way_turnover": 0.22698339378159843
+      },
+      "gross": {
+        "Sharpe": 1.1294372049376635,
+        "CAGR": 0.31926472128767625,
+        "MaxDD": -0.28528740691952714,
+        "trades": 1794,
+        "in_sample": {
+          "Sharpe": 1.2471935565468377,
+          "CAGR": 0.39125055957250776,
+          "MaxDD": -0.28528740691952714
+        },
+        "out_of_sample": {
+          "Sharpe": 0.323848490745059,
+          "CAGR": 0.03838900516878696,
+          "MaxDD": -0.09772896440734369
+        }
+      },
+      "net": {
+        "Sharpe": 0.5675080747546339,
+        "CAGR": 0.1273228218840632,
+        "MaxDD": -0.30360022206450143,
+        "trades": 1795,
+        "in_sample": {
+          "Sharpe": 0.7214142925912068,
+          "CAGR": 0.18767826431327772,
+          "MaxDD": -0.30360022206450143
+        },
+        "out_of_sample": {
+          "Sharpe": -0.6810914548831413,
+          "CAGR": -0.10878590508157726,
+          "MaxDD": -0.14238489234289764
+        }
+      },
+      "n_weight_days": 1795
+    },
+    {
+      "name": "rb1_none_b0.5",
+      "description": "rebalance every 1d, no hysteresis, blend=0.5 toward target",
+      "params": {
+        "rebalance_days": 1,
+        "hysteresis": "none",
+        "entry_pct": null,
+        "exit_pct": null,
+        "blend": 0.5
+      },
+      "turnover": {
+        "daily_gross_turnover": 0.6339638294553918,
+        "annualized_gross_turnover": 231.396797751218,
+        "daily_one_way_turnover": 0.3169819147276959
+      },
+      "gross": {
+        "Sharpe": 1.2805504396929808,
+        "CAGR": 0.2986545109063683,
+        "MaxDD": -0.24834130077982752,
+        "trades": 1794,
+        "in_sample": {
+          "Sharpe": 1.4325354623533562,
+          "CAGR": 0.3699192847940702,
+          "MaxDD": -0.24834130077982752
+        },
+        "out_of_sample": {
+          "Sharpe": 0.22578268124068865,
+          "CAGR": 0.02081068959950838,
+          "MaxDD": -0.10615062257232522
+        }
+      },
+      "net": {
+        "Sharpe": 0.2983510700130258,
+        "CAGR": 0.04258737531399137,
+        "MaxDD": -0.4155472802192822,
+        "trades": 1795,
+        "in_sample": {
+          "Sharpe": 0.5118054278260408,
+          "CAGR": 0.09853339121836391,
+          "MaxDD": -0.3025083932105811
+        },
+        "out_of_sample": {
+          "Sharpe": -1.4691503217728632,
+          "CAGR": -0.1762041679266536,
+          "MaxDD": -0.22434239076116724
+        }
+      },
+      "n_weight_days": 1795
+    },
+    {
+      "name": "rb1_e10_x20_b1",
+      "description": "rebalance every 1d, hysteresis enter 10%/exit 20%, blend=1 toward target",
+      "params": {
+        "rebalance_days": 1,
+        "hysteresis": "e10_x20",
+        "entry_pct": 0.1,
+        "exit_pct": 0.2,
+        "blend": 1.0
+      },
+      "turnover": {
+        "daily_gross_turnover": 0.8654157160248618,
+        "annualized_gross_turnover": 315.8767363490746,
+        "daily_one_way_turnover": 0.4327078580124309
+      },
+      "gross": {
+        "Sharpe": 1.4377223904262528,
+        "CAGR": 0.3650394357250828,
+        "MaxDD": -0.2276551274301798,
+        "trades": 1794,
+        "in_sample": {
+          "Sharpe": 1.6477389795845434,
+          "CAGR": 0.46702693569249987,
+          "MaxDD": -0.2276551274301798
+        },
+        "out_of_sample": {
+          "Sharpe": -0.02537210889442662,
+          "CAGR": -0.013413396726147275,
+          "MaxDD": -0.1486171714001676
+        }
+      },
+      "net": {
+        "Sharpe": 0.1656706727613579,
+        "CAGR": 0.011445095189035692,
+        "MaxDD": -0.5159203066255774,
+        "trades": 1795,
+        "in_sample": {
+          "Sharpe": 0.44839062763059906,
+          "CAGR": 0.08474051786676906,
+          "MaxDD": -0.346460341888265
+        },
+        "out_of_sample": {
+          "Sharpe": -2.081070304570716,
+          "CAGR": -0.2620449032577785,
+          "MaxDD": -0.3204581872693357
+        }
+      },
+      "n_weight_days": 1795
+    },
+    {
+      "name": "rb1_e08_x15_b1",
+      "description": "rebalance every 1d, hysteresis enter 8%/exit 15%, blend=1 toward target",
+      "params": {
+        "rebalance_days": 1,
+        "hysteresis": "e08_x15",
+        "entry_pct": 0.08,
+        "exit_pct": 0.15,
+        "blend": 1.0
+      },
+      "turnover": {
+        "daily_gross_turnover": 0.9740261778787651,
+        "annualized_gross_turnover": 355.5195549257493,
+        "daily_one_way_turnover": 0.48701308893938255
+      },
+      "gross": {
+        "Sharpe": 1.3372124815680937,
+        "CAGR": 0.38332706952675233,
+        "MaxDD": -0.29806582251099023,
+        "trades": 1794,
+        "in_sample": {
+          "Sharpe": 1.4717973537822218,
+          "CAGR": 0.4665545064134018,
+          "MaxDD": -0.29806582251099023
+        },
+        "out_of_sample": {
+          "Sharpe": 0.4599402452511675,
+          "CAGR": 0.06313694657713409,
+          "MaxDD": -0.18494764671863317
+        }
+      },
+      "net": {
+        "Sharpe": 0.0865727100910657,
+        "CAGR": -0.012858434675139585,
+        "MaxDD": -0.5223753578552799,
+        "trades": 1795,
+        "in_sample": {
+          "Sharpe": 0.297997711431468,
+          "CAGR": 0.04548490853661158,
+          "MaxDD": -0.371208131282315
+        },
+        "out_of_sample": {
+          "Sharpe": -1.6065729160969275,
+          "CAGR": -0.2379140379281549,
+          "MaxDD": -0.3229734027398834
+        }
+      },
+      "n_weight_days": 1795
+    },
+    {
+      "name": "rb1_none_b1",
+      "description": "rebalance every 1d, no hysteresis, blend=1 toward target",
+      "params": {
+        "rebalance_days": 1,
+        "hysteresis": "none",
+        "entry_pct": null,
+        "exit_pct": null,
+        "blend": 1.0
+      },
+      "turnover": {
+        "daily_gross_turnover": 1.201409875811035,
+        "annualized_gross_turnover": 438.51460467102777,
+        "daily_one_way_turnover": 0.6007049379055175
+      },
+      "gross": {
+        "Sharpe": 1.1978281450243096,
+        "CAGR": 0.3337252985366026,
+        "MaxDD": -0.33766737573852856,
+        "trades": 1794,
+        "in_sample": {
+          "Sharpe": 1.353270625039576,
+          "CAGR": 0.4197981343938215,
+          "MaxDD": -0.33766737573852856
+        },
+        "out_of_sample": {
+          "Sharpe": 0.11769685494822688,
+          "CAGR": 0.006187244910900169,
+          "MaxDD": -0.15877363471920303
+        }
+      },
+      "net": {
+        "Sharpe": -0.33669791255590165,
+        "CAGR": -0.12042880683531176,
+        "MaxDD": -0.7315855214914583,
+        "trades": 1795,
+        "in_sample": {
+          "Sharpe": -0.08540020793180761,
+          "CAGR": -0.06494793629550977,
+          "MaxDD": -0.5958690766184287
+        },
+        "out_of_sample": {
+          "Sharpe": -2.4676278664529714,
+          "CAGR": -0.33232295943572665,
+          "MaxDD": -0.3971428255166283
+        }
+      },
+      "n_weight_days": 1795
+    }
+  ]
+}
