@@ -1,0 +1,97 @@
+{
+  "strategy": "beta_hedged_funding_harvest_short_carry",
+  "config": {
+    "fund_window": 7,
+    "beta_window": 120,
+    "top_pct": 0.15,
+    "min_abs_funding": 3e-05,
+    "rebalance_days": 5,
+    "liquidity_top_n": 75,
+    "long_short": false,
+    "vol_adjust": false,
+    "portfolio_hedge": false
+  },
+  "in_sample": {
+    "Sharpe": 0.8454263913886249,
+    "CAGR": 0.23547315933924584,
+    "MaxDD": -0.29634506165510255,
+    "n_days": 1737
+  },
+  "out_of_sample": {
+    "Sharpe": 1.345250285995211,
+    "CAGR": 0.46163785225784504,
+    "MaxDD": -0.1940505752620737,
+    "n_days": 326
+  },
+  "full_sample": {
+    "Sharpe": 0.9277568446601385,
+    "CAGR": 0.268732206260446,
+    "MaxDD": -0.29634506165510255,
+    "n_days": 2063
+  },
+  "yearly": [
+    {
+      "year": 2020,
+      "Sharpe": 1.0805508150168799,
+      "CAGR": 0.35324556086144043,
+      "MaxDD": -0.21179429237702985,
+      "n_days": 276
+    },
+    {
+      "year": 2021,
+      "Sharpe": 0.1481549070658015,
+      "CAGR": -0.01479296278048281,
+      "MaxDD": -0.2758532567072812,
+      "n_days": 365
+    },
+    {
+      "year": 2022,
+      "Sharpe": 0.9273349364789912,
+      "CAGR": 0.22593946293719158,
+      "MaxDD": -0.2514992608286293,
+      "n_days": 365
+    },
+    {
+      "year": 2023,
+      "Sharpe": 0.7501800521428443,
+      "CAGR": 0.17152579893742348,
+      "MaxDD": -0.24083058400249258,
+      "n_days": 365
+    },
+    {
+      "year": 2024,
+      "Sharpe": 1.5888229987210174,
+      "CAGR": 0.536117672432642,
+      "MaxDD": -0.18310566814361462,
+      "n_days": 366
+    },
+    {
+      "year": 2025,
+      "Sharpe": 1.345250285995211,
+      "CAGR": 0.46163785225784504,
+      "MaxDD": -0.1940505752620737,
+      "n_days": 326
+    }
+  ],
+  "universe": {
+    "n_symbols": 328,
+    "start": "2020-03-30 00:00:00+00:00",
+    "end": "2025-11-22 00:00:00+00:00"
+  },
+  "costs": {
+    "fee": 0.00045,
+    "slippage": 0.0005
+  },
+  "annualization": 365,
+  "oos_start_ts": "2025-01-01 00:00:00+00:00",
+  "research_notes": {
+    "funding_units": "Coinglass percent / 100; daily accrual from 8h payments when hourly available",
+    "best_variant": "short_only high-funding basket with per-leg BTC beta hedge",
+    "rejected_variants": [
+      "long/short funding deciles (OOS Sharpe ~0.29)",
+      "carry spread signal vs BTC",
+      "momentum filter on shorts",
+      "OI-weighted funding signal"
+    ]
+  }
+}

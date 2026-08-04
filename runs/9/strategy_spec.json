@@ -1,0 +1,35 @@
+{
+  "title": "Beta-hedged funding harvest",
+  "strategy_type": "CARRY",
+  "asset_class": "crypto",
+  "universe": "binance_futures_usdt_perpetuals",
+  "hedge_instrument": "BTCUSDT",
+  "data_sources": {
+    "ohlcv": "data/binance/binance_futures_ohlcv_1d.parquet",
+    "funding": "data/coinglass/futures_funding_rate (8h sum / daily fallback)",
+    "oi": "data/coinglass/futures_open_interest_history_ohlc_binance_1d.parquet"
+  },
+  "annualization": 365,
+  "oos_start_ts": "2025-01-01 00:00:00+00:00",
+  "hypothesis": "Short alt perps with the highest smoothed funding (longs paying shorts), receive carry, and hedge BTC beta with BTCUSDT perp to isolate funding from directional beta risk.",
+  "params": {
+    "fund_window": 7,
+    "beta_window": 120,
+    "top_pct": 0.15,
+    "min_abs_funding": 3e-05,
+    "rebalance_days": 5,
+    "liquidity_top_n": 75,
+    "long_short": false,
+    "vol_adjust": false,
+    "portfolio_hedge": false
+  },
+  "metrics_summary": {
+    "full_sharpe": 0.9277568446601385,
+    "is_sharpe": 0.8454263913886249,
+    "oos_sharpe": 1.345250285995211,
+    "full_cagr": 0.268732206260446,
+    "oos_cagr": 0.46163785225784504,
+    "full_maxdd": -0.29634506165510255,
+    "oos_maxdd": -0.1940505752620737
+  }
+}
