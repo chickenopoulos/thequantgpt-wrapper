@@ -1,0 +1,12 @@
+# execution: beta_funding_harvest.py
+
+## stdout
+IS Sharpe:  0.845
+OOS Sharpe: 1.345
+Full CAGR:  26.87%
+OOS MaxDD:  -19.41%
+
+
+## stderr
+
+

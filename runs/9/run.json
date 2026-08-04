@@ -1,0 +1,54 @@
+{
+  "run_id": "9",
+  "title": "Beta-hedged funding harvest",
+  "created_at": "2026-08-04T01:11:59.032817+00:00",
+  "root": "runs/9",
+  "status": "baseline_complete",
+  "numeric_id": 9,
+  "source": "cursor_agent",
+  "symbol": null,
+  "oos_start_ts": "2025-01-01 00:00:00+00:00",
+  "workflow": null,
+  "strategy_type": "CARRY",
+  "last_scope": null,
+  "strategy_spec_path": "strategy_spec.json",
+  "artifacts": {
+    "metrics": {
+      "path": "runs/9/artifacts/metrics.json",
+      "format": "json"
+    },
+    "equity_curve": {
+      "path": "runs/9/charts/equity_curve.png",
+      "format": "png"
+    },
+    "oos_equity_curve": {
+      "path": "runs/9/charts/oos_equity_curve.png",
+      "format": "png"
+    },
+    "strategy_spec": {
+      "path": "runs/9/strategy_spec.json",
+      "format": "json"
+    },
+    "report": {
+      "path": "runs/9/report.md",
+      "format": "md"
+    },
+    "best_enhanced_equity": {
+      "path": "runs/9/charts/best_enhanced_equity.png",
+      "format": "png"
+    }
+  },
+  "completed_steps": [
+    "baseline"
+  ],
+  "defaults": {
+    "oos_start": "2025-01-01",
+    "fee": 0.00045,
+    "slippage": 0.0005,
+    "interval": "1d"
+  },
+  "validation_passed": true,
+  "last_validation_at": "2026-08-04T01:43:17.787129+00:00",
+  "last_execution_at": "2026-08-04T01:43:17.787129+00:00",
+  "last_error": null
+}
