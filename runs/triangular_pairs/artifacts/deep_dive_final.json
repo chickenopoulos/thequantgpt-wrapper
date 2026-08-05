@@ -1,0 +1,17 @@
+{
+  "champion": "daily_static",
+  "params": {
+    "n_triangles": 10,
+    "window": 120,
+    "entry_z": 2.5,
+    "exit_z": 0.5,
+    "weight_cap": 0.15,
+    "adf_max": 0.05
+  },
+  "is_sharpe": 0.6370642460047368,
+  "oos_sharpe": 1.6581689467084073,
+  "oos_max_dd": -0.03200477430237614,
+  "wf_min": 0.46131125083240154,
+  "bootstrap_is_p5": -0.03502219803831563,
+  "elapsed_sec": 155.47376656532288
+}

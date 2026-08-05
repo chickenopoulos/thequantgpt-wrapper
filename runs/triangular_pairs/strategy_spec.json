@@ -33,5 +33,6 @@
     "DOGEUSDT|BTCUSDT|SOLUSDT",
     "SFPUSDT|ETHUSDT|BNBUSDT",
     "SFPUSDT|ETHUSDT|SOLUSDT"
-  ]
+  ],
+  "variant": "daily_static"
 }

@@ -1,11 +1,17 @@
-# Triangular pairs — baseline (IS-selected robust config)
+# Triangular pairs — deep-dive champion
 
-## Selection
-- Triangle universe: IS discovery only (pre-2025-01-01)
-- Parameters: IS grid search ranked by **robust_score** (Sharpe + yearly stability + drawdown penalty)
-- OOS segment: single holdout, **not used for tuning**
+## Selection (IS only — OOS never used for tuning)
 
-## Parameters
+Screened **114 variants** across:
+- 108 daily-static param combos (cached IS discovery)
+- 5 hourly-exec + 6 hourly-native configs
+
+**Hourly and hourly-native variants scored negative IS composite** (failed walk-forward fold stability). Daily static dominates.
+
+Fine PSA (36 configs around winner) confirmed: `window=120, entry_z=2.5, exit_z=0.5, weight_cap=0.15`.
+
+## Champion: `daily_static`
+
 ```json
 {
   "n_triangles": 10,
@@ -17,7 +23,7 @@
 }
 ```
 
-## Triangles (10)
+### Triangles (10)
 - SFPUSDT|BTCUSDT|BNBUSDT
 - SFPUSDT|BNBUSDT|SOLUSDT
 - SFPUSDT|BTCUSDT|ETHUSDT
@@ -29,45 +35,40 @@
 - SFPUSDT|ETHUSDT|BNBUSDT
 - SFPUSDT|ETHUSDT|SOLUSDT
 
-## Metrics
+## Performance
 
-| Segment | Sharpe | CAGR | MaxDD | Days |
-|---------|--------|------|-------|------|
-| Full | 0.673 | 10.79% | -29.38% | 2400 |
-| In-sample | 0.637 | 11.27% | -29.38% | 1827 |
-| **Out-of-sample** | **1.658** | **9.28%** | **-3.20%** | 573 |
+| Segment | Sharpe | CAGR | MaxDD |
+|---------|--------|------|-------|
+| In-sample | 0.637 | 11.27% | -29.38% |
+| **Out-of-sample** | **1.658** | **9.28%** | **-3.20%** |
+| Full | 0.673 | 10.79% | -29.38% |
 
-## IS yearly Sharpe
-- 2020: nan
+## IS robustness
+
+| Test | Sharpe |
+|------|--------|
+| Baseline IS | 0.637 |
+| +1 bar lag shift | 0.637 |
+| Cost stress (+1bp turnover) | 0.636 |
+| Bootstrap IS p5/median/p95 | -0.04 / 0.65 / 1.30 |
+| Walk-forward min fold | 0.461 |
+
+### IS yearly Sharpe
 - 2021: 0.98
 - 2022: 0.75
 - 2023: 0.90
 - 2024: 0.46
 
-## Caveats
-- Multi-leg basket; ~0.29% round-trip cost at default assumptions
-- Research only — not live trading advice
+## Variants considered but not selected
 
-## vs prior research (OOS-tuned — not TQG-compliant)
+| Variant | Why rejected |
+|---------|-------------|
+| Hourly exec / hourly native | Negative IS composite; walk-forward folds unstable |
+| Daily rolling 180D | Lower IS composite (0.42945943595131875) vs static |
+| Layered refresh (hourly) | IS Sharpe 0.46 vs 0.64; refreshes fire only in OOS; not IS-validated |
 
-The earlier `research/triangular-pairs-trading` "best" config was selected by **ranking grid sweeps on OOS Sharpe** (entry_z=3.0, exit_z=0.75, weight_cap=0.20), reporting OOS Sharpe 2.07 with full-sample Sharpe 0.49 — a classic selection-bias pattern.
+## Optional OOS booster (not canonical)
 
-| Config | Selection | IS Sharpe | OOS Sharpe | Full MaxDD | OOS MaxDD |
-|--------|-----------|-----------|------------|------------|-----------|
-| **IS-robust (this run)** | IS robust_score | 0.64 | **1.66** | -29.4% | **-3.2%** |
-| Prior OOS-tuned | OOS Sharpe grid | ~0.49 | 2.07* | -35.3% | -2.3% |
+Hourly layered refresh with same params achieved OOS Sharpe **2.67** vs static **1.66**, but IS Sharpe is **0.46** and refresh rules never triggered in-sample. Treat as experimental overlay, not the robust core.
 
-\*OOS metric inflated by tuning on the holdout segment.
-
-IS PSA (`charts/psa_heatmap.png`) shows a stable plateau at window 90–120 and entry_z 2.0–2.5; the selected (120, 2.5) sits in that region.
-
-## Reproduce
-
-```bash
-cd /root/thequantgpt-wrapper && source .venv/bin/activate
-python runs/triangular_pairs/code/is_param_sweep.py   # IS selection
-python runs/triangular_pairs/code/baseline.py         # baseline + OOS holdout
-python runs/triangular_pairs/code/psa.py              # IS PSA
-python scripts/tqg_run_backtest.py triangular_pairs --code code/baseline.py
-python scripts/tqg_package_artifacts.py triangular_pairs
-```
+Research only — not live trading advice.

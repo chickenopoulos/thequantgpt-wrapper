@@ -1,0 +1,65 @@
+Loading data...
+Discovering triangles once (IS, window=120)...
+  456 candidates
+
+[A] Daily static (108) with cached discovery...
+  20/108
+  40/108
+  60/108
+  80/108
+  100/108
+
+Top daily: 0.610 Sharpe=0.637 params={'n_triangles': 10, 'window': 120, 'entry_z': 2.5, 'exit_z': 0.5, 'weight_cap': 0.15, 'adf_max': 0.05}
+
+[B] Hourly exec (top 5 daily params)...
+  w=120 ez=2.5 -> composite=-0.819
+  w=120 ez=2.5 -> composite=-0.923
+  w=120 ez=2.0 -> composite=-0.852
+  w=120 ez=2.5 -> composite=-0.875
+  w=120 ez=2.25 -> composite=-0.837
+
+[C] Hourly native (top 3 × 2 configs)...
+    scoring 0/174
+    scoring 50/174
+    scoring 100/174
+    scoring 150/174
+  lb365 w720 composite=-0.568
+    scoring 0/174
+    scoring 50/174
+    scoring 100/174
+    scoring 150/174
+  lb365 w1440 composite=-0.399
+    scoring 0/174
+    scoring 50/174
+    scoring 100/174
+    scoring 150/174
+  lb365 w720 composite=-0.548
+    scoring 0/174
+    scoring 50/174
+    scoring 100/174
+    scoring 150/174
+  lb365 w1440 composite=-0.309
+    scoring 0/174
+    scoring 50/174
+    scoring 100/174
+    scoring 150/174
+  lb365 w720 composite=-0.301
+    scoring 0/174
+    scoring 50/174
+    scoring 100/174
+    scoring 150/174
+  lb365 w1440 composite=0.093
+
+=== TOP 10 ===
+     variant   Sharpe     MaxDD   wf_min  composite_score
+daily_static 0.637064 -0.293806 0.461311         0.610401
+daily_static 0.631292 -0.372730 0.404166         0.566242
+daily_static 0.665978 -0.361807 0.290980         0.498958
+daily_static 0.558920 -0.277528 0.315343         0.479080
+daily_static 0.587229 -0.299156 0.177879         0.467443
+daily_static 0.552778 -0.355609 0.255759         0.460710
+daily_static 0.619570 -0.285543 0.241867         0.458941
+daily_static 0.604944 -0.373927 0.179742         0.454963
+daily_static 0.666214 -0.239118 0.095842         0.429253
+daily_static 0.656093 -0.299975 0.084724         0.391830
+Done in 2553s

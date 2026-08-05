@@ -51,13 +51,6 @@
     },
     "signal_lag_bars": 1
   },
-  "yearly_sharpes_is": {
-    "2020": NaN,
-    "2021": 0.9845480070490686,
-    "2022": 0.7511318650266268,
-    "2023": 0.8984139727998556,
-    "2024": 0.46131125083240154
-  },
   "triangles": [
     "SFPUSDT|BTCUSDT|BNBUSDT",
     "SFPUSDT|BNBUSDT|SOLUSDT",
@@ -70,5 +63,181 @@
     "SFPUSDT|ETHUSDT|BNBUSDT",
     "SFPUSDT|ETHUSDT|SOLUSDT"
   ],
-  "selection_method": "IS-only robust_score (see artifacts/is_best_params.json)"
+  "variant": "daily_static",
+  "selection": {
+    "method": "IS deep-dive: 108 daily configs + 6 hourly + walk-forward folds; hourly variants rejected (negative IS composite)",
+    "champion_params": {
+      "n_triangles": 10,
+      "window": 120,
+      "entry_z": 2.5,
+      "exit_z": 0.5,
+      "weight_cap": 0.15,
+      "adf_max": 0.05
+    },
+    "robustness": {
+      "bootstrap_is_sharpe": {
+        "p5": -0.03502219803831563,
+        "p50": 0.6478554093763234,
+        "p95": 1.3037464359607027
+      },
+      "lag_shift_is": {
+        "Sharpe": 0.6370642460047368,
+        "CAGR": 0.1127497961682391,
+        "MaxDD": -0.29380601303980813,
+        "n_days": 1827,
+        "vol_ann": 0.19741497044022482
+      },
+      "cost_stress_is": {
+        "Sharpe": 0.6355838420445517,
+        "CAGR": 0.11241690477750477,
+        "MaxDD": -0.2939616789874189,
+        "n_days": 1827,
+        "vol_ann": 0.1974006801202668
+      },
+      "yearly_is_sharpes": {
+        "2020": NaN,
+        "2021": 0.9845480070490686,
+        "2022": 0.7511318650266268,
+        "2023": 0.8984139727998556,
+        "2024": 0.46131125083240154
+      },
+      "wf_folds": {
+        "Sharpe": 0.6370642460047368,
+        "CAGR": 0.1127497961682391,
+        "MaxDD": -0.29380601303980813,
+        "n_days": 1827,
+        "vol_ann": 0.19741497044022485,
+        "yearly_sharpes": {
+          "2020": NaN,
+          "2021": 0.9845480070490686,
+          "2022": 0.7511318650266268,
+          "2023": 0.8984139727998556,
+          "2024": 0.46131125083240154
+        },
+        "min_yearly_sharpe": 0.46131125083240154,
+        "robust_score": 0.6219154568974885,
+        "wf_mean": 0.773851273926988,
+        "wf_std": 0.19881298805382183,
+        "wf_min": 0.46131125083240154,
+        "wf_score": 0.7667070300665575,
+        "wf_sharpes": [
+          0.9845480070490686,
+          0.7511318650266268,
+          0.8984139727998556,
+          0.46131125083240154
+        ],
+        "composite_score": 0.6104009618169138
+      }
+    },
+    "finalists": [
+      {
+        "variant": "daily_static",
+        "params": {
+          "n_triangles": 10,
+          "window": 120,
+          "entry_z": 2.5,
+          "exit_z": 0.5,
+          "weight_cap": 0.15,
+          "adf_max": 0.05
+        },
+        "Sharpe": 0.6370642460047368,
+        "CAGR": 0.1127497961682391,
+        "MaxDD": -0.29380601303980813,
+        "n_days": 1827,
+        "vol_ann": 0.19741497044022485,
+        "yearly_sharpes": {
+          "2020": NaN,
+          "2021": 0.9845480070490686,
+          "2022": 0.7511318650266268,
+          "2023": 0.8984139727998556,
+          "2024": 0.46131125083240154
+        },
+        "min_yearly_sharpe": 0.46131125083240154,
+        "robust_score": 0.6219154568974885,
+        "wf_mean": 0.773851273926988,
+        "wf_std": 0.19881298805382183,
+        "wf_min": 0.46131125083240154,
+        "wf_score": 0.7667070300665575,
+        "wf_sharpes": [
+          0.9845480070490686,
+          0.7511318650266268,
+          0.8984139727998556,
+          0.46131125083240154
+        ],
+        "composite_score": 0.6104009618169138,
+        "full_sharpe": 0.6729412043433057,
+        "full_max_dd": -0.29380601303980813,
+        "triangles": [
+          "SFPUSDT|BTCUSDT|BNBUSDT",
+          "SFPUSDT|BNBUSDT|SOLUSDT",
+          "SFPUSDT|BTCUSDT|ETHUSDT",
+          "SFPUSDT|BTCUSDT|SOLUSDT",
+          "DOGEUSDT|BNBUSDT|SOLUSDT",
+          "DOGEUSDT|ETHUSDT|SOLUSDT",
+          "DOGEUSDT|BTCUSDT|BNBUSDT",
+          "DOGEUSDT|BTCUSDT|SOLUSDT",
+          "SFPUSDT|ETHUSDT|BNBUSDT",
+          "SFPUSDT|ETHUSDT|SOLUSDT"
+        ]
+      },
+      {
+        "variant": "daily_rolling_180d",
+        "params": {
+          "n_triangles": 10,
+          "window": 120,
+          "entry_z": 2.5,
+          "exit_z": 0.5,
+          "weight_cap": 0.15,
+          "adf_max": 0.05,
+          "refresh_freq": "180D",
+          "lookback_days": 180,
+          "sticky": false
+        },
+        "Sharpe": 0.5663070541852829,
+        "CAGR": 0.041992164530461284,
+        "MaxDD": -0.12228519852313335,
+        "n_days": 1327,
+        "vol_ann": 0.07803587646741253,
+        "yearly_sharpes": {
+          "2021": 0.07948236177140323,
+          "2022": 1.6427920464447319,
+          "2023": 1.2014969947441543,
+          "2024": 0.2771232631893999
+        },
+        "min_yearly_sharpe": 0.07948236177140323,
+        "robust_score": 0.46670996720749863,
+        "wf_mean": 0.8002236665374224,
+        "wf_std": 0.6449891121422948,
+        "wf_min": 0.07948236177140323,
+        "wf_score": 0.49362558282055563,
+        "wf_sharpes": [
+          0.07948236177140323,
+          1.6427920464447319,
+          1.2014969947441543,
+          0.2771232631893999
+        ],
+        "composite_score": 0.42945943595131875,
+        "full_sharpe": 0.5562332980919114,
+        "full_max_dd": -0.12228519852313335
+      },
+      {
+        "variant": "hourly_wf_frozen",
+        "Sharpe": 0.46272455064344553,
+        "oos_sharpe": 1.0431808287497668,
+        "note": "from layered_refresh_eval (hourly); IS composite not comparable to daily folds"
+      },
+      {
+        "variant": "hourly_layered_refresh",
+        "Sharpe": 0.46272455064344553,
+        "oos_sharpe": 2.6664539708277393,
+        "note": "from layered_refresh_eval (hourly); IS composite not comparable to daily folds"
+      },
+      {
+        "variant": "daily_is_robust_static",
+        "Sharpe": 0.6370642460047368,
+        "oos_sharpe": 1.6581689467084073,
+        "note": "from layered_refresh_eval (hourly); IS composite not comparable to daily folds"
+      }
+    ]
+  }
 }

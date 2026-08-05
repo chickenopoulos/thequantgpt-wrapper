@@ -1,0 +1,139 @@
+{
+  "params": {
+    "disc_lookback_days": 365,
+    "disc_window": 720,
+    "bt_window": 1440,
+    "entry_z": 2.5,
+    "exit_z": 0.5,
+    "weight_cap": 0.15,
+    "n_triangles": 10,
+    "adf_max": 0.05,
+    "liquid_top_n": 30,
+    "min_resid_std": 0.0008,
+    "max_per_target": 3,
+    "top_keep": 20,
+    "top_drop": 30,
+    "sharpe_window_days": 90,
+    "sharpe_streak_days": 30,
+    "calendar_months": 12,
+    "triggers_required": 2,
+    "check_freq": "7D"
+  },
+  "deploy": "2024-03-24T08:00:00+00:00",
+  "oos_start": "2025-01-01T00:00:00+00:00",
+  "selection_note": "Backtest params from IS-robust daily sweep; layered rules not re-tuned on OOS",
+  "results": [
+    {
+      "variant": "hourly_wf_frozen",
+      "deploy": "2024-03-24 08:00:00+00:00",
+      "n_refreshes": 0,
+      "full_sharpe": 0.8373587560198946,
+      "full_cagr": 0.11772428272227131,
+      "full_max_dd": -0.12747924850809367,
+      "is_sharpe": 0.46272455064344553,
+      "oos_sharpe": 1.0431808287497668,
+      "oos_cagr": 0.15408935794408407,
+      "oos_max_dd": -0.09524551778017842,
+      "n_days": 776
+    },
+    {
+      "variant": "hourly_layered_refresh",
+      "deploy": "2024-03-24 08:00:00+00:00",
+      "n_refreshes": 2,
+      "full_sharpe": 1.7455484233029674,
+      "full_cagr": 0.23547265473216594,
+      "full_max_dd": -0.12747924850809367,
+      "is_sharpe": 0.46272455064344553,
+      "oos_sharpe": 2.6664539708277393,
+      "oos_cagr": 0.35116251070022164,
+      "oos_max_dd": -0.04352609696027998,
+      "n_days": 776
+    },
+    {
+      "variant": "daily_is_robust_static",
+      "deploy": "2020+",
+      "n_refreshes": 0,
+      "full_sharpe": 0.6729412043433057,
+      "full_cagr": 0.10794561060729868,
+      "full_max_dd": -0.29380601303980813,
+      "is_sharpe": 0.6370642460047368,
+      "oos_sharpe": 1.6581689467084073,
+      "oos_cagr": 0.0927656182225709,
+      "oos_max_dd": -0.03200477430237614,
+      "n_days": 2400
+    }
+  ],
+  "refresh_events": [
+    {
+      "date": "2025-01-26 08:00:00+00:00",
+      "triggers": {
+        "sharpe_decay": true,
+        "calendar": false,
+        "ranking_drift": true
+      },
+      "n_kept": 3,
+      "n_added": 7,
+      "n_dropped": 7,
+      "triangles_before": [
+        "SFPUSDT|SOLUSDT|BTCUSDT",
+        "SFPUSDT|SOLUSDT|ETHUSDT",
+        "SFPUSDT|BTCUSDT|ETHUSDT",
+        "ATAUSDT|SOLUSDT|BTCUSDT",
+        "RVNUSDT|SOLUSDT|BTCUSDT",
+        "ARUSDT|SOLUSDT|BTCUSDT",
+        "ANKRUSDT|SOLUSDT|ETHUSDT",
+        "ARUSDT|SOLUSDT|ETHUSDT",
+        "ALICEUSDT|SOLUSDT|BTCUSDT",
+        "RVNUSDT|ETHUSDT|BNBUSDT"
+      ],
+      "triangles_after": [
+        "SFPUSDT|SOLUSDT|BTCUSDT",
+        "SFPUSDT|SOLUSDT|ETHUSDT",
+        "SFPUSDT|BTCUSDT|ETHUSDT",
+        "ARPAUSDT|BTCUSDT|ETHUSDT",
+        "ARPAUSDT|SOLUSDT|BNBUSDT",
+        "ALICEUSDT|ETHUSDT|BNBUSDT",
+        "ARPAUSDT|SOLUSDT|ETHUSDT",
+        "SPELLUSDT|BTCUSDT|ETHUSDT",
+        "SPELLUSDT|SOLUSDT|ETHUSDT",
+        "RSRUSDT|BTCUSDT|BNBUSDT"
+      ]
+    },
+    {
+      "date": "2026-02-01 08:00:00+00:00",
+      "triggers": {
+        "sharpe_decay": false,
+        "calendar": true,
+        "ranking_drift": true
+      },
+      "n_kept": 4,
+      "n_added": 6,
+      "n_dropped": 6,
+      "triangles_before": [
+        "SFPUSDT|SOLUSDT|BTCUSDT",
+        "SFPUSDT|SOLUSDT|ETHUSDT",
+        "SFPUSDT|BTCUSDT|ETHUSDT",
+        "ARPAUSDT|BTCUSDT|ETHUSDT",
+        "ARPAUSDT|SOLUSDT|BNBUSDT",
+        "ALICEUSDT|ETHUSDT|BNBUSDT",
+        "ARPAUSDT|SOLUSDT|ETHUSDT",
+        "SPELLUSDT|BTCUSDT|ETHUSDT",
+        "SPELLUSDT|SOLUSDT|ETHUSDT",
+        "RSRUSDT|BTCUSDT|BNBUSDT"
+      ],
+      "triangles_after": [
+        "ARPAUSDT|BTCUSDT|ETHUSDT",
+        "ARPAUSDT|SOLUSDT|BNBUSDT",
+        "ARPAUSDT|SOLUSDT|ETHUSDT",
+        "SPELLUSDT|SOLUSDT|ETHUSDT",
+        "RLCUSDT|SOLUSDT|BNBUSDT",
+        "SPELLUSDT|SOLUSDT|BNBUSDT",
+        "PEOPLEUSDT|SOLUSDT|ETHUSDT",
+        "PEOPLEUSDT|SOLUSDT|BNBUSDT",
+        "RVNUSDT|ETHUSDT|BNBUSDT",
+        "PEOPLEUSDT|ETHUSDT|BNBUSDT"
+      ]
+    }
+  ],
+  "elapsed_sec": 2555.5130426883698
+}

@@ -43,8 +43,17 @@ def discover_triangles_is(
     n_triangles: int = 10,
     window: int = 120,
     min_periods: int = 90,
+    ranked_cache: pd.DataFrame | None = None,
 ) -> tuple[list[Triangle], pd.DataFrame]:
-    """Rank triangles on pre-OOS data only."""
+    """Rank triangles on pre-OOS data only. Reuse ranked_cache when sweeping params."""
+    if ranked_cache is not None:
+        ranked = ranked_cache[ranked_cache["adf_p"] < adf_max]
+        triangles = [
+            Triangle(target=r.target, leg1=r.leg1, leg2=r.leg2)
+            for r in ranked.head(n_triangles).itertuples()
+        ]
+        return triangles, ranked_cache
+
     liquid = liquid_assets(close)
     log_panel = log_prices(close[liquid])
     candidates = enumerate_triangles(liquid, ANCHORS)
