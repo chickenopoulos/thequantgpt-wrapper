@@ -11,7 +11,7 @@ git clone https://github.com/chickenopoulos/thequantgpt-wrapper.git
 cd thequantgpt-wrapper
 python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
-cp config.example.yaml config.yaml   # set tqg_api.base_url
+cp config.example.yaml config.yaml   # defaults to https://tqg-mcp.vkotopoulos.com/v1
 export TQG_API_KEY="your-key"
 python scripts/tqg_init.py
 ```

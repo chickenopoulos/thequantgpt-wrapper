@@ -28,7 +28,7 @@ curl -fsSL https://raw.githubusercontent.com/chickenopoulos/thequantgpt-wrapper/
 ```bash
 cd ~/thequantgpt-wrapper
 cp config.example.yaml config.yaml   # if not already done
-# Edit config.yaml: set tqg_api.base_url to your MCP host /v1
+# config.example.yaml defaults to https://tqg-mcp.vkotopoulos.com/v1
 export TQG_API_KEY="your-key"
 ```
 
