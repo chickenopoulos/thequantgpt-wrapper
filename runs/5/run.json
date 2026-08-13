@@ -1,0 +1,29 @@
+{
+  "run_id": "5",
+  "title": "btc-five-strategy-ensemble-jul2026",
+  "created_at": "2026-07-30T07:39:24.326820+00:00",
+  "root": "runs/5",
+  "status": "baseline_complete",
+  "numeric_id": 5,
+  "source": "cursor_agent",
+  "symbol": "BTCUSDT",
+  "oos_start_ts": "2025-01-01",
+  "workflow": "single_asset_signals",
+  "strategy_type": "ENSEMBLE",
+  "last_scope": "psa_in_sample",
+  "strategy_spec_path": "strategy_spec.json",
+  "artifacts": {},
+  "completed_steps": [
+    "psa_in_sample"
+  ],
+  "defaults": {
+    "oos_start": "2025-01-01",
+    "fee": 0.00045,
+    "slippage": 0.0005,
+    "interval": "1d"
+  },
+  "validation_passed": false,
+  "last_validation_at": null,
+  "last_execution_at": "2026-07-30T09:52:36.535463+00:00",
+  "last_error": null
+}

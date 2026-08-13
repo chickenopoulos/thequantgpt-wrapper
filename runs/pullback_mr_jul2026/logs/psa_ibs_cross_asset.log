@@ -1,0 +1,21 @@
+# execution: psa_ibs_cross_asset.py
+
+## stdout
+PSA grid for QQQ...
+PSA grid for SPY...
+PSA grid for IWM...
+PSA grid for GLD...
+PSA grid for BTCUSDT...
+PSA grid for ETHUSDT...
+PSA complete: 5/6 assets with stable representative
+  QQQ: STABLE — plateau=29 cells, baseline Sharpe=0.79
+  SPY: STABLE — plateau=42 cells, baseline Sharpe=0.58
+  IWM: STABLE — plateau=36 cells, baseline Sharpe=0.23
+  GLD: UNSTABLE — plateau=0 cells, baseline Sharpe=-0.23
+  BTC: STABLE — plateau=40 cells, baseline Sharpe=0.27
+  ETH: STABLE — plateau=10 cells, baseline Sharpe=0.21
+
+
+## stderr
+
+

@@ -1,0 +1,54 @@
+Loading all provider features...
+  134 features | local:/root/thequantgpt-wrapper/data/talos/cm_BTCUSDT_market_candles_1d.parquet
+Searching talos_onchain...
+  configs=581 cumulative_hits=0
+Searching coinglass...
+  configs=2151 cumulative_hits=1
+Searching price_mr...
+  configs=137 cumulative_hits=1
+Searching cross_venue...
+  configs=27 cumulative_hits=1
+Searching systematic_talos...
+  configs=2088 cumulative_hits=38
+
+=== RESULTS ===
+Total qualifying hits (Sharpe>=1, DD<25%, trades>=5): 38
+  [talos       ] quantile         talos_FlowNetBNBUSD q0.05/0.8                 sh=1.581 dd=-17.5% tr=164
+  [talos       ] quantile         talos_FlowNetBNBUSD q0.05/0.85                sh=1.521 dd=-15.7% tr=162
+  [talos       ] quantile         talos_FlowNetBNBUSD q0.05/0.9                 sh=1.441 dd=-16.7% tr=158
+  [talos       ] quantile         talos_futures_cumulative_funding_rate_usd_mar sh=1.326 dd=-20.9% tr=8
+  [talos       ] quantile         talos_futures_cumulative_funding_rate_all_mar sh=1.279 dd=-24.5% tr=10
+  [talos       ] quantile         talos_futures_cumulative_funding_rate_usd_mar sh=1.279 dd=-24.5% tr=10
+  [talos       ] quantile         talos_futures_cumulative_funding_rate_all_mar sh=1.243 dd=-22.4% tr=6
+  [talos       ] quantile         talos_futures_cumulative_funding_rate_usd_mar sh=1.243 dd=-22.4% tr=6
+  [talos       ] quantile         talos_futures_cumulative_funding_rate_all_mar sh=1.222 dd=-24.5% tr=10
+  [talos       ] quantile         talos_futures_cumulative_funding_rate_usd_mar sh=1.222 dd=-24.5% tr=10
+  [talos       ] quantile         talos_futures_cumulative_funding_rate_usd_mar sh=1.222 dd=-20.9% tr=8
+  [talos       ] quantile         talos_futures_cumulative_funding_rate_all_mar sh=1.197 dd=-24.5% tr=10
+  [talos       ] quantile         talos_futures_cumulative_funding_rate_usd_mar sh=1.197 dd=-24.5% tr=10
+  [talos       ] quantile         talos_futures_cumulative_funding_rate_all_mar sh=1.174 dd=-20.9% tr=6
+  [talos       ] quantile         talos_futures_cumulative_funding_rate_all_mar sh=1.172 dd=-20.9% tr=6
+  [talos       ] quantile         talos_futures_cumulative_funding_rate_usd_mar sh=1.172 dd=-20.9% tr=6
+  [talos       ] quantile         talos_futures_cumulative_funding_rate_all_mar sh=1.167 dd=-24.5% tr=10
+  [talos       ] quantile         talos_futures_cumulative_funding_rate_usd_mar sh=1.158 dd=-24.5% tr=10
+  [talos       ] quantile         talos_futures_cumulative_funding_rate_all_mar sh=1.139 dd=-24.5% tr=10
+  [talos       ] quantile         talos_futures_cumulative_funding_rate_usd_mar sh=1.139 dd=-24.5% tr=10
+  [talos       ] quantile         talos_open_interest_reported_future_coin_marg sh=1.124 dd=-19.0% tr=6
+  [talos       ] quantile         talos_futures_cumulative_funding_rate_all_mar sh=1.119 dd=-25.0% tr=6
+  [talos       ] quantile         talos_futures_cumulative_funding_rate_usd_mar sh=1.119 dd=-25.0% tr=6
+  [talos       ] quantile         talos_open_interest_reported_future_coin_marg sh=1.115 dd=-19.0% tr=6
+  [talos       ] quantile         talos_futures_cumulative_funding_rate_all_mar sh=1.107 dd=-24.5% tr=10
+  [talos       ] quantile         talos_futures_cumulative_funding_rate_all_mar sh=1.102 dd=-24.5% tr=10
+  [talos       ] quantile         talos_futures_cumulative_funding_rate_usd_mar sh=1.102 dd=-24.5% tr=10
+  [talos       ] quantile         talos_futures_cumulative_funding_rate_all_mar sh=1.099 dd=-24.5% tr=8
+  [talos       ] quantile         talos_futures_cumulative_funding_rate_usd_mar sh=1.099 dd=-24.5% tr=8
+  [talos       ] quantile         talos_futures_cumulative_funding_rate_usd_mar sh=1.098 dd=-24.5% tr=10
+
+Diverse 5 (5):
+  [talos] talos_futures_cumulative_funding_rate_all_margin_rolling_7d q0.05/0.9 sh=1.015 dd=-24.5%
+  [coinglass] cg_short_liq q=0.97 hold=5 sh=1.057 dd=-16.0%
+  [talos] talos_futures_cumulative_funding_rate_usd_margin_rolling_7d q0.05/0.9 sh=1.015 dd=-24.5%
+  [talos] talos_futures_cumulative_funding_rate_all_margin_rolling_7d q0.2/0.9 sh=1.029 dd=-24.5%
+  [talos] talos_futures_cumulative_funding_rate_usd_margin_rolling_7d q0.2/0.9 sh=1.029 dd=-24.5%
+
+Wrote /root/thequantgpt-wrapper/runs/5/artifacts/all_providers_search_hits.json

@@ -1,0 +1,108 @@
+{
+  "symbol": "BTCUSDT",
+  "data_source": "local:/root/thequantgpt-wrapper/data/talos/cm_BTCUSDT_market_candles_1d.parquet",
+  "oos_start_ts": "2025-01-01 00:00:00+00:00",
+  "param_source": "psa_representative",
+  "csv": "/root/thequantgpt-wrapper/runs/5/artifacts/ensemble_component_equity_curves.csv",
+  "chart": "/root/thequantgpt-wrapper/runs/5/charts/ensemble_component_equity_curves.png",
+  "components": {
+    "S1": {
+      "name": "Binance net flow quantile + 200DMA gate",
+      "params": {
+        "key": "talos_FlowNetBNBUSD",
+        "q_ent": 0.05,
+        "q_ex": 0.8,
+        "gate": true
+      },
+      "sharpe_full": 1.5813432987898286,
+      "max_dd": -0.17475285986461764,
+      "sharpe_is": 1.8619021371242406,
+      "sharpe_oos": 0.12694756367647433,
+      "trades": 164
+    },
+    "S2": {
+      "name": "Cumulative funding 30d quantile + trend",
+      "params": {
+        "key": "talos_futures_cumulative_funding_rate_usd_margin_rolling_30d",
+        "q_ent": 0.15,
+        "q_ex": 0.95,
+        "gate": true
+      },
+      "sharpe_full": 0.9638177863375634,
+      "max_dd": -0.4955559924094407,
+      "sharpe_is": 1.4897600036682073,
+      "sharpe_oos": 0.04393047980027209,
+      "trades": 7
+    },
+    "S3": {
+      "name": "Coin-margined OI quantile + trend",
+      "params": {
+        "key": "talos_open_interest_reported_future_coin_margined_usd",
+        "q_ent": 0.1,
+        "q_ex": 0.7,
+        "gate": true
+      },
+      "sharpe_full": 1.1284775636494164,
+      "max_dd": -0.18952188942410253,
+      "sharpe_is": 1.264118080462608,
+      "sharpe_oos": 0.0,
+      "trades": 6
+    },
+    "S4": {
+      "name": "Short liquidation spike fade (5d hold)",
+      "params": {
+        "key": "cg_short_liq",
+        "q": 0.99,
+        "hold": 5
+      },
+      "sharpe_full": 1.1455976073579561,
+      "max_dd": -0.12111880197796654,
+      "sharpe_is": 1.4469975963628592,
+      "sharpe_oos": -0.9080077203894721,
+      "trades": 34
+    },
+    "S5": {
+      "name": "Cumulative funding 7d quantile + trend",
+      "params": {
+        "key": "talos_futures_cumulative_funding_rate_all_margin_rolling_7d",
+        "q_ent": 0.15,
+        "q_ex": 0.95,
+        "gate": true
+      },
+      "sharpe_full": 0.8942274729961274,
+      "max_dd": -0.49555599240944004,
+      "sharpe_is": 1.2500700248756407,
+      "sharpe_oos": 0.1883343906335513,
+      "trades": 9
+    }
+  },
+  "ensemble_equal_weight": {
+    "sharpe": 1.6184491228515254,
+    "max_dd": -0.24641750094557557,
+    "sharpe_is": 2.144044053610265,
+    "sharpe_oos": 0.05815122255599484,
+    "trades": 200,
+    "exposure": 0.18184804928131415,
+    "params": {
+      "method": "equal_weight"
+    }
+  },
+  "ensemble_optimized": {
+    "sharpe": 1.8213323444813991,
+    "max_dd": -0.20090633665458135,
+    "sharpe_is": 2.317002977610147,
+    "sharpe_oos": 0.012561509728188529,
+    "trades": 207,
+    "exposure": 0.1535893223819302,
+    "params": {
+      "method": "optimized",
+      "weights": {
+        "S1": 0.31,
+        "S2": 0.23,
+        "S3": 0.2,
+        "S4": 0.2,
+        "S5": 0.06
+      }
+    }
+  }
+}

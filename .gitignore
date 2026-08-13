@@ -19,6 +19,9 @@ data/**/*.feather
 runs/**/*
 !runs/.gitkeep
 !runs/demo_btc_mr/**
+!runs/pullback_mr_jul2026/**
+!runs/5/
+!runs/5/**
 
 reports/**/*
 !reports/.gitkeep
