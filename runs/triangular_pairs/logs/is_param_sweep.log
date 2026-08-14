@@ -1,0 +1,18 @@
+Loaded panel (2400, 335)
+IS discovery: 456 candidates, top=SFPUSDT|BTCUSDT|BNBUSDT
+Sweeping 162 configs on IS only...
+  30/162 (128s)
+  60/162 (178s)
+  90/162 (237s)
+  120/162 (301s)
+  150/162 (373s)
+
+=== IS robust selection (top 5) ===
+ n_triangles  window  entry_z  exit_z  weight_cap  is_sharpe  is_max_dd  robust_score
+          10     120      2.5    0.50        0.15   0.637064  -0.293806      0.621915
+          10     120      2.5    0.50        0.20   0.631292  -0.372730      0.559644
+          10     120      2.0    0.50        0.20   0.665978  -0.361807      0.541338
+          10     120      2.0    0.50        0.15   0.619570  -0.285543      0.513725
+          10     120      2.5    0.75        0.15   0.558920  -0.277528      0.507281
+
+Wrote /root/thequantgpt-wrapper/runs/triangular_pairs/artifacts/is_best_params.json

@@ -13,6 +13,7 @@ _REPO = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(_REPO))
 
 from tqg_client.config import load_config  # noqa: E402
+from tqg_client.lab_index import touch_run_index  # noqa: E402
 from tqg_client.run_state import new_run_state, save_run_state  # noqa: E402
 
 RUNS = _REPO / "runs"
@@ -75,6 +76,7 @@ def create_run(*, title: str, run_id: str | None = None) -> Path:
     if not run_id:
         _write_next_id(numeric_id + 1)
 
+    touch_run_index(folder_name)
     return root
 
 

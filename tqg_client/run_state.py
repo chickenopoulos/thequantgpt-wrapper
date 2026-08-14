@@ -48,6 +48,12 @@ class RunState:
     last_validation_at: str | None = None
     last_execution_at: str | None = None
     last_error: str | None = None
+    # Cross-run lab memory (optional; also mirrored in lab_meta.json)
+    verdict: str | None = None
+    tags: list[str] = field(default_factory=list)
+    related_runs: list[str] = field(default_factory=list)
+    hypothesis: str | None = None
+    kill_reason: str | None = None
 
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)
@@ -187,3 +193,39 @@ def merge_execution_feedback(state: RunState, feedback: dict[str, Any]) -> RunSt
         state.last_error = str(feedback.get("error") or "execution failed")
 
     return state
+
+
+def append_flow_turn(
+    run_id: str,
+    *,
+    user_message: str = "",
+    assistant_summary: str = "",
+    status: str = "success",
+    runs_dir: Path | None = None,
+) -> Path:
+    """Append a turn to runs/<id>/flow.json (creates file if missing)."""
+    base = runs_dir or resolve_path(load_config(), "runs_dir")
+    flow_path = base / run_id / "flow.json"
+    if flow_path.exists():
+        data = json.loads(flow_path.read_text(encoding="utf-8"))
+        if not isinstance(data, dict):
+            data = {}
+    else:
+        data = {}
+    turns = data.get("turns") or []
+    if not isinstance(turns, list):
+        turns = []
+    turns.append(
+        {
+            "turn_index": len(turns),
+            "recorded_at": _utc_now(),
+            "user_message": user_message,
+            "assistant_summary": assistant_summary,
+            "status": status,
+        }
+    )
+    data["turns"] = turns
+    data["updated_at"] = _utc_now()
+    flow_path.parent.mkdir(parents=True, exist_ok=True)
+    flow_path.write_text(json.dumps(data, indent=2) + "\n", encoding="utf-8")
+    return flow_path

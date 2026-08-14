@@ -1,0 +1,13 @@
+# execution: baseline.py
+
+## stdout
+=== Triangular pairs baseline ===
+IS  Sharpe: 0.637  MaxDD: -29.38%
+OOS Sharpe: 1.658  MaxDD: -3.20%
+Triangles: 10
+Wrote /root/thequantgpt-wrapper/runs/triangular_pairs/artifacts/metrics.json
+
+
+## stderr
+
+

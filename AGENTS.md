@@ -49,12 +49,42 @@ Smoke test: `python scripts/tqg_init.py` (add `--run-demo` for local execution t
 
 ## Run state
 
-Durable memory lives in `runs/<run_id>/run.json` — read it before follow-ups.
+Durable per-run memory lives in `runs/<run_id>/run.json` — read it before follow-ups.
+
+**Cross-run lab memory** (derived index):
+
+```bash
+python scripts/tqg_rebuild_lab_index.py          # full rebuild / repair
+python scripts/tqg_search_runs.py --symbol QQQ   # query prior runs
+python scripts/tqg_lab_context.py --symbol QQQ   # compact JSON for MCP
+python scripts/tqg_tag_run.py <run_id> --verdict no_edge --reason "..."
+```
+
+Index files live under `runs/_lab/`. Search before every new baseline; prefer extending or linking `related_runs` over silent duplicates.
+
+Load run context for MCP calls:
+
+```python
+from tqg_client.mcp_helpers import run_context_for_mcp, lab_context_for_mcp
+ctx = run_context_for_mcp("<run_id>")  # or read runs/<id>/run.json
+lab = lab_context_for_mcp(symbol="QQQ", limit=8)
+```
 
 ## Examples
 
 - `examples/btc_mean_reversion.md`
 - `examples/sample_run_instructions.md`
+- `docs/plans/cross-run-memory.md` — lab memory design
+
+## Standalone research projects
+
+Self-contained studies outside the `runs/<id>/` workflow live under `research/`:
+
+- `research/triangular-pairs-trading/` — statistical triangular pairs on Binance USDT-M perps (legacy standalone; see canonical run below)
+
+Canonical TQG run (IS-selected, OOS holdout):
+
+- `runs/triangular_pairs/` — daily triangular pairs with IS robust_score selection + PSA
 
 ## Data loading
 

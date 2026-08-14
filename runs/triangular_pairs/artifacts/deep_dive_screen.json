@@ -1,0 +1,79 @@
+{
+  "elapsed_sec": 2552.8123705387115,
+  "winner_variant": "daily_static",
+  "winner_composite": 0.6104009618169138,
+  "winner_sharpe": 0.6370642460047368,
+  "winner_wf_min": 0.46131125083240154,
+  "top10": [
+    {
+      "variant": "daily_static",
+      "Sharpe": 0.6370642460047368,
+      "MaxDD": -0.29380601303980813,
+      "wf_min": 0.46131125083240154,
+      "composite_score": 0.6104009618169138
+    },
+    {
+      "variant": "daily_static",
+      "Sharpe": 0.6312915363256457,
+      "MaxDD": -0.3727296657850063,
+      "wf_min": 0.40416564044482806,
+      "composite_score": 0.5662417920691507
+    },
+    {
+      "variant": "daily_static",
+      "Sharpe": 0.6659775278931166,
+      "MaxDD": -0.361806885571899,
+      "wf_min": 0.2909800086298924,
+      "composite_score": 0.49895839624736404
+    },
+    {
+      "variant": "daily_static",
+      "Sharpe": 0.5589196693469162,
+      "MaxDD": -0.2775276342784754,
+      "wf_min": 0.3153430367362833,
+      "composite_score": 0.4790804387936313
+    },
+    {
+      "variant": "daily_static",
+      "Sharpe": 0.5872294392746112,
+      "MaxDD": -0.2991564240875366,
+      "wf_min": 0.1778794174839052,
+      "composite_score": 0.4674425106253597
+    },
+    {
+      "variant": "daily_static",
+      "Sharpe": 0.55277849864021,
+      "MaxDD": -0.35560931526153705,
+      "wf_min": 0.25575889716881195,
+      "composite_score": 0.4607097265214299
+    },
+    {
+      "variant": "daily_static",
+      "Sharpe": 0.6195695059123657,
+      "MaxDD": -0.2855434427030099,
+      "wf_min": 0.2418670064045739,
+      "composite_score": 0.4589406303247465
+    },
+    {
+      "variant": "daily_static",
+      "Sharpe": 0.6049440132170418,
+      "MaxDD": -0.37392741180469435,
+      "wf_min": 0.17974216060533238,
+      "composite_score": 0.4549626924918466
+    },
+    {
+      "variant": "daily_static",
+      "Sharpe": 0.6662136180396427,
+      "MaxDD": -0.23911798718352628,
+      "wf_min": 0.09584217532699454,
+      "composite_score": 0.42925326285706294
+    },
+    {
+      "variant": "daily_static",
+      "Sharpe": 0.656092862383629,
+      "MaxDD": -0.2999753585325996,
+      "wf_min": 0.08472420918451641,
+      "composite_score": 0.39182994052848963
+    }
+  ]
+}

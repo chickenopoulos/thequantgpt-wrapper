@@ -11,7 +11,7 @@ git clone https://github.com/chickenopoulos/thequantgpt-wrapper.git
 cd thequantgpt-wrapper
 python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
-cp config.example.yaml config.yaml   # set tqg_api.base_url
+cp config.example.yaml config.yaml   # defaults to https://tqg-mcp.vkotopoulos.com/v1
 export TQG_API_KEY="your-key"
 python scripts/tqg_init.py
 ```
@@ -37,6 +37,7 @@ AGENTS.md                    # Agent constitution (orchestration + repo map)
 config.yaml                  # Local paths + MCP URL (gitignored)
 data/                        # Client OHLCV parquet/CSV (gitignored)
 runs/<id>/                   # Per-strategy workspace (run.json, code/, artifacts/)
+runs/_lab/                   # Cross-run memory index (derived)
 reports/                     # Packaged artifact bundles
 scripts/
   tqg_create_run.py          # Scaffold run folder + run.json
@@ -45,9 +46,14 @@ scripts/
   tqg_update_run_state.py    # Merge execution into run.json
   tqg_record_turn.py         # Append to flow.json
   tqg_package_artifacts.py   # runs/ → reports/
+  tqg_rebuild_lab_index.py   # Rebuild cross-run index
+  tqg_search_runs.py         # Query prior runs
+  tqg_lab_context.py         # Compact lab context for MCP
+  tqg_tag_run.py             # Verdicts, tags, related_runs
   tqg_init.py                # Smoke test (--run-demo for local execution)
-tqg_client/                  # API client, run state, execution helpers
+tqg_client/                  # API client, run state, lab index, execution helpers
 examples/                    # Demo prompt sequences
+research/                    # Standalone research projects (e.g. triangular pairs)
 docs/                        # Setup SOP, FAQ, commercial templates
 ```
 
@@ -55,6 +61,14 @@ Local smoke test without MCP:
 
 ```bash
 python scripts/tqg_init.py --skip-mcp --run-demo
+```
+
+### Lab memory
+
+```bash
+python scripts/tqg_rebuild_lab_index.py
+python scripts/tqg_search_runs.py --symbol BTCUSDT --oos-sharpe-lt 0.3
+python scripts/tqg_tag_run.py demo_btc_mr --verdict no_edge --reason "weak OOS"
 ```
 
 ## Documentation

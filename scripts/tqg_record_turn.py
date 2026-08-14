@@ -4,19 +4,14 @@
 from __future__ import annotations
 
 import argparse
-import json
 import sys
-from datetime import datetime, timezone
 from pathlib import Path
 
 _REPO = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(_REPO))
 
-from tqg_client.config import resolve_path, load_config  # noqa: E402
-
-
-def _utc_now() -> str:
-    return datetime.now(timezone.utc).isoformat()
+from tqg_client.lab_index import touch_run_index  # noqa: E402
+from tqg_client.run_state import append_flow_turn  # noqa: E402
 
 
 def record_turn(
@@ -26,27 +21,14 @@ def record_turn(
     assistant_summary: str = "",
     status: str = "success",
 ) -> Path:
-    runs_dir = resolve_path(load_config(), "runs_dir")
-    flow_path = runs_dir / run_id / "flow.json"
-    if not flow_path.exists():
-        raise FileNotFoundError(f"Missing flow.json for run {run_id}")
-
-    data = json.loads(flow_path.read_text(encoding="utf-8"))
-    turns = data.get("turns") or []
-    turn_index = len(turns)
-    turns.append(
-        {
-            "turn_index": turn_index,
-            "recorded_at": _utc_now(),
-            "user_message": user_message,
-            "assistant_summary": assistant_summary,
-            "status": status,
-        }
+    path = append_flow_turn(
+        run_id,
+        user_message=user_message,
+        assistant_summary=assistant_summary,
+        status=status,
     )
-    data["turns"] = turns
-    data["updated_at"] = _utc_now()
-    flow_path.write_text(json.dumps(data, indent=2) + "\n", encoding="utf-8")
-    return flow_path
+    touch_run_index(run_id)
+    return path
 
 
 def main() -> int:

@@ -1,0 +1,11 @@
+{
+  "variant": "daily_static",
+  "params": {
+    "n_triangles": 10,
+    "window": 120,
+    "entry_z": 2.5,
+    "exit_z": 0.5,
+    "weight_cap": 0.15,
+    "adf_max": 0.05
+  }
+}

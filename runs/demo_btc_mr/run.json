@@ -46,5 +46,13 @@
   "validation_passed": true,
   "last_validation_at": "2026-07-15T10:45:04.970159+00:00",
   "last_execution_at": "2026-07-15T10:45:04.850921+00:00",
-  "last_error": null
+  "last_error": null,
+  "verdict": "no_edge",
+  "tags": [
+    "btc",
+    "negative_result"
+  ],
+  "related_runs": [],
+  "hypothesis": "BTC z-score MR",
+  "kill_reason": "weak OOS Sharpe"
 }

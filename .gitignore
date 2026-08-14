@@ -18,8 +18,14 @@ data/**/*.feather
 # Run outputs
 runs/**/*
 !runs/.gitkeep
+!runs/demo_btc_mr/
 !runs/demo_btc_mr/**
+!runs/triangular_pairs/
+!runs/triangular_pairs/**
 
 reports/**/*
 !reports/.gitkeep
 !reports/sample/**
+
+# Standalone research project outputs
+research/**/results/

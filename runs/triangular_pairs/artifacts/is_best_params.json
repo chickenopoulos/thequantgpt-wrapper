@@ -1,0 +1,80 @@
+{
+  "method": "IS-only robust_score = 0.55*IS_Sharpe + 0.30*stability + 0.15*min_yearly + dd_penalty",
+  "oos_start": "2025-01-01 00:00:00+00:00",
+  "adf_max": 0.05,
+  "discovery_window": 120,
+  "n_combos": 162,
+  "n_valid": 162,
+  "elapsed_sec": 401.56016755104065,
+  "best": {
+    "n_triangles": 10,
+    "window": 120,
+    "entry_z": 2.5,
+    "exit_z": 0.5,
+    "weight_cap": 0.15,
+    "is_sharpe": 0.6370642460047368,
+    "is_cagr": 0.1127497961682391,
+    "is_max_dd": -0.29380601303980813,
+    "robust_score": 0.6219154568974885,
+    "min_yearly_sharpe": 0.46131125083240154,
+    "yearly_sharpes": {
+      "2020": NaN,
+      "2021": 0.9845480070490686,
+      "2022": 0.7511318650266268,
+      "2023": 0.8984139727998556,
+      "2024": 0.46131125083240154
+    }
+  },
+  "top5": [
+    {
+      "n_triangles": 10,
+      "window": 120,
+      "entry_z": 2.5,
+      "exit_z": 0.5,
+      "weight_cap": 0.15,
+      "is_sharpe": 0.6370642460047368,
+      "is_max_dd": -0.29380601303980813,
+      "robust_score": 0.6219154568974885
+    },
+    {
+      "n_triangles": 10,
+      "window": 120,
+      "entry_z": 2.5,
+      "exit_z": 0.5,
+      "weight_cap": 0.2,
+      "is_sharpe": 0.6312915363256457,
+      "is_max_dd": -0.3727296657850063,
+      "robust_score": 0.5596439028892033
+    },
+    {
+      "n_triangles": 10,
+      "window": 120,
+      "entry_z": 2.0,
+      "exit_z": 0.5,
+      "weight_cap": 0.2,
+      "is_sharpe": 0.6659775278931166,
+      "is_max_dd": -0.361806885571899,
+      "robust_score": 0.5413383366313523
+    },
+    {
+      "n_triangles": 10,
+      "window": 120,
+      "entry_z": 2.0,
+      "exit_z": 0.5,
+      "weight_cap": 0.15,
+      "is_sharpe": 0.6195695059123657,
+      "is_max_dd": -0.2855434427030099,
+      "robust_score": 0.5137245236646572
+    },
+    {
+      "n_triangles": 10,
+      "window": 120,
+      "entry_z": 2.5,
+      "exit_z": 0.75,
+      "weight_cap": 0.15,
+      "is_sharpe": 0.5589196693469162,
+      "is_max_dd": -0.2775276342784754,
+      "robust_score": 0.5072805313486674
+    }
+  ]
+}

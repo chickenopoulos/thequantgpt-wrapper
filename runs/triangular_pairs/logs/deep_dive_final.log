@@ -1,0 +1,18 @@
+# execution: deep_dive_final.py
+
+## stdout
+=== Champion: daily_static (IS deep-dive winner) ===
+
+Finalists (IS Sharpe / composite):
+  daily_static                 IS Sharpe=0.637 composite=0.610 wf_min=0.461
+  daily_rolling_180d           IS Sharpe=0.566 composite=0.429 wf_min=0.079
+
+IS  Sharpe: 0.637  wf_min: 0.461
+OOS Sharpe: 1.658  OOS MaxDD: -3.20%
+Bootstrap IS Sharpe p5=-0.04
+Done in 156s
+
+
+## stderr
+
+

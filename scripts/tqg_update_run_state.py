@@ -12,6 +12,7 @@ from pathlib import Path
 _REPO = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(_REPO))
 
+from tqg_client.lab_index import touch_run_index  # noqa: E402
 from tqg_client.run_state import (  # noqa: E402
     RunState,
     load_run_state,
@@ -69,6 +70,7 @@ def main() -> int:
             state.validation_passed = False
 
         path = save_run_state(state)
+        touch_run_index(args.run_id)
     except Exception as exc:
         print(f"error: {exc}", file=sys.stderr)
         return 1

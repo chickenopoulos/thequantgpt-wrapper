@@ -48,7 +48,21 @@
     "validation_passed": { "type": "boolean" },
     "last_validation_at": { "type": ["string", "null"] },
     "last_execution_at": { "type": ["string", "null"] },
-    "last_error": { "type": ["string", "null"] }
+    "last_error": { "type": ["string", "null"] },
+    "verdict": {
+      "type": ["string", "null"],
+      "enum": ["promising", "no_edge", "killed", "needs_robustness", "packaged", null]
+    },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "related_runs": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "hypothesis": { "type": ["string", "null"] },
+    "kill_reason": { "type": ["string", "null"] }
   },
   "additionalProperties": true
 }
