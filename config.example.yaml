@@ -1,8 +1,8 @@
-# Copy to config.yaml and edit for your server.
-
 data_dir: ./data
 runs_dir: ./runs
 reports_dir: ./reports
+# Optional override for cross-run memory (default: <runs_dir>/_lab)
+# lab_index_dir: ./runs/_lab
 
 tqg_api:
   # Provider MCP URL (HTTPS). Override at runtime: export TQG_API_BASE_URL=http://127.0.0.1:8787/v1

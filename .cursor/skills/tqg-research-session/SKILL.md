@@ -13,33 +13,41 @@ You orchestrate the workflow. MCP tools provide **hints** and **validation** —
 ## Before coding
 
 1. Inspect `data/README_DATA_FORMAT.md` and list files under `data/`.
-2. Create or open the active run:
+2. **Search lab memory** for prior work on the same symbol / idea (required before a new baseline):
+   ```bash
+   python scripts/tqg_search_runs.py --symbol <SYMBOL> --text "<idea>" --json
+   # or compact MCP context:
+   python scripts/tqg_lab_context.py --symbol <SYMBOL> --limit 10
+   ```
+   If matches exist (especially `verdict: no_edge` / `killed`), summarize and ask whether to **extend** that run or start fresh. Link variants with `--related-to`.
+3. Create or open the active run:
    ```bash
    python scripts/tqg_create_run.py --title "<short title>"
    ```
-3. Read `runs/<run_id>/run.json` for status, OOS, and artifacts.
-4. When MCP is connected, call **`tqg_get_guidance`** with:
+4. Read `runs/<run_id>/run.json` for status, OOS, and artifacts.
+5. When MCP is connected, call **`tqg_get_guidance`** with:
    - `user_request` — the user's message
    - `run_context_json` — contents of `run.json` (as JSON string)
-5. If OOS is missing for a new backtest, ask the user (default `2025-01-01`).
+   - optionally merge `lab_context` from `tqg_lab_context.py` / `lab_context_for_mcp()` into the request context
+6. If OOS is missing for a new backtest, ask the user (default `2025-01-01`).
 
 ## Implement
 
-6. Write code **only** under `runs/<run_id>/code/`.
-7. Use `tqg_client.market_data.load_market_data()` for OHLCV loading (local `data/` first, yfinance fallback).
-8. Save `strategy_spec.json` with symbol, asset class, data source, annualization, and OOS.
+7. Write code **only** under `runs/<run_id>/code/`.
+8. Use `tqg_client.market_data.load_market_data()` for OHLCV loading (local `data/` first, yfinance fallback).
+9. Save `strategy_spec.json` with symbol, asset class, data source, annualization, and OOS.
 
 ## Validate and execute
 
-9. When MCP is connected, call **`tqg_validate_strategy_code`** before running, or use:
-   ```bash
-   python scripts/tqg_run_backtest.py <run_id> --mcp-validate
-   ```
-10. Run locally:
+10. When MCP is connected, call **`tqg_validate_strategy_code`** before running, or use:
+    ```bash
+    python scripts/tqg_run_backtest.py <run_id> --mcp-validate
+    ```
+11. Run locally:
     ```bash
     python scripts/tqg_run_backtest.py <run_id>
     ```
-11. On failure, read `runs/<id>/logs/*.log`; call `tqg_get_guidance` with `last_error`; retry (max 3 attempts).
+12. On failure, read `runs/<id>/logs/*.log`; call `tqg_get_guidance` with `last_error`; retry (max 3 attempts).
 
 ## Artifacts (baseline)
 
@@ -72,11 +80,15 @@ For packaging, switch to skill **`tqg-package-run`**.
 
 ## Finish
 
-15. Record turns when useful:
+15. Record turns after significant prompts:
     ```bash
     python scripts/tqg_record_turn.py <run_id> --user "..." --assistant "..."
     ```
-16. Package when asked (requires `validation_passed: true` in `run.json`):
+16. Tag institutional memory when a hypothesis is settled:
+    ```bash
+    python scripts/tqg_tag_run.py <run_id> --verdict no_edge --reason "..." --tag negative_result
+    ```
+17. Package when asked (requires `validation_passed: true` in `run.json`):
     ```bash
     python scripts/tqg_package_artifacts.py <run_id>
     ```

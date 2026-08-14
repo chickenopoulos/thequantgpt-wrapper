@@ -12,8 +12,10 @@ _REPO = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(_REPO))
 
 from tqg_client.execution import run_strategy_script  # noqa: E402
+from tqg_client.lab_index import touch_run_index  # noqa: E402
 from tqg_client.mcp_validate import try_mcp_validate  # noqa: E402
 from tqg_client.run_state import (  # noqa: E402
+    append_flow_turn,
     load_run_state,
     merge_execution_feedback,
     save_run_state,
@@ -58,6 +60,25 @@ def main() -> int:
                 feedback["validation_passed"] = False
 
         save_run_state(state)
+
+        # Best-effort flow memory when a user request was provided.
+        if args.user_request.strip():
+            try:
+                summary = (
+                    "backtest ok"
+                    if feedback.get("success")
+                    else f"backtest failed: {feedback.get('error')}"
+                )
+                append_flow_turn(
+                    args.run_id,
+                    user_message=args.user_request.strip(),
+                    assistant_summary=summary,
+                    status="success" if feedback.get("success") else "failed",
+                )
+            except Exception:
+                pass
+
+        touch_run_index(args.run_id)
     except Exception as exc:
         print(f"error: {exc}", file=sys.stderr)
         return 1

@@ -11,6 +11,10 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 _REPO = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(_REPO))
+
+from tqg_client.lab_index import touch_run_index  # noqa: E402
+from tqg_client.run_state import load_run_state, save_run_state  # noqa: E402
 
 
 def _load_json(path: Path) -> dict:
@@ -24,6 +28,7 @@ def _collect_files(run_root: Path) -> list[Path]:
         "run.json",
         "flow.json",
         "strategy_spec.json",
+        "lab_meta.json",
         "RUN.md",
         "report.md",
         "code/*.py",
@@ -117,12 +122,53 @@ def package_run(run_id: str, *, zip_bundle: bool = False, require_validation: bo
         out.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(src, out)
 
+    # Mark packaged in run state + lab memory when packaging succeeds.
+    try:
+        state = load_run_state(run_id)
+        state.status = "packaged"
+        if not state.verdict:
+            state.verdict = "packaged"
+        save_run_state(state)
+        # Refresh packaged run.json into reports/
+        shutil.copy2(run_root / "run.json", dest / "run.json")
+    except Exception:
+        pass
+
+    memory = {
+        "verdict": meta.get("verdict"),
+        "tags": meta.get("tags") or [],
+        "related_runs": meta.get("related_runs") or [],
+        "hypothesis": meta.get("hypothesis"),
+        "kill_reason": meta.get("kill_reason"),
+    }
+    # Prefer freshly saved state if available.
+    packed_meta = _load_json(dest / "run.json")
+    if packed_meta:
+        memory = {
+            "verdict": packed_meta.get("verdict") or memory["verdict"] or "packaged",
+            "tags": packed_meta.get("tags") or memory["tags"],
+            "related_runs": packed_meta.get("related_runs") or memory["related_runs"],
+            "hypothesis": packed_meta.get("hypothesis") or memory["hypothesis"],
+            "kill_reason": packed_meta.get("kill_reason") or memory["kill_reason"],
+        }
+
+    lab_meta_src = run_root / "lab_meta.json"
+    if lab_meta_src.is_file():
+        shutil.copy2(lab_meta_src, dest / "lab_meta.json")
+
     manifest = {
         "run_id": run_id,
         "packaged_at": datetime.now(timezone.utc).isoformat(),
         "files": [str(f.relative_to(dest)) for f in sorted(dest.rglob("*")) if f.is_file()],
+        "verdict": memory.get("verdict"),
+        "tags": memory.get("tags") or [],
+        "related_runs": memory.get("related_runs") or [],
+        "hypothesis": memory.get("hypothesis"),
+        "kill_reason": memory.get("kill_reason"),
     }
     (dest / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
+
+    touch_run_index(run_id)
 
     if zip_bundle:
         archive = shutil.make_archive(str(dest), "zip", root_dir=dest)

@@ -1,0 +1,23 @@
+---
+description: Search lab memory before starting a new baseline
+globs: runs/**/*
+alwaysApply: false
+---
+
+# Lab memory (cross-run)
+
+- Before creating a **new** baseline, search prior work:
+  ```bash
+  python scripts/tqg_search_runs.py --symbol <SYMBOL> --text "<idea>" --json
+  ```
+- If matches exist, summarize them and ask whether to **extend** an existing run or start fresh.
+- Prefer linking variants with `related_runs` instead of silent duplicates:
+  ```bash
+  python scripts/tqg_tag_run.py <new_run> --related-to <prior_run>
+  ```
+- Before re-baselining similar params, check fingerprints:
+  ```bash
+  python scripts/tqg_search_runs.py --fingerprint-of <run_id>
+  ```
+- Surface prior `no_edge` / `killed` verdicts — do not silently re-run killed hypotheses.
+- Keep `run.json` as source of truth; `runs/_lab/index.json` is a derived index (rebuild with `tqg_rebuild_lab_index.py` if stale).
