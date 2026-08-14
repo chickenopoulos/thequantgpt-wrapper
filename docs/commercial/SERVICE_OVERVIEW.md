@@ -161,7 +161,7 @@ A generic repo gives you an AI coder. TheQuantGPT Cursor Lab gives you a **resea
 ## Typical journey
 
 1. **Trial or beta signup** — API key issued, bootstrap SOP shared.
-2. **Server setup** — clone wrapper, configure MCP, upload demo data, smoke test passes.
+2. **Server setup** — clone wrapper (Binance daily OHLCV included), configure MCP, smoke test passes.
 3. **First run** — agent builds a baseline backtest (e.g. BTC mean reversion or equity pullback), IS/OOS metrics + charts saved under `runs/`.
 4. **Robustness** — PSA on in-sample parameters; review heatmap and stability.
 5. **Iterate** — new strategies from your backlog; each gets its own run folder.
@@ -173,42 +173,22 @@ A generic repo gives you an AI coder. TheQuantGPT Cursor Lab gives you a **resea
 
 ## Proof — what a completed run looks like
 
-These are **real agent outputs** from the wrapper repo — not mockups. They show the workflow (OOS split, saved code, metrics, follow-up robustness), not investment performance.
+A fresh clone has **empty** `runs/` and `reports/`. The first strategy is created on the client server (see [`examples/btc_mean_reversion.md`](https://github.com/chickenopoulos/thequantgpt-wrapper/blob/main/examples/btc_mean_reversion.md)). Each completed run looks like this:
 
-### Packaged demo (send this link first)
+```text
+runs/<id>/
+  run.json                 # status, OOS cut-off, validation_passed
+  strategy_spec.json
+  code/                    # generated vectorbt strategy
+  artifacts/metrics.json   # in_sample + out_of_sample
+  charts/equity_curve.png
+  charts/drawdown.png
+  report.md
+reports/<id>/              # packaged bundle after validation
+  manifest.json
+```
 
-**BTC mean reversion** — baseline backtest, OOS from `2025-01-01`, packaged under `reports/sample/`:
-
-| Artifact | Path |
-|----------|------|
-| Human summary | [`reports/sample/report.md`](https://github.com/chickenopoulos/thequantgpt-wrapper/blob/main/reports/sample/report.md) |
-| IS / OOS metrics | [`reports/sample/artifacts/metrics.json`](https://github.com/chickenopoulos/thequantgpt-wrapper/blob/main/reports/sample/artifacts/metrics.json) |
-| Generated code | [`reports/sample/code/btc_mean_reversion.py`](https://github.com/chickenopoulos/thequantgpt-wrapper/blob/main/reports/sample/code/btc_mean_reversion.py) |
-| Package manifest | [`reports/sample/manifest.json`](https://github.com/chickenopoulos/thequantgpt-wrapper/blob/main/reports/sample/manifest.json) |
-
-**Sample metrics (BTCUSDT daily, z-score MR):**
-
-| Segment | Sharpe | Total return | Max DD |
-|---------|--------|--------------|--------|
-| In-sample | 0.15 | 6.0% | -37.4% |
-| Out-of-sample | 0.06 | 0.06% | -11.3% |
-
-### Full research sessions (baseline → PSA)
-
-| Study | Asset | What it demonstrates | Report |
-|-------|-------|----------------------|--------|
-| **QQQ pullback reversal** | Equities (yfinance) | Article-to-rules, IS/OOS table, 7×9 PSA grid, `validation_passed: true` | [`runs/qqq_pullback_reversal/report.md`](https://github.com/chickenopoulos/thequantgpt-wrapper/blob/main/runs/qqq_pullback_reversal/report.md) |
-| **QQQ RSI(2) mean reversion** | Equities | Regime split (bull/bear), newsletter spec matching | [`runs/qqq_rsi2_mr/report.md`](https://github.com/chickenopoulos/thequantgpt-wrapper/blob/main/runs/qqq_rsi2_mr/report.md) |
-| **BTC percentile-rank momentum** | Crypto (hourly) | Honest negative result — 768-config grid, explicit “no edge” verdict | [`runs/prm_landolfi_momentum/report_btc_edge.md`](https://github.com/chickenopoulos/thequantgpt-wrapper/blob/main/runs/prm_landolfi_momentum/report_btc_edge.md) |
-
-**QQQ pullback — IS vs OOS (from lab backtest):**
-
-| Segment | Sharpe | Trades | Win rate | Profit factor |
-|---------|--------|--------|----------|---------------|
-| In-sample | 0.32 | 256 | 69% | 1.55 |
-| Out-of-sample | 1.34 | 20 | 80% | 3.65 |
-
-PSA artifacts: [`runs/qqq_pullback_reversal/artifacts/psa_summary.json`](https://github.com/chickenopoulos/thequantgpt-wrapper/blob/main/runs/qqq_pullback_reversal/artifacts/psa_summary.json)
+Bundled data for that first run: Binance daily OHLCV under `data/binance/`.
 
 ### 90-second demo narrative (for calls)
 
@@ -247,7 +227,7 @@ This is **research tooling** — designed to make your process faster, more cons
 
 **Contact:** [your email / booking link]  
 **Repo:** [thequantgpt-wrapper](https://github.com/chickenopoulos/thequantgpt-wrapper)  
-**Sample outputs:** [`reports/sample/`](https://github.com/chickenopoulos/thequantgpt-wrapper/tree/main/reports/sample)  
+**First-run prompts:** [`examples/btc_mean_reversion.md`](https://github.com/chickenopoulos/thequantgpt-wrapper/blob/main/examples/btc_mean_reversion.md)  
 **Related docs:** [Offer (1-page)](OFFER.md) · [FAQ](../FAQ.md) · [Trial terms](TRIAL_TERMS.md)
 
 ---
@@ -257,7 +237,8 @@ This is **research tooling** — designed to make your process faster, more cons
 Replace `{first_name}`, `{company}`, `{your_name}`, and `[booking link]` before sending.
 
 **Proof link to attach everywhere:**  
-`https://github.com/chickenopoulos/thequantgpt-wrapper/tree/main/reports/sample`
+`https://github.com/chickenopoulos/thequantgpt-wrapper`  
+First-run prompts: `https://github.com/chickenopoulos/thequantgpt-wrapper/blob/main/examples/btc_mean_reversion.md`
 
 ---
 
@@ -276,11 +257,9 @@ I help small systematic research teams set up **TheQuantGPT Cursor Lab** — a C
 - Fixed workflow: baseline → OOS split → PSA → saved `runs/<id>/` artifacts
 - We maintain the workflow layer (validators, templates, MCP updates)
 
-**Sample outputs from a real agent run:**  
-https://github.com/chickenopoulos/thequantgpt-wrapper/tree/main/reports/sample
-
-Includes generated Python, IS/OOS metrics, and a packaged report. A fuller equity example (baseline + PSA):  
-https://github.com/chickenopoulos/thequantgpt-wrapper/blob/main/runs/qqq_pullback_reversal/report.md
+**Wrapper repo + first-run prompts:**  
+https://github.com/chickenopoulos/thequantgpt-wrapper  
+https://github.com/chickenopoulos/thequantgpt-wrapper/blob/main/examples/btc_mean_reversion.md
 
 **7-day free trial** — full workflow + MCP access. Beta design partners: €1,000 setup + €250/month after trial.
 
@@ -297,10 +276,10 @@ Best,
 
 Hi {first_name},
 
-Bumping this once — happy to skip a call and just send the sample run folder if useful.
+Bumping this once — happy to skip a call and just send the setup SOP if useful.
 
-Packaged demo (BTC mean reversion, OOS from 2025-01-01):  
-https://github.com/chickenopoulos/thequantgpt-wrapper/tree/main/reports/sample
+Repo + first-run prompts (BTC mean reversion, OOS from 2025-01-01):  
+https://github.com/chickenopoulos/thequantgpt-wrapper/blob/main/examples/btc_mean_reversion.md
 
 Still have a few beta slots. Reply “trial” if you want the 7-day setup link.
 
@@ -318,7 +297,7 @@ Are you still running ideas through ad-hoc AI chats, or do you have a fixed OOS 
 
 I set up **Cursor research labs on client servers** — backtests via agents, local data, saved artifacts under `runs/<id>/`. We maintain the workflow layer (validators, robustness ladder).
 
-Sample outputs: github.com/chickenopoulos/thequantgpt-wrapper/tree/main/reports/sample
+Repo: github.com/chickenopoulos/thequantgpt-wrapper
 
 7-day free trial available. Worth 15 min?
 
@@ -326,7 +305,7 @@ Sample outputs: github.com/chickenopoulos/thequantgpt-wrapper/tree/main/reports/
 
 ### LinkedIn — short comment / DM (warm intro)
 
-Thanks for connecting, {first_name}. If systematic backtesting ever becomes a bottleneck — we help teams run a fixed research workflow (OOS → PSA → packaged artifacts) on their own server via Cursor agents. Sample run: github.com/chickenopoulos/thequantgpt-wrapper/tree/main/reports/sample. Happy to share more if relevant.
+Thanks for connecting, {first_name}. If systematic backtesting ever becomes a bottleneck — we help teams run a fixed research workflow (OOS → PSA → packaged artifacts) on their own server via Cursor agents. Repo: github.com/chickenopoulos/thequantgpt-wrapper. Happy to share more if relevant.
 
 ---
 
@@ -338,8 +317,8 @@ Built something for small quant/crypto research teams tired of one-off AI backte
 
 **TheQuantGPT Cursor Lab** = Cursor agents + your server + a maintained workflow layer (validators, PSA, saved run folders). Data stays local. Research only — no live trading.
 
-Real sample output (BTC MR, IS/OOS metrics + code):  
-https://github.com/chickenopoulos/thequantgpt-wrapper/tree/main/reports/sample
+First-run prompts (BTC MR on bundled Binance daily data):  
+https://github.com/chickenopoulos/thequantgpt-wrapper/blob/main/examples/btc_mean_reversion.md
 
 7-day free trial. Beta: €1k setup + €250/mo. DM me or email [your email] if you want the setup SOP.
 
@@ -349,7 +328,7 @@ https://github.com/chickenopoulos/thequantgpt-wrapper/tree/main/reports/sample
 
 We run a Cursor lab on our own server — prompt → backtest → OOS split → PSA → saved artifacts in `runs/<id>/`. Not a black-box SaaS; your data stays on the box.
 
-Sample run folder: https://github.com/chickenopoulos/thequantgpt-wrapper/tree/main/reports/sample
+Repo: https://github.com/chickenopoulos/thequantgpt-wrapper
 
 Happy to share the 7-day trial setup if anyone’s evaluating this workflow.
 
@@ -357,7 +336,7 @@ Happy to share the 7-day trial setup if anyone’s evaluating this workflow.
 
 **Version C (1:1 DM after group interest)**
 
-Hey — saw your message on backtesting workflow. I can send the 7-day trial SOP + API key if you have a small Linux server and Cursor. Sample outputs here: https://github.com/chickenopoulos/thequantgpt-wrapper/tree/main/reports/sample — takes ~1–2 sessions to get first baseline + PSA running.
+Hey — saw your message on backtesting workflow. I can send the 7-day trial SOP + API key if you have a small Linux server and Cursor. Repo: https://github.com/chickenopoulos/thequantgpt-wrapper — takes ~1–2 sessions to get first baseline + PSA running.
 
 ---
 
@@ -365,9 +344,9 @@ Hey — saw your message on backtesting workflow. I can send the 7-day trial SOP
 
 | Platform | Length | Attach |
 |----------|--------|--------|
-| **Email** | 150–200 words; one clear CTA | `reports/sample` link + one full run (`qqq_pullback_reversal`) |
-| **LinkedIn** | ≤ 300 characters for connection note; InMail can be longer | GitHub sample link only (no file attachments) |
-| **WhatsApp / Discord** | 4–6 short lines; link on its own line | Same sample link; offer DM for trial SOP |
+| **Email** | 150–200 words; one clear CTA | Repo + `examples/btc_mean_reversion.md` |
+| **LinkedIn** | ≤ 300 characters for connection note; InMail can be longer | GitHub repo link only (no file attachments) |
+| **WhatsApp / Discord** | 4–6 short lines; link on its own line | Same repo link; offer DM for trial SOP |
 
 ---
 

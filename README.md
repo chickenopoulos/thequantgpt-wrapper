@@ -4,6 +4,8 @@ A **thin client repo** for systematic quant research on your own server. Cursor 
 
 > **Research only** — no live trading. Asset-class agnostic (crypto, equities, FX, bonds, metals, etc.); local OHLCV preferred, yfinance supported.
 
+A clone is a **fresh lab**: empty `runs/` and `reports/`. The only bundled market data is Binance daily OHLCV under `data/binance/`.
+
 ## Quick start
 
 ```bash
@@ -35,10 +37,10 @@ AGENTS.md                    # Agent constitution (orchestration + repo map)
 .cursor/rules/               # Always-on quant invariants
 .cursor/skills/              # Research session playbooks
 config.yaml                  # Local paths + MCP URL (gitignored)
-data/                        # Client OHLCV parquet/CSV (gitignored)
-runs/<id>/                   # Per-strategy workspace (run.json, code/, artifacts/)
-runs/_lab/                   # Cross-run memory index (derived)
-reports/                     # Packaged artifact bundles
+data/binance/                # Bundled Binance daily OHLCV (spot + USDT-M futures)
+runs/<id>/                   # Per-strategy workspace (created locally)
+runs/_lab/                   # Cross-run memory index (derived, local)
+reports/                     # Packaged artifact bundles (created locally)
 scripts/
   tqg_create_run.py          # Scaffold run folder + run.json
   tqg_run_backtest.py        # Execute code/ (--mcp-validate optional)
@@ -50,17 +52,22 @@ scripts/
   tqg_search_runs.py         # Query prior runs
   tqg_lab_context.py         # Compact lab context for MCP
   tqg_tag_run.py             # Verdicts, tags, related_runs
-  tqg_init.py                # Smoke test (--run-demo for local execution)
+  tqg_init.py                # Smoke test (deps, config, bundled data, MCP)
 tqg_client/                  # API client, run state, lab index, execution helpers
-examples/                    # Demo prompt sequences
-research/                    # Standalone research projects (e.g. triangular pairs)
+examples/                    # First-run prompt sequences
 docs/                        # Setup SOP, FAQ, commercial templates
 ```
 
 Local smoke test without MCP:
 
 ```bash
-python scripts/tqg_init.py --skip-mcp --run-demo
+python scripts/tqg_init.py --skip-mcp
+```
+
+Create the first strategy workspace:
+
+```bash
+python scripts/tqg_create_run.py --title "BTC mean reversion" --run-id btc_mean_reversion
 ```
 
 ### Lab memory
@@ -68,7 +75,7 @@ python scripts/tqg_init.py --skip-mcp --run-demo
 ```bash
 python scripts/tqg_rebuild_lab_index.py
 python scripts/tqg_search_runs.py --symbol BTCUSDT --oos-sharpe-lt 0.3
-python scripts/tqg_tag_run.py demo_btc_mr --verdict no_edge --reason "weak OOS"
+python scripts/tqg_tag_run.py <run_id> --verdict no_edge --reason "weak OOS"
 ```
 
 ## Documentation

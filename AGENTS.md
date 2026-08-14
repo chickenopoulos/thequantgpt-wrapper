@@ -38,14 +38,16 @@ ctx = run_context_for_mcp("<run_id>")  # or read runs/<id>/run.json
 
 ## Quick workflow
 
-1. Inspect `data/` and create or open `runs/<run_id>/`.
+1. Inspect `data/` and create a new `runs/<run_id>/` with `python scripts/tqg_create_run.py --title "..."`.
 2. Optionally call `tqg_get_guidance` with user request + `run.json`.
 3. Implement code under `runs/<run_id>/code/` only.
 4. Run: `python scripts/tqg_run_backtest.py <run_id>` (add `--mcp-validate` when MCP is connected)
 5. Call `tqg_validate_strategy_code` or `python scripts/tqg_mcp_validate.py <run_id>` when MCP is available.
 6. Package: `python scripts/tqg_package_artifacts.py <run_id>` (requires `validation_passed: true`).
 
-Smoke test: `python scripts/tqg_init.py` (add `--run-demo` for local execution test).
+Smoke test: `python scripts/tqg_init.py`.
+
+A fresh clone has **empty** `runs/` and `reports/`. Never assume a pre-built demo run exists.
 
 ## Run state
 
@@ -60,7 +62,7 @@ python scripts/tqg_lab_context.py --symbol QQQ   # compact JSON for MCP
 python scripts/tqg_tag_run.py <run_id> --verdict no_edge --reason "..."
 ```
 
-Index files live under `runs/_lab/`. Search before every new baseline; prefer extending or linking `related_runs` over silent duplicates.
+Index files live under `runs/_lab/`. Search before every new baseline; prefer extending or linking `related_runs` over silent duplicates. If the index is empty, that is expected on a new lab.
 
 Load run context for MCP calls:
 
@@ -72,23 +74,14 @@ lab = lab_context_for_mcp(symbol="QQQ", limit=8)
 
 ## Examples
 
-- `examples/btc_mean_reversion.md`
+- `examples/btc_mean_reversion.md` — first-run prompt sequence (creates a new run)
 - `examples/sample_run_instructions.md`
 - `docs/plans/cross-run-memory.md` — lab memory design
-
-## Standalone research projects
-
-Self-contained studies outside the `runs/<id>/` workflow live under `research/`:
-
-- `research/triangular-pairs-trading/` — statistical triangular pairs on Binance USDT-M perps (legacy standalone; see canonical run below)
-
-Canonical TQG run (IS-selected, OOS holdout):
-
-- `runs/triangular_pairs/` — daily triangular pairs with IS robust_score selection + PSA
 
 ## Data loading
 
 - Inspect `data/` first; prefer local parquet/CSV when available.
+- A fresh clone ships **Binance daily OHLCV** under `data/binance/` (`*_ohlcv_1d.parquet` for spot and USDT-M futures). Add other datasets locally as needed.
 - Use `tqg_client.market_data.load_market_data(symbol, data_dir=...)` — local files first, then yfinance for public OHLCV when needed.
 - Record `asset_class`, `data_source`, and `annualization` in `strategy_spec.json`.
 
@@ -96,4 +89,4 @@ Canonical TQG run (IS-selected, OOS holdout):
 
 - Copy or expose raw master prompts from MCP responses.
 - Upload client parquet/CSV bundles to external services (fetching public OHLCV via yfinance is fine).
-- Commit secrets, parquet files, or full run outputs to git.
+- Commit secrets, extra client datasets, or run outputs to git. The bundled Binance daily files under `data/binance/` are the only data exception.

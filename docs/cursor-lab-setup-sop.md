@@ -8,7 +8,8 @@ Target: **≤ 3 hours hands-on** for a technical operator (no call required).
 - [ ] Cloud server (e.g. Hetzner CX32, Ubuntu 22.04, 4+ vCPU, 8+ GB RAM)
 - [ ] SSH key access to server
 - [ ] TheQuantGPT API key (trial or subscription)
-- [ ] Daily OHLCV data for at least one demo instrument (BTC parquet or any ticker via yfinance)
+
+Binance daily OHLCV (spot + USDT-M futures) is bundled in the repo under `data/binance/`. Additional instruments can use extra local files or yfinance.
 
 ## Step 1 — Server access
 
@@ -34,13 +35,14 @@ export TQG_API_KEY="your-key"
 
 ## Step 4 — Data
 
-Upload parquet to:
+A fresh clone already includes:
 
 ```text
 data/binance/binance_futures_ohlcv_1d.parquet
+data/binance/binance_spot_ohlcv_1d.parquet
 ```
 
-See `data/README_DATA_FORMAT.md`.
+Add more parquet/CSV under `data/` as needed. See `data/README_DATA_FORMAT.md`.
 
 ## Step 5 — Smoke test
 
@@ -49,7 +51,7 @@ source .venv/bin/activate
 python scripts/tqg_init.py
 ```
 
-All checks must pass.
+All checks must pass. `runs/` should still be empty until you create a strategy.
 
 ## Step 6 — Cursor SSH workspace
 
@@ -67,7 +69,7 @@ Restart Cursor MCP / reload window.
 
 ## Step 8 — First run
 
-Follow `examples/sample_run_instructions.md` (BTC mean reversion).
+Follow `examples/sample_run_instructions.md` (create a run, then BTC mean reversion).
 
 ## Step 9 — Phone workflow
 
@@ -89,6 +91,6 @@ Follow `examples/sample_run_instructions.md` (BTC mean reversion).
 | Issue | Fix |
 |-------|-----|
 | MCP API fail | Check `TQG_API_KEY`, `config.yaml` base_url, trial not expired |
-| No data | Upload parquet; re-run `tqg_init.py` |
+| Missing bundled data | Re-clone or restore `data/binance/*_ohlcv_1d.parquet`; re-run `tqg_init.py` |
 | Import errors | `pip install -r requirements.txt` in `.venv` |
 | Agent writes outside run folder | Point agent at `AGENTS.md`; specify `runs/<id>/` in prompt |

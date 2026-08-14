@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Smoke-test local lab setup: Python, deps, config, data dir, optional backtest."""
+"""Smoke-test local lab setup: Python, deps, config, bundled data, writable dirs."""
 
 from __future__ import annotations
 
@@ -13,8 +13,11 @@ sys.path.insert(0, str(_REPO))
 
 from tqg_client.config import api_settings, load_config, resolve_path  # noqa: E402
 from tqg_client.api import TqgApiClient  # noqa: E402
-from tqg_client.execution import run_strategy_script  # noqa: E402
-from tqg_client.run_state import load_run_state, merge_execution_feedback, save_run_state  # noqa: E402
+
+BUNDLED_BINANCE_1D = (
+    Path("binance") / "binance_futures_ohlcv_1d.parquet",
+    Path("binance") / "binance_spot_ohlcv_1d.parquet",
+)
 
 
 def _check_python() -> tuple[bool, str]:
@@ -34,26 +37,8 @@ def _check_imports() -> list[str]:
     return missing
 
 
-def _run_demo_backtest() -> tuple[bool, str]:
-    demo_id = "demo_btc_mr"
-    runs_dir = resolve_path(load_config(), "runs_dir")
-    if not (runs_dir / demo_id / "code").exists():
-        return False, f"Missing runs/{demo_id}/code/ — add demo strategy or skip --run-demo"
-    try:
-        state = load_run_state(demo_id)
-        feedback = run_strategy_script(state)
-        state = merge_execution_feedback(state, feedback)
-        save_run_state(state)
-        if not feedback.get("success"):
-            return False, feedback.get("error", "demo backtest failed")
-        return True, f"Demo backtest OK — status={state.status}"
-    except Exception as exc:
-        return False, str(exc)
-
-
 def main() -> int:
     parser = argparse.ArgumentParser(description="TheQuantGPT Cursor Lab smoke test")
-    parser.add_argument("--run-demo", action="store_true", help="Execute runs/demo_btc_mr backtest")
     parser.add_argument("--skip-mcp", action="store_true", help="Skip MCP API health check")
     args = parser.parse_args()
 
@@ -96,11 +81,15 @@ def main() -> int:
             print(f"[FAIL] {label} not writable: {exc}")
             ok = False
 
-    parquet_files = list(data_dir.rglob("*.parquet"))
-    if parquet_files:
-        print(f"[OK] Found {len(parquet_files)} parquet file(s) under data/")
-    else:
-        print("[WARN] No parquet under data/ — upload OHLCV data before backtests")
+    bundled_ok = True
+    for rel in BUNDLED_BINANCE_1D:
+        path = data_dir / rel
+        if path.is_file() and path.stat().st_size > 0:
+            print(f"[OK] Bundled Binance 1d OHLCV: {rel}")
+        else:
+            print(f"[FAIL] Missing bundled dataset: {rel}")
+            bundled_ok = False
+    ok = ok and bundled_ok
 
     if not args.skip_mcp:
         try:
@@ -117,16 +106,12 @@ def main() -> int:
                 print(f"[OK] MCP guidance tool: intent_hint={probe['intent_hint']}")
         except Exception as exc:
             print(f"[WARN] MCP API: {exc}")
-            print("       Phase 1 local layer can run with --skip-mcp")
-
-    if args.run_demo:
-        demo_ok, demo_msg = _run_demo_backtest()
-        print(f"[{'OK' if demo_ok else 'FAIL'}] Demo backtest: {demo_msg}")
-        ok = ok and demo_ok
+            print("       Local layer can run with --skip-mcp")
 
     print()
     if ok:
         print("All critical checks passed. Ready for strategy runs.")
+        print("Create a run with: python scripts/tqg_create_run.py --title \"<title>\"")
         return 0
     print("Fix failures above before running strategies.")
     return 1

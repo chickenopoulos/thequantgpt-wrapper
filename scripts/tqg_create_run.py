@@ -83,7 +83,7 @@ def create_run(*, title: str, run_id: str | None = None) -> Path:
 def main() -> int:
     parser = argparse.ArgumentParser(description="Create a new runs/<id>/ workspace")
     parser.add_argument("--title", required=True, help="Human-readable run title")
-    parser.add_argument("--run-id", help="Optional slug (e.g. demo_btc_mr) instead of numeric id")
+    parser.add_argument("--run-id", help="Optional slug (e.g. btc_mean_reversion) instead of numeric id")
     args = parser.parse_args()
     try:
         root = create_run(title=args.title, run_id=args.run_id)

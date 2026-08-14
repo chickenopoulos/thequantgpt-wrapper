@@ -2,6 +2,17 @@
 
 Client data stays on your server. TheQuantGPT is **asset-class agnostic** — crypto, equities, FX, bonds, metals, commodities, and other OHLCV series are all in scope.
 
+## Bundled with a fresh clone
+
+Binance **daily** OHLCV (spot + USDT-M futures) ships in the repo:
+
+```text
+data/binance/binance_futures_ohlcv_1d.parquet
+data/binance/binance_spot_ohlcv_1d.parquet
+```
+
+These are long/tidy files with an `asset` column (e.g. `BTCUSDT`). Hourly bars, other venues, and extra vendor dumps are **not** shipped — add them locally under `data/` as needed.
+
 ## Preferred: local files under `data/`
 
 Place parquet or CSV files anywhere under `data/`. The loader searches recursively by symbol name.

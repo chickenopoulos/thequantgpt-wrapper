@@ -6,7 +6,7 @@ Turn isolated `runs/<id>/` folders into a **searchable lab memory** so agents (a
 
 - "What have we already tried on BTC momentum?"
 - "Show runs where OOS Sharpe < 0.2"
-- "Don't re-baseline — extend run `triangular_pairs`"
+- "Don't re-baseline — extend run `<prior_id>`"
 - "What failed last month and why?"
 
 This is the gap between **folder structure** (copyable) and **institutional memory** (sticky).
@@ -35,8 +35,7 @@ runs/
   _lab/
     index.json          # master registry (all runs, summary cards)
     index.meta.json     # schema version, last full rebuild, run count
-  triangular_pairs/     # unchanged per-run layout
-  qqq_pullback_reversal/
+  <run_id>/             # unchanged per-run layout
   ...
 ```
 

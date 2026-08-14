@@ -1,12 +1,14 @@
-# BTC mean reversion — demo prompts
+# BTC mean reversion — first-run prompts
 
 Use **one new Cursor chat** per study. Send prompts **in order**. Wait for each reply before sending the next.
 
-Create the run first (agent or you):
+Create an empty run first (nothing is pre-built in a fresh clone):
 
 ```bash
-python scripts/tqg_create_run.py --title "BTC mean reversion" --run-id demo_btc_mr
+python scripts/tqg_create_run.py --title "BTC mean reversion" --run-id btc_mean_reversion
 ```
+
+Daily BTCUSDT bars are in the bundled Binance futures file under `data/binance/`.
 
 ---
 
@@ -32,11 +34,11 @@ Important: Single-asset only — not a multi-asset portfolio.
 
 Out-of-sample cut-off: 2025-01-01.
 
-Work in runs/demo_btc_mr/ only.
+Work in runs/btc_mean_reversion/ only.
 
 Please:
 1. Call tqg_get_guidance with the user request and run.json context
-2. Implement and run: python scripts/tqg_run_backtest.py demo_btc_mr
+2. Implement and run: python scripts/tqg_run_backtest.py btc_mean_reversion
 3. Save metrics.json, equity chart, and strategy code under the run folder
 4. Call tqg_validate_strategy_code with run_context_json before finishing
 ```
@@ -56,7 +58,7 @@ Keep other settings fixed. In-sample only (before 2025-01-01). Rank by Sharpe.
 
 Call tqg_get_robustness_spec with user_request and run.json context first.
 Implement PSA per the spec (not a rigid step list).
-Save PSA outputs under runs/demo_btc_mr/artifacts/ and charts under runs/demo_btc_mr/charts/.
+Save PSA outputs under runs/btc_mean_reversion/artifacts/ and charts under runs/btc_mean_reversion/charts/.
 ```
 
 ---
@@ -66,7 +68,7 @@ Save PSA outputs under runs/demo_btc_mr/artifacts/ and charts under runs/demo_bt
 ```text
 Package this run for sharing.
 
-python scripts/tqg_package_artifacts.py demo_btc_mr
+python scripts/tqg_package_artifacts.py btc_mean_reversion
 
-Summarize artifact paths under reports/demo_btc_mr/.
+Summarize artifact paths under reports/btc_mean_reversion/.
 ```

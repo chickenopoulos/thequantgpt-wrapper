@@ -6,26 +6,32 @@ __pycache__/
 *.pyc
 .pytest_cache/
 .mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.ipynb_checkpoints/
+*.egg-info/
 .DS_Store
 
-# Client data (never commit)
-data/**/*.parquet
-data/**/*.csv
-data/**/*.feather
-!data/README_DATA_FORMAT.md
+# Local Cursor MCP (ship tqg_client/mcp_config.example.json instead)
+.cursor/mcp.json
+
+# Client data — only bundled Binance daily OHLCV is tracked
+data/**
 !data/.gitkeep
+!data/README_DATA_FORMAT.md
+!data/binance/
+!data/binance/binance_futures_ohlcv_1d.parquet
+!data/binance/binance_spot_ohlcv_1d.parquet
 
-# Run outputs
-runs/**/*
+# Run workspaces (created locally; never ship)
+runs/**
 !runs/.gitkeep
-!runs/demo_btc_mr/
-!runs/demo_btc_mr/**
-!runs/triangular_pairs/
-!runs/triangular_pairs/**
 
-reports/**/*
+# Packaged reports (created locally; never ship)
+reports/**
 !reports/.gitkeep
-!reports/sample/**
 
-# Standalone research project outputs
-research/**/results/
+# Optional standalone studies (local only)
+research/**
+!research/README.md
