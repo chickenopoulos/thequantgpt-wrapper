@@ -13,7 +13,24 @@ def repo_root() -> Path:
     return _REPO_ROOT
 
 
+def load_dotenv(path: Path | None = None) -> None:
+    """Load KEY=VALUE pairs from .env without overriding existing environment vars."""
+    env_path = path or (_REPO_ROOT / ".env")
+    if not env_path.is_file():
+        return
+    for raw in env_path.read_text(encoding="utf-8").splitlines():
+        line = raw.strip()
+        if not line or line.startswith("#") or "=" not in line:
+            continue
+        key, _, value = line.partition("=")
+        key = key.strip()
+        value = value.strip().strip('"').strip("'")
+        if key and key not in os.environ:
+            os.environ[key] = value
+
+
 def load_config(path: Path | None = None) -> dict[str, Any]:
+    load_dotenv()
     cfg_path = path or (_REPO_ROOT / "config.yaml")
     if not cfg_path.exists():
         raise FileNotFoundError(
@@ -39,5 +56,5 @@ def api_settings(cfg: dict[str, Any]) -> tuple[str, str]:
     if not base_url:
         raise ValueError("config.yaml: tqg_api.base_url is required (or set TQG_API_BASE_URL)")
     if not api_key:
-        raise ValueError(f"Set {env_name} in the environment for MCP API access")
+        raise ValueError(f"Set {env_name} in .env (or the environment) for MCP API access")
     return base_url, api_key

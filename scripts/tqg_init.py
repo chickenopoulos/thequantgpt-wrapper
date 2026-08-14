@@ -91,6 +91,13 @@ def main() -> int:
             bundled_ok = False
     ok = ok and bundled_ok
 
+    cursor_mcp = _REPO / ".cursor" / "mcp.json"
+    if cursor_mcp.is_file():
+        print(f"[OK] Cursor MCP config: {cursor_mcp}")
+    else:
+        print("[WARN] Cursor MCP not installed — run: python scripts/tqg_configure_cursor_mcp.py")
+        print("       Then Cursor Settings → MCP → enable thequantgpt")
+
     if not args.skip_mcp:
         try:
             base_url, api_key = api_settings(cfg)
@@ -111,7 +118,8 @@ def main() -> int:
     print()
     if ok:
         print("All critical checks passed. Ready for strategy runs.")
-        print("Create a run with: python scripts/tqg_create_run.py --title \"<title>\"")
+        print("Install Cursor MCP: python scripts/tqg_configure_cursor_mcp.py")
+        print("Create a run with:  python scripts/tqg_create_run.py --title \"<title>\"")
         return 0
     print("Fix failures above before running strategies.")
     return 1

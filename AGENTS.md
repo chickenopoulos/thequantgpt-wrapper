@@ -47,6 +47,8 @@ ctx = run_context_for_mcp("<run_id>")  # or read runs/<id>/run.json
 
 Smoke test: `python scripts/tqg_init.py`.
 
+Install Cursor MCP (required for agent tools): `python scripts/tqg_configure_cursor_mcp.py`, then enable **thequantgpt** under Cursor Settings → MCP.
+
 A fresh clone has **empty** `runs/` and `reports/`. Never assume a pre-built demo run exists.
 
 ## Run state

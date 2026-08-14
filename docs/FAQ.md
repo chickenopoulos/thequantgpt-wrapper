@@ -20,4 +20,4 @@
 
 10. **Support?** Async support + onboarding calls per package.
 
-11. **Investment advice?** No. Research tooling only; no performance guarantees.
+12. **How do I install MCP in Cursor?** Run `python scripts/tqg_configure_cursor_mcp.py`, open the repo in Cursor, then **Cursor Settings → MCP** and enable `thequantgpt`. Put `TQG_API_KEY` in `.env` — a terminal `export` is not visible to Cursor.

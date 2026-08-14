@@ -29,8 +29,9 @@ curl -fsSL https://raw.githubusercontent.com/chickenopoulos/thequantgpt-wrapper/
 ```bash
 cd ~/thequantgpt-wrapper
 cp config.example.yaml config.yaml   # if not already done
+cp .env.example .env
+# edit .env: TQG_API_KEY=your-key
 # config.example.yaml defaults to https://tqg-mcp.vkotopoulos.com/v1
-export TQG_API_KEY="your-key"
 ```
 
 ## Step 4 — Data
@@ -59,13 +60,28 @@ All checks must pass. `runs/` should still be empty until you create a strategy.
 2. Open folder `~/thequantgpt-wrapper`
 3. Ensure `AGENTS.md` is visible to the agent
 
-## Step 7 — MCP in Cursor
+## Step 7 — Install MCP in Cursor
 
-Merge `tqg_client/mcp_config.example.json` into Cursor MCP settings. Set `TQG_API_KEY` in the environment Cursor uses for MCP (or in shell profile on server).
+Cursor agents do **not** inherit a terminal `export TQG_API_KEY`. Install a project MCP server:
 
-For local provider testing: `export TQG_API_BASE_URL=http://127.0.0.1:8787/v1`
+```bash
+source .venv/bin/activate
+python scripts/tqg_configure_cursor_mcp.py
+```
 
-Restart Cursor MCP / reload window.
+That writes `.cursor/mcp.json` (gitignored) pointing at this clone’s venv Python, `scripts/tqg_mcp_bridge.py`, and `.env`.
+
+Then in Cursor:
+
+1. Open the wrapper folder as the workspace (**File → Open Folder**, or SSH remote folder).
+2. **Cursor Settings → MCP**.
+3. Enable the project server **`thequantgpt`**.
+4. Confirm these tools are listed: `tqg_get_guidance`, `tqg_validate_strategy_code`, `tqg_get_robustness_spec`.
+5. If the server is red, reload the window and re-check `.env` / `.venv`.
+
+Manual fallback: copy `tqg_client/mcp_config.example.json` to `.cursor/mcp.json` and replace the absolute paths.
+
+For local provider testing: `export TQG_API_BASE_URL=http://127.0.0.1:8787/v1` in `.env` as well.
 
 ## Step 8 — First run
 
@@ -90,7 +106,8 @@ Follow `examples/sample_run_instructions.md` (create a run, then BTC mean revers
 
 | Issue | Fix |
 |-------|-----|
-| MCP API fail | Check `TQG_API_KEY`, `config.yaml` base_url, trial not expired |
+| MCP API fail | Check `TQG_API_KEY` in `.env`, `config.yaml` base_url, trial not expired |
+| Cursor MCP server red / no tools | Run `python scripts/tqg_configure_cursor_mcp.py`; Cursor Settings → MCP → enable `thequantgpt`; reload window |
 | Missing bundled data | Re-clone or restore `data/binance/*_ohlcv_1d.parquet`; re-run `tqg_init.py` |
 | Import errors | `pip install -r requirements.txt` in `.venv` |
 | Agent writes outside run folder | Point agent at `AGENTS.md`; specify `runs/<id>/` in prompt |

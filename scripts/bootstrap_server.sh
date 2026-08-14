@@ -33,8 +33,8 @@ mkdir -p data/binance runs reports
 
 echo "==> Done"
 echo "Next:"
-echo "  1. export TQG_API_KEY=..."
-echo "  2. python scripts/tqg_init.py   # checks bundled Binance daily OHLCV"
-echo "  3. Configure Cursor MCP (tqg_client/mcp_config.example.json)"
-echo "  4. Connect Cursor to this server via SSH remote workspace"
+echo "  1. cp .env.example .env && edit TQG_API_KEY"
+echo "  2. python scripts/tqg_init.py"
+echo "  3. python scripts/tqg_configure_cursor_mcp.py"
+echo "  4. Open this folder in Cursor → Settings → MCP → enable thequantgpt"
 echo "  5. python scripts/tqg_create_run.py --title \"<first strategy>\""

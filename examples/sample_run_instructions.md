@@ -6,8 +6,8 @@ No demo folder is shipped. `runs/` starts empty.
 
 ## Prerequisites
 
-- `python scripts/tqg_init.py` passes (with MCP connected)
-- Cursor MCP configured (`tqg_client/mcp_config.example.json`)
+- `python scripts/tqg_init.py` passes (HTTP MCP API reachable)
+- Cursor MCP installed: `python scripts/tqg_configure_cursor_mcp.py`, then **Cursor Settings → MCP** → enable `thequantgpt`
 - Bundled Binance daily parquet under `data/binance/` (spot + USDT-M futures)
 
 ## Smoke test

@@ -14,11 +14,22 @@ cd thequantgpt-wrapper
 python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 cp config.example.yaml config.yaml   # defaults to https://tqg-mcp.vkotopoulos.com/v1
-export TQG_API_KEY="your-key"
+cp .env.example .env                 # then set TQG_API_KEY in .env
 python scripts/tqg_init.py
+python scripts/tqg_configure_cursor_mcp.py
 ```
 
-Connect Cursor MCP using `tqg_client/mcp_config.example.json`, then follow `examples/sample_run_instructions.md`.
+### Install MCP in Cursor
+
+`tqg_init.py` talks to the HTTP API. Cursor agents need a **project MCP server** as well:
+
+1. Open this folder as the Cursor workspace (**File → Open Folder**).
+2. `python scripts/tqg_configure_cursor_mcp.py` writes `.cursor/mcp.json` (gitignored) using this clone’s `.venv` and `.env`.
+3. **Cursor Settings → MCP**.
+4. Enable the project server named **`thequantgpt`**. Wait until tools appear: `tqg_get_guidance`, `tqg_validate_strategy_code`, `tqg_get_robustness_spec`.
+5. If it errors, reload the window. Confirm `.env` has a real `TQG_API_KEY` (a shell `export` is not visible to Cursor).
+
+Then follow `examples/sample_run_instructions.md`.
 
 ## Commercial model
 
@@ -52,7 +63,8 @@ scripts/
   tqg_search_runs.py         # Query prior runs
   tqg_lab_context.py         # Compact lab context for MCP
   tqg_tag_run.py             # Verdicts, tags, related_runs
-  tqg_init.py                # Smoke test (deps, config, bundled data, MCP)
+  tqg_init.py                # Smoke test (deps, config, bundled data, MCP API)
+  tqg_configure_cursor_mcp.py  # Write .cursor/mcp.json for Cursor
 tqg_client/                  # API client, run state, lab index, execution helpers
 examples/                    # First-run prompt sequences
 docs/                        # Setup SOP, FAQ, commercial templates
