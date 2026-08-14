@@ -35,3 +35,6 @@ reports/**
 # Optional standalone studies (local only)
 research/**
 !research/README.md
+
+# Internal notes, commercial templates, research catalogs (local only)
+docs/

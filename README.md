@@ -67,7 +67,6 @@ scripts/
   tqg_configure_cursor_mcp.py  # Write .cursor/mcp.json for Cursor
 tqg_client/                  # API client, run state, lab index, execution helpers
 examples/                    # First-run prompt sequences
-docs/                        # Setup SOP, FAQ, commercial templates
 ```
 
 Local smoke test without MCP:
@@ -89,13 +88,6 @@ python scripts/tqg_rebuild_lab_index.py
 python scripts/tqg_search_runs.py --symbol BTCUSDT --oos-sharpe-lt 0.3
 python scripts/tqg_tag_run.py <run_id> --verdict no_edge --reason "weak OOS"
 ```
-
-## Documentation
-
-- [Setup SOP](docs/cursor-lab-setup-sop.md)
-- [FAQ](docs/FAQ.md)
-- [Offer summary](docs/commercial/OFFER.md)
-- [7-day trial terms](docs/commercial/TRIAL_TERMS.md)
 
 ## Support
 

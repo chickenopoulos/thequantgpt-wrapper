@@ -78,7 +78,6 @@ lab = lab_context_for_mcp(symbol="QQQ", limit=8)
 
 - `examples/btc_mean_reversion.md` — first-run prompt sequence (creates a new run)
 - `examples/sample_run_instructions.md`
-- `docs/plans/cross-run-memory.md` — lab memory design
 
 ## Data loading
 
