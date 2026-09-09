@@ -232,3 +232,93 @@ def load_market_data(
             f"No data found for {symbol}{local_msg}; yfinance returned no data for {yf_symbol}."
         )
     return _normalize_ohlcv(yf_df), f"yfinance:{yf_symbol}"
+
+
+def _long_asset_column(df: pd.DataFrame) -> str | None:
+    cols = {str(c).lower(): c for c in df.columns}
+    for name in ("asset", "symbol", "ticker"):
+        if name in cols:
+            return cols[name]
+    return None
+
+
+def _ensure_time_index(df: pd.DataFrame) -> pd.DataFrame:
+    out = df.copy()
+    cols = {str(c).lower(): c for c in out.columns}
+    if "time" in cols and not isinstance(out.index, pd.DatetimeIndex):
+        out["time"] = pd.to_datetime(out[cols["time"]], utc=True)
+        out = out.set_index("time")
+    if not isinstance(out.index, pd.DatetimeIndex):
+        out.index = pd.to_datetime(out.index, utc=True)
+    if out.index.tz is None:
+        out.index = out.index.tz_localize("UTC")
+    else:
+        out.index = out.index.tz_convert("UTC")
+    out.columns = [str(c).lower() for c in out.columns]
+    return out.sort_index()
+
+
+def load_ohlcv_panel(
+    path: Path | str,
+    *,
+    interval: str | None = None,
+    min_bars: int = 60,
+    top_n: int | None = None,
+    liquidity_end: str | pd.Timestamp | None = None,
+) -> dict[str, pd.DataFrame]:
+    """Load a long-format OHLCV file into field panels (index=time, columns=asset).
+
+    ``top_n`` keeps the most liquid names by median dollar volume on dates
+    strictly before ``liquidity_end`` (the OOS start, when provided).
+    """
+    p = Path(path)
+    if not p.exists():
+        raise FileNotFoundError(p)
+    raw = _load_file(p)
+    asset_col = _long_asset_column(raw)
+    if asset_col is None:
+        raise ValueError(f"{p} has no asset/symbol column — need a universe panel, not a single name")
+    cols = {str(c).lower(): c for c in raw.columns}
+    if interval and "interval" in cols:
+        raw = raw.loc[raw[cols["interval"]].astype(str) == str(interval)]
+    raw = raw.copy()
+    raw["_asset"] = raw[asset_col].astype(str).str.upper()
+    timed = _ensure_time_index(raw)
+    missing = [c for c in OHLCV_COLUMNS if c not in timed.columns]
+    if missing:
+        raise ValueError(f"{p} missing OHLCV columns: {missing}")
+
+    fields: dict[str, pd.DataFrame] = {}
+    for field in OHLCV_COLUMNS:
+        wide = timed.pivot_table(index=timed.index, columns="_asset", values=field, aggfunc="last")
+        wide = wide.sort_index().sort_index(axis=1)
+        fields[field] = wide.astype(float)
+
+    close = fields["close"]
+    counts = close.notna().sum(axis=0)
+    keep = [c for c in close.columns if int(counts.get(c, 0)) >= int(min_bars)]
+    if len(keep) < 3:
+        raise ValueError(
+            f"Panel too small after min_bars={min_bars}: {len(keep)} names in {p}"
+        )
+    for key in list(fields):
+        fields[key] = fields[key].reindex(columns=keep)
+
+    if top_n is not None and int(top_n) > 0:
+        dv = fields["close"] * fields["volume"]
+        if liquidity_end is not None:
+            ts = pd.Timestamp(liquidity_end)
+            if ts.tzinfo is None:
+                ts = ts.tz_localize("UTC")
+            else:
+                ts = ts.tz_convert("UTC")
+            dv = dv.loc[dv.index < ts]
+        med = dv.median(axis=0, skipna=True).sort_values(ascending=False)
+        liquid = [c for c in med.index if pd.notna(med[c])][: int(top_n)]
+        if len(liquid) < 2:
+            raise ValueError(f"top_n={top_n} left fewer than 2 names in {p}")
+        for key in list(fields):
+            fields[key] = fields[key].reindex(columns=liquid)
+
+    return fields
+

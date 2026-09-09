@@ -14,6 +14,7 @@ You operate a **client-owned quant research lab**. Build, run, validate, and pac
 | **This file** | Constitution and repo map |
 | **`.cursor/rules/`** | Always-on invariants (scope, OOS, safety, selection log) |
 | **`.cursor/skills/tqg-research-session/`** | Baseline research workflow |
+| **`.cursor/skills/tqg-alpha-mine/`** | Universe + hunch → formulaic Rank IC leaderboard |
 | **`.cursor/skills/tqg-robustness-followup/`** | One robustness test per turn |
 | **`.cursor/skills/tqg-package-run/`** | Validate + package to `reports/` |
 | **MCP tools (v0.2)** | `tqg_get_guidance`, `tqg_validate_strategy_code`, `tqg_get_robustness_spec` |
@@ -45,6 +46,8 @@ ctx = run_context_for_mcp("<run_id>")  # or read runs/<id>/run.json
 5. Call `tqg_validate_strategy_code` or `python scripts/tqg_mcp_validate.py <run_id>` when MCP is available.
 6. Quote **IS Sharpe, OOS Sharpe, N, k, DSR** from `artifacts/selection.json` (never IS Sharpe alone).
 7. Package: `python scripts/tqg_package_artifacts.py <run_id>` (requires `validation_passed: true`).
+
+**Formulaic alpha mining** (universe + hunch → scored formulas, not one named rule): skill `tqg-alpha-mine` and `python scripts/tqg_alpha_mine.py <run_id> --panel ... --seeds leftover,volume,wick`. Rank on in-sample Rank IC; pass `--reveal-oos` only after fishing stops. See `examples/alpha-mine-prompts.md`.
 
 Smoke test: `python scripts/tqg_init.py`.
 
@@ -84,6 +87,7 @@ lab = lab_context_for_mcp(symbol="QQQ", limit=8)
 - `examples/btc_mean_reversion.md` — first-run prompt sequence (creates a new run)
 - `examples/sample_run_instructions.md`
 - `examples/selection-test-prompts.md` — N/k/DSR smoke prompts
+- `examples/alpha-mine-prompts.md` — universe + hunch formulaic mining
 
 ## Data loading
 
