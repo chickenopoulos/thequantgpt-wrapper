@@ -29,7 +29,7 @@ python scripts/tqg_configure_cursor_mcp.py
 4. Enable the project server named **`thequantgpt`**. Wait until tools appear: `tqg_get_guidance`, `tqg_validate_strategy_code`, `tqg_get_robustness_spec`.
 5. If it errors, reload the window. Confirm `.env` has a real `TQG_API_KEY` (a shell `export` is not visible to Cursor).
 
-Then follow `examples/sample_run_instructions.md`.
+Then follow `examples/sample_run_instructions.md`. Selection-log smoke prompts: `examples/selection-test-prompts.md`.
 
 ## Commercial model
 
@@ -63,6 +63,9 @@ scripts/
   tqg_search_runs.py         # Query prior runs
   tqg_lab_context.py         # Compact lab context for MCP
   tqg_tag_run.py             # Verdicts, tags, related_runs
+  tqg_manufacturing_surface.py  # Optional (N, k) zero-mean manufacturing surface
+  tqg_crowding.py            # Same-symbol IS-return crowding
+  tqg_test_selection.py      # Selection log / DSR unit tests
   tqg_init.py                # Smoke test (deps, config, bundled data, MCP API)
   tqg_configure_cursor_mcp.py  # Write .cursor/mcp.json for Cursor
 tqg_client/                  # API client, run state, lab index, execution helpers

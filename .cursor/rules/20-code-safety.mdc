@@ -12,6 +12,7 @@ alwaysApply: false
 - **Do not** download external market data inside strategy code.
 - Apply **fees and slippage** on turnover; default fee `0.00045`, slippage `0.0005` unless overridden.
 - Produce top-level `pf` and write `artifacts/metrics.json` for baseline backtests.
+- The harness writes `artifacts/selection.json` (N, k, DSR). Do not treat chat memory as the trial count.
 - Optionally set `_strategy_snapshot` (params/metadata only) after a successful build.
 
 Run local validation before executing:

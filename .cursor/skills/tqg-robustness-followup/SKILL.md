@@ -32,9 +32,13 @@ description: >-
 - **In-sample only** (before `oos_start_ts`) unless user explicitly overrides
 - Reuse baseline signal logic; vary only named parameters
 - Save `artifacts/psa_summary.json` and `charts/psa_heatmap.png` for 2D grids
+- Include `grid_cells` (or `parameter_grid`) in that JSON so the harness can add those cells to N
+- Choosing the **best** permutation as a new canonical spec is selection: N includes the grid; prefer the representative/stable cell unless the user explicitly re-baselines
+- CEA: persist `cost_levels`; MC reshuffles are stored as `mc_sims` and do **not** increment N
 
 ## Reply
 
 - Which test was run
 - Stable region / representative params (for PSA)
+- Updated **N / k / DSR** from `artifacts/selection.json`
 - Paths to new artifacts and charts

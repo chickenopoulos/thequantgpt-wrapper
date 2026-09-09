@@ -62,7 +62,8 @@
       "items": { "type": "string" }
     },
     "hypothesis": { "type": ["string", "null"] },
-    "kill_reason": { "type": ["string", "null"] }
+    "kill_reason": { "type": ["string", "null"] },
+    "selection_path": { "type": "string", "default": "artifacts/selection.json" }
   },
   "additionalProperties": true
 }

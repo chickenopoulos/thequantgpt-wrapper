@@ -104,6 +104,12 @@ def package_run(run_id: str, *, zip_bundle: bool = False, require_validation: bo
             "or tqg_run_backtest.py before packaging"
         )
 
+    selection_file = run_root / "artifacts" / "selection.json"
+    if not selection_file.is_file():
+        from tqg_client.selection import grandfather_stub
+
+        grandfather_stub(run_root)
+
     _refresh_run_md(run_root)
     files = _collect_files(run_root)
     if not any(p.suffix == ".py" for p in files):

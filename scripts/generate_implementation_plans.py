@@ -154,10 +154,12 @@ def techniques() -> list[Plan]:
         ["IS/OOS vol/trend/correlation overlap report.", "Output `artifacts/regime_overlap.json`.",
          "Flag unrepresented OOS regimes."], priority="H", section=sec1)
     add("1.16", "Null: no edge",
-        "Default = no edge; random baseline + deflated Sharpe required to deploy.",
-        "Quantt/Quantocracy false-discovery control.",
-        ["Random-signal baseline every run.", "DSR with trial count.", "RMP for scan rows.",
-         "Fail validation if DSR below threshold."], priority="H", section=sec1)
+        "Default = no edge; log N and k; DSR and random-entry null are diagnostics.",
+        "Honest multiple-testing control without a hard DSR package fail.",
+        ["Harness writes artifacts/selection.json (N, k, DSR).",
+         "Random-entry null every baseline (null_baseline.py).",
+         "Family N via related_runs. DSR is not an OOS forecast; do not fail validation on DSR."],
+        priority="H", section=sec1)
     add("1.17", "Benchmark discipline",
         "Long bias masquerades as alpha; bias-matched random + symbol benchmark.",
         "Appropriate benchmarks per asset class.",
@@ -379,8 +381,10 @@ def techniques() -> list[Plan]:
     # §10 Quantocracy table
     sec10 = "§10 Quantocracy"
     qocr = [
-        ("Q-DSR", "Deflated Sharpe Ratio", "Adjust Sharpe for trial count.", "Mandated false-discovery control.",
-         ["Trial count from PSA.", "DSR in validation."], "Native", "H"),
+        ("Q-DSR", "Deflated Sharpe Ratio", "Adjust Sharpe for trial count N; report k separately.",
+         "False-discovery diagnostic (not a package gate).",
+         ["N from harness + PSA/CEA grids + related_runs family.",
+          "k from signals/ensemble. DSR in selection.json; do not fail validation on DSR."], "Native", "H"),
         ("Q-Faber", "Meb Faber TAA", "10M SMA tactical allocation.", "TAA-01 demo.",
          ["Multi-asset via yfinance."], "Native", "H"),
         ("Q-Landolfi", "Percentile-rank momentum", "Low-churn momentum.", "T-06 strategy plan.",

@@ -1,0 +1,16 @@
+---
+description: Quote N, k, and DSR with every Sharpe; harness owns the selection log
+alwaysApply: true
+---
+
+# Selection log
+
+- After any backtest or PSA, `artifacts/selection.json` must exist (the harness writes it).
+- Quote **IS Sharpe, OOS Sharpe, N, k, DSR** together. Never IS Sharpe alone.
+- Changing the economic rule → new `run_id` and `--related-to` the prior run (family N carries forward).
+- Picking a PSA “best” cell as the new canonical spec → N includes the grid. Representative/stable cell is the robustness output, not a silent re-baseline.
+- Combining signals or averaging winners → increment k; list `strategy_spec.signals` (or `ensemble_weights` / `ranking.sub_scores`).
+- Inline candidate loops must call `record_trials(n, kind="inline_grid")`.
+- `report.md` is rules + metrics. Economic narrative is labeled interpretation, not evidence.
+- Do **not** present `IS − DSR` or `IS − null` as a live Sharpe forecast. DSR and the null measure manufactured IS Sharpe.
+- Do **not** fail packaging because DSR is low. Fail only if the selection log cannot be written.

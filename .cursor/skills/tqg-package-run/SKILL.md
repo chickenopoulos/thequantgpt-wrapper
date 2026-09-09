@@ -12,6 +12,7 @@ description: >-
 - Run folder exists under `runs/<run_id>/`
 - Strategy code under `code/`
 - `artifacts/metrics.json` present
+- **`artifacts/selection.json` present** (harness writes it; packaging synthesizes a grandfathered stub if missing)
 - **`validation_passed: true`** in `run.json` (required by packaging script)
 
 ## Workflow
@@ -40,4 +41,5 @@ python scripts/tqg_package_artifacts.py <run_id> --skip-validation-check
 
 - `reports/<run_id>/` path
 - Key files from `manifest.json`
-- Brief metrics summary from packaged `artifacts/metrics.json`
+- Brief metrics summary: IS/OOS Sharpe, **N, k, DSR** from packaged `artifacts/selection.json`
+- Do not treat DSR as an OOS forecast

@@ -41,6 +41,9 @@ def main() -> int:
     parser.add_argument("--is-sharpe-lt", type=float)
     parser.add_argument("--oos-sharpe-gt", type=float)
     parser.add_argument("--oos-sharpe-lt", type=float)
+    parser.add_argument("--n-trials-gte", type=int, help="Minimum this-run trial count N")
+    parser.add_argument("--dsr-lt", type=float)
+    parser.add_argument("--dsr-gt", type=float)
     parser.add_argument("--fingerprint-match", help="Exact params_fingerprint string")
     parser.add_argument(
         "--fingerprint-of",
@@ -87,6 +90,9 @@ def main() -> int:
             is_sharpe_lt=args.is_sharpe_lt,
             oos_sharpe_gt=args.oos_sharpe_gt,
             oos_sharpe_lt=args.oos_sharpe_lt,
+            n_trials_gte=args.n_trials_gte,
+            dsr_lt=args.dsr_lt,
+            dsr_gt=args.dsr_gt,
             fingerprint_match=args.fingerprint_match,
             fingerprint_of=args.fingerprint_of,
             limit=args.limit,
