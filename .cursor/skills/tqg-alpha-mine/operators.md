@@ -14,6 +14,7 @@ The evaluator allows only these names. Attribute access, imports, and subscripts
 | `lower_wick` | `min(open, close) - low` |
 | `typical` | `(high+low+close)/3` |
 | `dollar_volume` | `close * volume` |
+| extra numeric columns | Any other long-panel column that is a Python identifier (lowercased) and does not collide with an operator. Use this for joined Coinglass/Talos fields such as `funding` or `adr_act`. |
 
 ## Operators
 

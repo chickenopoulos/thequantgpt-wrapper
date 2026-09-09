@@ -257,6 +257,35 @@ def test_load_ohlcv_panel_top_n() -> None:
         assert list(fields["close"].columns) == ["DDD", "CCC"]
 
 
+def test_load_ohlcv_panel_extra_numeric_columns() -> None:
+    idx = pd.date_range("2024-01-01", periods=40, tz="UTC")
+    rows = []
+    for i, name in enumerate(["AAA", "BBB", "CCC"]):
+        for j, ts in enumerate(idx):
+            rows.append(
+                {
+                    "time": ts,
+                    "asset": name,
+                    "open": 10.0,
+                    "high": 10.1,
+                    "low": 9.9,
+                    "close": 10.0,
+                    "volume": 100.0,
+                    "funding": 0.001 * (i + 1) + 0.0001 * j,
+                    "log": 99.0,  # operator name — must not become an operand
+                }
+            )
+    with tempfile.TemporaryDirectory() as tmp_s:
+        path = Path(tmp_s) / "p.parquet"
+        pd.DataFrame(rows).to_parquet(path, index=False)
+        fields = load_ohlcv_panel(path, min_bars=10, top_n=3)
+        assert "funding" in fields
+        assert "log" not in fields
+        assert fields["funding"].shape == fields["close"].shape
+        signal = evaluate_expr("-cs_zscore(funding)", fields)
+        assert signal.notna().any().any()
+
+
 def test_seed_packs_known() -> None:
     seeds = seeds_for_packs(["leftover", "volume"])
     ids = {s["id"] for s in seeds}
@@ -272,5 +301,6 @@ if __name__ == "__main__":
     test_leftover_has_positive_is_rank_ic()
     test_seed_packs_known()
     test_load_ohlcv_panel_top_n()
+    test_load_ohlcv_panel_extra_numeric_columns()
     test_mine_counts_n_and_hides_oos()
     print("ok")

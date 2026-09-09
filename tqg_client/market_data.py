@@ -7,6 +7,8 @@ from pathlib import Path
 
 import pandas as pd
 
+from .alpha_ops import OPERATORS
+
 OHLCV_COLUMNS = ("open", "high", "low", "close", "volume")
 
 YF_SYMBOL_MAP = {
@@ -258,6 +260,23 @@ def _ensure_time_index(df: pd.DataFrame) -> pd.DataFrame:
     return out.sort_index()
 
 
+def _reserved_panel_names() -> set[str]:
+    return set(OHLCV_COLUMNS) | set(OPERATORS) | {
+        "time",
+        "date",
+        "interval",
+        "asset",
+        "symbol",
+        "ticker",
+        "_asset",
+    }
+
+
+def _pivot_numeric_field(timed: pd.DataFrame, field: str) -> pd.DataFrame:
+    wide = timed.pivot_table(index=timed.index, columns="_asset", values=field, aggfunc="last")
+    return wide.sort_index().sort_index(axis=1).astype(float)
+
+
 def load_ohlcv_panel(
     path: Path | str,
     *,
@@ -270,6 +289,10 @@ def load_ohlcv_panel(
 
     ``top_n`` keeps the most liquid names by median dollar volume on dates
     strictly before ``liquidity_end`` (the OOS start, when provided).
+
+    Extra numeric columns (Python identifiers that are not operators or OHLCV
+    fields) are pivoted as additional operands so formulaic mining can use
+    joined panels (funding, OI, on-chain metrics, …).
     """
     p = Path(path)
     if not p.exists():
@@ -290,9 +313,17 @@ def load_ohlcv_panel(
 
     fields: dict[str, pd.DataFrame] = {}
     for field in OHLCV_COLUMNS:
-        wide = timed.pivot_table(index=timed.index, columns="_asset", values=field, aggfunc="last")
-        wide = wide.sort_index().sort_index(axis=1)
-        fields[field] = wide.astype(float)
+        fields[field] = _pivot_numeric_field(timed, field)
+
+    reserved = _reserved_panel_names()
+    for col in list(timed.columns):
+        name = str(col)
+        if name in reserved or not name.isidentifier() or name.startswith("_"):
+            continue
+        timed[name] = pd.to_numeric(timed[name], errors="coerce")
+        if int(timed[name].notna().sum()) < 3:
+            continue
+        fields[name] = _pivot_numeric_field(timed, name)
 
     close = fields["close"]
     counts = close.notna().sum(axis=0)

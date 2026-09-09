@@ -189,6 +189,7 @@ def _write_spec(
     asset_class: str,
     book_ids: list[str],
     interval: str,
+    extra_operands: list[str] | None = None,
 ) -> dict[str, Any]:
     spec: dict[str, Any] = {
         "workflow": "formulaic_alpha",
@@ -201,6 +202,8 @@ def _write_spec(
         "universe": {"path": panel_path, "n_assets": n_assets, "top_n": top_n},
         "params": {"lag_bars": 1},
     }
+    if extra_operands:
+        spec["universe"]["extra_operands"] = list(extra_operands)
     if book_ids:
         spec["signals"] = list(book_ids)
     path = run_root / "strategy_spec.json"
@@ -416,6 +419,12 @@ def run_alpha_mine(
             "flags": book_metrics["flags"],
         }
 
+    operators = catalog_payload()
+    extra_operands = sorted(set(fields) - set(operators["operands"]))
+    if extra_operands:
+        operators = dict(operators)
+        operators["operands"] = list(operators["operands"]) + extra_operands
+
     artifact = {
         "schema_version": SCHEMA_VERSION,
         "updated_at": _utc_now(),
@@ -425,7 +434,7 @@ def run_alpha_mine(
         "oos_revealed": bool(reveal_oos),
         "lag_bars": 1,
         "annualization": ann,
-        "operators": catalog_payload(),
+        "operators": operators,
         "alphas": merged,
         "book": book_metrics,
         "note": (
@@ -445,6 +454,7 @@ def run_alpha_mine(
         asset_class=inferred_class,
         book_ids=book,
         interval=str(spec.get("interval") or "1d"),
+        extra_operands=extra_operands,
     )
     metrics = _metrics_from_scored(scored, include_oos=reveal_oos, book_id=None)
     if book_metrics:
