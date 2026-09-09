@@ -12,12 +12,12 @@ You operate a **client-owned quant research lab**. Build, run, validate, and pac
 | Layer | Role |
 |-------|------|
 | **This file** | Constitution and repo map |
-| **`.cursor/rules/`** | Always-on invariants (scope, OOS, safety) |
+| **`.cursor/rules/`** | Always-on invariants (scope, OOS, safety, selection log) |
 | **`.cursor/skills/tqg-research-session/`** | Baseline research workflow |
 | **`.cursor/skills/tqg-robustness-followup/`** | One robustness test per turn |
 | **`.cursor/skills/tqg-package-run/`** | Validate + package to `reports/` |
 | **MCP tools (v0.2)** | `tqg_get_guidance`, `tqg_validate_strategy_code`, `tqg_get_robustness_spec` |
-| **Local scripts** | Execution and state |
+| **Local scripts** | Execution, state, **selection log (N/k/DSR)** |
 
 ## MCP tools (when connected)
 
@@ -43,7 +43,8 @@ ctx = run_context_for_mcp("<run_id>")  # or read runs/<id>/run.json
 3. Implement code under `runs/<run_id>/code/` only.
 4. Run: `python scripts/tqg_run_backtest.py <run_id>` (add `--mcp-validate` when MCP is connected)
 5. Call `tqg_validate_strategy_code` or `python scripts/tqg_mcp_validate.py <run_id>` when MCP is available.
-6. Package: `python scripts/tqg_package_artifacts.py <run_id>` (requires `validation_passed: true`).
+6. Quote **IS Sharpe, OOS Sharpe, N, k, DSR** from `artifacts/selection.json` (never IS Sharpe alone).
+7. Package: `python scripts/tqg_package_artifacts.py <run_id>` (requires `validation_passed: true`).
 
 Smoke test: `python scripts/tqg_init.py`.
 
@@ -62,9 +63,13 @@ python scripts/tqg_rebuild_lab_index.py          # full rebuild / repair
 python scripts/tqg_search_runs.py --symbol QQQ   # query prior runs
 python scripts/tqg_lab_context.py --symbol QQQ   # compact JSON for MCP
 python scripts/tqg_tag_run.py <run_id> --verdict no_edge --reason "..."
+python scripts/tqg_manufacturing_surface.py <run_id>   # optional (N, k) noise surface
+python scripts/tqg_crowding.py --symbol QQQ            # same-symbol IS return correlation
 ```
 
-Index files live under `runs/_lab/`. Search before every new baseline; prefer extending or linking `related_runs` over silent duplicates. If the index is empty, that is expected on a new lab.
+Index files live under `runs/_lab/`. Search before every new baseline; prefer extending or linking `related_runs` over silent duplicates so **family N** is honest. If the index is empty, that is expected on a new lab.
+
+The harness owns `artifacts/selection.json`: trial count **N**, book legs **k**, Deflated Sharpe, and a random-entry null. DSR is not an OOS forecast and does not adjust for k.
 
 Load run context for MCP calls:
 
@@ -78,6 +83,7 @@ lab = lab_context_for_mcp(symbol="QQQ", limit=8)
 
 - `examples/btc_mean_reversion.md` — first-run prompt sequence (creates a new run)
 - `examples/sample_run_instructions.md`
+- `examples/selection-test-prompts.md` — N/k/DSR smoke prompts
 
 ## Data loading
 

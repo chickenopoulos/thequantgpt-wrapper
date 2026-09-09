@@ -15,6 +15,7 @@ sys.path.insert(0, str(_REPO))
 from tqg_client.config import load_config  # noqa: E402
 from tqg_client.lab_index import touch_run_index  # noqa: E402
 from tqg_client.run_state import new_run_state, save_run_state  # noqa: E402
+from tqg_client.selection import seed_selection  # noqa: E402
 
 RUNS = _REPO / "runs"
 NEXT_ID_FILE = RUNS / ".next_id"
@@ -61,6 +62,7 @@ def create_run(*, title: str, run_id: str | None = None) -> Path:
         cfg=cfg,
     )
     save_run_state(state)
+    seed_selection(root)
 
     flow = {"turns": [], "updated_at": state.created_at}
     (root / "flow.json").write_text(json.dumps(flow, indent=2) + "\n", encoding="utf-8")

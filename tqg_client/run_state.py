@@ -48,6 +48,7 @@ class RunState:
     last_validation_at: str | None = None
     last_execution_at: str | None = None
     last_error: str | None = None
+    selection_path: str = "artifacts/selection.json"
     # Cross-run lab memory (optional; also mirrored in lab_meta.json)
     verdict: str | None = None
     tags: list[str] = field(default_factory=list)

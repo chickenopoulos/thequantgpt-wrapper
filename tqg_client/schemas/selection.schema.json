@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://thequantgpt.local/schemas/selection.json",
+  "title": "TheQuantGPT selection log (N, k, DSR)",
+  "type": "object",
+  "required": ["schema_version", "n_trials", "n_legs"],
+  "properties": {
+    "schema_version": { "type": "integer", "minimum": 1 },
+    "n_trials": { "type": "integer", "minimum": 0 },
+    "n_trials_family": { "type": "integer", "minimum": 0 },
+    "n_legs": { "type": "integer", "minimum": 1 },
+    "n_adaptive_rounds": { "type": "integer", "minimum": 0 },
+    "breakdown": {
+      "type": "object",
+      "additionalProperties": { "type": "number" }
+    },
+    "legs": { "type": "array", "items": { "type": "object" } },
+    "events": { "type": "array", "items": { "type": "object" } },
+    "recorded_grids": { "type": "array", "items": { "type": "object" } },
+    "last_fingerprint": { "type": ["string", "null"] },
+    "grandfathered": { "type": "boolean" },
+    "dsr": { "type": ["object", "null"] },
+    "null_baseline": { "type": ["object", "null"] },
+    "novy_marx": { "type": ["object", "null"] },
+    "cs_shuffle": { "type": ["object", "null"] },
+    "manufacturing": { "type": ["object", "null"] },
+    "crowding": { "type": ["object", "null"] }
+  },
+  "additionalProperties": true
+}

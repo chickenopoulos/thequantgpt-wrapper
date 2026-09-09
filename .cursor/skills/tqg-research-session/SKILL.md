@@ -36,6 +36,8 @@ You orchestrate the workflow. MCP tools provide **hints** and **validation** —
 7. Write code **only** under `runs/<run_id>/code/`.
 8. Use `tqg_client.market_data.load_market_data()` for OHLCV loading (local `data/` first, yfinance fallback).
 9. Save `strategy_spec.json` with symbol, asset class, data source, annualization, and OOS.
+   List `signals` / `ensemble_weights` when the book has more than one additive leg.
+   Before a new baseline, search lab memory so family N (`related_runs`) is not laundered into N=1.
 
 ## Validate and execute
 
@@ -54,6 +56,7 @@ You orchestrate the workflow. MCP tools provide **hints** and **validation** —
 | Path | Content |
 |------|---------|
 | `artifacts/metrics.json` | `in_sample` + `out_of_sample` |
+| `artifacts/selection.json` | N (trials), k (legs), DSR, null baseline |
 | `charts/equity_curve.png` | Equity vs benchmark |
 | `charts/drawdown.png` | Drawdown series |
 | `strategy_spec.json` | Workflow, symbol, params, OOS |
@@ -70,7 +73,7 @@ When building or iterating **cross-sectional** L/S factor books on `runs/<id>/`:
    - Top-50 liquidity filter on signals
    - PSA-stable sleeves (5%) + factor-specific signal smoothing
    - Cross-sectional dispersion regime gate (trade when xs return dispersion > rolling median)
-4. **Report IS and OOS separately**; flag IS/OOS Sharpe gaps > 1.0 as unstable.
+4. **Report IS and OOS separately**; flag IS/OOS Sharpe gaps > 1.0 as unstable. Quote N, k, and DSR next to those Sharpes. For CS books, optional `tqg_client.cs_shuffle.label_shuffle_cs`.
 5. Use `CSResearchConfig` presets: `BASELINE_DAILY`, `STABLE_DEFAULT`.
 
 
@@ -95,6 +98,14 @@ For packaging, switch to skill **`tqg-package-run`**.
 
 ## Reply format
 
-- Run ID and `status` from `run.json`
-- Key IS/OOS metrics from `artifacts/metrics.json`
-- Paths to code, charts, and logs
+```
+Run: <id>  status: …
+IS Sharpe: …   OOS Sharpe: …
+N (this run / family): … / …
+k (legs): …
+DSR (N=family): …
+Null IS p95: …  (strategy percentile …)
+```
+
+- Paths to `artifacts/selection.json`, code, charts, and logs
+- Do not present DSR or the null mean as expected OOS Sharpe

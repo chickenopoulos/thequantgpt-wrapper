@@ -25,6 +25,8 @@ from .local_validate import local_validate_code
 from .market_data import load_symbol_close, load_symbol_from_parquet
 from .portfolio import build_portfolio_from_strategy_spec
 from .run_state import RunState, load_strategy_spec, run_root_from_state
+from .selection import persist_is_returns as _persist_is_returns
+from .selection import record_trials as _record_trials
 
 
 class ExecutionError(RuntimeError):
@@ -75,6 +77,10 @@ def _collect_artifacts(run_root: Path) -> dict[str, str]:
     if report.exists():
         artifacts["report"] = _portable_path(report)
 
+    selection = run_root / "artifacts" / "selection.json"
+    if selection.exists():
+        artifacts["selection"] = _portable_path(selection)
+
     return artifacts
 
 
@@ -113,6 +119,8 @@ def build_namespace(
         "load_symbol_from_parquet": load_symbol_from_parquet,
         "load_symbol_close": load_symbol_close,
         "build_portfolio_from_strategy_spec": build_portfolio_from_strategy_spec,
+        "record_trials": lambda n, kind="inline_grid", **meta: _record_trials(run_root, n, kind=kind, **meta),
+        "persist_is_returns": lambda series: _persist_is_returns(run_root, series),
     }
 
 
@@ -185,7 +193,6 @@ def run_strategy_script(
         snapshot = {}
 
     strategy_spec = load_strategy_spec(run_root)
-    artifacts = _collect_artifacts(run_root)
     completed_step = _infer_completed_step(run_root, before_artifacts)
 
     metrics_path = run_root / "artifacts" / "metrics.json"
@@ -198,6 +205,20 @@ def run_strategy_script(
             "code_path": _portable_path(script),
             "validation": validation,
         }
+
+    try:
+        from .selection import after_execution
+
+        after_execution(
+            run_root,
+            run_id=state.run_id,
+            script=script.name,
+            completed_step=completed_step,
+            namespace=namespace,
+        )
+    except Exception:
+        pass
+    artifacts = _collect_artifacts(run_root)
 
     feedback: dict[str, Any] = {
         "success": True,

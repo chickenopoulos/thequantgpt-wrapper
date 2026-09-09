@@ -295,6 +295,10 @@ def extract_run_card(
             "in_sample": _compact_metrics(metrics_raw.get("in_sample")),
             "out_of_sample": _compact_metrics(metrics_raw.get("out_of_sample")),
         },
+        "n_trials": None,
+        "n_trials_family": None,
+        "n_legs": None,
+        "dsr": None,
         "params_fingerprint": params_fingerprint(
             workflow=str(workflow) if workflow else None,
             strategy_type=str(strategy_type) if strategy_type else None,
@@ -314,8 +318,25 @@ def extract_run_card(
             "root": rel_root,
             "report": f"{rel_root}/report.md",
             "metrics": f"{rel_root}/artifacts/metrics.json",
+            "selection": f"{rel_root}/artifacts/selection.json",
         },
     }
+    sel_raw = _read_json(run_root / "artifacts" / "selection.json") or {}
+    metrics_sel = metrics_raw.get("selection") if isinstance(metrics_raw.get("selection"), dict) else {}
+    for key in ("n_trials", "n_trials_family", "n_legs"):
+        val = sel_raw.get(key)
+        if val is None:
+            val = metrics_sel.get(key)
+        if isinstance(val, (int, float)) and not isinstance(val, bool):
+            card[key] = int(val) if key != "n_legs" else max(1, int(val))
+    dsr_val = None
+    dsr_block = sel_raw.get("dsr")
+    if isinstance(dsr_block, dict):
+        dsr_val = dsr_block.get("dsr")
+    if dsr_val is None:
+        dsr_val = metrics_sel.get("dsr")
+    if isinstance(dsr_val, (int, float)) and not isinstance(dsr_val, bool):
+        card["dsr"] = float(dsr_val)
     return card
 
 
@@ -471,6 +492,9 @@ def search_runs(
     is_sharpe_lt: float | None = None,
     oos_sharpe_gt: float | None = None,
     oos_sharpe_lt: float | None = None,
+    n_trials_gte: int | None = None,
+    dsr_lt: float | None = None,
+    dsr_gt: float | None = None,
     fingerprint_match: str | None = None,
     fingerprint_of: str | None = None,
     limit: int | None = None,
@@ -557,6 +581,17 @@ def search_runs(
             return False
         if oos_sharpe_lt is not None and (oos_s is None or oos_s >= oos_sharpe_lt):
             return False
+        n_tr = card.get("n_trials")
+        if n_trials_gte is not None:
+            if not isinstance(n_tr, (int, float)) or int(n_tr) < int(n_trials_gte):
+                return False
+        dsr = card.get("dsr")
+        if dsr_lt is not None:
+            if not isinstance(dsr, (int, float)) or float(dsr) >= float(dsr_lt):
+                return False
+        if dsr_gt is not None:
+            if not isinstance(dsr, (int, float)) or float(dsr) <= float(dsr_gt):
+                return False
 
         if text_l:
             haystacks = [
@@ -644,6 +679,10 @@ def lab_context_for_mcp(
                 "tags": card.get("tags"),
                 "validation_passed": card.get("validation_passed"),
                 "metrics": card.get("metrics"),
+                "n_trials": card.get("n_trials"),
+                "n_trials_family": card.get("n_trials_family"),
+                "n_legs": card.get("n_legs"),
+                "dsr": card.get("dsr"),
                 "params_fingerprint": card.get("params_fingerprint"),
                 "hypothesis": card.get("hypothesis"),
                 "report_excerpt": (card.get("report_excerpt") or "")[:240] or None,
@@ -663,17 +702,26 @@ def format_cards_table(cards: Iterable[dict[str, Any]]) -> str:
     if not rows:
         return "(no matching runs)"
     lines = [
-        f"{'run_id':<28} {'symbol':<12} {'status':<18} {'oos_sh':>7} {'verdict':<16} title",
-        "-" * 100,
+        f"{'run_id':<28} {'symbol':<12} {'status':<18} {'oos_sh':>7} {'N':>5} {'k':>3} {'dsr':>6} {'verdict':<16} title",
+        "-" * 120,
     ]
     for c in rows:
         oos = _metric_value(c, "out_of_sample")
         oos_s = f"{oos:.2f}" if oos is not None else "-"
+        n_tr = c.get("n_trials")
+        n_s = str(int(n_tr)) if isinstance(n_tr, (int, float)) else "-"
+        k = c.get("n_legs")
+        k_s = str(int(k)) if isinstance(k, (int, float)) else "-"
+        dsr = c.get("dsr")
+        dsr_s = f"{dsr:.2f}" if isinstance(dsr, (int, float)) else "-"
         lines.append(
             f"{str(c.get('run_id') or ''):<28} "
             f"{str(c.get('symbol') or '-'):<12} "
             f"{str(c.get('status') or '-'):<18} "
             f"{oos_s:>7} "
+            f"{n_s:>5} "
+            f"{k_s:>3} "
+            f"{dsr_s:>6} "
             f"{str(c.get('verdict') or '-'):<16} "
             f"{str(c.get('title') or '')}"
         )
