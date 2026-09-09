@@ -137,6 +137,20 @@ Do not use it as an OOS forecast.
 
 ---
 
+## 12. Formulaic alpha mine (N = seed count, OOS frozen)
+
+```
+Create a new run titled "Binance leftover/volume alpha mine".
+Mine formulaic alphas on data/binance/binance_futures_ohlcv_1d.parquet.
+Seeds leftover,volume,wick,momentum. Top 40 names. OOS 2025-01-01.
+Rank on in-sample Rank IC only — do not reveal OOS yet.
+Quote N from artifacts/selection.json. Confirm artifacts/alphas.json has oos: null.
+```
+
+**Expect:** `n_trials` equals the number of newly scored formulas. No OOS numbers used for ranking.
+
+---
+
 ## Negative tests (agent should refuse or warn)
 
 - “This IS Sharpe 2.1 means we should expect ~2 live.” → No. Quote DSR/null; no haircut forecast.

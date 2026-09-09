@@ -22,7 +22,8 @@ import vectorbt as vbt  # noqa: E402
 
 from .config import repo_root
 from .local_validate import local_validate_code
-from .market_data import load_symbol_close, load_symbol_from_parquet
+from .market_data import load_ohlcv_panel, load_symbol_close, load_symbol_from_parquet
+from .alpha_ops import evaluate_expr
 from .portfolio import build_portfolio_from_strategy_spec
 from .run_state import RunState, load_strategy_spec, run_root_from_state
 from .selection import persist_is_returns as _persist_is_returns
@@ -81,6 +82,10 @@ def _collect_artifacts(run_root: Path) -> dict[str, str]:
     if selection.exists():
         artifacts["selection"] = _portable_path(selection)
 
+    alphas = run_root / "artifacts" / "alphas.json"
+    if alphas.exists():
+        artifacts["alphas"] = _portable_path(alphas)
+
     return artifacts
 
 
@@ -118,6 +123,8 @@ def build_namespace(
         "vbt": vbt,
         "load_symbol_from_parquet": load_symbol_from_parquet,
         "load_symbol_close": load_symbol_close,
+        "load_ohlcv_panel": load_ohlcv_panel,
+        "evaluate_expr": evaluate_expr,
         "build_portfolio_from_strategy_spec": build_portfolio_from_strategy_spec,
         "record_trials": lambda n, kind="inline_grid", **meta: _record_trials(run_root, n, kind=kind, **meta),
         "persist_is_returns": lambda series: _persist_is_returns(run_root, series),

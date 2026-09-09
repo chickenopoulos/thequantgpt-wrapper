@@ -77,6 +77,8 @@ When building or iterating **cross-sectional** L/S factor books on `runs/<id>/`:
 5. Use `CSResearchConfig` presets: `BASELINE_DAILY`, `STABLE_DEFAULT`.
 
 
+For formulaic **alpha mining** (universe + hunch → Rank IC leaderboard), switch to skill **`tqg-alpha-mine`**. Do not improvise a Python factor sweep — use `python scripts/tqg_alpha_mine.py`.
+
 For PSA / robustness follow-ups, switch to skill **`tqg-robustness-followup`**.
 
 For packaging, switch to skill **`tqg-package-run`**.

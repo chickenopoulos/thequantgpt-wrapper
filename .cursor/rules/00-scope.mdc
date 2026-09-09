@@ -7,7 +7,7 @@ alwaysApply: true
 
 - **Markets:** Any asset class with OHLCV time series — crypto, equities, FX, bonds, metals, commodities, etc.
 - **Data:** Prefer local parquet/CSV under `data/`; use `tqg_client.market_data.load_market_data()` (local first, then yfinance when needed).
-- **Strategies:** Rule-based long/short backtests for research.
+- **Strategies:** Rule-based long/short backtests, and formulaic cross-sectional alpha mining on a universe panel (`tqg-alpha-mine`).
 - **Outputs:** Structured folders under `runs/<run_id>/`.
 - **Not in scope:** Live execution, options structuring, bespoke alt-data engineering beyond documented `data/` conventions.
 

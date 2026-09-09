@@ -539,7 +539,7 @@ def scan_grid_artifacts(run_root: Path) -> list[tuple[str, int, str, str]]:
         return []
     found: list[tuple[str, int, str, str]] = []
     for path in sorted(art.glob("*.json")):
-        if path.name in {"metrics.json", "selection.json", "returns_is.json"}:
+        if path.name in {"metrics.json", "selection.json", "returns_is.json", "alphas.json"}:
             continue
         obj = _read_json(path)
         if not obj:
@@ -723,8 +723,13 @@ def after_execution(
     script: str | None = None,
     completed_step: str | None = None,
     namespace: dict[str, Any] | None = None,
+    count_baseline: bool = True,
 ) -> dict[str, Any]:
-    """Update the selection log after a successful harness run."""
+    """Update the selection log after a successful harness run.
+
+    ``count_baseline=False`` when the caller already incremented N (e.g. formula
+    mining via ``record_trials``). DSR, k, and family N are still refreshed.
+    """
     namespace = namespace or {}
     spec = load_strategy_spec(run_root) or namespace.get("strategy_spec") or {}
     data = load_selection(run_root)
@@ -751,7 +756,7 @@ def after_execution(
             saw_selection_grid = True
         data = load_selection(run_root)
 
-    if class_ == "baseline" and not saw_selection_grid:
+    if count_baseline and class_ == "baseline" and not saw_selection_grid:
         last_fp = data.get("last_fingerprint")
         if last_fp and last_fp == fp and int(data.get("n_trials") or 0) > 0:
             record_event(run_root, kind="replay", n_increment=0, script=script, extra={"fingerprint": fp})
