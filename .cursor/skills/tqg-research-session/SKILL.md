@@ -15,11 +15,11 @@ You orchestrate the workflow. MCP tools provide **hints** and **validation** —
 1. Inspect `data/README_DATA_FORMAT.md` and list files under `data/`.
 2. **Search lab memory** for prior work on the same symbol / idea (required before a new baseline):
    ```bash
+   python scripts/tqg_lesson_brief.py --symbol <SYMBOL> --text "<idea>" --with-runs
    python scripts/tqg_search_runs.py --symbol <SYMBOL> --text "<idea>" --json
-   # or compact MCP context:
    python scripts/tqg_lab_context.py --symbol <SYMBOL> --limit 10
    ```
-   If matches exist (especially `verdict: no_edge` / `killed`), summarize and ask whether to **extend** that run or start fresh. Link variants with `--related-to`.
+   If matches exist (especially `verdict: no_edge` / `killed`, or lesson `action_hint: do_not_repeat`), summarize and ask whether to **extend** that run or start fresh. Link variants with `--related-to`. Do **not** clone a past OOS winner onto neighboring rules.
 3. Create or open the active run:
    ```bash
    python scripts/tqg_create_run.py --title "<short title>"
@@ -28,7 +28,7 @@ You orchestrate the workflow. MCP tools provide **hints** and **validation** —
 5. When MCP is connected, call **`tqg_get_guidance`** with:
    - `user_request` — the user's message
    - `run_context_json` — contents of `run.json` (as JSON string)
-   - optionally merge `lab_context` from `tqg_lab_context.py` / `lab_context_for_mcp()` into the request context
+   - merge `lab_context` from `tqg_lab_context.py` / `lab_context_for_mcp()` (includes `lessons_brief`) into the request context
 6. If OOS is missing for a new backtest, ask the user (default `2025-01-01`).
 
 ## Implement
@@ -82,6 +82,8 @@ For formulaic **alpha mining** (universe + hunch → Rank IC leaderboard), switc
 For PSA / robustness follow-ups, switch to skill **`tqg-robustness-followup`**.
 
 For packaging, switch to skill **`tqg-package-run`**.
+
+For a **budgeted program** (settle prior runs / next tick), switch to skill **`tqg-research-tick`**. Do not invent neighbor strategies from past OOS Sharpe.
 
 ## Finish
 

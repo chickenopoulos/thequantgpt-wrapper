@@ -311,6 +311,11 @@ def extract_run_card(
         "related_runs": memory["related_runs"],
         "hypothesis": memory["hypothesis"],
         "kill_reason": memory["kill_reason"],
+        "last_error": (
+            str(run_data["last_error"]).strip()[:300]
+            if isinstance(run_data.get("last_error"), str) and run_data.get("last_error")
+            else None
+        ),
         "turn_count": turn_count,
         "last_user_prompt": last_user_prompt,
         "report_excerpt": _report_excerpt(run_root),
@@ -600,6 +605,7 @@ def search_runs(
                 card.get("report_excerpt"),
                 card.get("last_user_prompt"),
                 card.get("kill_reason"),
+                card.get("last_error"),
                 " ".join(str(t) for t in (card.get("tags") or [])),
                 card.get("symbol"),
                 card.get("workflow"),
@@ -685,6 +691,8 @@ def lab_context_for_mcp(
                 "dsr": card.get("dsr"),
                 "params_fingerprint": card.get("params_fingerprint"),
                 "hypothesis": card.get("hypothesis"),
+                "kill_reason": card.get("kill_reason"),
+                "last_error": (str(card.get("last_error") or "")[:160] or None),
                 "report_excerpt": (card.get("report_excerpt") or "")[:240] or None,
             }
         )

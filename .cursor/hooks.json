@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "hooks": {
+    "sessionStart": [
+      {
+        "command": ".cursor/hooks/tqg_session_start.py"
+      }
+    ],
+    "beforeShellExecution": [
+      {
+        "command": ".cursor/hooks/tqg_before_shell.py",
+        "failClosed": true
+      }
+    ]
+  }
+}

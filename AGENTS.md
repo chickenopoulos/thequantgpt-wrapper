@@ -17,8 +17,9 @@ You operate a **client-owned quant research lab**. Build, run, validate, and pac
 | **`.cursor/skills/tqg-alpha-mine/`** | Universe + hunch → formulaic Rank IC leaderboard |
 | **`.cursor/skills/tqg-robustness-followup/`** | One robustness test per turn |
 | **`.cursor/skills/tqg-package-run/`** | Validate + package to `reports/` |
+| **`.cursor/skills/tqg-research-tick/`** | One action from the lab research loop (not a named new strategy) |
 | **MCP tools (v0.2)** | `tqg_get_guidance`, `tqg_validate_strategy_code`, `tqg_get_robustness_spec` |
-| **Local scripts** | Execution, state, **selection log (N/k/DSR)** |
+| **Local scripts** | Execution, state, **selection log (N/k/DSR)**, **lesson corpus + research loop** |
 
 ## MCP tools (when connected)
 
@@ -68,9 +69,17 @@ python scripts/tqg_lab_context.py --symbol QQQ   # compact JSON for MCP
 python scripts/tqg_tag_run.py <run_id> --verdict no_edge --reason "..."
 python scripts/tqg_manufacturing_surface.py <run_id>   # optional (N, k) noise surface
 python scripts/tqg_crowding.py --symbol QQQ            # same-symbol IS return correlation
+python scripts/tqg_extract_lessons.py --apply-catalog-tags --link-families
+python scripts/tqg_harvest_transcripts.py
+python scripts/tqg_lesson_brief.py --symbol QQQ --text "rsi"
+python scripts/tqg_research_loop.py init --program qqq_mr_settle --symbol QQQ
+python scripts/tqg_research_loop.py status --program qqq_mr_settle
+python scripts/tqg_research_loop.py tick --program qqq_mr_settle --dry-run
 ```
 
-Index files live under `runs/_lab/`. Search before every new baseline; prefer extending or linking `related_runs` over silent duplicates so **family N** is honest. If the index is empty, that is expected on a new lab.
+Index files live under `runs/_lab/`. Lessons live under `runs/_lab/lessons/` (derived). Search + lesson-brief before every new baseline; prefer extending or linking `related_runs` over silent duplicates so **family N** is honest. If the index is empty, that is expected on a new lab.
+
+The research loop is a **separate product surface** on the same bench: it settles hypotheses under a charter budget. It does not replace `tqg_run_backtest.py`, does not package, and must not use past OOS Sharpe as a search menu. See `examples/lab-research-loop.md`.
 
 The harness owns `artifacts/selection.json`: trial count **N**, book legs **k**, Deflated Sharpe, and a random-entry null. DSR is not an OOS forecast and does not adjust for k.
 
@@ -88,6 +97,7 @@ lab = lab_context_for_mcp(symbol="QQQ", limit=8)
 - `examples/sample_run_instructions.md`
 - `examples/selection-test-prompts.md` — N/k/DSR smoke prompts
 - `examples/alpha-mine-prompts.md` — universe + hunch formulaic mining
+- `examples/lab-research-loop.md` — lesson corpus + one-tick research loop
 
 ## Data loading
 

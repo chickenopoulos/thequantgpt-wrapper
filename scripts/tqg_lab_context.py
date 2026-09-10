@@ -11,7 +11,8 @@ from pathlib import Path
 _REPO = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(_REPO))
 
-from tqg_client.lab_index import index_path, lab_context_for_mcp, rebuild_index  # noqa: E402
+from tqg_client.lab_index import index_path, rebuild_index  # noqa: E402
+from tqg_client.mcp_helpers import lab_context_for_mcp  # noqa: E402
 
 
 def main() -> int:
