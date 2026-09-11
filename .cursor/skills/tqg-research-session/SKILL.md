@@ -34,6 +34,8 @@ You orchestrate the workflow. MCP tools provide **hints** and **validation** —
 ## Implement
 
 7. Write code **only** under `runs/<run_id>/code/`.
+   Chain **`.shift(1)`** on every `.rolling(...)` before it enters a signal.
+   Next-open fill lag is not a substitute for lagging the window.
 8. Use `tqg_client.market_data.load_market_data()` for OHLCV loading (local `data/` first, yfinance fallback).
 9. Save `strategy_spec.json` with symbol, asset class, data source, annualization, and OOS.
    List `signals` / `ensemble_weights` when the book has more than one additive leg.

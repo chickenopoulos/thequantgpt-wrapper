@@ -1,0 +1,22 @@
+---
+description: Always lag pandas rolling windows before using them in TQG signals
+globs: runs/**/code/**/*.py
+alwaysApply: false
+---
+
+# Rolling windows are lagged
+
+**Never** use an unshifted `.rolling(...)` result in a signal.
+
+- Chain **`.shift(1)`** on every rolling window.
+- Next-open fill lag is execution delay, not a substitute for dropping the current bar from the window.
+
+```python
+# BAD
+sma = close.rolling(150).mean()
+entry = close > sma
+
+# GOOD
+sma = close.rolling(150).mean().shift(1)
+entry = close > sma
+```

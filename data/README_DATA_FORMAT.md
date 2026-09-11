@@ -73,7 +73,7 @@ btc = load_symbol_from_parquet("data/binance/binance_futures_ohlcv_1d.parquet", 
 3. **yfinance** is acceptable for public OHLCV when local files are missing — do not upload client files externally.
 4. **Filter** to a single instrument before single-name backtests.
 5. **Timezone:** normalize to UTC; index strategies on bar time.
-6. **Lag indicators** by at least 1 bar — no same-bar lookahead.
+6. **Lag indicators** by at least 1 bar — no same-bar lookahead. Every `.rolling(...)` must be `.shift(1)` before it enters a signal (next-open fill lag is not a substitute).
 7. **Annualization:** match the asset calendar (`252` typical equities/bonds, `365` for 24/7 markets like crypto/FX).
 8. **OOS default:** `2025-01-01` unless the user changes it.
 

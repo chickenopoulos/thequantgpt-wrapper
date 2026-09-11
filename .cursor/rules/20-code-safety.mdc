@@ -7,6 +7,18 @@ alwaysApply: false
 # Code safety
 
 - Lag indicators by **≥ 1 bar** before using them in signals (no lookahead).
+- Every `.rolling(...)` window must be **`.shift(1)`** before it enters a signal.
+  Next-open fill lag is **not** a substitute — it delays execution, it does not
+  drop the current bar from the window.
+  ```python
+  # BAD  — SMA includes close_t
+  sma = close.rolling(150).mean()
+  entry = close > sma
+
+  # GOOD
+  sma = close.rolling(150).mean().shift(1)
+  entry = close > sma
+  ```
 - Build portfolios with `vbt.Portfolio.from_signals` (or equivalent explicit construction).
 - **Do not** call `pf.stats()`.
 - **Do not** download external market data inside strategy code.
