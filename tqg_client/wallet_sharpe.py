@@ -80,18 +80,24 @@ def twr_returns(
     *,
     timing: str = "open",
     min_equity: float = 1e-8,
+    min_active_equity: float = 0.0,
 ) -> pd.Series:
     """Bar TWR from mark-to-market equity and signed external cashflow.
 
     ``timing="open"`` (default): cashflow is available at the start of the bar
     and *does* earn this bar's trading PnL. ``timing="close"`` assumes the
     flow prints at the bar close and does not earn this bar.
+
+    ``min_active_equity`` masks dust / empty snapshots (common on Hyperliquid
+    ``perpAllTime`` tapes) so a later deposit is not a +∞ return.
     """
     eq = pd.Series(equity, dtype=float).sort_index()
     if not isinstance(eq.index, pd.DatetimeIndex):
         eq.index = _as_utc_index(eq.index)
     elif eq.index.tz is None:
         eq.index = eq.index.tz_localize("UTC")
+    if float(min_active_equity) > 0:
+        eq = eq.where(eq.abs() >= float(min_active_equity))
     cf = (
         pd.Series(cashflow, dtype=float).reindex(eq.index).fillna(0.0)
         if cashflow is not None
@@ -368,16 +374,26 @@ class WalletRecord:
     coin_pnl: pd.Series = field(default_factory=lambda: pd.Series(dtype=float))
     meta: dict[str, Any] = field(default_factory=dict)
 
-    def twr(self, *, freq: str = "1D", timing: str = "open") -> pd.Series:
+    def twr(
+        self,
+        *,
+        freq: str = "1D",
+        timing: str = "open",
+        min_active_equity: float = 0.0,
+    ) -> pd.Series:
         eq, cf = resample_equity_cashflow(self.equity, self.cashflow, freq=freq)
-        return twr_returns(eq, cf, timing=timing)
+        return twr_returns(eq, cf, timing=timing, min_active_equity=min_active_equity)
 
-    def naive(self, *, freq: str = "1D") -> pd.Series:
+    def naive(self, *, freq: str = "1D", min_active_equity: float = 0.0) -> pd.Series:
         eq, _ = resample_equity_cashflow(self.equity, self.cashflow, freq=freq)
+        if min_active_equity > 0:
+            eq = eq.where(eq.abs() >= float(min_active_equity))
         return naive_equity_returns(eq)
 
-    def coin_contribution(self, *, freq: str = "1D") -> pd.Series:
+    def coin_contribution(self, *, freq: str = "1D", min_active_equity: float = 0.0) -> pd.Series:
         eq, _ = resample_equity_cashflow(self.equity, self.cashflow, freq=freq)
+        if min_active_equity > 0:
+            eq = eq.where(eq.abs() >= float(min_active_equity))
         pnl = pd.Series(self.coin_pnl, dtype=float)
         if pnl.empty:
             return pd.Series(0.0, index=eq.index, name="contribution")
@@ -395,6 +411,7 @@ def rank_wallets(
     freq: str = "1D",
     min_is_bars: int = 30,
     min_mean_equity: float = 0.0,
+    min_active_equity: float = 0.0,
     coin: str | None = None,
 ) -> pd.DataFrame:
     """Rank on **IS TWR Sharpe only**. OOS columns are reported, never used to rank."""
@@ -404,11 +421,13 @@ def rank_wallets(
         recs = list(records)
     rows: list[dict[str, Any]] = []
     for rec in recs:
-        twr = rec.twr(freq=freq)
-        naive = rec.naive(freq=freq)
+        twr = rec.twr(freq=freq, min_active_equity=min_active_equity)
+        naive = rec.naive(freq=freq, min_active_equity=min_active_equity)
         is_t, oos_t = split_is_oos(twr, oos_start)
         is_n, oos_n = split_is_oos(naive, oos_start)
         eq, _ = resample_equity_cashflow(rec.equity, rec.cashflow, freq=freq)
+        if min_active_equity > 0:
+            eq = eq.where(eq.abs() >= float(min_active_equity))
         is_eq, _ = split_is_oos(eq, oos_start)
         mean_eq = float(is_eq.mean()) if len(is_eq) else 0.0
         m_is = segment_metrics(is_t, annualization=annualization)
@@ -417,7 +436,7 @@ def rank_wallets(
         m_oos_naive = segment_metrics(oos_n, annualization=annualization)
         coin_is = coin_oos = {}
         if coin:
-            contrib = rec.coin_contribution(freq=freq)
+            contrib = rec.coin_contribution(freq=freq, min_active_equity=min_active_equity)
             c_is, c_oos = split_is_oos(contrib, oos_start)
             coin_is = segment_metrics(c_is, annualization=annualization)
             coin_oos = segment_metrics(c_oos, annualization=annualization)

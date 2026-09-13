@@ -80,6 +80,8 @@ def main() -> int:
     parser.add_argument("--nav-kind", default="perpAllTime")
     parser.add_argument("--annualization", type=float, default=0.0, help="0 = 365 daily / 52 weekly")
     parser.add_argument("--min-is-bars", type=int, default=30)
+    parser.add_argument("--min-active-equity", type=float, default=100.0)
+    parser.add_argument("--min-mean-equity", type=float, default=0.0)
     parser.add_argument("--top-k", type=int, default=5)
     parser.add_argument("--coin", default="BTC")
     parser.add_argument("--out", type=Path, help="Optional CSV path for the ranking")
@@ -105,6 +107,8 @@ def main() -> int:
         annualization=ann,
         freq=freq,
         min_is_bars=args.min_is_bars,
+        min_mean_equity=args.min_mean_equity,
+        min_active_equity=args.min_active_equity,
         coin=args.coin,
     )
     book, names = copy_topk_returns(recs, ranking, oos_start=args.oos_start, top_k=args.top_k, freq=freq)

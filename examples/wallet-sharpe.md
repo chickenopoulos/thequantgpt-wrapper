@@ -65,7 +65,7 @@ python scripts/tqg_run_backtest.py hl_wallet_sharpe
 | Capital flows | `{"type":"userNonFundingLedgerUpdates","user":"0x…"}` |
 | Coin PnL | `{"type":"userFills","user":"0x…"}` (≤2000) + `{"type":"userFunding","user":"0x…"}` |
 
-`perpAllTime` snapshots are roughly weekly. Daily Sharpe needs either the month window, your own snapshot job, or S3 replay.
+`perpAllTime` snapshots are roughly weekly and often include **dust balances**. Mask equity below a tradable floor (default $100) before TWR. Daily Sharpe needs the month window, your own snapshot job, or S3 replay.
 
 ## Coin-level Sharpe
 

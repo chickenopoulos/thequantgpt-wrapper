@@ -23,6 +23,18 @@ from tqg_client.wallet_sharpe import (  # noqa: E402
 )
 
 
+def test_dust_equity_is_inactive() -> None:
+    idx = pd.date_range("2024-01-01", periods=6, freq="1D", tz="UTC")
+    # API hole: dust NAV then a funded snapshot with no matching ledger row.
+    equity = pd.Series([0.001, 0.001, 0.001, 10_000.0, 10_100.0, 10_201.0], index=idx)
+    cf = pd.Series(0.0, index=idx)
+    raw = twr_returns(equity, cf, timing="open")
+    masked = twr_returns(equity, cf, timing="open", min_active_equity=100.0)
+    assert float(raw.iloc[3]) > 100.0
+    assert not np.isfinite(float(masked.iloc[3]))
+    assert abs(float(masked.iloc[4]) - 0.01) < 1e-6
+
+
 def test_deposit_is_not_a_return() -> None:
     idx = pd.date_range("2024-01-01", periods=5, freq="1D", tz="UTC")
     equity = pd.Series([100.0, 101.0, 201.0, 202.0, 203.0], index=idx)
@@ -122,6 +134,7 @@ def test_oos_not_in_rank_key() -> None:
 def main() -> int:
     tests = [
         test_deposit_is_not_a_return,
+        test_dust_equity_is_inactive,
         test_withdraw_sign,
         test_ledger_collapse,
         test_faker_loses_to_skill_on_twr,
