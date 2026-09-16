@@ -58,7 +58,7 @@ You orchestrate the workflow. MCP tools provide **hints** and **validation** —
 | Path | Content |
 |------|---------|
 | `artifacts/metrics.json` | `in_sample` + `out_of_sample` |
-| `artifacts/selection.json` | N (trials), k (legs), DSR, null baseline |
+| `artifacts/selection.json` | N, k, DSR, Lo SE / MinBTL, optional PBO, null baseline |
 | `charts/equity_curve.png` | Equity vs benchmark |
 | `charts/drawdown.png` | Drawdown series |
 | `strategy_spec.json` | Workflow, symbol, params, OOS |
@@ -106,10 +106,12 @@ For a **budgeted program** (settle prior runs / next tick), switch to skill **`t
 
 ```
 Run: <id>  status: …
-IS Sharpe: …   OOS Sharpe: …
+IS Sharpe: …  Lo SE: …  95% CI: […, …]
+OOS Sharpe: …
 N (this run / family): … / …
 k (legs): …
 DSR (N=family): …
+PBO: … or "not computable (no psa_returns_matrix)"
 Null IS p95: …  (strategy percentile …)
 ```
 

@@ -45,7 +45,7 @@ ctx = run_context_for_mcp("<run_id>")  # or read runs/<id>/run.json
 3. Implement code under `runs/<run_id>/code/` only.
 4. Run: `python scripts/tqg_run_backtest.py <run_id>` (add `--mcp-validate` when MCP is connected)
 5. Call `tqg_validate_strategy_code` or `python scripts/tqg_mcp_validate.py <run_id>` when MCP is available.
-6. Quote **IS Sharpe, OOS Sharpe, N, k, DSR** from `artifacts/selection.json` (never IS Sharpe alone).
+6. Quote **IS Sharpe, OOS Sharpe, N, k, DSR**, plus Lo SE / 95% CI when present, from `artifacts/selection.json` (never IS Sharpe alone). If only a headline Sharpe is offered, treat it as **input tier 0** — ask for `returns_is` (and the PSA matrix for PBO).
 7. Package: `python scripts/tqg_package_artifacts.py <run_id>` (requires `validation_passed: true`).
 
 **Formulaic alpha mining** (universe + hunch → scored formulas, not one named rule): skill `tqg-alpha-mine` and `python scripts/tqg_alpha_mine.py <run_id> --panel ... --seeds leftover,volume,wick`. Rank on in-sample Rank IC; pass `--reveal-oos` only after fishing stops. See `examples/alpha-mine-prompts.md`.
@@ -68,6 +68,8 @@ python scripts/tqg_search_runs.py --symbol QQQ   # query prior runs
 python scripts/tqg_lab_context.py --symbol QQQ   # compact JSON for MCP
 python scripts/tqg_tag_run.py <run_id> --verdict no_edge --reason "..."
 python scripts/tqg_manufacturing_surface.py <run_id>   # optional (N, k) noise surface
+python scripts/tqg_pbo.py <run_id>                     # CSCV PBO if psa_returns_matrix.csv exists
+python scripts/tqg_factor_attribution.py <run_id>      # equity/ETF Ken French attribution only
 python scripts/tqg_crowding.py --symbol QQQ            # same-symbol IS return correlation
 python scripts/tqg_extract_lessons.py --apply-catalog-tags --link-families
 python scripts/tqg_harvest_transcripts.py
@@ -81,7 +83,23 @@ Index files live under `runs/_lab/`. Lessons live under `runs/_lab/lessons/` (de
 
 The research loop is a **separate product surface** on the same bench: it settles hypotheses under a charter budget. It does not replace `tqg_run_backtest.py`, does not package, and must not use past OOS Sharpe as a search menu. See `examples/lab-research-loop.md`.
 
-The harness owns `artifacts/selection.json`: trial count **N**, book legs **k**, Deflated Sharpe, and a random-entry null. DSR is not an OOS forecast and does not adjust for k.
+The harness owns `artifacts/selection.json`: trial count **N**, book legs **k**, Deflated Sharpe, Lo Sharpe SE / MinBTL, optional PBO, and a random-entry null. DSR is not an OOS forecast and does not adjust for k.
+
+## Audit tiers (evidence ceiling)
+
+Do not deliver a code-level verdict on headline stats alone. State the tier and the artefact that would raise it.
+
+| Tier | What you have | What you can conclude |
+|------|----------------|------------------------|
+| 0 | Headline Sharpe / CAGR only | Plausibility. Nothing verified. |
+| 1 | Equity / drawdown chart | Path and crisis shape. |
+| 2 | Return series (`returns_is.json`) | DSR, Lo SE, subperiods, timing. ~most of the statistical report. |
+| 3 | Positions / weights | Turnover and break-even bps verified. |
+| 4 | Code + data lineage | Look-ahead, survivorship — statistics cannot see these. |
+
+**Stop when** the strategy has a stated mechanism, survives deflation (honest N), has cost margin (break-even well above a realistic stack), and is not a one-regime path. Then say it is good enough to stop optimizing — the lab still does not package automatically.
+
+**PSA → PBO:** write `artifacts/psa_returns_matrix.csv` via injected `persist_psa_returns_matrix(frame)` (columns = cells, rows = IS periods). Without that matrix, PBO is not computable; say so.
 
 Load run context for MCP calls:
 
@@ -98,6 +116,7 @@ lab = lab_context_for_mcp(symbol="QQQ", limit=8)
 - `examples/selection-test-prompts.md` — N/k/DSR smoke prompts
 - `examples/alpha-mine-prompts.md` — universe + hunch formulaic mining
 - `examples/lab-research-loop.md` — lesson corpus + one-tick research loop
+- `examples/eqi-diagnostic-ports.md` — PBO, Lo SE, leakage, equity attribution
 
 ## Data loading
 

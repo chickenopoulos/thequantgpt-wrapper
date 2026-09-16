@@ -28,6 +28,7 @@ from .portfolio import build_portfolio_from_strategy_spec
 from .run_state import RunState, load_strategy_spec, run_root_from_state
 from .selection import persist_is_returns as _persist_is_returns
 from .selection import record_trials as _record_trials
+from .pbo import persist_psa_returns_matrix as _persist_psa_returns_matrix
 
 
 class ExecutionError(RuntimeError):
@@ -128,6 +129,7 @@ def build_namespace(
         "build_portfolio_from_strategy_spec": build_portfolio_from_strategy_spec,
         "record_trials": lambda n, kind="inline_grid", **meta: _record_trials(run_root, n, kind=kind, **meta),
         "persist_is_returns": lambda series: _persist_is_returns(run_root, series),
+        "persist_psa_returns_matrix": lambda frame: _persist_psa_returns_matrix(run_root, frame),
     }
 
 

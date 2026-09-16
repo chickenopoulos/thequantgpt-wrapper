@@ -6,6 +6,8 @@ import ast
 import re
 from typing import Any
 
+from .lookahead_smells import lookahead_smell_review
+
 
 _BANNED_PATTERNS: list[tuple[re.Pattern[str], str]] = [
     (re.compile(r"\bpf\.stats\s*\("), "Do not call pf.stats(); compute metrics manually."),
@@ -140,6 +142,11 @@ def local_validate_code(code: str, user_request: str = "") -> dict[str, Any]:
         msg = f"{_ROLLING_SHIFT_MSG} Lines: {', '.join(str(n) for n in rolling_lines)}."
         issues.append(msg)
         required_fixes.append(msg)
+
+    smell = lookahead_smell_review(code)
+    issues.extend(smell.get("issues") or [])
+    required_fixes.extend(smell.get("required_fixes") or [])
+    warnings.extend(smell.get("warnings") or [])
 
     approved = not issues
     return {

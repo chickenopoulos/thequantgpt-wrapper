@@ -261,6 +261,63 @@ def test_index_exposes_selection() -> None:
         assert any(c["run_id"] == "qqq_a" for c in hits)
 
 
+def test_min_btl_paper_examples() -> None:
+    from tqg_client.sharpe_diagnostics import min_backtest_length_years
+
+    assert abs(min_backtest_length_years(45, 1.0) - 5.0) < 0.15
+    assert abs(min_backtest_length_years(7, 1.0) - 1.9) < 0.15
+
+
+def test_pbo_skill_vs_noise() -> None:
+    from tqg_client.pbo import cscv
+
+    rng = np.random.default_rng(11)
+    t, n = 400, 12
+    noise = rng.normal(0, 0.01, size=(t, n))
+    skilled = noise.copy()
+    skilled[:, 0] += 0.004
+    pbo_skill = cscv(skilled, splits=8)["pbo"]
+    assert pbo_skill < 0.35
+
+
+def test_local_validate_negative_shift() -> None:
+    from tqg_client.local_validate import local_validate_code
+
+    bad = "sig = close.rolling(20).mean().shift(-1)\npf = vbt.Portfolio.from_signals(close, sig, ~sig)\n"
+    out = local_validate_code(bad)
+    assert not out["approved"]
+    assert any("Negative" in i for i in out["issues"])
+    good = "sig = close.rolling(20).mean().shift(1)\npf = vbt.Portfolio.from_signals(close, sig, ~sig)\n"
+    ok = local_validate_code(good)
+    assert ok["approved"]
+
+
+def test_diagnostics_on_after_execution() -> None:
+    with tempfile.TemporaryDirectory() as tmp:
+        root = Path(tmp)
+        (root / "artifacts").mkdir()
+        rng = np.random.default_rng(0)
+        persist_is_returns(root, pd.Series(rng.normal(0.002, 0.01, 400)))
+        seed_selection(root)
+        after_execution(root, run_id="d", script="backtest.py", completed_step="baseline")
+        sel = load_selection(root)
+        diag = sel.get("sharpe_diagnostics") or {}
+        assert diag.get("sharpe_se_lo_ann") is not None
+        assert diag.get("min_btl_years_sr1") is not None
+
+
+def test_ols_hac_recovers_slope() -> None:
+    from tqg_client.factor_attribution import ols_hac
+
+    rng = np.random.default_rng(0)
+    n = 4000
+    x = rng.normal(size=n)
+    y = 1.5 + 2.0 * x + rng.normal(scale=0.5, size=n)
+    fit = ols_hac(y, np.column_stack([np.ones(n), x]))
+    assert abs(fit["beta"][0] - 1.5) < 0.08
+    assert abs(fit["beta"][1] - 2.0) < 0.08
+
+
 def main() -> int:
     tests = [
         test_norm_ppf_roundtrip,
@@ -275,6 +332,11 @@ def main() -> int:
         test_cs_shuffle_zero_mean,
         test_manufacturing_surface_lookup,
         test_index_exposes_selection,
+        test_min_btl_paper_examples,
+        test_pbo_skill_vs_noise,
+        test_local_validate_negative_shift,
+        test_diagnostics_on_after_execution,
+        test_ols_hac_recovers_slope,
     ]
     failed = 0
     for fn in tests:

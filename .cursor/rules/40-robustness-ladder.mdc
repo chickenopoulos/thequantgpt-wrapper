@@ -12,3 +12,5 @@ alwaysApply: true
 5. Read `runs/<id>/run.json` before follow-ups; do not silently change canonical parameters.
 
 When MCP is available, call `tqg_get_guidance` or `tqg_get_robustness_spec` for hints — do not treat responses as mandatory step lists.
+
+PBO (`probability_of_backtest_overfitting`) is a follow-up on an existing PSA return matrix, not a second parameter search. One test per message still applies.
