@@ -33,6 +33,7 @@ description: >-
 - Reuse baseline signal logic; vary only named parameters
 - Save `artifacts/psa_summary.json` and `charts/psa_heatmap.png` for 2D grids
 - Include `grid_cells` (or `parameter_grid`) in that JSON so the harness can add those cells to N
+- Persist the **IS return matrix** with injected `persist_psa_returns_matrix(frame)` (one column per cell). Then `python scripts/tqg_pbo.py <run_id>` (the harness also computes PBO on the next run if that file exists)
 - Choosing the **best** permutation as a new canonical spec is selection: N includes the grid; prefer the representative/stable cell unless the user explicitly re-baselines
 - CEA: persist `cost_levels`; MC reshuffles are stored as `mc_sims` and do **not** increment N
 
@@ -40,5 +41,5 @@ description: >-
 
 - Which test was run
 - Stable region / representative params (for PSA)
-- Updated **N / k / DSR** from `artifacts/selection.json`
+- Updated **N / k / DSR** (and Lo SE / PBO / break-even bps if present) from `artifacts/selection.json`
 - Paths to new artifacts and charts

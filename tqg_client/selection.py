@@ -79,6 +79,8 @@ def empty_selection() -> dict[str, Any]:
         "cs_shuffle": None,
         "manufacturing": None,
         "crowding": None,
+        "sharpe_diagnostics": None,
+        "pbo": None,
     }
 
 
@@ -700,6 +702,16 @@ def patch_metrics_selection(run_root: Path, data: dict[str, Any]) -> None:
         "dsr": dsr.get("dsr") if dsr else None,
         "path": SELECTION_RELPATH,
     }
+    diag = data.get("sharpe_diagnostics") if isinstance(data.get("sharpe_diagnostics"), dict) else {}
+    if diag:
+        metrics["selection"]["sharpe_se_lo_ann"] = diag.get("sharpe_se_lo_ann")
+        metrics["selection"]["sharpe_ci95"] = diag.get("sharpe_ci95")
+        metrics["selection"]["min_btl_years_sr1"] = diag.get("min_btl_years_sr1")
+        metrics["selection"]["breakeven_round_trip_bps"] = diag.get("breakeven_round_trip_bps")
+        metrics["selection"]["ar1"] = diag.get("ar1")
+    pbo = data.get("pbo") if isinstance(data.get("pbo"), dict) else {}
+    if pbo and pbo.get("pbo") is not None:
+        metrics["selection"]["pbo"] = pbo.get("pbo")
     _write_json(path, metrics)
 
 
@@ -853,6 +865,33 @@ def after_execution(
         except Exception as exc:  # noqa: BLE001
             data["null_baseline"] = {"method": "random_entry_matched_hold", "error": str(exc)}
 
+    from .pbo import maybe_run_pbo
+    from .sharpe_diagnostics import diagnose_returns, turnover_annual_one_way
+
+    turnover = None
+    metrics = _read_json(Path(run_root) / "artifacts" / "metrics.json") or {}
+    is_block = metrics.get("in_sample") if isinstance(metrics.get("in_sample"), dict) else {}
+    for key in ("turnover", "Turnover", "turnover_ann"):
+        val = is_block.get(key)
+        if isinstance(val, (int, float)) and not isinstance(val, bool) and val > 0:
+            turnover = float(val)
+            break
+    if turnover is None and pos is not None:
+        try:
+            turnover = turnover_annual_one_way(pos, ann)
+        except Exception:
+            turnover = None
+    if is_rets is not None and len(is_rets.dropna()) >= 4:
+        data["sharpe_diagnostics"] = diagnose_returns(
+            is_rets,
+            annualization=ann,
+            n_trials=n_for_dsr,
+            turnover_ann_one_way=turnover if turnover and np.isfinite(turnover) else None,
+        )
+    pbo = maybe_run_pbo(Path(run_root))
+    if pbo is not None:
+        data["pbo"] = {k: pbo[k] for k in pbo if k != "note"} | {"note": pbo.get("note")}
+
     save_selection(run_root, data)
     if (Path(run_root) / "artifacts" / "metrics.json").is_file():
         patch_metrics_selection(run_root, data)
@@ -903,9 +942,28 @@ def format_selection_block(data: dict[str, Any] | None) -> str:
     nm_s = ""
     if nm:
         nm_s = f"\nNovy-Marx k-multiplier: {nm.get('combination_multiplier')}"
+    diag = data.get("sharpe_diagnostics") if isinstance(data.get("sharpe_diagnostics"), dict) else {}
+    diag_s = ""
+    se = diag.get("sharpe_se_lo_ann")
+    ci = diag.get("sharpe_ci95")
+    if isinstance(se, (int, float)):
+        diag_s = f"\nIS Sharpe Lo SE: {se:.2f}"
+        if isinstance(ci, list) and len(ci) == 2 and all(isinstance(x, (int, float)) for x in ci):
+            diag_s += f"  95% CI [{ci[0]:.2f}, {ci[1]:.2f}]"
+    if diag.get("ar1_inflates_ann_sharpe"):
+        diag_s += f"  AR(1)={diag.get('ar1'):.2f} (√q Sharpe inflated)"
+    be = diag.get("breakeven_round_trip_bps")
+    if isinstance(be, (int, float)) and np.isfinite(be):
+        diag_s += f"\nBreak-even round-trip: {be:.1f} bps"
+    pbo = data.get("pbo") if isinstance(data.get("pbo"), dict) else {}
+    pbo_s = ""
+    if isinstance(pbo.get("pbo"), (int, float)):
+        pbo_s = f"\nPBO: {pbo['pbo']:.2f}  (configs={pbo.get('n_configs')})"
+    elif pbo.get("error"):
+        pbo_s = f"\nPBO: not computable ({pbo.get('error')})"
     return (
         f"N (this run / family): {data.get('n_trials')} / {data.get('n_trials_family')}\n"
         f"k (legs): {data.get('n_legs')}\n"
         f"DSR (N=family): {dsr_s}"
-        f"{null_s}{nm_s}"
+        f"{null_s}{nm_s}{diag_s}{pbo_s}"
     )
