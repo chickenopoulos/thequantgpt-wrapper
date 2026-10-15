@@ -17,6 +17,7 @@ from tqg_client.strategy_psa_core import (
     _find_stable_center,
     _grid_param_combos,
     _merge_params,
+    _result_from_plateau,
 )
 from tqg_client.strategy_sweep_core import FEE, OOS, SLIPPAGE, SkipStrategy, _ann_factor
 
@@ -47,6 +48,10 @@ class RobustEval:
     cost_stress_oos: PeriodMetrics = field(default_factory=PeriodMetrics)
     psa_status: str = ""
     psa_stable_cells: int = 0
+    psa_pass_set_cells: int = 0
+    psa_island_cells: int = 0
+    psa_R_strict: int = -1
+    psa_plateau_quality: str = ""
     psa_grid_cells: int = 0
     baseline_is_sharpe: float | None = None
     robustness_guardrails: str = ""
@@ -223,7 +228,7 @@ def _soft_select(rows: list[dict[str, Any]], spec: PsaSpec) -> dict[str, Any] | 
         ]
     if not candidates:
         return None
-    return max(candidates, key=lambda r: float(r.get("Sharpe", 0)) + 0.25 * float(r.get("profit_factor", 0) or 0))
+    return max(candidates, key=lambda r: float(r.get("Sharpe", 0) or 0))
 
 
 def _psa_grid_rows(spec: PsaSpec) -> tuple[list[dict[str, Any]], float | None]:
@@ -273,56 +278,60 @@ def select_from_grid(
     spec: PsaSpec, rows: list[dict[str, Any]], baseline_sharpe: float
 ) -> tuple[dict[str, Any], str, PsaResult]:
     """Pick robust params from an IS-only grid; prefer stable plateau, else soft max Sharpe."""
-    center, stable_n = _find_stable_center(
+    center, _stable_n, plateau = _find_stable_center(
         rows,
         baseline_sharpe,
         sharpe_tolerance=spec.sharpe_tolerance,
         min_pf=spec.min_pf,
         min_trades=float(spec.min_trades),
         min_stable_cells=spec.min_stable_cells,
+        param_keys=list(spec.grid.keys()),
     )
     if center is not None:
-        params = {k: center[k] for k in spec.grid}
-        psa = PsaResult(
-            spec.id,
-            spec.name,
-            spec.universe,
-            spec.asset_class,
+        # Prefer median-nearest (tight island center) when plateau is locally solid;
+        # else keep representative (max Sharpe in pass set) for selection continuity.
+        if plateau.plateau_quality == "tight_island" and plateau.median_nearest is not None:
+            chosen = plateau.median_nearest
+            mode = "psa_tight_island_median"
+        else:
+            chosen = center
+            mode = "psa_stable_plateau"
+        params = {k: chosen[k] for k in spec.grid}
+        psa = _result_from_plateau(
+            spec=spec,
             status="STABLE",
-            rep_sharpe=float(center["Sharpe"]),
-            rep_pf=float(center["profit_factor"]),
-            rep_trades=float(center["num_trades"]),
-            rep_params=params,
             baseline_sharpe=baseline_sharpe,
-            stable_cells=stable_n,
+            plateau=plateau,
             grid_cells=len(rows),
+            note=(
+                f"pass_set={len(plateau.pass_set)}, island={len(plateau.tight_island)}, "
+                f"R_strict={plateau.R_strict}, quality={plateau.plateau_quality}"
+            ),
         )
-        return params, "psa_stable_plateau", psa
+        psa.rep_params = params
+        psa.rep_sharpe = float(chosen["Sharpe"])
+        psa.rep_pf = float(chosen["profit_factor"])
+        psa.rep_trades = float(chosen["num_trades"])
+        return params, mode, psa
 
     soft = _soft_select(rows, spec)
     if soft is not None:
         params = {k: soft[k] for k in spec.grid}
-        psa = PsaResult(
-            spec.id,
-            spec.name,
-            spec.universe,
-            spec.asset_class,
+        psa = _result_from_plateau(
+            spec=spec,
             status="NO_STABLE",
             baseline_sharpe=baseline_sharpe,
-            stable_cells=stable_n,
+            plateau=plateau,
             grid_cells=len(rows),
-            note=f"soft-selected; stable<{spec.min_stable_cells}",
+            note=f"soft-selected; pass_set<{spec.min_stable_cells}",
         )
         return params, "soft_grid_max_robust_sharpe", psa
 
-    psa = PsaResult(
-        spec.id,
-        spec.name,
-        spec.universe,
-        spec.asset_class,
+    psa = _result_from_plateau(
+        spec=spec,
         status="NO_STABLE",
         baseline_sharpe=baseline_sharpe,
-        stable_cells=stable_n,
+        plateau=plateau,
         grid_cells=len(rows),
         note="baseline fallback",
     )
@@ -340,7 +349,13 @@ def robustness_confidence(
     score = 0.0
 
     if psa.status == "STABLE" and psa.grid_cells > 0:
-        score += 40.0 * (psa.stable_cells / max(psa.grid_cells, 1))
+        # Prefer tight-island density over diffuse pass-set fraction.
+        if psa.plateau_quality == "tight_island" and psa.island_cells > 0:
+            score += 25.0 + 15.0 * min(1.0, psa.island_cells / 27.0)
+            if psa.R_strict >= psa.island_radius:
+                score += 10.0
+        else:
+            score += 20.0 * (psa.pass_set_cells or psa.stable_cells) / max(psa.grid_cells, 1)
     elif selection_mode == "soft_grid_max_robust_sharpe":
         score += 15.0
     elif selection_mode == "baseline_only":
@@ -393,7 +408,8 @@ def guardrails_used(psa: PsaResult, selection_mode: str) -> str:
     if psa.status == "STABLE":
         parts.append(
             f"PSA IS plateau (Sharpe≥baseline−0.05, PF≥1.2, trades≥min; "
-            f"{psa.stable_cells}/{psa.grid_cells} stable cells)"
+            f"{psa.pass_set_cells or psa.stable_cells}/{psa.grid_cells} pass-set, "
+            f"{psa.island_cells} island R={psa.island_radius}, quality={psa.plateau_quality})"
         )
         parts.append("rep params = plateau center (Sharpe+0.25×PF), not grid peak")
     elif selection_mode == "soft_grid_max_robust_sharpe":
@@ -486,6 +502,10 @@ def evaluate_spec(spec: PsaSpec, descriptions: dict[str, tuple[str, str]] | None
         cost_stress_oos=stress_m,
         psa_status=psa.status,
         psa_stable_cells=psa.stable_cells,
+        psa_pass_set_cells=psa.pass_set_cells or psa.stable_cells,
+        psa_island_cells=psa.island_cells,
+        psa_R_strict=psa.R_strict,
+        psa_plateau_quality=psa.plateau_quality,
         psa_grid_cells=psa.grid_cells,
         baseline_is_sharpe=psa.baseline_sharpe,
         robustness_guardrails=guardrails_used(psa, mode),

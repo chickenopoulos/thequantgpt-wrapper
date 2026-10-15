@@ -1,0 +1,16 @@
+---
+description: PSA stable area is the tight island around median-nearest, not the full pass set
+alwaysApply: true
+---
+
+# PSA stable area (default)
+
+When running or discussing PSA, **stable area ≠ entire eligibility blob**.
+
+- **pass_set**: cells meeting eligibility (Sharpe floor / PF / trades, or high-fitness candidates).
+- **tight_island**: Chebyshev ball (default `R=1`) around the **median-nearest** pass-set cell.
+- **Report `stable_area` = tight_island** when `R_strict ≥ island_radius` (`plateau_quality=tight_island`).
+- If only a diffuse pass set exists, say so (`diffuse_pass_set`); do not ensemble the whole grid as if it were local.
+
+Lab helpers: `tqg_client.strategy_psa_core.analyze_plateau` / product: `thequantgpt.robustness.stability.detect_stable_area`.
+Canonical params stay unchanged unless the user explicitly re-baselines.

@@ -34,6 +34,7 @@ description: >-
 - Save `artifacts/psa_summary.json` and `charts/psa_heatmap.png` for 2D grids
 - Include `grid_cells` (or `parameter_grid`) in that JSON so the harness can add those cells to N
 - Persist the **IS return matrix** with injected `persist_psa_returns_matrix(frame)` (one column per cell). Then `python scripts/tqg_pbo.py <run_id>` (the harness also computes PBO on the next run if that file exists)
+- **Stable area default:** use `analyze_plateau` / `detect_stable_area` — report the **tight Chebyshev island** around median-nearest (`plateau_quality=tight_island` / `local_island`), not the full pass-set blob. Quote pass_set size, island size, and `R_strict`.
 - Choosing the **best** permutation as a new canonical spec is selection: N includes the grid; prefer the representative/stable cell unless the user explicitly re-baselines
 - CEA: persist `cost_levels`; MC reshuffles are stored as `mc_sims` and do **not** increment N
 
