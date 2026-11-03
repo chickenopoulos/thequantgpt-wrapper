@@ -169,7 +169,9 @@ def run_strategy_script(
 
     try:
         with contextlib.redirect_stdout(stdout_capture), contextlib.redirect_stderr(stderr_capture):
-            runpy.run_path(str(script), init_globals=namespace, run_name="__main__")
+            # runpy executes in a fresh module dict. The returned mapping is
+            # the one that contains `pf` and `close`; the input dict is not updated.
+            namespace = runpy.run_path(str(script), init_globals=namespace, run_name="__main__")
         success = True
     except Exception as exc:
         error = "".join(traceback.format_exception(type(exc), exc, exc.__traceback__))
